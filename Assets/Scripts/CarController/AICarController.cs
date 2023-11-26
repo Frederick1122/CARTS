@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class AICarController : CarController
 {
     [SerializeField] private int _maxStackTime = 5; 
     private bool _isStack;
+    private CancellationTokenSource _resetCarCts = new();
 
-    protected override void FixedUpdate()
+    protected override async void FixedUpdate()
     {
         base.FixedUpdate();
         CheckIfStack();
@@ -14,33 +18,31 @@ public class AICarController : CarController
 
     private void CheckIfStack()
     {
-        if (_rb.velocity.magnitude <= 0.1f)
+        if (_rb.velocity.magnitude <= 0.1f && !_isStack)
         {
             _isStack = true;
-            StartCoroutine(ResetCarCuro());
+            _resetCarCts = new CancellationTokenSource();
+            ResetCarTask().Forget();
         }
-        else
+        else if (_rb.velocity.magnitude > 0.1f && _isStack)
         {
             _isStack = false;
-            StopCoroutine(ResetCarCuro());
+            _resetCarCts.Cancel();
         }
     }
 
-    private IEnumerator ResetCarCuro()
+    private async UniTaskVoid ResetCarTask()
     {
         int stackTime = _maxStackTime;
 
-        while (stackTime > 0)
+        while (stackTime > 0 && _isStack)
         {
-            if (_isStack == false)
-                yield break;
-
-            yield return new WaitForSeconds(1);
+            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: _resetCarCts.Token);
             stackTime--;
         }
 
-        if (_isStack == false)
-            yield break;
+        if (!_isStack)
+            return;
 
         ResetCar();
     }
