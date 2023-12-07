@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrakeZone : MonoBehaviour
+namespace OldCode
 {
-    private void OnTriggerEnter(Collider other)
+    public class BrakeZone : MonoBehaviour
     {
-        if (other.TryGetComponent(out AICarInputSystem input))
-            input.BrakeZoneInteract(true);
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out AICarInputSystem input))
+                input.BrakeZoneInteract(true);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out AICarInputSystem input))
+                input.BrakeZoneInteract(false);
+        }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out AICarInputSystem input))
-            input.BrakeZoneInteract(false);
-    }
 }

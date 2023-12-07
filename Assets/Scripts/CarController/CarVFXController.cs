@@ -1,81 +1,83 @@
 using UnityEngine;
 
-public class CarVFXController : MonoBehaviour
+namespace OldCode
 {
-    [Space(10)]
-    public bool useEffects = false;
-
-    public ParticleSystem RLWParticleSystem;
-    public ParticleSystem RRWParticleSystem;
-
-    [Space(10)]
-    public TrailRenderer RLWTireSkid;
-    public TrailRenderer RRWTireSkid;
-
-    private CarController carController;
-
-    private void Start()
+    public class CarVFXController : MonoBehaviour
     {
-        carController = GetComponent<CarController>();
+        [Space(10)] public bool useEffects = false;
 
-        if (!useEffects)
+        public ParticleSystem RLWParticleSystem;
+        public ParticleSystem RRWParticleSystem;
+
+        [Space(10)] public TrailRenderer RLWTireSkid;
+        public TrailRenderer RRWTireSkid;
+
+        private CarController carController;
+
+        private void Start()
         {
-            if (RLWParticleSystem != null)
-                RLWParticleSystem.Stop();
+            carController = GetComponent<CarController>();
 
-            if (RRWParticleSystem != null)
-                RRWParticleSystem.Stop();
-
-            if (RLWTireSkid != null)
-                RLWTireSkid.emitting = false;
-
-            if (RRWTireSkid != null)
-                RRWTireSkid.emitting = false;
-        }
-    }
-
-    private void FixedUpdate() =>
-        DriftCarPS();
-
-    public void DriftCarPS()
-    {
-        if (useEffects)
-        {
-            if (carController.IsDrifting)
+            if (!useEffects)
             {
-                RLWParticleSystem.Play();
-                RRWParticleSystem.Play();
-            }
-            else if (!carController.IsDrifting)
-            {
-                RLWParticleSystem.Stop();
-                RRWParticleSystem.Stop();
-            }
+                if (RLWParticleSystem != null)
+                    RLWParticleSystem.Stop();
 
-            if ((carController.IsTractionLocked || Mathf.Abs(carController.LocalVelocityX) > 5f) && Mathf.Abs(carController.CarSpeed) > 12f)
-            {
-                RLWTireSkid.emitting = true;
-                RRWTireSkid.emitting = true;
-            }
-            else
-            {
-                RLWTireSkid.emitting = false;
-                RRWTireSkid.emitting = false;
+                if (RRWParticleSystem != null)
+                    RRWParticleSystem.Stop();
+
+                if (RLWTireSkid != null)
+                    RLWTireSkid.emitting = false;
+
+                if (RRWTireSkid != null)
+                    RRWTireSkid.emitting = false;
             }
         }
-        else if (!useEffects)
+
+        private void FixedUpdate() =>
+            DriftCarPS();
+
+        public void DriftCarPS()
         {
-            if (RLWParticleSystem != null)
-                RLWParticleSystem.Stop();
-            
-            if (RRWParticleSystem != null)
-                RRWParticleSystem.Stop();
-            
-            if (RLWTireSkid != null)
-                RLWTireSkid.emitting = false;
-            
-            if (RRWTireSkid != null)
-                RRWTireSkid.emitting = false;
+            if (useEffects)
+            {
+                if (carController.IsDrifting)
+                {
+                    RLWParticleSystem.Play();
+                    RRWParticleSystem.Play();
+                }
+                else if (!carController.IsDrifting)
+                {
+                    RLWParticleSystem.Stop();
+                    RRWParticleSystem.Stop();
+                }
+
+                if ((carController.IsTractionLocked || Mathf.Abs(carController.LocalVelocityX) > 5f) &&
+                    Mathf.Abs(carController.CarSpeed) > 12f)
+                {
+                    RLWTireSkid.emitting = true;
+                    RRWTireSkid.emitting = true;
+                }
+                else
+                {
+                    RLWTireSkid.emitting = false;
+                    RRWTireSkid.emitting = false;
+                }
+            }
+            else if (!useEffects)
+            {
+                if (RLWParticleSystem != null)
+                    RLWParticleSystem.Stop();
+
+                if (RRWParticleSystem != null)
+                    RRWParticleSystem.Stop();
+
+                if (RLWTireSkid != null)
+                    RLWTireSkid.emitting = false;
+
+                if (RRWTireSkid != null)
+                    RRWTireSkid.emitting = false;
+            }
         }
     }
 }
