@@ -6,8 +6,6 @@ using System.Collections.Generic;
 
 public class CarController : MonoBehaviour
 {
-
-
     public bool SeeInspector = false;
 
 
@@ -487,8 +485,13 @@ public class CarController : MonoBehaviour
     {
         if (!b_UseSlidingSystem)
             MCR_carV1();
+
+        if(!Input.GetKey(key_Down))
+            Btn_AccelerationActivate();
+        else 
+            Btn_AccelerationDeactivate();
         //else
-         //   MCR_carV2();  
+        //   MCR_carV2();  
     }
     // --> Find angle
     float AngleDir(Vector3 _forward, Vector3 _targetDir, Vector3 _up)
