@@ -13,9 +13,9 @@ public abstract class CarController : MonoBehaviour
     [SerializeField] private Wheel _wheelRL;
     [SerializeField] private Wheel _wheelRR;
 
-    public float CarSpeed { get; private set; } 
+    public float CarSpeed { get; private set; }
     public bool IsDrifting { get; private set; }
-    public bool IsTractionLocked { get; private set; } 
+    public bool IsTractionLocked { get; private set; }
     public float LocalVelocityZ { get; private set; }
     public float LocalVelocityX { get; private set; }
 
@@ -44,7 +44,7 @@ public abstract class CarController : MonoBehaviour
         _carInputSystem = gameObject.GetComponent<CarInputSystem>();
         if (_carInputSystem == null)
             Debug.LogError("NO CAR INPUT");
-        
+
         _carInputSystem.Init(checkPoints);
         SetUpWheels();
         _carInputSystem.OnNeedToResetCar += ResetCar;
@@ -80,10 +80,10 @@ public abstract class CarController : MonoBehaviour
 
         if (!_carInputSystem.IsBraking)
             RecoverTraction();
-        
+
         if (!_carInputSystem.IsBackWardButton && !_carInputSystem.IsForwardButton)
             ThrottleOff();
-        
+
         if (!_carInputSystem.IsBackWardButton && !_carInputSystem.IsForwardButton && !_carInputSystem.IsBraking && !_deceleratingCar)
         {
             InvokeRepeating(nameof(DecelerateCar), 0f, 0.1f);
@@ -99,7 +99,7 @@ public abstract class CarController : MonoBehaviour
     private (WheelFrictionCurve, float) SetUpCurve(Wheel wheel)
     {
         var sidewaysFriction = wheel.WheelCollider.sidewaysFriction;
-        
+
         WheelFrictionCurve wheelFrictionCurve = new()
         {
             extremumSlip = sidewaysFriction.extremumSlip,
@@ -154,10 +154,7 @@ public abstract class CarController : MonoBehaviour
 
     private void Move()
     {
-        if (_throttleAxis < 0)
-            Debug.Log(_throttleAxis);
-
-        IsDrifting = Mathf.Abs(LocalVelocityX) > 2.5f;
+        IsDrifting = Mathf.Abs(LocalVelocityX) > CarConfig.driftKoef;
 
         if (LocalVelocityZ < -1f && _carInputSystem.IsForwardButton || LocalVelocityZ > 1f && _carInputSystem.IsBackWardButton)
             Brakes();
@@ -167,7 +164,8 @@ public abstract class CarController : MonoBehaviour
                 ThrottleOff();
             else
             {
-                var motorTorque = (CarConfig.accelerationMultiplier * 50f) * _throttleAxis;
+                var steerKoef = Math.Clamp(1 - Mathf.Abs(_steeringAxis), CarConfig.speedLossByAngle, 1);
+                var motorTorque = CarConfig.accelerationMultiplier * 50f * _throttleAxis * steerKoef;
 
                 _wheelFL.WheelCollider.brakeTorque = 0;
                 _wheelFL.WheelCollider.motorTorque = motorTorque;
@@ -194,14 +192,14 @@ public abstract class CarController : MonoBehaviour
 
     private void DecelerateCar()
     {
-        IsDrifting = Mathf.Abs(LocalVelocityX) > 2.5f;
+        IsDrifting = Mathf.Abs(LocalVelocityX) > CarConfig.driftKoef;
 
         _rb.velocity *= 1f / (1f + 0.025f * CarConfig.decelerationMultiplier);
         ThrottleOff();
 
         if (!(_rb.velocity.magnitude < 0.25f))
             return;
-        
+
         _rb.velocity = Vector3.zero;
         CancelInvoke(nameof(DecelerateCar));
     }
@@ -217,7 +215,7 @@ public abstract class CarController : MonoBehaviour
     private void Handbrake()
     {
         CancelInvoke(nameof(RecoverTraction));
-       
+
         _driftingAxis += Time.deltaTime;
         float secureStartingPoint = _driftingAxis * _wextremumSlipFL * CarConfig.handbrakeDriftMultiplier;
 
@@ -231,8 +229,8 @@ public abstract class CarController : MonoBehaviour
         {
             _driftingAxis = 1f;
         }
-        
-        if (Mathf.Abs(LocalVelocityX) > 2.5f)
+
+        if (Mathf.Abs(LocalVelocityX) > CarConfig.driftKoef)
         {
             IsDrifting = true;
         }
@@ -240,7 +238,7 @@ public abstract class CarController : MonoBehaviour
         {
             IsDrifting = false;
         }
-        
+
         if (_driftingAxis < 1f)
         {
             _wheelFrictionFL.extremumSlip = _wextremumSlipFL * CarConfig.handbrakeDriftMultiplier * _driftingAxis;
@@ -262,7 +260,7 @@ public abstract class CarController : MonoBehaviour
     private void RecoverTraction()
     {
         IsTractionLocked = false;
-        _driftingAxis =_driftingAxis - Time.deltaTime / 1.5f < 0f ? 0f : _driftingAxis - Time.deltaTime;
+        _driftingAxis = _driftingAxis - Time.deltaTime / 1.5f < 0f ? 0f : _driftingAxis - Time.deltaTime;
 
         if (_wheelFrictionFL.extremumSlip > _wextremumSlipFL)
         {
