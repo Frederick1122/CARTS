@@ -116,6 +116,11 @@ public abstract class CarController : MonoBehaviour
 
     private void SetUpWheels()
     {
+        SetUpWheel(_wheelFL);
+        SetUpWheel(_wheelFR);
+        SetUpWheel(_wheelRL);
+        SetUpWheel(_wheelRR);
+
         var wheelSettingsFL = SetUpCurve(_wheelFL);
         _wheelFrictionFL = wheelSettingsFL.Item1;
         _wextremumSlipFL = wheelSettingsFL.Item2;
@@ -128,6 +133,17 @@ public abstract class CarController : MonoBehaviour
         var wheelSettingsRR = SetUpCurve(_wheelRR);
         _wheelFrictionRR = wheelSettingsRR.Item1;
         _wextremumSlipRR = wheelSettingsRR.Item2;
+    }
+
+    private void SetUpWheel(Wheel wheel)
+    {
+        //WheelFrictionCurve fFriction = wheel.WheelCollider.forwardFriction;
+        //fFriction.stiffness = CarConfig.stiffness;
+        //wheel.WheelCollider.forwardFriction = fFriction;
+
+        WheelFrictionCurve sFriction = wheel.WheelCollider.sidewaysFriction;
+        sFriction.stiffness = CarConfig.stiffness;
+        wheel.WheelCollider.forwardFriction = sFriction;
     }
 
     private void Steering()

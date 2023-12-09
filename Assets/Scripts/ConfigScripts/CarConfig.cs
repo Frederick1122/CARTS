@@ -30,6 +30,8 @@ public class CarConfig : ScriptableObject
     public int handbrakeDriftMultiplier = 5; // How much grip the car loses when the user hit the handbrake.
     [Range(0.1f, 10)]
     public float driftKoef = 1f;
+    [Range(0.1f, 3f)]
+    public float stiffness = 1.25f;
 
     [Space(10)]
     public Vector3 bodyMassCenter;

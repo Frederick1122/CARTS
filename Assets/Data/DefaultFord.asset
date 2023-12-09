@@ -15,7 +15,7 @@ MonoBehaviour:
   weight: 1000
   maxSpeed: 75
   maxReverseSpeed: 45
-  accelerationMultiplier: 8
+  accelerationMultiplier: 12
   maxSteeringAngle: 35
   steeringSpeed: 0.5
   speedLossByAngle: 0.5
@@ -23,4 +23,5 @@ MonoBehaviour:
   decelerationMultiplier: 2
   handbrakeDriftMultiplier: 8
   driftKoef: 3
+  stiffness: 1.3
   bodyMassCenter: {x: 0, y: -0.5, z: 0}
