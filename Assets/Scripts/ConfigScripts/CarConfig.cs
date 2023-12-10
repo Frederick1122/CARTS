@@ -31,7 +31,13 @@ public class CarConfig : ScriptableObject
     [Range(0.1f, 10)]
     public float driftKoef = 1f;
     [Range(0.1f, 3f)]
-    public float stiffness = 1.25f;
+    public float forwardStiffness = 1f;
+    [Range(0.1f, 3f)]
+    public float sidewayStiffness = 1.25f;
+    [Range(0.1f, 3f)]
+    public float forwardExtremValue = 1f;
+    [Range(0.1f, 3f)]
+    public float sidewayExtremValue = 1.3f;
 
     [Space(10)]
     public Vector3 bodyMassCenter;

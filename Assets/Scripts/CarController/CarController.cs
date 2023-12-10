@@ -40,6 +40,7 @@ public abstract class CarController : MonoBehaviour
     {
         _rb = gameObject.GetComponent<Rigidbody>();
         _rb.centerOfMass = CarConfig.bodyMassCenter;
+        _rb.mass = CarConfig.weight;
 
         _carInputSystem = gameObject.GetComponent<CarInputSystem>();
         if (_carInputSystem == null)
@@ -137,13 +138,15 @@ public abstract class CarController : MonoBehaviour
 
     private void SetUpWheel(Wheel wheel)
     {
-        //WheelFrictionCurve fFriction = wheel.WheelCollider.forwardFriction;
-        //fFriction.stiffness = CarConfig.stiffness;
-        //wheel.WheelCollider.forwardFriction = fFriction;
-
         WheelFrictionCurve sFriction = wheel.WheelCollider.sidewaysFriction;
-        sFriction.stiffness = CarConfig.stiffness;
-        wheel.WheelCollider.forwardFriction = sFriction;
+        sFriction.stiffness = CarConfig.sidewayStiffness;
+        sFriction.extremumValue = CarConfig.sidewayExtremValue;
+        wheel.WheelCollider.sidewaysFriction = sFriction;
+
+        WheelFrictionCurve fFriction = wheel.WheelCollider.forwardFriction;
+        fFriction.stiffness = CarConfig.forwardStiffness;
+        fFriction.extremumValue = CarConfig.forwardExtremValue;
+        wheel.WheelCollider.forwardFriction = fFriction;
     }
 
     private void Steering()
