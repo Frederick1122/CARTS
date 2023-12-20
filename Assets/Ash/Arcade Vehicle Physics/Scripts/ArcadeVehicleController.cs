@@ -6,6 +6,8 @@ namespace ArcadeVP
 {
     public class ArcadeVehicleController : MonoBehaviour
     {
+        [SerializeField] private bool _autoGas = true;
+
         public enum groundCheck { rayCast, sphereCaste };
         public enum MovementMode { Velocity, AngularVelocity };
         public MovementMode movementMode;
@@ -57,6 +59,10 @@ namespace ArcadeVP
         {
             horizontalInput = Input.GetAxis("Horizontal"); //turning input
             verticalInput = Input.GetAxis("Vertical");     //accelaration input
+
+            if (verticalInput >= 0 && _autoGas)
+                verticalInput = 1;
+
             Visuals();
             AudioManager();
 

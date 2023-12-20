@@ -537,6 +537,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766898046}
   m_CullTransparentMesh: 1
+--- !u!1001 &901850018
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -61.24331
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.028868
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734477, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360009843606734519, guid: 4356821ec6833cc48bb32171e20fdde7,
+        type: 3}
+      propertyPath: m_Name
+      value: TestCarP
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4356821ec6833cc48bb32171e20fdde7, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,7 +692,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.12761535, y: 0, z: 0, w: 0.99182373}
-  m_LocalPosition: {x: 66.02085, y: 4.4700003, z: -22.823118}
+  m_LocalPosition: {x: -61.24331, y: 5.6600003, z: -17.028868}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1035,6 +1103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1668652265441348593, guid: c9e904412020b334d85c8aec5b0b2711,
         type: 3}
+      propertyPath: AirControl
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668652265441348593, guid: c9e904412020b334d85c8aec5b0b2711,
+        type: 3}
       propertyPath: accelaration
       value: 10
       objectReference: {fileID: 0}
@@ -1152,6 +1225,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hatchback car
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668652265441348605, guid: c9e904412020b334d85c8aec5b0b2711,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1516,3 +1594,4 @@ SceneRoots:
   - {fileID: 660329908}
   - {fileID: 165556383}
   - {fileID: 1826946135}
+  - {fileID: 901850018}
