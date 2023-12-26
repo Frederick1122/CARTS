@@ -67,8 +67,10 @@ namespace ArcadeVP
             AudioManager();
 
         }
+
         public void AudioManager()
         {
+            Debug.Log(Mathf.Abs(carVelocity.z) / MaxSpeed);
             engineSound.pitch = Mathf.Lerp(minPitch, MaxPitch, Mathf.Abs(carVelocity.z) / MaxSpeed);
             if (Mathf.Abs(carVelocity.x) > 10 && grounded())
             {
