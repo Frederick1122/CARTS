@@ -58,8 +58,6 @@ namespace ArcadeVP
 
         private float desiredTurning;
 
-
-
         private void Start()
         {
             radius = rb.GetComponent<SphereCollider>().radius;
