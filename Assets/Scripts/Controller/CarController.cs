@@ -32,6 +32,14 @@ public abstract class CarController : MonoBehaviour
     private Dictionary<Transform, Transform> _wheelsAxel = new();
     private SphereCollider _sphereCollider;
 
+    // temp
+    private void Start()
+    {
+        Init(GetComponent<IInputSystem>());
+
+        _inputSystem.IsActive = true;
+    }
+
     public virtual void Init(IInputSystem inputSystem)
     {
         _inputSystem = inputSystem;
@@ -183,8 +191,17 @@ public abstract class CarController : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        if (_rbSphere == null)
+        {
+            Debug.Log("No sphere");
+            return;
+        }
+
+        if (_sphereCollider == null)
+            _sphereCollider = _rbSphere.GetComponent<SphereCollider>();
+
         //debug gizmos
-        _radius = _rbSphere.GetComponent<SphereCollider>().radius;
+        _radius = _sphereCollider.radius;
         float width = 0.02f;
         if (!Application.isPlaying)
         {

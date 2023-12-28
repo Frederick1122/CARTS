@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class KeyBoardInputSystem : MonoBehaviour, IInputSystem
 {
+    [SerializeField] private bool _autoGas = true;
+
     private const string VERTICAL_AXIS = "Vertical";
     private const string HORIZONTAl_AXIS = "Horizontal";
     private const string BRAKE_AXIS = "Jump";
@@ -25,5 +27,8 @@ public class KeyBoardInputSystem : MonoBehaviour, IInputSystem
         _vertInp = Input.GetAxis(VERTICAL_AXIS);
         _horInp = Input.GetAxis(HORIZONTAl_AXIS);
         _brInp = Input.GetAxis(BRAKE_AXIS);
+
+        if (_autoGas && _vertInp >= 0)
+            _vertInp = 1;
     }
 }

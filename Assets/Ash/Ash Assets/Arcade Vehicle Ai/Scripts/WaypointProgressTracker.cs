@@ -51,6 +51,8 @@ namespace ArcadeVP
         private Vector3 lastPosition; // Used to calculate current speed (since we may not have a rigidbody component)
         private float speed; // current speed of this object (calculated from delta since last frame)
 
+        private CarController controller;
+
         // setup script properties
         private void Start()
         {
@@ -71,7 +73,10 @@ namespace ArcadeVP
             {
                 circuit = FindObjectOfType<WaypointCircuit>();
             }
-            
+
+            controller = GetComponent<CarController>();
+
+
         }
 
 
@@ -98,8 +103,10 @@ namespace ArcadeVP
                 // we use lerp as a simple way of smoothing out the speed over time.
                 if (Time.deltaTime > 0)
                 {
-                    speed = GetComponent<ArcadeAiVehicleController>().carVelocity.z;
+                    speed = controller.CarVelocity.z;
                 }
+
+
                 target.position =
                     circuit.GetRoutePoint(progressDistance + lookAheadForTargetOffset + lookAheadForTargetFactor * speed)
                            .position;
