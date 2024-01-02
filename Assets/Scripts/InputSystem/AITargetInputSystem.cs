@@ -1,8 +1,10 @@
+using ArcadeVP;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIInputSystem : MonoBehaviour, IInputSystem
+[RequireComponent(typeof(ITargetHolder))]
+public class AITargetInputSystem : MonoBehaviour, IInputSystem
 {
     public bool IsActive { get; set; }
 
@@ -10,20 +12,22 @@ public class AIInputSystem : MonoBehaviour, IInputSystem
     public float HorizontalInput => _horInp;
     public float BrakeInput => _brInp;
 
-    [SerializeField] private Transform _target;
-
     [SerializeField] private float brakeAngle = 30f;
-
-    private float _vertInp;
-    private float _horInp;
-    private float _brInp;
 
     private CarController _controller;
     private CarConfig _config;
 
+    private float _vertInp;
+    private float _horInp;
+    private float _brInp;
+    private Transform _target;
+
+
     private void Start()
     {
         _controller = GetComponent<CarController>();
+        _target = GetComponent<ITargetHolder>().Target;
+
         _config = _controller.Config;
     }
 
@@ -32,6 +36,11 @@ public class AIInputSystem : MonoBehaviour, IInputSystem
         if (!IsActive)
             return;
 
+        ReadInput();
+    }
+
+    public void ReadInput()
+    {
         float reachedTargetDistance = 1f;
         float distanceToTarget = Vector3.Distance(transform.position, _target.position);
         Vector3 dirToMovePosition = (_target.position - transform.position).normalized;
@@ -44,8 +53,8 @@ public class AIInputSystem : MonoBehaviour, IInputSystem
             else
                 _brInp = 0;
         }
-        else  
-            _brInp = 0; 
+        else
+            _brInp = 0;
 
         if (distanceToTarget > reachedTargetDistance)
         {
@@ -67,13 +76,11 @@ public class AIInputSystem : MonoBehaviour, IInputSystem
                     _vertInp = 1f;
                 else
                     _vertInp = -1f;
-                
             }
 
             float angleToDir = Vector3.SignedAngle(transform.forward, dirToMovePosition, Vector3.up);
 
             if (angleToDir > 0)
-            
                 _horInp = 1f * _config.TurnCurve.Evaluate(_controller.DesiredTurning / 90);
             else
                 _horInp = -1f * _config.TurnCurve.Evaluate(_controller.DesiredTurning / 90);
@@ -84,10 +91,8 @@ public class AIInputSystem : MonoBehaviour, IInputSystem
                 _brInp = -1f;
             else
                 _brInp = 0f;
-            
+
             _horInp = 0f;
         }
-
-
     }
 }

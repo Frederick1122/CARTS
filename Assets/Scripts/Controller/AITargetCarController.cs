@@ -1,10 +1,18 @@
+using ArcadeVP;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AICarController : CarController
+public class AITargetCarController : CarController
 {
-    [SerializeField] private Transform _target;
+    private Transform _target;
+
+    public override void Init(IInputSystem inputSystem)
+    {
+        base.Init(inputSystem);
+
+        _target = GetComponent<ITargetHolder>().Target;
+    }
 
     protected override void CalculateDesiredAngle()
     {

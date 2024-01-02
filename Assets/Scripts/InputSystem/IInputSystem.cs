@@ -9,4 +9,6 @@ public interface IInputSystem
     public float VerticalInput { get; }
     public float HorizontalInput { get;}
     public float BrakeInput { get; }
+
+    void ReadInput();
 }

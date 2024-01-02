@@ -24,6 +24,11 @@ public class KeyBoardInputSystem : MonoBehaviour, IInputSystem
         if (!IsActive)
             return;
 
+        ReadInput();
+    }
+
+    public void ReadInput()
+    {
         _vertInp = Input.GetAxis(VERTICAL_AXIS);
         _horInp = Input.GetAxis(HORIZONTAl_AXIS);
         _brInp = Input.GetAxis(BRAKE_AXIS);

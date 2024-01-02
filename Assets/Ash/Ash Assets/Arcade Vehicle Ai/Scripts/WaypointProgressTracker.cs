@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ArcadeVP
 {
-    public class WaypointProgressTracker : MonoBehaviour
+    public class WaypointProgressTracker : MonoBehaviour, ITargetHolder
     {
         // This script can be used with any object that is supposed to follow a
         // route marked out by waypoints.
@@ -12,163 +12,144 @@ namespace ArcadeVP
         // This script manages the amount to look ahead along the route,
         // and keeps track of progress and laps.
 
-        public WaypointCircuit circuit; // A reference to the waypoint-based route we should follow
-
-        [SerializeField] private float lookAheadForTargetOffset = 5;
-        // The offset ahead along the route that the we will aim for
-
-        [SerializeField] private float lookAheadForTargetFactor = .1f;
-        // A multiplier adding distance ahead along the route to aim for, based on current speed
-
-        private float lookAheadForSpeedOffset = 50;
-        // The offset ahead only the route for speed adjustments (applied as the rotation of the waypoint target transform)
-
-        private float lookAheadForSpeedFactor = .2f;
-        // A multiplier adding distance ahead along the route for speed adjustments
-
-        [SerializeField] private ProgressStyle progressStyle = ProgressStyle.SmoothAlongRoute;
-        // whether to update the position smoothly along the route (good for curved paths) or just when we reach each waypoint.
-
-        private float pointToPointThreshold = 4;
-        // proximity to waypoint which must be reached to switch target to next waypoint : only used in PointToPoint mode.
-
-        public enum ProgressStyle
-        {
-            SmoothAlongRoute,
-            PointToPoint,
-        }
-
         // these are public, readable by other objects - i.e. for an AI to know where to head!
-        public WaypointCircuit.RoutePoint targetPoint { get; private set; }
-        public WaypointCircuit.RoutePoint speedPoint { get; private set; }
-        public WaypointCircuit.RoutePoint progressPoint { get; private set; }
+        //public WaypointCircuit.RoutePoint TargetPoint { get; private set; }
+        //public WaypointCircuit.RoutePoint SpeedPoint { get; private set; }
+        public WaypointCircuit.RoutePoint ProgressPoint { get; private set; }
 
-        public Transform target;
+        [field: SerializeField] public Transform Target { get; set; }
 
-        [HideInInspector]
-        public float progressDistance; // The progress round the route, used in smooth mode.
-        private int progressNum; // the current waypoint number, used in point-to-point mode.
-        private Vector3 lastPosition; // Used to calculate current speed (since we may not have a rigidbody component)
-        private float speed; // current speed of this object (calculated from delta since last frame)
+        // A reference to the waypoint-based route we should follow
+        [SerializeField] private WaypointCircuit _circuit; 
+        // The offset ahead along the route that the we will aim for
+        [SerializeField] private float _lookAheadForTargetOffset = 5;
+        // A multiplier adding distance ahead along the route to aim for, based on current speed
+        [SerializeField] private float _lookAheadForTargetFactor = .1f;
+        // whether to update the position smoothly along the route (good for curved paths) or just when we reach each waypoint.
+        [SerializeField] private ProgressStyle _progressStyle = ProgressStyle.SmoothAlongRoute;
 
-        private CarController controller;
+        // The offset ahead only the route for speed adjustments (applied as the rotation of the waypoint target transform)
+        private float _lookAheadForSpeedOffset = 50;
+        // A multiplier adding distance ahead along the route for speed adjustments
+        private float _lookAheadForSpeedFactor = .2f;
+        // proximity to waypoint which must be reached to switch target to next waypoint : only used in PointToPoint mode.
+        private float _pointToPointThreshold = 4;
 
-        // setup script properties
+        // The progress round the route, used in smooth mode.
+        private float _progressDistance;
+        // the current waypoint number, used in point-to-point mode.
+        private int _progressNum;
+        // Used to calculate current speed (since we may not have a rigidbody component)
+        private Vector3 _lastPosition;
+        // current speed of this object (calculated from delta since last frame)
+        private float _speed; 
+
+        private CarController _controller;
+        private IInputSystem _inputSystem;
+
+        //// setup script properties
+        //private void Start()
+        //{
+        //    // we use a transform to represent the point to aim for, and the point which
+        //    // is considered for upcoming changes-of-speed. This allows this component
+        //    // to communicate this information to the AI without requiring further dependencies.
+
+        //    // You can manually create a transform and assign it to this component *and* the AI,
+        //    // then this component will update it, and the AI can read it.
+        //    //if (Target == null)
+        //    //{
+        //    //    Target = new GameObject(name + " Waypoint Target").transform;
+        //    //}
+
+
+        //    if(_circuit == null)
+        //    {
+        //        _circuit = FindObjectOfType<WaypointCircuit>();
+        //    }
+
+
+
+
+        //}
+
         private void Start()
         {
-
-            // we use a transform to represent the point to aim for, and the point which
-            // is considered for upcoming changes-of-speed. This allows this component
-            // to communicate this information to the AI without requiring further dependencies.
-
-            // You can manually create a transform and assign it to this component *and* the AI,
-            // then this component will update it, and the AI can read it.
-            if (target == null)
-            {
-                target = new GameObject(name + " Waypoint Target").transform;
-            }
-
             Reset();
-            if(circuit == null)
-            {
-                circuit = FindObjectOfType<WaypointCircuit>();
-            }
-
-            controller = GetComponent<CarController>();
-
-
+            _controller = GetComponent<CarController>();
+            _inputSystem = GetComponent<IInputSystem>();
         }
-
 
         // reset the object to sensible values
         public void Reset()
         {
-            progressDistance = 0;
-            progressNum = 0;
-            if (progressStyle == ProgressStyle.PointToPoint)
+            _progressDistance = 0;
+            _progressNum = 0;
+            if (_progressStyle == ProgressStyle.PointToPoint)
             {
-                target.position = circuit.Waypoints[progressNum].position;
-                target.rotation = circuit.Waypoints[progressNum].rotation;
+                var point = _circuit.Waypoints[_progressNum];
+                Target.SetPositionAndRotation(point.position, point.rotation);
             }
         }
 
 
         private void Update()
         {
+            if (!_inputSystem.IsActive)
+                return;
 
-            if (progressStyle == ProgressStyle.SmoothAlongRoute)
+            ProgressPoint = _circuit.GetRoutePoint(_progressDistance);
+
+            // get our current progress along the route
+            Vector3 progressDelta = ProgressPoint.Position - transform.position;
+            var dot = Vector3.Dot(progressDelta, ProgressPoint.Direction);
+
+            if (_progressStyle == ProgressStyle.SmoothAlongRoute)
             {
                 // determine the position we should currently be aiming for
                 // (this is different to the current progress position, it is a a certain amount ahead along the route)
                 // we use lerp as a simple way of smoothing out the speed over time.
-                if (Time.deltaTime > 0)
-                {
-                    speed = controller.CarVelocity.z;
-                }
+                _speed = _controller.CarVelocity.z;
 
+                WaypointCircuit.RoutePoint routePoint = _circuit.GetRoutePoint(
+                    _progressDistance + _lookAheadForTargetOffset + _lookAheadForTargetFactor * _speed);
+                Target.SetPositionAndRotation(routePoint.Position, Quaternion.LookRotation(routePoint.Direction));
 
-                target.position =
-                    circuit.GetRoutePoint(progressDistance + lookAheadForTargetOffset + lookAheadForTargetFactor * speed)
-                           .position;
-                target.rotation =
-                    Quaternion.LookRotation(
-                        circuit.GetRoutePoint(progressDistance + lookAheadForSpeedOffset + lookAheadForSpeedFactor * speed)
-                               .direction);
-
-
-                // get our current progress along the route
-                progressPoint = circuit.GetRoutePoint(progressDistance);
-                Vector3 progressDelta = progressPoint.position - transform.position;
-                if (Vector3.Dot(progressDelta, progressPoint.direction) < 0)
-                {
-                    progressDistance += progressDelta.magnitude * 0.5f;
-                }
-
-                lastPosition = transform.position;
+                if (dot < 0)
+                    _progressDistance += progressDelta.magnitude * 0.5f;
             }
             else
             {
                 // point to point mode. Just increase the waypoint if we're close enough:
+                Vector3 targetDelta = Target.position - transform.position;
+                if (targetDelta.magnitude < _pointToPointThreshold)
+                    _progressNum = (_progressNum + 1) % _circuit.Waypoints.Length;
 
-                Vector3 targetDelta = target.position - transform.position;
-                if (targetDelta.magnitude < pointToPointThreshold)
-                {
-                    progressNum = (progressNum + 1) % circuit.Waypoints.Length;
-                }
+                var routePoint = _circuit.Waypoints[_progressNum];
+                Target.SetPositionAndRotation(routePoint.position, routePoint.rotation);
 
-
-                target.position = circuit.Waypoints[progressNum].position;
-                target.rotation = circuit.Waypoints[progressNum].rotation;
-
-                // get our current progress along the route
-                progressPoint = circuit.GetRoutePoint(progressDistance);
-                Vector3 progressDelta = progressPoint.position - transform.position;
-                if (Vector3.Dot(progressDelta, progressPoint.direction) < 0)
-                {
-                    progressDistance += progressDelta.magnitude;
-                }
-                lastPosition = transform.position;
+                if (dot < 0)
+                    _progressDistance += progressDelta.magnitude;
             }
+
+            _lastPosition = transform.position;
         }
 
-
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (Application.isPlaying)
             {
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawLine(transform.position, target.position);
+                Gizmos.DrawLine(transform.position, Target.position);
                 Gizmos.color = Color.blue;
-                Gizmos.DrawWireSphere(circuit.GetRoutePosition(progressDistance), 0.2f);
-                Gizmos.DrawLine(transform.position, circuit.GetRoutePosition(progressDistance));
-                Gizmos.DrawLine(target.position, target.position + target.forward);
+                Gizmos.DrawWireSphere(_circuit.GetRoutePosition(_progressDistance), 0.2f);
+                Gizmos.DrawLine(transform.position, _circuit.GetRoutePosition(_progressDistance));
+                Gizmos.DrawLine(Target.position, Target.position + Target.forward);
                 Gizmos.color = Color.magenta;
-                Gizmos.DrawWireSphere(target.position, 1);
+                Gizmos.DrawWireSphere(Target.position, 1);
             }
-
-
-
         }
+#endif
 
         /* public void respawnOnRoad()
          {
@@ -188,5 +169,11 @@ namespace ArcadeVP
 
          }*/
     }
+}
+
+public enum ProgressStyle
+{
+    SmoothAlongRoute,
+    PointToPoint,
 }
 

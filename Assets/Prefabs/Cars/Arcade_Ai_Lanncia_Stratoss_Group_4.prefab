@@ -393,7 +393,6 @@ MonoBehaviour:
   _rearWheels:
   - {fileID: 8432511383421151243}
   - {fileID: 6038466559952879215}
-  _target: {fileID: 1296426468638017802}
 --- !u!114 &3116437342404758008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c20362aab2dabc4ebb2b3f2fd70b57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1296426468638017802}
   brakeAngle: 30
 --- !u!114 &8553775620546226386
 MonoBehaviour:
@@ -420,12 +418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5cb22d331ef7d64796f917c6a455a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circuit: {fileID: 0}
-  lookAheadForTargetOffset: 20
-  lookAheadForTargetFactor: 0.1
-  progressStyle: 0
-  target: {fileID: 1296426468638017802}
-  progressDistance: 0
+  <Target>k__BackingField: {fileID: 1296426468638017802}
+  _circuit: {fileID: 0}
+  _lookAheadForTargetOffset: 20
+  _lookAheadForTargetFactor: 0.1
+  _progressStyle: 0
 --- !u!1 &3647193029223805598
 GameObject:
   m_ObjectHideFlags: 0

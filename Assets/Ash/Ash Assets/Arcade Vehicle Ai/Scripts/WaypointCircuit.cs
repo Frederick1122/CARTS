@@ -212,14 +212,13 @@ namespace ArcadeVP
 
         public struct RoutePoint
         {
-            public Vector3 position;
-            public Vector3 direction;
-
+            public Vector3 Position { get; }
+            public Vector3 Direction { get; }
 
             public RoutePoint(Vector3 position, Vector3 direction)
             {
-                this.position = position;
-                this.direction = direction;
+                this.Position = position;
+                this.Direction = direction;
             }
         }
     }
