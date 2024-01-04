@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace ArcadeVP
@@ -20,7 +19,7 @@ namespace ArcadeVP
         [field: SerializeField] public Transform Target { get; set; }
 
         // A reference to the waypoint-based route we should follow
-        [SerializeField] private WaypointCircuit _circuit; 
+        [SerializeField] private WaypointCircuit _circuit;
         // The offset ahead along the route that the we will aim for
         [SerializeField] private float _lookAheadForTargetOffset = 5;
         // A multiplier adding distance ahead along the route to aim for, based on current speed
@@ -42,35 +41,10 @@ namespace ArcadeVP
         // Used to calculate current speed (since we may not have a rigidbody component)
         private Vector3 _lastPosition;
         // current speed of this object (calculated from delta since last frame)
-        private float _speed; 
+        private float _speed;
 
         private CarController _controller;
         private IInputSystem _inputSystem;
-
-        //// setup script properties
-        //private void Start()
-        //{
-        //    // we use a transform to represent the point to aim for, and the point which
-        //    // is considered for upcoming changes-of-speed. This allows this component
-        //    // to communicate this information to the AI without requiring further dependencies.
-
-        //    // You can manually create a transform and assign it to this component *and* the AI,
-        //    // then this component will update it, and the AI can read it.
-        //    //if (Target == null)
-        //    //{
-        //    //    Target = new GameObject(name + " Waypoint Target").transform;
-        //    //}
-
-
-        //    if(_circuit == null)
-        //    {
-        //        _circuit = FindObjectOfType<WaypointCircuit>();
-        //    }
-
-
-
-
-        //}
 
         private void Start()
         {
@@ -90,7 +64,6 @@ namespace ArcadeVP
                 Target.SetPositionAndRotation(point.position, point.rotation);
             }
         }
-
 
         private void Update()
         {
