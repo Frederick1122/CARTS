@@ -7,7 +7,7 @@ namespace Core.FSM
     public class Fsm
     {
         private FsmState _currentState;
-        private Dictionary<Type, FsmState> _states = new Dictionary<Type, FsmState>();
+        protected Dictionary<Type, FsmState> _states = new Dictionary<Type, FsmState>();
 
         public Fsm()
         {
