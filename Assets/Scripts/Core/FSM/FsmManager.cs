@@ -18,8 +18,19 @@ namespace Core.FSM
         {
             if (_currentFsms.ContainsKey(typeof(T)))
                 return;
+
+            var newFsm = new T();
+            newFsm.Init();
+            _currentFsms.Add(typeof(T), newFsm); 
+        }
+
+        public void AddNewFsm(Fsm newFsm)
+        {
+            if(_currentFsms.ContainsKey(newFsm.GetType()))
+                return;
             
-            _currentFsms.Add(typeof(T), new T()); 
+            newFsm.Init();
+            _currentFsms.Add(newFsm.GetType(), newFsm);
         }
 
         public void RemoveFsm<T>() where T : Fsm
