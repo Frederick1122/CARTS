@@ -483,9 +483,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70852dc981465ea48bb527b9e33a87fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waypointList:
-    Circuit: {fileID: 6789311260200262849}
-    Items:
+  waypointList:
+    circuit: {fileID: 6789311260200262849}
+    items:
     - {fileID: 4187469207178452824}
     - {fileID: 2748569999018099354}
     - {fileID: 8875509300419246210}
@@ -522,7 +522,7 @@ MonoBehaviour:
     - {fileID: 5576648312417926709}
     - {fileID: 2365071163338484616}
     - {fileID: 4047418873639366051}
-  _smoothRoute: 1
+  smoothRoute: 1
   editorVisualisationSubsteps: 371.7
 --- !u!1 &4019268346211855064
 GameObject:
