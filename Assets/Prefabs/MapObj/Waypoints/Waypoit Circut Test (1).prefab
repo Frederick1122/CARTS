@@ -142,9 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70852dc981465ea48bb527b9e33a87fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypointList:
-    circuit: {fileID: 1721570049219958257}
-    items:
+  _waypointList:
+    Circuit: {fileID: 1721570049219958257}
+    Items:
     - {fileID: 3016169006497142764}
     - {fileID: 654511021317311991}
     - {fileID: 6705829759187638016}
@@ -181,7 +181,7 @@ MonoBehaviour:
     - {fileID: 6164316767437493822}
     - {fileID: 2513110568557844411}
     - {fileID: 6163589640797530970}
-  smoothRoute: 1
+  _smoothRoute: 1
   editorVisualisationSubsteps: 371.7
 --- !u!1 &1035543363351857453
 GameObject:
@@ -704,7 +704,7 @@ Transform:
   m_GameObject: {fileID: 4760836007074685386}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -206.6, y: 0, z: 114.4}
+  m_LocalPosition: {x: -204.2, y: 0, z: 102.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
