@@ -28,6 +28,6 @@ public class LobbyInstaller : MonoInstaller
 
         var lobbyFsm = new LobbyFsm(lobbyUIManager); 
         fsmManager.AddNewFsm(lobbyFsm);
-        fsmManager.TryGetFsm<LobbyFsm>().SetState<LobbyState>();
+        fsmManager.TryGetFsm<LobbyFsm>().SetState<PreInitializeState>();
     }
 }

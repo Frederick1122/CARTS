@@ -8,7 +8,7 @@ namespace ProjectFsms
     {
         private LobbyUIManager _lobbyUIManager;
 
-        public LobbyFsm(LobbyUIManager lobbyUIManager) : base()
+        public LobbyFsm(LobbyUIManager lobbyUIManager)
         {
             _lobbyUIManager = lobbyUIManager;
         }
