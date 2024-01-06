@@ -1,7 +1,7 @@
 using ArcadeVP;
 using UnityEngine;
 
-public class WaypointProgressTracker : MonoBehaviour, ITargetHolder
+public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHolder
 {
     // This script can be used with any object that is supposed to follow a
     // route marked out by waypoints.
@@ -16,9 +16,8 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder
     public WaypointCircuit.RoutePoint ProgressPoint { get; private set; }
 
     [field: SerializeField] public Transform Target { get; set; }
+    public WaypointCircuit Circuit { get; set ; }
 
-    // A reference to the waypoint-based route we should follow
-    [SerializeField] private WaypointCircuit _circuit;
     // The offset ahead along the route that the we will aim for
     [SerializeField] private float _lookAheadForTargetOffset = 5;
     // A multiplier adding distance ahead along the route to aim for, based on current speed
@@ -59,7 +58,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder
         _progressNum = 0;
         if (_progressStyle == ProgressStyle.PointToPoint)
         {
-            var point = _circuit.Waypoints[_progressNum];
+            var point = Circuit.Waypoints[_progressNum];
             Target.SetPositionAndRotation(point.position, point.rotation);
         }
     }
@@ -69,7 +68,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder
         if (!_inputSystem.IsActive)
             return;
 
-        ProgressPoint = _circuit.GetRoutePoint(_progressDistance);
+        ProgressPoint = Circuit.GetRoutePoint(_progressDistance);
 
         // get our current progress along the route
         Vector3 progressDelta = ProgressPoint.Position - transform.position;
@@ -82,7 +81,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder
             // we use lerp as a simple way of smoothing out the speed over time.
             _speed = _controller.CarVelocity.z;
 
-            WaypointCircuit.RoutePoint routePoint = _circuit.GetRoutePoint(
+            WaypointCircuit.RoutePoint routePoint = Circuit.GetRoutePoint(
                 _progressDistance + _lookAheadForTargetOffset + _lookAheadForTargetFactor * _speed);
             Target.SetPositionAndRotation(routePoint.Position, Quaternion.LookRotation(routePoint.Direction));
 
@@ -94,9 +93,9 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder
             // point to point mode. Just increase the waypoint if we're close enough:
             Vector3 targetDelta = Target.position - transform.position;
             if (targetDelta.magnitude < _pointToPointThreshold)
-                _progressNum = (_progressNum + 1) % _circuit.Waypoints.Length;
+                _progressNum = (_progressNum + 1) % Circuit.Waypoints.Length;
 
-            var routePoint = _circuit.Waypoints[_progressNum];
+            var routePoint = Circuit.Waypoints[_progressNum];
             Target.SetPositionAndRotation(routePoint.position, routePoint.rotation);
 
             if (dot < 0)
@@ -114,8 +113,8 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(transform.position, Target.position);
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(_circuit.GetRoutePosition(_progressDistance), 0.2f);
-            Gizmos.DrawLine(transform.position, _circuit.GetRoutePosition(_progressDistance));
+            Gizmos.DrawWireSphere(Circuit.GetRoutePosition(_progressDistance), 0.2f);
+            Gizmos.DrawLine(transform.position, Circuit.GetRoutePosition(_progressDistance));
             Gizmos.DrawLine(Target.position, Target.position + Target.forward);
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(Target.position, 1);

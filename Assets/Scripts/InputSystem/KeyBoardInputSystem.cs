@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class KeyBoardInputSystem : MonoBehaviour, IInputSystem
 {
-    [SerializeField] private bool _autoGas = true;
-
     private const string VERTICAL_AXIS = "Vertical";
     private const string HORIZONTAl_AXIS = "Horizontal";
     private const string BRAKE_AXIS = "Jump";
 
+    [SerializeField] private bool _autoGas = true;
+
+    public bool IsActive { get; set; }
     public float VerticalInput => _vertInp;
     public float HorizontalInput => _horInp;
     public float BrakeInput => _brInp;
-    public bool IsActive { get; set; }
-
+    
     private float _vertInp;
     private float _horInp;
     private float _brInp;

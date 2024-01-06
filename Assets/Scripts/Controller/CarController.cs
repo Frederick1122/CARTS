@@ -32,11 +32,19 @@ public abstract class CarController : MonoBehaviour
     private SphereCollider _sphereCollider;
 
     // temp
-    private void Start()
+    private void Awake()
     {
         Init(GetComponent<IInputSystem>());
+    }
 
+    public void StartCar()
+    {
         _inputSystem.IsActive = true;
+    }
+
+    public void StopCar()
+    {
+        _inputSystem.IsActive = false;
     }
 
     public virtual void Init(IInputSystem inputSystem)
@@ -50,6 +58,8 @@ public abstract class CarController : MonoBehaviour
 
         _wheelsAxel.Add(_frontWheels[0], _frontWheels[0].GetChild(0));
         _wheelsAxel.Add(_frontWheels[1], _frontWheels[1].GetChild(0));
+
+        _inputSystem.IsActive = false;
     }
 
     protected virtual void Update()

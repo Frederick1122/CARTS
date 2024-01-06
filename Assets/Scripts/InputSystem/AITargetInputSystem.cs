@@ -4,12 +4,11 @@ using UnityEngine;
 public class AITargetInputSystem : MonoBehaviour, IInputSystem
 {
     public bool IsActive { get; set; }
-
     public float VerticalInput => _vertInp;
     public float HorizontalInput => _horInp;
     public float BrakeInput => _brInp;
 
-    [SerializeField] private float brakeAngle = 30f;
+    private float brakeAngle = 30f;
 
     private CarController _controller;
     private CarConfig _config;
