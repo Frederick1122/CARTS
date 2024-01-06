@@ -3,20 +3,13 @@ using UnityEngine;
 
 public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHolder
 {
-    // This script can be used with any object that is supposed to follow a
-    // route marked out by waypoints.
-    //public float timeO;
+    [SerializeField] private float _timeToRespawn = 3;
+    [field: SerializeField] public Transform Target { get; set; }
 
-    // This script manages the amount to look ahead along the route,
-    // and keeps track of progress and laps.
-
-    // these are public, readable by other objects - i.e. for an AI to know where to head!
+    public WaypointCircuit Circuit { get; set ; }
     //public WaypointCircuit.RoutePoint TargetPoint { get; private set; }
     //public WaypointCircuit.RoutePoint SpeedPoint { get; private set; }
     public WaypointCircuit.RoutePoint ProgressPoint { get; private set; }
-
-    [field: SerializeField] public Transform Target { get; set; }
-    public WaypointCircuit Circuit { get; set ; }
 
     // The offset ahead along the route that the we will aim for
     [SerializeField] private float _lookAheadForTargetOffset = 5;
@@ -40,6 +33,8 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
     private Vector3 _lastPosition;
     // current speed of this object (calculated from delta since last frame)
     private float _speed;
+
+    private float _currentRespawnTime;
 
     private CarController _controller;
     private IInputSystem _inputSystem;
@@ -103,6 +98,31 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
         }
 
         _lastPosition = transform.position;
+
+        RespawnOnRoad();
+    }
+
+    public void RespawnOnRoad()
+    {
+        if (Vector3.Distance(transform.position, Circuit.GetRoutePosition(_progressDistance)) > 15
+            || Mathf.Abs(_speed) <= 0.02f)
+            _currentRespawnTime += Time.deltaTime;
+        else
+            _currentRespawnTime = 0f;
+
+        if (_currentRespawnTime > _timeToRespawn)
+        {
+            gameObject.SetActive(false);
+
+            Vector3 pos = Target.position;
+            pos.y = 2;
+
+            transform.position = pos;
+            _currentRespawnTime = 0f;
+
+            gameObject.SetActive(true);
+        }
+
     }
 
 #if UNITY_EDITOR
@@ -121,24 +141,6 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
         }
     }
 #endif
-
-    /* public void respawnOnRoad()
-     {
-         if ( Vector3.Distance( transform.position, circuit.GetRoutePosition(progressDistance)) > 15)
-         {
-             timeO += Time.deltaTime;
-         }
-         else
-         {
-             timeO = 0f;
-         }
-         if (timeO > 3)
-         {
-             transform.position = target.position + new Vector3(0, 1.5f, 0);
-             timeO = 0f;
-         }
-
-     }*/
 }
 
 
