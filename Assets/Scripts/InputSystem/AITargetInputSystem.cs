@@ -77,9 +77,9 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
             float angleToDir = Vector3.SignedAngle(transform.forward, dirToMovePosition, Vector3.up);
 
             if (angleToDir > 0)
-                _horInp = 1f * _config.TurnCurve.Evaluate(_controller.DesiredTurning / 90);
+                _horInp = 1f * _config.turnCurve.Evaluate(_controller.DesiredTurning / 90);
             else
-                _horInp = -1f * _config.TurnCurve.Evaluate(_controller.DesiredTurning / 90);
+                _horInp = -1f * _config.turnCurve.Evaluate(_controller.DesiredTurning / 90);
         }
         else
         {

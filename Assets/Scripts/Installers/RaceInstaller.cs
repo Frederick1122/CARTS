@@ -5,7 +5,7 @@ using UI;
 using UnityEngine;
 using Zenject;
 
-namespace CustomSnapTool.Installers
+namespace Installers
 {
     public class RaceInstaller : MonoInstaller
     {

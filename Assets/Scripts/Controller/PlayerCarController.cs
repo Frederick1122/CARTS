@@ -6,6 +6,6 @@ public class PlayerCarController : CarController
 {
     protected override void CalculateDesiredAngle()
     {
-        DesiredTurning = Config.BodyTilt;
+        DesiredTurning = Config.bodyTilt;
     }
 }

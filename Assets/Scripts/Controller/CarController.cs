@@ -85,19 +85,19 @@ public abstract class CarController : MonoBehaviour
 
         //changes friction according to sideways speed of car
         if (Mathf.Abs(CarVelocity.x) > 0)
-            Config.FrictionMaterial.dynamicFriction = Config.FrictionCurve.Evaluate(Mathf.Abs(CarVelocity.x / 100));
+            Config.frictionMaterial.dynamicFriction = Config.frictionCurve.Evaluate(Mathf.Abs(CarVelocity.x / 100));
 
         if(CheckIfGrounded())
         {
             //turnlogic
             float sign = Mathf.Sign(CarVelocity.z);
-            float turnMultiplyer = Config.TurnCurve.Evaluate(CarVelocity.magnitude / Config.MaxSpeed);
+            float turnMultiplyer = Config.turnCurve.Evaluate(CarVelocity.magnitude / Config.maxSpeedLevels[0]);
 
             // ????
             if (verticalInput > 0.1f || CarVelocity.z > 1)
-                _carBody.AddTorque(Vector3.up * horizontalInput * sign * Config.Turn * 100 * turnMultiplyer);
+                _carBody.AddTorque(Vector3.up * horizontalInput * sign * Config.turnLevels[0] * 100 * turnMultiplyer);
             else if (verticalInput < -0.1f || CarVelocity.z < -1)
-                _carBody.AddTorque(Vector3.up * horizontalInput * sign * Config.Turn * 100 * turnMultiplyer);
+                _carBody.AddTorque(Vector3.up * horizontalInput * sign * Config.turnLevels[0] * 100 * turnMultiplyer);
             
 
             //brakelogic
@@ -113,7 +113,7 @@ public abstract class CarController : MonoBehaviour
                     if (Mathf.Abs(verticalInput) > 0.1f)
                     {
                         _rbSphere.angularVelocity = Vector3.Lerp(_rbSphere.angularVelocity,
-                            _carBody.transform.right * verticalInput * Config.MaxSpeed / _radius, Config.Accelaration * Time.deltaTime);
+                            _carBody.transform.right * verticalInput * Config.maxSpeedLevels[0] / _radius, Config.accelerationLevels[0] * Time.deltaTime);
                     }
                     break;
 
@@ -121,13 +121,13 @@ public abstract class CarController : MonoBehaviour
                     if (Mathf.Abs(verticalInput) > 0.1f && brakeInput < 0.1f)
                     {
                         _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity,
-                            _carBody.transform.forward * verticalInput * Config.MaxSpeed, Config.Accelaration / 10 * Time.deltaTime);
+                            _carBody.transform.forward * verticalInput * Config.maxSpeedLevels[0], Config.accelerationLevels[0] / 10 * Time.deltaTime);
                     }
                     break;
             }
             
             // down froce
-            _rbSphere.AddForce(-transform.up * Config.Downforce * _rbSphere.mass);
+            _rbSphere.AddForce(-transform.up * Config.downforce * _rbSphere.mass);
 
             //body tilt
             _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation, 
@@ -135,19 +135,19 @@ public abstract class CarController : MonoBehaviour
         }
         else
         {
-            if (Config.AirControl)
+            if (Config.airControl)
             {
                 //turnlogic
-                float TurnMultiplyer = Config.TurnCurve.Evaluate(CarVelocity.magnitude / Config.MaxSpeed);
+                float TurnMultiplyer = Config.turnCurve.Evaluate(CarVelocity.magnitude / Config.maxSpeedLevels[0]);
 
-                _carBody.AddTorque(Vector3.up * horizontalInput * Config.Turn * 100 * TurnMultiplyer);
+                _carBody.AddTorque(Vector3.up * horizontalInput * Config.turnLevels[0] * 100 * TurnMultiplyer);
             }
 
             _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation, 
                 Quaternion.FromToRotation(_carBody.transform.up, Vector3.up) * _carBody.transform.rotation, 0.02f));
 
             _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity, 
-                _rbSphere.velocity + Vector3.down * Config.Gravity, Time.deltaTime * Config.Gravity);
+                _rbSphere.velocity + Vector3.down * Config.gravity, Time.deltaTime * Config.gravity);
         }
 
     }
@@ -168,8 +168,8 @@ public abstract class CarController : MonoBehaviour
         if (CarVelocity.z > 1)
         {
             _bodyMesh.localRotation = Quaternion.Slerp(_bodyMesh.localRotation,
-                Quaternion.Euler(Mathf.Lerp(0, -5, CarVelocity.z / Config.MaxSpeed), _bodyMesh.localRotation.eulerAngles.y,
-                Mathf.Clamp(DesiredTurning * _inputSystem.HorizontalInput, -Config.BodyTilt, Config.BodyTilt)), 0.05f);
+                Quaternion.Euler(Mathf.Lerp(0, -5, CarVelocity.z / Config.maxSpeedLevels[0]), _bodyMesh.localRotation.eulerAngles.y,
+                Mathf.Clamp(DesiredTurning * _inputSystem.HorizontalInput, -Config.bodyTilt, Config.bodyTilt)), 0.05f);
         }
         else
             _bodyMesh.localRotation = Quaternion.Slerp(_bodyMesh.localRotation, Quaternion.Euler(0, 0, 0), 0.05f);

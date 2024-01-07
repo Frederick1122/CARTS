@@ -1,21 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CarConfig", menuName = "Configs/Car Config")]
 public class CarConfig : ScriptableObject
 {
+    public string configKey;
+    public CarController prefab;
+    
     [Header("Characteristic")]
-    public float MaxSpeed = 100;
-    public float Accelaration = 10;
-    public float Turn = 3; 
-    public float Gravity = 7f; 
-    public float Downforce = 5f;
-    public bool AirControl = false;
+    public List<float> maxSpeedLevels = new() {100};
+    public List<float> accelerationLevels = new() {10};
+    public List<float> turnLevels = new() {3};
+    public float gravity = 7f; 
+    public float downforce = 5f;
+    public bool airControl = false;
 
     [Header("Physics")]
-    public AnimationCurve FrictionCurve;
-    public AnimationCurve TurnCurve;
-    public PhysicMaterial FrictionMaterial;
+    public AnimationCurve frictionCurve;
+    public AnimationCurve turnCurve;
+    public PhysicMaterial frictionMaterial;
 
     [Header("Visual")]
-    [Range(0, 10)] public float BodyTilt;
+    [Range(0, 10)] public float bodyTilt;
 }
