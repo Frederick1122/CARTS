@@ -118,6 +118,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
             pos.y = 2;
 
             transform.position = pos;
+            transform.rotation = Target.rotation;
             _currentRespawnTime = 0f;
 
             gameObject.SetActive(true);

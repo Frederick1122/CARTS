@@ -10,20 +10,25 @@ public class LapRaceManager : RaceManager
 
     protected List<CarController> _enemies = new();
 
-    [ContextMenu("Init")]
     public override void Init()
     {
         base.Init();
         InitAi();
     }
 
-    [ContextMenu("Start race")]
     public override void StartRace()
     {
         foreach (var en in _enemies)
             en.StartCar();
 
         _player.StartCar();
+    }
+
+    [ContextMenu("Test Race")]
+    public void TestRace()
+    {
+        Init();
+        StartRace();
     }
 
     protected override void InitPlayer()
