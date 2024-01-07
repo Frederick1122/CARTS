@@ -10,6 +10,7 @@ public class LapRaceManager : RaceManager
 
     protected List<CarController> _enemies = new();
 
+    [ContextMenu("Init")]
     public override void Init()
     {
         base.Init();

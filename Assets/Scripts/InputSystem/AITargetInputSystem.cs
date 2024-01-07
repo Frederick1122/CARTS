@@ -8,18 +8,17 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
     public float HorizontalInput => _horInp;
     public float BrakeInput => _brInp;
 
-    private float brakeAngle = 30f;
+    protected float brakeAngle = 30f;
 
-    private CarController _controller;
-    private CarConfig _config;
+    protected CarController _controller;
+    protected CarConfig _config;
 
-    private float _vertInp;
-    private float _horInp;
-    private float _brInp;
-    private Transform _target;
+    protected float _vertInp;
+    protected float _horInp;
+    protected float _brInp;
+    protected Transform _target;
 
-
-    private void Start()
+    protected virtual void Start()
     {
         _controller = GetComponent<CarController>();
         _target = GetComponent<ITargetHolder>().Target;
@@ -27,7 +26,7 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
         _config = _controller.Config;
     }
 
-    private void Update()
+    protected void Update()
     {
         if (!IsActive)
             return;
@@ -35,7 +34,7 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
         ReadInput();
     }
 
-    public void ReadInput()
+    public virtual void ReadInput()
     {
         float reachedTargetDistance = 1f;
         float distanceToTarget = Vector3.Distance(transform.position, _target.position);
