@@ -1,3 +1,4 @@
+using ConfigScripts;
 using UnityEngine;
 
 [RequireComponent(typeof(ITargetHolder))]

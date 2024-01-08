@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ConfigScripts;
 using UnityEngine;
 
 public abstract class CarController : MonoBehaviour

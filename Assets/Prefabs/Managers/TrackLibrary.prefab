@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1797692952574625256
+--- !u!1 &5309863259165996599
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2993557796582739148}
-  - component: {fileID: 1879167688175068129}
+  - component: {fileID: 8269124769609269751}
+  - component: {fileID: 5039361844978885473}
   m_Layer: 0
-  m_Name: PlayerManager
+  m_Name: TrackLibrary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2993557796582739148
+--- !u!4 &8269124769609269751
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797692952574625256}
+  m_GameObject: {fileID: 5309863259165996599}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -30.01575, y: -1.2696171, z: 39.714813}
@@ -32,20 +32,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1879167688175068129
+--- !u!114 &5039361844978885473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797692952574625256}
+  m_GameObject: {fileID: 5309863259165996599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b784e95f628340a45b5d807e19f15840, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe3ff16e1aa473092ae61f844f41519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultCar:
-    configKey: DefaultPlayerCar
-    maxSpeedLevel: 0
-    accelerationLevel: 0
-    turnLevel: 0
