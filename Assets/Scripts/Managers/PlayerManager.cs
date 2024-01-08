@@ -5,70 +5,101 @@ using UnityEngine;
 
 namespace Managers
 {
- 
-    public class PlayerManager : Singleton<PlayerManager>
+    public class PlayerManager : SaveLoadManager<PlayerData, PlayerManager>
     {
+        private const string PLAYER_JSON_PATH = "Player.json";
+        
         [SerializeField] private CarData _defaultCar;
-    
-        private CarData _currentCar;
-        private Dictionary<string, CarData> _purchasedCars = new();
 
         public void AddPurchasedCar(CarData newCar)
         {
-            if(_purchasedCars.ContainsKey(newCar.configKey))
+            if(_saveData.purchasedCars.ContainsKey(newCar.configKey))
                 return;
         
-            _purchasedCars.Add(newCar.configKey, newCar);
+            _saveData.purchasedCars.Add(newCar.configKey, newCar);
+            Save();
         }
 
         public void UpdateModificationLevel(string carConfigKey, int newLevel, ModificationType modificationType)
         {
-            if (!_purchasedCars.ContainsKey(carConfigKey))
+            if (!_saveData.purchasedCars.ContainsKey(carConfigKey))
             {
                 Debug.LogAssertion($"PlayerManager not founded {carConfigKey} in purchased cars. UpdateModificationLevel is impossible");
                 return;
             }
 
-            var carConfig = CarLibrary.Instance.GetCar(carConfigKey);
+            var carConfig = CarLibrary.Instance.GetConfig(carConfigKey);
             switch (modificationType)
             {
                 case ModificationType.MaxSpeed:
-                    _purchasedCars[carConfigKey].maxSpeedLevel =
+                    _saveData.purchasedCars[carConfigKey].maxSpeedLevel =
                         Mathf.Clamp(newLevel, 0, carConfig.maxSpeedLevels.Count - 1);
                     break;
                 case ModificationType.Acceleration:
-                    _purchasedCars[carConfigKey].accelerationLevel =
+                    _saveData.purchasedCars[carConfigKey].accelerationLevel =
                         Mathf.Clamp(newLevel, 0, carConfig.accelerationLevels.Count - 1);
                     break;
                 case ModificationType.Turn:
-                    _purchasedCars[carConfigKey].turnLevel =
+                    _saveData.purchasedCars[carConfigKey].turnLevel =
                         Mathf.Clamp(newLevel, 0, carConfig.turnLevels.Count - 1);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(modificationType), modificationType, null);
             }
 
-            if (_currentCar.configKey == carConfigKey) 
-                _currentCar = _purchasedCars[carConfigKey];
+            if (_saveData.currentCar.configKey == carConfigKey) 
+                _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
+            
+            Save();
         }
 
         public void SetCurrentCar(string carConfigKey)
         {
-            if (!_purchasedCars.ContainsKey(carConfigKey))
+            if (!_saveData.purchasedCars.ContainsKey(carConfigKey))
             {
                 Debug.LogAssertion($"PlayerManager not founded {carConfigKey} in purchased cars. SetCurrentCar is impossible");
                 return;
             }
 
-            _currentCar = _purchasedCars[carConfigKey];
+            _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
+            Save();
+        }
+
+        protected override void Load()
+        {
+            base.Load();
+            if (_saveData == null)
+            {
+                _saveData = new PlayerData(_defaultCar);
+                Save();
+            }
         }
         
-        public enum ModificationType
+        protected override void UpdatePath()
         {
-            MaxSpeed,
-            Acceleration,
-            Turn
+            _secondPath = PLAYER_JSON_PATH;
+            base.UpdatePath();
         }
+    }
+    
+    public enum ModificationType
+    {
+        MaxSpeed,
+        Acceleration,
+        Turn
+    }
+}
+
+[Serializable]
+public class PlayerData
+{
+    public CarData currentCar;
+    public Dictionary<string, CarData> purchasedCars = new();
+
+    public PlayerData(CarData baseCar)
+    {
+        currentCar = baseCar;
+        purchasedCars.Add(baseCar.configKey, baseCar);
     }
 }
 
