@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Base;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Managers
@@ -67,6 +68,9 @@ namespace Managers
 
         public CarData GetCurrentCar()
         {
+            if (_saveData == null)
+                Load();
+            
             return _saveData.currentCar;
         }
         
@@ -98,9 +102,16 @@ namespace Managers
 [Serializable]
 public class PlayerData
 {
+    [JsonProperty("CurrentCar")]
     public CarData currentCar;
+    [JsonProperty("PurchasedCars")]
     public Dictionary<string, CarData> purchasedCars = new();
-
+    
+    [JsonConstructor]
+    private PlayerData()
+    {
+    }
+    
     public PlayerData(CarData baseCar)
     {
         currentCar = baseCar;
@@ -111,13 +122,20 @@ public class PlayerData
 [Serializable]
 public class CarData
 {
+    [JsonProperty("ConfigKey")]
     public string configKey;
+    [JsonProperty("MaxSpeedLevel")]
     public int maxSpeedLevel = 0;
+    [JsonProperty("AccelerationLevel")]
     public int accelerationLevel = 0;
+    [JsonProperty("TurnLevel")]
     public int turnLevel = 0;
     
-    public CarData() {}
-
+    [JsonConstructor]
+    private CarData()
+    {
+    }
+    
     public CarData(string configKey)
     {
         this.configKey = configKey;

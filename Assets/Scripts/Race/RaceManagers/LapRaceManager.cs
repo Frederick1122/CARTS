@@ -37,7 +37,8 @@ namespace Race
     
         protected override void InitPlayer()
         {
-            _player = _currentTrack.SpawnPlayer(_playerPrefab);
+            var playerPrefab = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).prefab;
+            _player = _currentTrack.SpawnPlayer(playerPrefab);
         }
     
         private void InitAi()
