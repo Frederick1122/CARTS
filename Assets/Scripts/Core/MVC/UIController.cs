@@ -4,30 +4,30 @@ public abstract class UIController<T, T2> : MonoBehaviour where T : UIView<T2>, 
 {
     [SerializeField] protected T _view;
 
-    virtual public void Show()
+    public virtual void Show()
     {
         _view.Show();
     }
 
-    virtual public void Hide()
+    public virtual void Hide()
     {
         _view.Hide();
     }
 
-    virtual public void Init()
+    public virtual void Init()
     {
         _view.Init(GetViewData());
     }
 
-    virtual public void UpdateView()
+    public virtual void UpdateView()
     {
 
     }
 
-    virtual public void Terminate()
+    public virtual void UpdateView(T2 uiModel)
     {
-
+        _view.UpdateView(uiModel);
     }
-
-    abstract protected T2 GetViewData();
+    
+    protected abstract T2 GetViewData();
 }

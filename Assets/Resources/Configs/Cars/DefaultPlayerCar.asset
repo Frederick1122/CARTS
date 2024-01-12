@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e8a6955281d254a8c973ae1466b083, type: 3}
   m_Name: DefaultPlayerCar
   m_EditorClassIdentifier: 
+  configName: Default Car
   configKey: DefaultPlayerCar
   prefab: {fileID: 5509696963062973587, guid: c59158e403383c04c9e9b0a303a94990, type: 3}
+  isOnlyForAi: 0
   maxSpeedLevels:
   - 100
   accelerationLevels:

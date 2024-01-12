@@ -11,12 +11,12 @@ namespace Managers
         
         [SerializeField] private CarData _defaultCar;
 
-        public void AddPurchasedCar(CarData newCar)
+        public void AddPurchasedCar(string carConfigKey)
         {
-            if(_saveData.purchasedCars.ContainsKey(newCar.configKey))
+            if(_saveData.purchasedCars.ContainsKey(carConfigKey))
                 return;
-        
-            _saveData.purchasedCars.Add(newCar.configKey, newCar);
+
+            _saveData.purchasedCars.Add(carConfigKey, new CarData(carConfigKey));
             Save();
         }
 
@@ -65,6 +65,11 @@ namespace Managers
             Save();
         }
 
+        public CarData GetCurrentCar()
+        {
+            return _saveData.currentCar;
+        }
+        
         protected override void Load()
         {
             base.Load();
@@ -110,4 +115,11 @@ public class CarData
     public int maxSpeedLevel = 0;
     public int accelerationLevel = 0;
     public int turnLevel = 0;
+    
+    public CarData() {}
+
+    public CarData(string configKey)
+    {
+        this.configKey = configKey;
+    }
 }

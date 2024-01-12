@@ -9,7 +9,7 @@ namespace UI.Windows.Shop
         public event Action OpenLobbyAction;
         
         [SerializeField] private Button _openLobbyButton;
-        
+
         public override void Init(ShopWindowModel uiModel)
         {
             base.Init(uiModel);

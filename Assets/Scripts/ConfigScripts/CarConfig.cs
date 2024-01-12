@@ -7,7 +7,8 @@ namespace ConfigScripts
     public class CarConfig : BaseConfig
     {
         public CarController prefab;
-
+        public bool isOnlyForAi;
+        
         [Header("Characteristic")] public List<float> maxSpeedLevels = new() {100};
         public List<float> accelerationLevels = new() {10};
         public List<float> turnLevels = new() {3};

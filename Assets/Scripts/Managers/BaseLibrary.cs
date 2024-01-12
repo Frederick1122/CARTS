@@ -38,5 +38,10 @@ namespace Managers
 
             return config;
         }
+
+        public Dictionary<string, T> GetAllConfigs()
+        {
+            return _allConfigs;
+        }
     }
 }

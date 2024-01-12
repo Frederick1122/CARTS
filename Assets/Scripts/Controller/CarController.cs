@@ -73,8 +73,7 @@ public abstract class CarController : MonoBehaviour
     protected abstract void CalculateDesiredAngle();
 
 
-    protected virtual void FixedUpdate() =>
-        Move();
+    protected virtual void FixedUpdate() => Move();
 
     protected virtual void Move()
     {

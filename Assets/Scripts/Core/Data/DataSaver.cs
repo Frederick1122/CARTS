@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
  
 public class DataSaver
@@ -12,7 +13,8 @@ public class DataSaver
         tempPath = Path.Combine(tempPath, dataFileName + ".txt");
  
         //Convert To Json then to bytes
-        string jsonData = JsonUtility.ToJson(dataToSave, true);
+        
+        string jsonData = JsonConvert.SerializeObject(dataToSave);
         byte[] jsonByte = Encoding.ASCII.GetBytes(jsonData);
  
         //Create Directory if it does not exist
@@ -72,7 +74,7 @@ public class DataSaver
         string jsonData = Encoding.ASCII.GetString(jsonByte);
  
         //Convert to Object
-        object resultValue = JsonUtility.FromJson<T>(jsonData);
+        object resultValue = JsonConvert.DeserializeObject<T>(jsonData);// JsonUtility.FromJson<T>(jsonData);
         return (T)Convert.ChangeType(resultValue, typeof(T));
     }
  
