@@ -1,5 +1,6 @@
 ﻿using Core.FSM;
 using UI;
+using UI.Windows.Settings;
 
 namespace FsmStates.LobbyFsm
 {
@@ -24,7 +25,7 @@ namespace FsmStates.LobbyFsm
         public override void Enter()
         {
             base.Enter();
-            LobbyUIManager.Instance.OpenSettings();
+            LobbyUIManager.Instance.ShowWindow(typeof(SettingsWindowController), true);
         }
         
         private void OpenLobby()

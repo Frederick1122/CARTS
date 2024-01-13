@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Base;
 using UI.Windows.Lobby;
 using UI.Windows.MapSelection;
@@ -23,28 +24,17 @@ namespace UI
         [SerializeField] private MapSelectionWindowController _mapSelectionWindowController;
         [SerializeField] private SettingsWindowController _settingsWindowController;
 
-        public void OpenLobby()
+        private Dictionary<Type, IUiController> _controllers = new();
+
+        public IUiController ShowWindow(Type T, bool isHideOtherWindows = false)
         {
-            HideAll();
-            _lobbyWindowController.Show();
-        }
-        
-        public void OpenShop()
-        {
-            HideAll();
-            _shopWindowController.Show();
-        }
-        
-        public void OpenMapSelection()
-        {
-            HideAll();
-            _mapSelectionWindowController.Show();
-        }
-        
-        public void OpenSettings()
-        {
-            HideAll();
-            _settingsWindowController.Show();
+            if (isHideOtherWindows)
+                foreach (var controllerPair in _controllers)
+                    controllerPair.Value.Hide();
+
+            var controller = _controllers[T];
+            controller.Show();
+            return controller;
         }
         
         public void Init()
@@ -53,6 +43,11 @@ namespace UI
             _shopWindowController.Init();
             _mapSelectionWindowController.Init();
             _settingsWindowController.Init();
+            
+            _controllers.Add(_lobbyWindowController.GetType(), _lobbyWindowController);
+            _controllers.Add(_shopWindowController.GetType(), _shopWindowController);
+            _controllers.Add(_mapSelectionWindowController.GetType(), _mapSelectionWindowController);
+            _controllers.Add(_settingsWindowController.GetType(), _settingsWindowController);
          
             _lobbyWindowController.OpenShopAction += RequestToOpenShop;
             _lobbyWindowController.OpenSettingsAction += RequestToOpenSettings;

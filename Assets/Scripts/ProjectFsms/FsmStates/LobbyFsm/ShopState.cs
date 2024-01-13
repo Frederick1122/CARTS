@@ -1,5 +1,6 @@
 ﻿using Core.FSM;
 using UI;
+using UI.Windows.Shop;
 
 namespace FsmStates.LobbyFsm
 {
@@ -24,7 +25,7 @@ namespace FsmStates.LobbyFsm
         public override void Enter()
         {
             base.Enter();
-            LobbyUIManager.Instance.OpenShop();
+            LobbyUIManager.Instance.ShowWindow(typeof(ShopWindowController), true);
         }
         
         private void OpenLobby()

@@ -1,5 +1,6 @@
 ﻿using Core.FSM;
 using UI;
+using UI.Windows.MapSelection;
 
 namespace FsmStates.LobbyFsm
 {
@@ -26,7 +27,7 @@ namespace FsmStates.LobbyFsm
         public override void Enter()
         {
             base.Enter();
-            LobbyUIManager.Instance.OpenMapSelection();
+            LobbyUIManager.Instance.ShowWindow(typeof(MapSelectionWindowController), true);
         }
         
         private void OpenLobby()
