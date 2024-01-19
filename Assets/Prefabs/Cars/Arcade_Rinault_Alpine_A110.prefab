@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 7014117583414198791}
   - component: {fileID: 5197895964794665244}
   - component: {fileID: 5509696963062973587}
+  - component: {fileID: 8125263123935983229}
   - component: {fileID: 7445502035344630768}
   m_Layer: 7
   m_Name: Arcade_Rinault_Alpine_A110
@@ -229,7 +230,7 @@ MonoBehaviour:
   _rearWheels:
   - {fileID: 1442689711521877108}
   - {fileID: 4674956233740886470}
---- !u!114 &7445502035344630768
+--- !u!114 &8125263123935983229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,6 +238,18 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598972699637293889}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4746b224104ee4cb14b20e79eff0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7445502035344630768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598972699637293889}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cc8bced27947804ba409cd7bb8aad2f, type: 3}
   m_Name: 
