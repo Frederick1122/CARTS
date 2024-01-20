@@ -28,12 +28,10 @@ public class ButtonsMobileInputSystem : MonoBehaviour, IInputSystem
         _buttonController.BrakeButton.OnUp += StopBrake;
     }
 
-    [ContextMenu("Init input")]
-    public void Test()
+    private void Start()
     {
         var controller = (RaceLoadoutController)RaceUIManager.Instance.ShowWindow(typeof(RaceLoadoutController));
         Init(controller.GetButtons());
-        IsActive = true;
     }
 
     private void Update()
@@ -46,6 +44,9 @@ public class ButtonsMobileInputSystem : MonoBehaviour, IInputSystem
 
     private void OnDestroy()
     {
+        if (_buttonController == null)
+            return;
+
         _buttonController.RightButton.OnDown -= TurnRight;
         _buttonController.LeftButton.OnDown -= TurnLeft;
         _buttonController.BrakeButton.OnDown -= Brake;
