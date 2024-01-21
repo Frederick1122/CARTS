@@ -68,7 +68,8 @@ namespace Race
                 _enemies.Add(spawnEnemyDatas[i].car.gameObject.AddComponent<AITargetCarController>());
                 var waypointTracker =
                     _enemies[i].gameObject.AddComponent<WaypointProgressTracker>();
-                waypointTracker.OnLapEndAction += () => UpdateLapStats(i + 1);
+                var lapStatindex = i + 1;
+                waypointTracker.OnLapEndAction += () => UpdateLapStats(lapStatindex);
                 waypointTracker.Circuit = spawnEnemyDatas[i].circuit;
                 _lapsStats.Add(0);
 
@@ -91,7 +92,7 @@ namespace Race
             if (lapStatsIndex == 0)
                 Debug.Log("PLAYER ENDS LAP");
             else
-                Debug.Log("BOT ENDS LAP");
+                Debug.Log($"BOT {lapStatsIndex} ENDS LAP");
         }
     }
 }

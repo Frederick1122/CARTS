@@ -48,6 +48,9 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
 
     private float _currentRespawnTime;
 
+    private float _lapDistance;
+    private int _lapCount = 1;
+    
     private CarController _controller;
     private IInputSystem _inputSystem;
 
@@ -56,6 +59,8 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
         Reset();
         _controller = carController;
         _inputSystem = inputSystem;
+
+        _lapDistance = Circuit.Length;
     }
 
     // reset the object to sensible values
@@ -109,6 +114,12 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
 
             if (dot < 0)
                 _progressDistance += progressDelta.magnitude * 0.5f;
+
+            if (_progressDistance > _lapDistance * _lapCount)
+            {
+                OnLapEndAction?.Invoke();
+                _lapCount++;
+            }
         }
         else
         {
