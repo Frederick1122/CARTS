@@ -127,7 +127,6 @@ GameObject:
   - component: {fileID: 7014117583414198791}
   - component: {fileID: 5197895964794665244}
   - component: {fileID: 5509696963062973587}
-  - component: {fileID: 7445502035344630768}
   m_Layer: 7
   m_Name: Arcade_Rinault_Alpine_A110_Pink
   m_TagString: Untagged
@@ -229,19 +228,6 @@ MonoBehaviour:
   _rearWheels:
   - {fileID: 1442689711521877108}
   - {fileID: 4674956233740886470}
---- !u!114 &7445502035344630768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598972699637293889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cc8bced27947804ba409cd7bb8aad2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _autoGas: 1
 --- !u!1 &711445805465089197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,8 +1267,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8547456224994159655}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.12761535, y: -0, z: -0, w: 0.99182373}
-  m_LocalPosition: {x: 0, y: 1.57, z: -6}
+  m_LocalRotation: {x: 0.12761536, y: -0.00000008940697, z: 0.000000007450581, w: 0.9918238}
+  m_LocalPosition: {x: 0.0000002384187, y: 1.57, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

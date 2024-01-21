@@ -1,7 +1,6 @@
 using ConfigScripts;
 using UnityEngine;
 
-[RequireComponent(typeof(ITargetHolder))]
 public class AITargetInputSystem : MonoBehaviour, IInputSystem
 {
     public bool IsActive { get; set; }
@@ -37,29 +36,24 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
 
     public virtual void ReadInput()
     {
-        float reachedTargetDistance = 1f;
-        float distanceToTarget = Vector3.Distance(transform.position, _target.position);
-        Vector3 dirToMovePosition = (_target.position - transform.position).normalized;
-        float dot = Vector3.Dot(transform.forward, dirToMovePosition);
-        float angleToMove = Vector3.Angle(transform.forward, dirToMovePosition);
+        var reachedTargetDistance = 1f;
+        var distanceToTarget = Vector3.Distance(transform.position, _target.position);
+        var dirToMovePosition = (_target.position - transform.position).normalized;
+        var dot = Vector3.Dot(transform.forward, dirToMovePosition);
+        var angleToMove = Vector3.Angle(transform.forward, dirToMovePosition);
+        
         if (angleToMove > brakeAngle)
-        {
-            if (_controller.CarVelocity.z > 15)
-                _brInp = 1;
-            else
-                _brInp = 0;
-        }
+            _brInp = _controller.CarVelocity.z > 15 ? 1 : 0;
         else
             _brInp = 0;
 
         if (distanceToTarget > reachedTargetDistance)
         {
-
             if (dot > 0)
             {
                 _vertInp = 1f;
 
-                float stoppingDistance = 5f;
+                var stoppingDistance = 5f;
                 if (distanceToTarget < stoppingDistance)
                     _brInp = 1;
                 else
@@ -67,15 +61,14 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
             }
             else
             {
-                float reverseDistance = 5f;
+                var reverseDistance = 5f;
                 if (distanceToTarget > reverseDistance)
                     _vertInp = 1f;
                 else
                     _vertInp = -1f;
             }
 
-            float angleToDir = Vector3.SignedAngle(transform.forward, dirToMovePosition, Vector3.up);
-
+            var angleToDir = Vector3.SignedAngle(transform.forward, dirToMovePosition, Vector3.up);
             if (angleToDir > 0)
                 _horInp = 1f * _config.turnCurve.Evaluate(_controller.DesiredTurning / 90);
             else
@@ -83,11 +76,7 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
         }
         else
         {
-            if (_controller.CarVelocity.z > 1f)
-                _brInp = -1f;
-            else
-                _brInp = 0f;
-
+            _brInp = _controller.CarVelocity.z > 1f ? -1f : 0f;
             _horInp = 0f;
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class CarController : MonoBehaviour
 {
     [field: SerializeField] public CarConfig Config { get; protected set; }
-
+    
     [Space(10)]
     [Header("Movement Type")]
     [SerializeField] private MovementMode _movementMode;
@@ -26,30 +26,29 @@ public abstract class CarController : MonoBehaviour
     public Vector3 CarVelocity { get; protected set; }
 
     private IInputSystem _inputSystem;
+    private ITargetHolder _targetHolder;
 
     private RaycastHit _hit;
     private float _radius;
     private Dictionary<Transform, Transform> _wheelsAxel = new();
     private SphereCollider _sphereCollider;
-
-    // temp
-    private void Awake()
-    {
-        Init(GetComponent<IInputSystem>());
-    }
-
+    private bool _isCarActive = false;
+    
     public void StartCar()
     {
         _inputSystem.IsActive = true;
+        _isCarActive = true;
     }
 
     public void StopCar()
     {
         _inputSystem.IsActive = false;
+        _isCarActive = false;
     }
 
-    public virtual void Init(IInputSystem inputSystem)
+    public virtual void Init(IInputSystem inputSystem, ITargetHolder targetHolder = null)
     {
+        _targetHolder = targetHolder;
         _inputSystem = inputSystem;
         _sphereCollider = _rbSphere.GetComponent<SphereCollider>();
         _radius = _sphereCollider.radius;
@@ -65,8 +64,10 @@ public abstract class CarController : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (!_isCarActive)
+            return;
+        
         Visual();
-
         CalculateDesiredAngle();
     }
 

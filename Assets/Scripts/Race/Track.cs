@@ -10,18 +10,18 @@ namespace Race
         [SerializeField] private List<StartRacePlace> _carPlaces = new(4);
         [SerializeField] private List<CarController> _aiPrefabs = new();
 
-        public CarController SpawnPlayer(CarController playerPrefab)
+        public SpawnData SpawnPlayer(CarController playerPrefab)
         {
-            var playerTransform = _playerPlace == -1 ? _carPlaces[^1].transform : _carPlaces[_playerPlace].transform;
-            var player = Instantiate(playerPrefab, playerTransform);
+            var playerPlace = _playerPlace == -1 ? _carPlaces[^1] : _carPlaces[_playerPlace];
+            var player = Instantiate(playerPrefab, playerPlace.transform);
             player.transform.rotation = Quaternion.identity;
-            return player;
+            return new SpawnData(player, playerPlace.GetWaypointCircuit());
         }
 
-        public List<CarController> SpawnAiTrucks()
+        public List<SpawnData> SpawnAiTrucks()
         {
             var skipPlace = _playerPlace == -1 ? _carPlaces.Count - 1 : _playerPlace;
-            var enemies = new List<CarController>();
+            var enemiesSpawnDatas = new List<SpawnData>();
             for (int i = 0; i < _carPlaces.Count - 1; i++)
             {
                 if(skipPlace == i)
@@ -30,11 +30,24 @@ namespace Race
                 var enemy = Instantiate(_aiPrefabs[Random.Range(0, _aiPrefabs.Count)], _carPlaces[i].transform);
                 enemy.transform.rotation = Quaternion.identity;
     
-                enemies.Add(enemy);
-                _carPlaces[i].Init(enemy);
+                enemiesSpawnDatas.Add(new SpawnData(enemy, _carPlaces[i].GetWaypointCircuit()));
             }
 
-            return enemies;
+            return enemiesSpawnDatas;
+        }
+    }
+
+    public class SpawnData
+    {
+        public CarController car;
+        public WaypointCircuit circuit;
+        
+        public SpawnData () {}
+
+        public SpawnData(CarController car, WaypointCircuit circuit)
+        {
+            this.car = car;
+            this.circuit = circuit;
         }
     }
 }

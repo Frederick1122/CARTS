@@ -1,15 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(ITargetHolder))]
 public class AITargetCarController : CarController
 {
     private Transform _target;
 
-    public override void Init(IInputSystem inputSystem)
+    public override void Init(IInputSystem inputSystem, ITargetHolder targetHolder = null)
     {
         base.Init(inputSystem);
 
-        _target = GetComponent<ITargetHolder>().Target;
+        _target = targetHolder.Target;
     }
 
     protected override void CalculateDesiredAngle()

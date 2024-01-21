@@ -289,8 +289,6 @@ GameObject:
   - component: {fileID: 7854953967803681269}
   - component: {fileID: 2493907779327139282}
   - component: {fileID: 514799856355588813}
-  - component: {fileID: 3116437342404758008}
-  - component: {fileID: 8553775620546226386}
   m_Layer: 7
   m_Name: Arcade_Ai_Lanncia_Stratoss_Group_4
   m_TagString: Untagged
@@ -314,7 +312,6 @@ Transform:
   - {fileID: 6390042745094719162}
   - {fileID: 6243524218552026589}
   - {fileID: 754054334826831123}
-  - {fileID: 1296426468638017802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &7854953967803681269
@@ -393,35 +390,6 @@ MonoBehaviour:
   _rearWheels:
   - {fileID: 8432511383421151243}
   - {fileID: 6038466559952879215}
---- !u!114 &3116437342404758008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3538782816342359639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c20362aab2dabc4ebb2b3f2fd70b57f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8553775620546226386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3538782816342359639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5cb22d331ef7d64796f917c6a455a32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeToRespawn: 3
-  <Target>k__BackingField: {fileID: 1296426468638017802}
-  _lookAheadForTargetOffset: 20
-  _lookAheadForTargetFactor: 0.1
-  _progressStyle: 0
 --- !u!1 &3647193029223805598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,37 +1043,6 @@ Transform:
   m_Children:
   - {fileID: 2111963651479123161}
   - {fileID: 2031885502848906150}
-  m_Father: {fileID: 1833317696260584821}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6683972782713286849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1296426468638017802}
-  m_Layer: 0
-  m_Name: Target
-  m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1296426468638017802
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683972782713286849}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 1833317696260584821}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6715331574539536187

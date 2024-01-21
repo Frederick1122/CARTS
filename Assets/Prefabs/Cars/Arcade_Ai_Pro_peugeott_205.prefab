@@ -403,37 +403,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 789318819964507206}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!1 &3291233008170221893
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7575674434358644432}
-  m_Layer: 0
-  m_Name: Target
-  m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7575674434358644432
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3291233008170221893}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8790569840266727119}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3439012524235911815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,8 +1420,6 @@ GameObject:
   - component: {fileID: 7992264412148807472}
   - component: {fileID: 6904351162878081486}
   - component: {fileID: 8999081230354745768}
-  - component: {fileID: 7622549914197923023}
-  - component: {fileID: 7048015669131256368}
   m_Layer: 7
   m_Name: Arcade_Ai_Pro_peugeott_205
   m_TagString: Untagged
@@ -1476,7 +1443,6 @@ Transform:
   - {fileID: 4992701358410857685}
   - {fileID: 8078965100445772405}
   - {fileID: 2496798279360118385}
-  - {fileID: 7575674434358644432}
   - {fileID: 789318819964507206}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -1556,45 +1522,6 @@ MonoBehaviour:
   _rearWheels:
   - {fileID: 1817574303439557684}
   - {fileID: 8428112290467502498}
---- !u!114 &7622549914197923023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8704646000103917887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1ec05e55a19df44ca8ece84b452870c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rayPoses:
-  - {fileID: 794486466360351995}
-  - {fileID: 7717369742354176006}
-  - {fileID: 2273757315510578748}
-  - {fileID: 893147770678938657}
-  _obstacleLayers:
-    serializedVersion: 2
-    m_Bits: 512
-  _rayLength: 15
-  _backKoef: 0.1
---- !u!114 &7048015669131256368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8704646000103917887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5cb22d331ef7d64796f917c6a455a32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeToRespawn: 3
-  <Target>k__BackingField: {fileID: 7575674434358644432}
-  _lookAheadForTargetOffset: 20
-  _lookAheadForTargetFactor: 0.1
-  _progressStyle: 0
 --- !u!1 &8782990911248272613
 GameObject:
   m_ObjectHideFlags: 0
