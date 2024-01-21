@@ -70,6 +70,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
             {
                 transform =
                 {
+                    name = "Target",
                     parent = transform.parent
                 }
             };
