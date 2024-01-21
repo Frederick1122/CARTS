@@ -1,12 +1,14 @@
+using Cars.Controllers;
+using ConfigScripts;
 using UnityEngine;
 
 public class AITargetCarController : CarController
 {
     private Transform _target;
 
-    public override void Init(IInputSystem inputSystem, ITargetHolder targetHolder = null)
+    public override void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig, ITargetHolder targetHolder)
     {
-        base.Init(inputSystem);
+        base.Init(inputSystem, carConfig, carPresetConfig, targetHolder);
 
         _target = targetHolder.Target;
     }

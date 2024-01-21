@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 1833317696260584821}
   - component: {fileID: 7854953967803681269}
   - component: {fileID: 2493907779327139282}
-  - component: {fileID: 514799856355588813}
+  - component: {fileID: 6549516125224588660}
   m_Layer: 7
   m_Name: Arcade_Ai_Lanncia_Stratoss_Group_4
   m_TagString: Untagged
@@ -362,7 +362,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!114 &514799856355588813
+--- !u!114 &6549516125224588660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -371,25 +371,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3538782816342359639}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 900cb41a21566dc409e5727df88bc53c, type: 3}
+  m_Script: {fileID: 11500000, guid: d9587ea320b5480a8bf2f73569426dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Config>k__BackingField: {fileID: 11400000, guid: d146e771ef7e03640baf55903b07a34a,
-    type: 2}
-  _movementMode: 0
-  _groundCheck: 0
-  _drivableSurface:
-    serializedVersion: 2
-    m_Bits: 64
-  _rbSphere: {fileID: 7736629970757474096}
-  _carBody: {fileID: 2493907779327139282}
-  _bodyMesh: {fileID: 2111963651479123161}
-  _frontWheels:
+  <RbSphere>k__BackingField: {fileID: 7736629970757474096}
+  <CarBody>k__BackingField: {fileID: 2493907779327139282}
+  <BodyMesh>k__BackingField: {fileID: 2111963651479123161}
+  <FrontWheels>k__BackingField:
   - {fileID: 1989507127143442662}
   - {fileID: 9063024802534730288}
-  _rearWheels:
+  <RearWheels>k__BackingField:
   - {fileID: 8432511383421151243}
   - {fileID: 6038466559952879215}
+  <Camera>k__BackingField: {fileID: 3705468912261267581}
 --- !u!1 &3647193029223805598
 GameObject:
   m_ObjectHideFlags: 0

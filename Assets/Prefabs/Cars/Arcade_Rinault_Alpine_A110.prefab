@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 4065921827258284669}
   - component: {fileID: 7014117583414198791}
   - component: {fileID: 5197895964794665244}
-  - component: {fileID: 5509696963062973587}
+  - component: {fileID: 9030740812605336414}
   m_Layer: 7
   m_Name: Arcade_Rinault_Alpine_A110
   m_TagString: Untagged
@@ -200,7 +200,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!114 &5509696963062973587
+--- !u!114 &9030740812605336414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,25 +209,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 598972699637293889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 870894900cb5c414aacc515e1858c60c, type: 3}
+  m_Script: {fileID: 11500000, guid: d9587ea320b5480a8bf2f73569426dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Config>k__BackingField: {fileID: 11400000, guid: d146e771ef7e03640baf55903b07a34a,
-    type: 2}
-  _movementMode: 0
-  _groundCheck: 0
-  _drivableSurface:
-    serializedVersion: 2
-    m_Bits: 64
-  _rbSphere: {fileID: 8044007780496022066}
-  _carBody: {fileID: 5197895964794665244}
-  _bodyMesh: {fileID: 8112730211198018820}
-  _frontWheels:
+  <RbSphere>k__BackingField: {fileID: 8044007780496022066}
+  <CarBody>k__BackingField: {fileID: 5197895964794665244}
+  <BodyMesh>k__BackingField: {fileID: 8112730211198018820}
+  <FrontWheels>k__BackingField:
   - {fileID: 4560150527001986819}
   - {fileID: 2742149801830990290}
-  _rearWheels:
+  <RearWheels>k__BackingField:
   - {fileID: 1442689711521877108}
   - {fileID: 4674956233740886470}
+  <Camera>k__BackingField: {fileID: 58017870553137560}
 --- !u!1 &711445805465089197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,7 +1252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5848346917075045182
 Transform:
   m_ObjectHideFlags: 0

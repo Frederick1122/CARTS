@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cars;
 using UnityEngine;
 
 namespace ConfigScripts
@@ -6,7 +7,7 @@ namespace ConfigScripts
     [CreateAssetMenu(fileName = "CarConfig", menuName = "Configs/Car Config")]
     public class CarConfig : BaseConfig
     {
-        public CarController prefab;
+        public CarPrefabData prefab;
         public bool isOnlyForAi;
         
         [Header("Characteristic")] public List<float> maxSpeedLevels = new() {100};

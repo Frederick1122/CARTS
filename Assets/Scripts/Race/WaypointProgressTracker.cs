@@ -1,4 +1,5 @@
 using System;
+using Cars.Controllers;
 using UnityEngine;
 
 public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHolder

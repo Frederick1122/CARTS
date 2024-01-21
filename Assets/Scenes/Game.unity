@@ -232,8 +232,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476062316}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09023767, y: -0.7013253, z: 0.09023767, w: 0.7013253}
-  m_LocalPosition: {x: -32.548172, y: 2.68, z: 38.736233}
+  m_LocalRotation: {x: 0.09023767, y: -0.70132536, z: 0.09023768, w: 0.70132524}
+  m_LocalPosition: {x: 5.9999995, y: 1.57, z: 0.00000071525574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1075,22 +1075,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900cb41a21566dc409e5727df88bc53c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Config>k__BackingField: {fileID: 11400000, guid: d146e771ef7e03640baf55903b07a34a,
-    type: 2}
-  _movementMode: 0
-  _groundCheck: 0
-  _drivableSurface:
-    serializedVersion: 2
-    m_Bits: 64
-  _rbSphere: {fileID: 7736629970301241149}
-  _carBody: {fileID: 2493907777403031007}
-  _bodyMesh: {fileID: 2111963650643371220}
-  _frontWheels:
-  - {fileID: 1989507125284419819}
-  - {fileID: 9063024802749659709}
-  _rearWheels:
-  - {fileID: 8432511385389299718}
-  - {fileID: 6038466559209467490}
 --- !u!135 &675446028805408687
 SphereCollider:
   m_ObjectHideFlags: 0

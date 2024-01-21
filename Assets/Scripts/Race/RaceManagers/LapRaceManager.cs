@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Cars.Controllers;
 using Installers;
 using Managers;
+using Managers.Libraries;
 using UnityEngine;
 using Zenject;
 
@@ -39,9 +41,10 @@ namespace Race
         protected override void InitPlayer()
         {
             _lapsStats.Add(0);
-            var playerPrefab = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).prefab;
+            var playerConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
+            var playerPrefab = playerConfig.prefab;
             var spawnPlayerData = _currentTrack.SpawnPlayer(playerPrefab);
-            _player = spawnPlayerData.car;
+            _player = spawnPlayerData.car.gameObject.AddComponent<PlayerCarController>();
             
             var waypointTracker =
                 _player.gameObject.AddComponent<WaypointProgressTracker>();
@@ -51,16 +54,18 @@ namespace Race
             var playerInputSystem = _player.gameObject.AddComponent<KeyBoardInputSystem>();
 
             waypointTracker.Init(_player, playerInputSystem);
-            _player.Init(playerInputSystem, waypointTracker);
+            _player.Init(playerInputSystem, playerConfig, PresetLibrary.Instance.GetRandomConfig(), waypointTracker);
         }
     
         private void InitAi()
         {
-            var spawnEnemyDatas = _currentTrack.SpawnAiTrucks();
+            var enemyConfigs = CarLibrary.Instance.GetRandomsConfigs(_currentTrack.GetCarPlacesCount() - 1);
+ 
+            var spawnEnemyDatas = _currentTrack.SpawnAiTrucks(enemyConfigs);
 
             for (var i = 0; i < spawnEnemyDatas.Count; i++)
             {
-                _enemies.Add(spawnEnemyDatas[i].car);
+                _enemies.Add(spawnEnemyDatas[i].car.gameObject.AddComponent<AITargetCarController>());
                 var waypointTracker =
                     _enemies[i].gameObject.AddComponent<WaypointProgressTracker>();
                 waypointTracker.OnLapEndAction += () => UpdateLapStats(i + 1);
@@ -70,7 +75,7 @@ namespace Race
                 var aiInputSystem = _enemies[i].gameObject.AddComponent<AITargetInputSystem>();
                 waypointTracker.Init(_enemies[i], aiInputSystem);
 
-                _enemies[i].Init(aiInputSystem, waypointTracker);
+                _enemies[i].Init(aiInputSystem, enemyConfigs[i], PresetLibrary.Instance.GetRandomConfig(), waypointTracker);
             }
         }
     

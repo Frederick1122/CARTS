@@ -1,3 +1,4 @@
+using Cars.Controllers;
 using UnityEngine;
 
 public class StartRacePlace : MonoBehaviour

@@ -1,6 +1,6 @@
 ﻿using ConfigScripts;
 
-namespace Managers
+namespace Managers.Libraries
 {
     public class CarLibrary : BaseLibrary<CarConfig>
     {
