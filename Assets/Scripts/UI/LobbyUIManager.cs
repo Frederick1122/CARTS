@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Base;
 using UI.Windows.Lobby;
 using UI.Windows.MapSelection;
 using UI.Windows.Settings;
@@ -9,7 +7,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class LobbyUIManager : Singleton<LobbyUIManager>
+    public class LobbyUIManager : UIManager<LobbyUIManager>
     {
         public event Action OpenShopAction = delegate { };
         public event Action OpenSettingsAction = delegate { };
@@ -24,31 +22,18 @@ namespace UI
         [SerializeField] private MapSelectionWindowController _mapSelectionWindowController;
         [SerializeField] private SettingsWindowController _settingsWindowController;
 
-        private Dictionary<Type, IUiController> _controllers = new();
-
-        public IUiController ShowWindow(Type T, bool isHideOtherWindows = false)
+        protected override void AddControllers()
         {
-            if (isHideOtherWindows)
-                foreach (var controllerPair in _controllers)
-                    controllerPair.Value.Hide();
-
-            var controller = _controllers[T];
-            controller.Show();
-            return controller;
-        }
-        
-        public void Init()
-        {
-            _lobbyWindowController.Init();
-            _shopWindowController.Init();
-            _mapSelectionWindowController.Init();
-            _settingsWindowController.Init();
-            
             _controllers.Add(_lobbyWindowController.GetType(), _lobbyWindowController);
             _controllers.Add(_shopWindowController.GetType(), _shopWindowController);
             _controllers.Add(_mapSelectionWindowController.GetType(), _mapSelectionWindowController);
             _controllers.Add(_settingsWindowController.GetType(), _settingsWindowController);
-         
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
             _lobbyWindowController.OpenShopAction += RequestToOpenShop;
             _lobbyWindowController.OpenSettingsAction += RequestToOpenSettings;
             _lobbyWindowController.OpenMapSelectionAction += RequestToOpenMapSelection;
@@ -59,7 +44,6 @@ namespace UI
             
             _mapSelectionWindowController.OpenLobbyAction += RequestToOpenLobby;
             _mapSelectionWindowController.GoToGameAction += RequestToGoToGame;
-            HideAll();
         }
 
         private void OnDestroy()
@@ -72,14 +56,10 @@ namespace UI
             }
             
             if (_shopWindowController != null)
-            {
                 _shopWindowController.OpenLobbyAction -= RequestToOpenLobby;
-            }
             
             if (_settingsWindowController != null)
-            {
                 _settingsWindowController.OpenLobbyAction -= RequestToOpenLobby;
-            }
 
             if (_mapSelectionWindowController != null)
             {
@@ -88,37 +68,19 @@ namespace UI
             }
         }
         
-        private void HideAll()
-        {
-            _lobbyWindowController.Hide();
-            _shopWindowController.Hide();
-            _mapSelectionWindowController.Hide();
-            _settingsWindowController.Hide();
-        }
-        
-        private void RequestToOpenShop()
-        {
+        private void RequestToOpenShop() =>
             OpenShopAction?.Invoke();
-        }
         
-        private void RequestToOpenSettings()
-        {
+        private void RequestToOpenSettings() =>
             OpenSettingsAction?.Invoke();
-        }
         
-        private void RequestToOpenMapSelection()
-        {
+        private void RequestToOpenMapSelection() =>
             OpenMapSelectionAction?.Invoke();
-        }
-        
-        private void RequestToOpenLobby()
-        {
-            OpenLobbyAction?.Invoke();
-        }
 
-        private void RequestToGoToGame()
-        {
+        private void RequestToOpenLobby() => 
+            OpenLobbyAction?.Invoke();
+
+        private void RequestToGoToGame() => 
             GoToGameAction?.Invoke();
-        }
     }
 }

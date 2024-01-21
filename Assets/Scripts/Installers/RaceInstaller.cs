@@ -22,9 +22,9 @@ namespace Installers
         {
             var raceManager = Container.InstantiatePrefabForComponent<RaceManager>(_raceManagerPrefab);
             var uiPrefab = Container.InstantiatePrefab(_uiPrefab);
-            var lobbyUIManager = uiPrefab.GetComponentInChildren<LobbyUIManager>();
-            lobbyUIManager.Init();
-            Container.Bind<LobbyUIManager>().FromInstance(lobbyUIManager).AsSingle().NonLazy();
+            var raceUIManager = uiPrefab.GetComponentInChildren<RaceUIManager>();
+            raceUIManager.Init();
+            Container.Bind<RaceUIManager>().FromInstance(raceUIManager).AsSingle().NonLazy();
         
             var fsmManager =
                 Container.InstantiatePrefabForComponent<FsmManager>(_fsmManagerPrefab, _managersParent.transform);
