@@ -98,9 +98,6 @@ MonoBehaviour:
   - {fileID: 1097695070176201203}
   - {fileID: 3036546609100872877}
   - {fileID: 2932782576964458448}
-  _aiPrefabs:
-  - {fileID: 514799856355588813, guid: e711f6190ee54c840a39697069dcf1d5, type: 3}
-  - {fileID: 8999081230354745768, guid: 79d3a2bfe32006144bc766cf60903315, type: 3}
 --- !u!1 &6345588042304054018
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +544,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 344012457002454170, guid: 2dc0471e20e912845ac0587c6ac37e7f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 344012457002454170, guid: 2dc0471e20e912845ac0587c6ac37e7f,
         type: 3}
