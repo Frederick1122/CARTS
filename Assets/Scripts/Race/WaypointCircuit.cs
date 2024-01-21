@@ -11,8 +11,18 @@ public class WaypointCircuit : MonoBehaviour
     {
         get { return _waypointList.Items; }
     }
-    public float Length { get; private set; }
+    public float Length {
+        get
+        {
+            if (_lenght == 0) 
+                _lenght = _distances[^1];
 
+            return _lenght;
+        }
+        private set { }
+    }
+
+    private float _lenght;
     private int _numPoints;
     private Vector3[] _points;
     private float[] _distances;
@@ -51,9 +61,6 @@ public class WaypointCircuit : MonoBehaviour
     public Vector3 GetRoutePosition(float dist)
     {
         int point = 0;
-
-        if (Length == 0)
-            Length = _distances[_distances.Length - 1];
 
         dist = Mathf.Repeat(dist, Length);
 
