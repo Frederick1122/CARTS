@@ -208,9 +208,9 @@ namespace Cars.Controllers
 
         private void InitFromConfig(CarPresetConfig carPresetConfig)
         {
-            _movementMode = carPresetConfig.movementMode;
-            _groundCheck = carPresetConfig.groundCheck;
-            _drivableSurface = carPresetConfig.drivableSurface;
+            _movementMode = carPresetConfig.MovementMode;
+            _groundCheck = carPresetConfig.GroundCheck;
+            _drivableSurface = carPresetConfig.DrivableSurface;
         }
         
         private void InitFromCarPrefabData(CarPrefabData carData)

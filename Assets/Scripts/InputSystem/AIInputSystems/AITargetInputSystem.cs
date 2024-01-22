@@ -1,3 +1,4 @@
+using Cars;
 using Cars.Controllers;
 using ConfigScripts;
 using UnityEngine;
@@ -33,6 +34,11 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
             return;
 
         ReadInput();
+    }
+
+    public virtual void Init(CarPresetConfig presetConfig, CarPrefabData prefabData)
+    {
+        
     }
 
     public virtual void ReadInput()

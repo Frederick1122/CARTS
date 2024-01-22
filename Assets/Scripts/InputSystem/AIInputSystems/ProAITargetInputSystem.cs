@@ -1,22 +1,29 @@
 using System;
 using System.Collections.Generic;
+using Cars;
+using ConfigScripts;
 using UnityEngine;
 
 public class ProAITargetInputSystem : AITargetInputSystem
 {
-    [SerializeField] private Transform[] _rayPoses = new Transform[4];
-    [SerializeField] private LayerMask _obstacleLayers;
-    [SerializeField] private float _rayLength = 5;
-    [SerializeField, Range(0, 1)] private float _backKoef = 0.1f;
-
+    private Transform[] _rayPoses = new Transform[4];
+    private LayerMask _obstacleLayers;
+    private float _rayLength = 5;
+    private float _backRatio = 0.1f;
+    
     private RaycastHit _hitL1, _hitL2, _hitR2, _hitR1;
     private Ray _rayL1, _rayL2, _rayR2, _rayR1;
 
     private bool _needToRev = false;
 
-    protected override void Start()
+    public override void Init(CarPresetConfig presetConfig, CarPrefabData prefabData)
     {
-        base.Start();
+        base.Init(presetConfig, prefabData);
+        _obstacleLayers = presetConfig.ObstacleLayer;
+        _rayLength = presetConfig.RayLength;
+        _backRatio = presetConfig.BackRatio;
+
+        _rayPoses = prefabData.RayPoses;
     }
 
     public override void ReadInput()
@@ -25,7 +32,6 @@ public class ProAITargetInputSystem : AITargetInputSystem
 
         ReadRayInput();
     }
-
 
     private void ReadRayInput()
     {
@@ -91,7 +97,7 @@ public class ProAITargetInputSystem : AITargetInputSystem
 
     private float InterpolateRayDistance(float dist)
     {
-        if (dist <= _backKoef * _rayLength)
+        if (dist <= _backRatio * _rayLength)
         {
             _needToRev = true;
             return -1;

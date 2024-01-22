@@ -40,12 +40,16 @@ namespace Managers.Libraries
             return config;
         }
 
-        public T GetRandomConfig()
+        public T GetRandomConfig(string excludedKey = "")
         {
-            return _allConfigs.ElementAt(Random.Range(0, _allConfigs.Count)).Value;
+            if (!_allConfigs.ContainsKey(excludedKey))
+                return _allConfigs.ElementAt(Random.Range(0, _allConfigs.Count)).Value;
+
+            var allConfigsWithoutExcludedKey = _allConfigs.Where(p => p.Key != excludedKey).ToList();
+            return allConfigsWithoutExcludedKey.ElementAt(Random.Range(0, allConfigsWithoutExcludedKey.Count)).Value;
         }
 
-        public List<T> GetRandomsConfigs(int count, bool withoutDuplicate = false)
+        public List<T> GetRandomsConfigs(int count, bool withoutDuplicate = false, string excludedKey = "")
         {
             var randomConfigs = new List<T>();
             
@@ -54,8 +58,15 @@ namespace Managers.Libraries
                 if (_allConfigs.Count < count)
                 {
                     Debug.LogError($"{this} can't execute GetRandomConfig. all configs - {_allConfigs.Count}, need configs - {count}. Add new configs or change parameter 'without duplicates'");
-                }   
-                else if (_allConfigs.Count == count)
+                }
+                
+                var allConfigsWithoutExcludedKey = _allConfigs.Where(p => p.Key != excludedKey).ToList();
+                
+                if (allConfigsWithoutExcludedKey.Count < count)
+                {
+                    Debug.LogError($"{this} can't execute GetRandomConfig. all configs - {_allConfigs.Count}, need configs - {count}. Add new configs or change parameter 'without duplicates'");
+                }
+                if (allConfigsWithoutExcludedKey.Count == count)
                 {
                     randomConfigs.AddRange(_allConfigs.Values);
                 }
@@ -64,7 +75,7 @@ namespace Managers.Libraries
                     var allConfigCopy = _allConfigs;
                     while (randomConfigs.Count < count)
                     {
-                        var randomConfig = allConfigCopy.ElementAt(Random.Range(0, allConfigCopy.Count));
+                        var randomConfig = allConfigsWithoutExcludedKey.ElementAt(Random.Range(0, allConfigsWithoutExcludedKey.Count));
                         randomConfigs.Add(randomConfig.Value);
                         allConfigCopy.Remove(randomConfig.Key);
                     }

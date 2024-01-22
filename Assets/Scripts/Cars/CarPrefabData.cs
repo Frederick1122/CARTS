@@ -16,6 +16,9 @@ namespace Cars
         
         [field: Header("Camera")]
         [field: SerializeField] public CinemachineVirtualCamera Camera { get; private set; }
-
+        
+        [field: Header("Rays")]
+        
+        [field: SerializeField] public Transform[] RayPoses { get; private set; } = new Transform[4];
     }
 }
