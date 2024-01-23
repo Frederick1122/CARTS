@@ -8,19 +8,23 @@ namespace FreeRide
 {
     public class MapFabric : MonoBehaviour
     {
-        public int Result { get; private set; } = 0; 
+        public int Result { get; private set; } = 0;
 
         [SerializeField] private int _startCountOfPeieces = 2;
-        [SerializeField] private MapPiece[] _piecePrefabs = new MapPiece[2];
+        [SerializeField] private MapPiecesHolder _startPiece;
+        [SerializeField] private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
 
-        private PoolMono<MapPiece> _piecePool;
-        private MapPiece _lastPiece = null;
-        private static int _poolCount = 10;
+        private PoolMono<MapPiecesHolder> _piecePool;
+        private MapPiecesHolder _lastPiece = null;
+        private static int _poolCount = 6;
 
         public void Init()
         {
-            _piecePool = new PoolMono<MapPiece>(_piecePrefabs.ToList(), _poolCount);
-            for (int i = 0; i < _poolCount; i++)
+            _piecePool = new PoolMono<MapPiecesHolder>(_piecePrefabs.ToList(), _poolCount);
+            _lastPiece = _startPiece;
+            _startPiece.gameObject.SetActive(true);
+
+            for (int i = 0; i < _startCountOfPeieces; i++)
                 SpawnPiece();
         }
 
@@ -28,15 +32,16 @@ namespace FreeRide
         {
             var piece = _piecePool.GetObject();
             if (_lastPiece != null)
-                piece.ConnectToPoint(_lastPiece.GetPointForConnect());
-            piece.OnReach += WhenReachPiece;
+                piece.ConnectToPoint(_lastPiece.GetConnector());
+
+            piece.OnFinish += WhenReachPiece;
             _lastPiece = piece;
         }
 
-        private void WhenReachPiece(MapPiece piece)
+        private void WhenReachPiece(MapPiecesHolder piece)
         {
             Result++;
-            piece.OnReach -= WhenReachPiece;
+            piece.OnFinish -= WhenReachPiece;
             SpawnPiece();
         }
     }

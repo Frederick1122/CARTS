@@ -36,10 +36,7 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
         ReadInput();
     }
 
-    public virtual void Init(CarPresetConfig presetConfig, CarPrefabData prefabData)
-    {
-        
-    }
+    public virtual void Init(CarPresetConfig presetConfig, CarPrefabData prefabData) { }
 
     public virtual void ReadInput()
     {

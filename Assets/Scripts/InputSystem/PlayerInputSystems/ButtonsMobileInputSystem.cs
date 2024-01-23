@@ -16,6 +16,12 @@ public class ButtonsMobileInputSystem : MonoBehaviour, IInputSystem
     private float _brInp;
     private IButtonsInput _buttonController;
 
+    private void Start()
+    {
+        var controller = (RaceLoadoutController)RaceUIManager.Instance.ShowWindow(typeof(RaceLoadoutController));
+        Init(controller.GetButtons());
+    }
+
     public void Init(IButtonsInput buttonController)
     {
         _buttonController = buttonController;
@@ -26,12 +32,6 @@ public class ButtonsMobileInputSystem : MonoBehaviour, IInputSystem
         _buttonController.RightButton.OnUp += StopTurn;
         _buttonController.LeftButton.OnUp += StopTurn;
         _buttonController.BrakeButton.OnUp += StopBrake;
-    }
-
-    private void Start()
-    {
-        var controller = (RaceLoadoutController)RaceUIManager.Instance.ShowWindow(typeof(RaceLoadoutController));
-        Init(controller.GetButtons());
     }
 
     private void Update()

@@ -7,34 +7,29 @@ using UnityEngine;
 
 namespace FreeRide
 {
-    public class MapPiece : MonoBehaviour, IPoolObject
+    public class MapPiece : MonoBehaviour
     {
         public event Action<MapPiece> OnReach = delegate { };
-        public event Action<IPoolObject> OnObjectNeededToDeactivate = delegate { };
+        public event Action<MapPiece> OnGoToDestroy = delegate { };
 
-        [SerializeField] private float _timeToDestroySec = 5f;
-
-        [Header("Points")]
-        [SerializeField] private CustomSnapPoint _startPoint;
-        [SerializeField] private CustomSnapPoint _endPoint;
+        [field: Header("Points")]
+        [field: SerializeField] public CustomSnapPoint StartPoint { get; private set; }
+        [field: SerializeField] public CustomSnapPoint EndPoint { get; private set; }
 
         private CancellationToken _brakeToken = new();
+        private float _timeToDestroySec = 5f;
 
-        public CustomSnapPoint GetPointForConnect()
-        {
-            return _endPoint;
-        }
-
-        public void ConnectToPoint(CustomSnapPoint to)
-        {
-            int rndScale = UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1;
-            transform.localScale = new Vector3(1, 1, rndScale);
-            transform.position = to.transform.position;
-        }
+        public void Init(float destroyTime) =>
+            _timeToDestroySec = destroyTime;
 
         private void OnTriggerEnter(Collider other)
         {
             if(other.TryGetComponent(out CarController _))
+            {
+                OnReach?.Invoke(this);
+                DestroyTask(_brakeToken).Forget();
+            }
+            else if (other.transform.parent.TryGetComponent(out CarController _))
             {
                 OnReach?.Invoke(this);
                 DestroyTask(_brakeToken).Forget();
@@ -44,12 +39,12 @@ namespace FreeRide
         private async UniTaskVoid DestroyTask(CancellationToken cancToken)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(_timeToDestroySec), cancellationToken: cancToken);
+            gameObject.SetActive(false);
 
-            OnObjectNeededToDeactivate?.Invoke(this);
-            Destroy(gameObject);
+            OnGoToDestroy?.Invoke(this);
         }
 
-        public void ResetBeforeBackToPool() =>
-            transform.localScale = new Vector3(1, 1, 1);
+        public void ResetPiece() =>
+            gameObject.SetActive(true);
     }
 }

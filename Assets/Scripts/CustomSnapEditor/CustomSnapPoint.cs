@@ -5,8 +5,8 @@ namespace CustomSnapTool
 {
     public class CustomSnapPoint : MonoBehaviour
     {
-        [SerializeField] private float _dotRadius = 0.1f;
-        [field: SerializeField] public ConnectionType ConnectionType { get; } = ConnectionType.Default;
+        [SerializeField] private float _dotRadius = 0.5f;
+        [field: SerializeField] public ConnectionType ConnectionType { get; private set; } = ConnectionType.Default;
 
         public Dictionary<ConnectionType, Color> ConnectionColors { get; } = new()
         {

@@ -33,7 +33,11 @@ namespace ConfigScripts
                 switch (CarControllerType)
                 {
                     case CarControllerType.player:
+#if UNITY_STANDALONE_WIN
                         return typeof(KeyBoardInputSystem);
+#elif UNITY_ANDROID
+                        return typeof(ButtonsMobileInputSystem);
+#endif
                     case CarControllerType.baseBot:
                         return typeof(AITargetInputSystem);
                     case CarControllerType.proBot:

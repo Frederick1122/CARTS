@@ -13,10 +13,16 @@ namespace Base.Pool
         private Transform _objectsContainer;
         private List<T> _pool;
 
+        private Dictionary<T, int> _spawn;
+
         public PoolMono(T prefab, int count, bool autoExpand = true)
         {
             _prefabsList = new List<T>() { prefab };
             _autoExpand = autoExpand;
+
+            _spawn = new();
+            foreach (var item in _prefabsList)
+                _spawn.Add(item, 0);
 
             CreateContainer();
             CreatePool(count);
@@ -26,6 +32,10 @@ namespace Base.Pool
         {
             _prefabsList = prefabList;
             _autoExpand = autoExpand;
+
+            _spawn = new();
+            foreach (var item in _prefabsList)
+                _spawn.Add(item, 0);
 
             CreateContainer();
             CreatePool(count);
@@ -63,7 +73,21 @@ namespace Base.Pool
 
         private T GetRandomPrefab()
         {
-            return _prefabsList[Random.Range(0, _prefabsList.Count)];
+            T obj = _prefabsList[0];
+            int min = _spawn[obj];
+
+            foreach (var item in _spawn)
+            {
+                if (item.Value < min)
+                {
+                    obj = item.Key;
+                    min = item.Value;
+                }
+            }
+
+            _spawn[obj]++;
+
+            return obj;
         }
 
         public T GetObject()
@@ -84,7 +108,7 @@ namespace Base.Pool
         {
             if (_pool.Count != 0)
             {
-                element = _pool[0];
+                element = _pool[Random.Range(0, _pool.Count)];
                 element.gameObject.SetActive(true);
                 return true;
             }
