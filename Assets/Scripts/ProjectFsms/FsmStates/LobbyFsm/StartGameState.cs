@@ -6,7 +6,7 @@ namespace FsmStates.LobbyFsm
     public class StartGameState : FsmState
     {
         private const string GAME_SCENE = "Game";
-        
+
         public StartGameState(Fsm fsm) : base(fsm) { }
 
         public override void Enter()

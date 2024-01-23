@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Base;
+using System;
 using System.Collections.Generic;
-using Base;
 
 namespace Core.FSM
 {
     public class FsmManager : Singleton<FsmManager>
     {
         private Dictionary<Type, Fsm> _currentFsms = new Dictionary<Type, Fsm>();
-        
+
         public Fsm TryGetFsm<T>() where T : Fsm
         {
             AddNewFsm<Fsm>();
@@ -21,14 +21,14 @@ namespace Core.FSM
 
             var newFsm = new T();
             newFsm.Init();
-            _currentFsms.Add(typeof(T), newFsm); 
+            _currentFsms.Add(typeof(T), newFsm);
         }
 
         public void AddNewFsm(Fsm newFsm)
         {
-            if(_currentFsms.ContainsKey(newFsm.GetType()))
+            if (_currentFsms.ContainsKey(newFsm.GetType()))
                 return;
-            
+
             newFsm.Init();
             _currentFsms.Add(newFsm.GetType(), newFsm);
         }

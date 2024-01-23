@@ -2,7 +2,7 @@
 
 namespace FsmStates.RaceFsm
 {
-    public class StartRaceState: FsmState
+    public class StartRaceState : FsmState
     {
         private RaceManager _raceManager;
 

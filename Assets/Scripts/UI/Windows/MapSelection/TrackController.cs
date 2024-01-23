@@ -19,7 +19,7 @@ namespace UI.Windows.MapSelection
             _uiModel = uiModel;
             base.UpdateView(uiModel);
         }
-        
+
         protected override TrackModel GetViewData()
         {
             return _uiModel;
@@ -29,7 +29,7 @@ namespace UI.Windows.MapSelection
         {
             if (_view == null)
                 return;
-            
+
             _view.OnSelectTrackAction -= SelectTrack;
         }
 

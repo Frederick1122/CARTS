@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using Cinemachine;
 using ConfigScripts;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cars.Controllers
@@ -13,7 +13,7 @@ namespace Cars.Controllers
         private MovementMode _movementMode;
         private GroundCheck _groundCheck;
         private LayerMask _drivableSurface;
-        
+
         private Rigidbody _rbSphere;
         private Rigidbody _carBody;
 
@@ -22,7 +22,7 @@ namespace Cars.Controllers
         private Transform[] _rearWheels = new Transform[2];
 
         protected CinemachineVirtualCamera _camera;
-        
+
         public float SkidWidth { get; set; }
         public float DesiredTurning { get; protected set; }
         public Vector3 CarVelocity { get; protected set; }
@@ -35,7 +35,7 @@ namespace Cars.Controllers
         private Dictionary<Transform, Transform> _wheelsAxel = new();
         private SphereCollider _sphereCollider;
         private bool _isCarActive = false;
-    
+
         public void StartCar()
         {
             _inputSystem.IsActive = true;
@@ -57,7 +57,7 @@ namespace Cars.Controllers
 
             InitFromConfig(carPresetConfig);
             InitFromCarPrefabData(GetComponent<CarPrefabData>());
-            
+
             _sphereCollider = _rbSphere.GetComponent<SphereCollider>();
             _radius = _sphereCollider.radius;
 
@@ -74,7 +74,7 @@ namespace Cars.Controllers
         {
             if (!_isCarActive)
                 return;
-        
+
             Visual();
             CalculateDesiredAngle();
         }
@@ -96,7 +96,7 @@ namespace Cars.Controllers
             if (Mathf.Abs(CarVelocity.x) > 0)
                 Config.frictionMaterial.dynamicFriction = Config.frictionCurve.Evaluate(Mathf.Abs(CarVelocity.x / 100));
 
-            if(CheckIfGrounded())
+            if (CheckIfGrounded())
             {
                 //turnlogic
                 float sign = Mathf.Sign(CarVelocity.z);
@@ -107,7 +107,7 @@ namespace Cars.Controllers
                     _carBody.AddTorque(Vector3.up * horizontalInput * sign * Config.turnLevels[0] * 100 * turnMultiplyer);
                 else if (verticalInput < -0.1f || CarVelocity.z < -1)
                     _carBody.AddTorque(Vector3.up * horizontalInput * sign * Config.turnLevels[0] * 100 * turnMultiplyer);
-            
+
 
                 //brakelogic
                 if (brakeInput > 0.1f)
@@ -134,12 +134,12 @@ namespace Cars.Controllers
                         }
                         break;
                 }
-            
+
                 // down froce
                 _rbSphere.AddForce(-transform.up * Config.downforce * _rbSphere.mass);
 
                 //body tilt
-                _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation, 
+                _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation,
                     Quaternion.FromToRotation(_carBody.transform.up, _hit.normal) * _carBody.transform.rotation, 0.12f));
             }
             else
@@ -152,10 +152,10 @@ namespace Cars.Controllers
                     _carBody.AddTorque(Vector3.up * horizontalInput * Config.turnLevels[0] * 100 * TurnMultiplyer);
                 }
 
-                _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation, 
+                _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation,
                     Quaternion.FromToRotation(_carBody.transform.up, Vector3.up) * _carBody.transform.rotation, 0.02f));
 
-                _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity, 
+                _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity,
                     _rbSphere.velocity + Vector3.down * Config.gravity, Time.deltaTime * Config.gravity);
             }
 
@@ -212,7 +212,7 @@ namespace Cars.Controllers
             _groundCheck = carPresetConfig.GroundCheck;
             _drivableSurface = carPresetConfig.DrivableSurface;
         }
-        
+
         private void InitFromCarPrefabData(CarPrefabData carData)
         {
             _rbSphere = carData.RbSphere;
@@ -252,15 +252,15 @@ namespace Cars.Controllers
 #endif
     }
 
-    public enum GroundCheck 
-    { 
-        rayCast, 
-        sphereCaste 
+    public enum GroundCheck
+    {
+        rayCast,
+        sphereCaste
     };
 
-    public enum MovementMode 
-    { 
-        Velocity, 
-        AngularVelocity 
+    public enum MovementMode
+    {
+        Velocity,
+        AngularVelocity
     };
 }

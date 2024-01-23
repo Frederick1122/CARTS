@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Cars;
 using ConfigScripts;
 using UnityEngine;
@@ -10,7 +8,7 @@ public class ProAITargetInputSystem : AITargetInputSystem
     private LayerMask _obstacleLayers;
     private float _rayLength = 5;
     private float _backRatio = 0.1f;
-    
+
     private RaycastHit _hitL1, _hitL2, _hitR2, _hitR1;
     private Ray _rayL1, _rayL2, _rayR2, _rayR1;
 
@@ -71,7 +69,7 @@ public class ProAITargetInputSystem : AITargetInputSystem
         _rayR1 = new(_rayPoses[3].position, _rayPoses[3].forward * _rayLength);
         if (Physics.Raycast(_rayR1, out _hitR1, _rayLength, _obstacleLayers))
         {
-            if (mindist >= _hitR1.distance )
+            if (mindist >= _hitR1.distance)
             {
                 horInpAfter = -1;
                 mindist = _hitR1.distance;

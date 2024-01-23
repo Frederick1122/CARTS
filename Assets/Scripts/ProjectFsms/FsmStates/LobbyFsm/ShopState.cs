@@ -13,12 +13,12 @@ namespace FsmStates.LobbyFsm
             _lobbyUIManager = lobbyUIManager;
             _lobbyUIManager.OpenLobbyAction += OpenLobby;
         }
-        
+
         ~ShopState()
         {
             if (_lobbyUIManager == null)
                 return;
-            
+
             _lobbyUIManager.OpenLobbyAction -= OpenLobby;
         }
 
@@ -27,7 +27,7 @@ namespace FsmStates.LobbyFsm
             base.Enter();
             LobbyUIManager.Instance.ShowWindow(typeof(ShopWindowController), true);
         }
-        
+
         private void OpenLobby()
         {
             _fsm.SetState<LobbyState>();

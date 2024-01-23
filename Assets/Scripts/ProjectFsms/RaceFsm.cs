@@ -6,7 +6,7 @@ namespace ProjectFsms
     public class RaceFsm : Fsm
     {
         private RaceManager _raceManager;
-        
+
         public RaceFsm(RaceManager raceManager)
         {
             _raceManager = raceManager;

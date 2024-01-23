@@ -1,9 +1,9 @@
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Text;
-using Newtonsoft.Json;
 using UnityEngine;
- 
+
 public class DataSaver
 {
     //Save Data
@@ -11,19 +11,19 @@ public class DataSaver
     {
         string tempPath = Path.Combine(Application.persistentDataPath, "data");
         tempPath = Path.Combine(tempPath, dataFileName + ".txt");
- 
+
         //Convert To Json then to bytes
-        
+
         string jsonData = JsonConvert.SerializeObject(dataToSave);
         byte[] jsonByte = Encoding.ASCII.GetBytes(jsonData);
- 
+
         //Create Directory if it does not exist
         if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
         {
             Directory.CreateDirectory(Path.GetDirectoryName(tempPath));
         }
         //Debug.Log(path);
- 
+
         try
         {
             File.WriteAllBytes(tempPath, jsonByte);
@@ -35,20 +35,20 @@ public class DataSaver
             Debug.LogWarning("Error: " + e.Message);
         }
     }
- 
+
     //Load Data
     public static T LoadData<T>(string dataFileName)
     {
         string tempPath = Path.Combine(Application.persistentDataPath, "data");
         tempPath = Path.Combine(tempPath, dataFileName + ".txt");
- 
+
         //Exit if Directory or File does not exist
         if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
         {
             Debug.LogWarning("Directory does not exist");
             return default(T);
         }
- 
+
         if (!File.Exists(tempPath))
         {
             T newData = default;
@@ -56,7 +56,7 @@ public class DataSaver
             Debug.Log("File does not exist");
             return newData;
         }
- 
+
         //Load saved Json
         byte[] jsonByte = null;
         try
@@ -69,36 +69,36 @@ public class DataSaver
             Debug.LogWarning("Failed To Load Data from: " + tempPath.Replace("/", "\\"));
             Debug.LogWarning("Error: " + e.Message);
         }
- 
+
         //Convert to json string
         string jsonData = Encoding.ASCII.GetString(jsonByte);
- 
+
         //Convert to Object
         object resultValue = JsonConvert.DeserializeObject<T>(jsonData);// JsonUtility.FromJson<T>(jsonData);
         return (T)Convert.ChangeType(resultValue, typeof(T));
     }
- 
+
     public static bool DeleteData(string dataFileName)
     {
         bool success = false;
- 
+
         //Load Data
         string tempPath = Path.Combine(Application.persistentDataPath, "data");
         tempPath = Path.Combine(tempPath, dataFileName + ".txt");
- 
+
         //Exit if Directory or File does not exist
         if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
         {
             Debug.LogWarning("Directory does not exist");
             return false;
         }
- 
+
         if (!File.Exists(tempPath))
         {
             Debug.Log("File does not exist");
             return false;
         }
- 
+
         try
         {
             File.Delete(tempPath);
@@ -109,7 +109,7 @@ public class DataSaver
         {
             Debug.LogWarning("Failed To Delete Data: " + e.Message);
         }
- 
+
         return success;
     }
 }

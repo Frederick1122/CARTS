@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 namespace UI.Windows.Settings
 {
-    public class SettingsWindowView: UIView<SettingsWindowModel>
+    public class SettingsWindowView : UIView<SettingsWindowModel>
     {
         public event Action OpenLobbyAction;
-        
+
         [SerializeField] private Button _openLobbyButton;
-        
+
         public override void Init(SettingsWindowModel uiModel)
         {
             base.Init(uiModel);
@@ -24,6 +24,6 @@ namespace UI.Windows.Settings
 
     public class SettingsWindowModel : UIModel
     {
-        
+
     }
 }

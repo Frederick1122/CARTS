@@ -1,6 +1,5 @@
-﻿using System;
-using Managers;
-using Managers.Libraries;
+﻿using Managers.Libraries;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,10 +31,10 @@ namespace UI.Windows.Shop
         {
             _selectButton?.onClick.RemoveListener(SelectCar);
         }
-        
+
         private void SelectCar()
         {
-            OnSelectCarAction?.Invoke();;
+            OnSelectCarAction?.Invoke(); ;
         }
     }
 
@@ -43,9 +42,9 @@ namespace UI.Windows.Shop
     {
         public bool isSelectedCar = false;
         public string configKey = "";
-        
-        public ShopCarModel() {}
-        
+
+        public ShopCarModel() { }
+
         public ShopCarModel(string configKey, bool isSelectedCar)
         {
             this.configKey = configKey;

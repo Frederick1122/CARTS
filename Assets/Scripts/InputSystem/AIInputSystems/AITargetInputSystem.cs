@@ -45,7 +45,7 @@ public class AITargetInputSystem : MonoBehaviour, IInputSystem
         var dirToMovePosition = (_target.position - transform.position).normalized;
         var dot = Vector3.Dot(transform.forward, dirToMovePosition);
         var angleToMove = Vector3.Angle(transform.forward, dirToMovePosition);
-        
+
         if (angleToMove > brakeAngle)
             _brInp = _controller.CarVelocity.z > 15 ? 1 : 0;
         else

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Managers;
+using Managers.Libraries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Managers;
-using Managers.Libraries;
 using UI.Elements;
 using UnityEngine;
 
@@ -28,7 +28,7 @@ namespace UI.Windows.Shop
         {
             UpdateAllShopCars();
         }
-        
+
         protected override ShopWindowModel GetViewData()
         {
             return new ShopWindowModel();
@@ -38,13 +38,13 @@ namespace UI.Windows.Shop
         {
             if (_view != null)
                 _view.OpenLobbyAction -= OpenLobby;
-            
-            
+
+
             if (_shopCarCustomScroll != null)
                 _shopCarCustomScroll.OnSelectCarAction -= SelectedNewCar;
         }
 
-        
+
         private void OpenLobby()
         {
             OpenLobbyAction?.Invoke();
@@ -56,25 +56,25 @@ namespace UI.Windows.Shop
 
             if (uiModel.configKey == currentCarConfig.configName)
                 return;
-            
+
             PlayerManager.Instance.AddPurchasedCar(uiModel.configKey);
             PlayerManager.Instance.SetCurrentCar(uiModel.configKey);
             UpdateAllShopCars();
         }
-        
+
         private void InitAllShopCars()
         {
             var carConfigs = CarLibrary.Instance.GetAllConfigs().Values.ToList();
             var currentCar = PlayerManager.Instance.GetCurrentCar();
             foreach (var carConfig in carConfigs)
             {
-                if(carConfig.isOnlyForAi)
+                if (carConfig.isOnlyForAi)
                     continue;
-                
+
                 var isSelectedCar = carConfig.configKey == currentCar.configKey;
                 _carModels.Add(new ShopCarModel(carConfig.configKey, isSelectedCar));
             }
-            
+
             _shopCarCustomScroll.AddRange(_carModels);
         }
 
@@ -84,7 +84,7 @@ namespace UI.Windows.Shop
 
             foreach (var carModel in _carModels)
                 carModel.isSelectedCar = carModel.configKey == currentCarConfig.configKey;
-            
+
             _shopCarCustomScroll.HideAll();
             _shopCarCustomScroll.AddRange(_carModels);
         }

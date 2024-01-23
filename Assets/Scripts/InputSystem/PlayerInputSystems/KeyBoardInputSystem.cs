@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyBoardInputSystem : MonoBehaviour, IInputSystem
@@ -14,7 +12,7 @@ public class KeyBoardInputSystem : MonoBehaviour, IInputSystem
     public float VerticalInput => _vertInp;
     public float HorizontalInput => _horInp;
     public float BrakeInput => _brInp;
-    
+
     private float _vertInp;
     private float _horInp;
     private float _brInp;

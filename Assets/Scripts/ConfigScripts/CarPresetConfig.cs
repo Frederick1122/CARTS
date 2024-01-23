@@ -1,5 +1,5 @@
-﻿using System;
-using Cars.Controllers;
+﻿using Cars.Controllers;
+using System;
 using UnityEngine;
 
 namespace ConfigScripts
@@ -8,7 +8,8 @@ namespace ConfigScripts
     public class CarPresetConfig : BaseConfig
     {
         public CarControllerType CarControllerType;
-        [HideInInspector] public Type CarController
+        [HideInInspector]
+        public Type CarController
         {
             get
             {
@@ -26,7 +27,8 @@ namespace ConfigScripts
             private set { }
         }
 
-        [HideInInspector] public Type InputSystem 
+        [HideInInspector]
+        public Type InputSystem
         {
             get
             {
@@ -48,11 +50,11 @@ namespace ConfigScripts
             }
             private set { }
         }
-        
+
         [Header("Movement Type")]
         public MovementMode MovementMode;
         public GroundCheck GroundCheck;
-        
+
         [Header("Layer Masks")]
         public LayerMask DrivableSurface;
         public LayerMask ObstacleLayer;

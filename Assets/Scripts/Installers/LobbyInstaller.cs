@@ -12,10 +12,14 @@ namespace Installers
     {
         [SerializeField] private GameObject _managersParent;
 
-        [Space(7)] [Header("Managers")] [SerializeField]
+        [Space(7)]
+        [Header("Managers")]
+        [SerializeField]
         private FsmManager _fsmManagerPrefab;
 
-        [Space(7)] [Header("Prefabs")] [SerializeField]
+        [Space(7)]
+        [Header("Prefabs")]
+        [SerializeField]
         private GameObject _uiPrefab;
 
         public override void InstallBindings()

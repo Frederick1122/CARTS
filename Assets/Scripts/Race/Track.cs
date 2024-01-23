@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Cars;
+﻿using Cars;
 using ConfigScripts;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Race
@@ -9,7 +9,7 @@ namespace Race
     {
         [SerializeField] private int _playerPlace = -1;
         [SerializeField] private List<StartRacePlace> _carPlaces = new(4);
-        
+
         public SpawnData SpawnPlayer(CarPrefabData playerPrefab)
         {
             var playerPlace = _playerPlace == -1 ? _carPlaces[^1] : _carPlaces[_playerPlace];
@@ -24,12 +24,12 @@ namespace Race
             var enemiesSpawnDatas = new List<SpawnData>();
             for (int i = 0; i < _carPlaces.Count - 1; i++)
             {
-                if(skipPlace == i)
+                if (skipPlace == i)
                     continue;
-    
+
                 var enemy = Instantiate(enemyConfigs[i].prefab, _carPlaces[i].transform);
                 enemy.transform.rotation = Quaternion.identity;
-    
+
                 enemiesSpawnDatas.Add(new SpawnData(enemy, _carPlaces[i].GetWaypointCircuit()));
             }
 
@@ -46,8 +46,8 @@ namespace Race
     {
         public CarPrefabData car;
         public WaypointCircuit circuit;
-        
-        public SpawnData () {}
+
+        public SpawnData() { }
 
         public SpawnData(CarPrefabData car, WaypointCircuit circuit)
         {

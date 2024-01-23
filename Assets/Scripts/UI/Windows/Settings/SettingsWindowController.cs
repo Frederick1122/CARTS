@@ -16,15 +16,15 @@ namespace UI.Windows.Settings
         {
             if (_view == null)
                 return;
-            
+
             _view.OpenLobbyAction -= OpenLobby;
         }
-        
+
         protected override SettingsWindowModel GetViewData()
         {
             return new SettingsWindowModel();
         }
-        
+
         private void OpenLobby()
         {
             OpenLobbyAction?.Invoke();

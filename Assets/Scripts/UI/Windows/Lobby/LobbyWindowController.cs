@@ -1,7 +1,4 @@
 ﻿using System;
-using Core.FSM;
-using ProjectFsms;
-using UnityEngine;
 
 namespace UI.Windows.Lobby
 {
@@ -10,7 +7,7 @@ namespace UI.Windows.Lobby
         public event Action OpenShopAction;
         public event Action OpenSettingsAction;
         public event Action OpenMapSelectionAction;
-        
+
         public override void Init()
         {
             _view.OpenShopAction += OpenShop;
@@ -23,7 +20,7 @@ namespace UI.Windows.Lobby
         {
             if (_view == null)
                 return;
-            
+
             _view.OpenShopAction -= OpenShop;
             _view.OpenSettingsAction -= OpenSettings;
             _view.OpenMapSelectionAction -= OpenMapSelection;
@@ -38,12 +35,12 @@ namespace UI.Windows.Lobby
         {
             OpenShopAction?.Invoke();
         }
-        
+
         private void OpenSettings()
         {
             OpenSettingsAction?.Invoke();
         }
-        
+
         private void OpenMapSelection()
         {
             OpenMapSelectionAction?.Invoke();

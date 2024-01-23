@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Elements
 {
-    public abstract class CustomScroll<T, T2, T3> : MonoBehaviour where T : UIController<T2, T3> where T2 : UIView<T3>, new() where T3 : UIModel 
+    public abstract class CustomScroll<T, T2, T3> : MonoBehaviour where T : UIController<T2, T3> where T2 : UIView<T3>, new() where T3 : UIModel
     {
         [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private T _uiControllerPrefab;
@@ -15,7 +14,7 @@ namespace UI.Elements
 
         public void HideAll()
         {
-            foreach (var controller in _activeControllers) 
+            foreach (var controller in _activeControllers)
                 controller.Hide();
 
             _hidingControllers.AddRange(_activeControllers);
@@ -35,7 +34,7 @@ namespace UI.Elements
                 controller = CreateElement();
                 controller.Init();
             }
-        
+
             controller.Show();
             controller.UpdateView(uiModel);
             _activeControllers.Add(controller);
@@ -43,7 +42,7 @@ namespace UI.Elements
 
         public void AddRange(List<T3> uiModels)
         {
-            foreach (var uiModel in uiModels) 
+            foreach (var uiModel in uiModels)
                 AddElement(uiModel);
         }
 

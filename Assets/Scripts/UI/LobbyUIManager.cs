@@ -12,7 +12,7 @@ namespace UI
         public event Action OpenShopAction = delegate { };
         public event Action OpenSettingsAction = delegate { };
         public event Action OpenMapSelectionAction = delegate { };
-        
+
         public event Action OpenLobbyAction = delegate { };
         public event Action GoToGameAction = delegate { };
 
@@ -39,9 +39,9 @@ namespace UI
             _lobbyWindowController.OpenMapSelectionAction += RequestToOpenMapSelection;
 
             _shopWindowController.OpenLobbyAction += RequestToOpenLobby;
-            
+
             _settingsWindowController.OpenLobbyAction += RequestToOpenLobby;
-            
+
             _mapSelectionWindowController.OpenLobbyAction += RequestToOpenLobby;
             _mapSelectionWindowController.GoToGameAction += RequestToGoToGame;
         }
@@ -54,10 +54,10 @@ namespace UI
                 _lobbyWindowController.OpenSettingsAction -= RequestToOpenSettings;
                 _lobbyWindowController.OpenMapSelectionAction -= RequestToOpenMapSelection;
             }
-            
+
             if (_shopWindowController != null)
                 _shopWindowController.OpenLobbyAction -= RequestToOpenLobby;
-            
+
             if (_settingsWindowController != null)
                 _settingsWindowController.OpenLobbyAction -= RequestToOpenLobby;
 
@@ -67,20 +67,20 @@ namespace UI
                 _mapSelectionWindowController.GoToGameAction -= RequestToGoToGame;
             }
         }
-        
+
         private void RequestToOpenShop() =>
             OpenShopAction?.Invoke();
-        
+
         private void RequestToOpenSettings() =>
             OpenSettingsAction?.Invoke();
-        
+
         private void RequestToOpenMapSelection() =>
             OpenMapSelectionAction?.Invoke();
 
-        private void RequestToOpenLobby() => 
+        private void RequestToOpenLobby() =>
             OpenLobbyAction?.Invoke();
 
-        private void RequestToGoToGame() => 
+        private void RequestToGoToGame() =>
             GoToGameAction?.Invoke();
     }
 }

@@ -1,6 +1,5 @@
-﻿using System;
-using Managers;
-using Managers.Libraries;
+﻿using Managers.Libraries;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +13,7 @@ namespace UI.Windows.MapSelection
         [SerializeField] private Button _selectButton;
         [SerializeField] private TMP_Text _trackNameText;
         [SerializeField] private TMP_Text _selectedTrackText;
-        
+
         public override void Init(TrackModel uiModel)
         {
             base.Init(uiModel);
@@ -32,10 +31,10 @@ namespace UI.Windows.MapSelection
         {
             _selectButton?.onClick.RemoveListener(SelectTrack);
         }
-        
+
         private void SelectTrack()
         {
-            OnSelectTrackAction?.Invoke();;
+            OnSelectTrackAction?.Invoke(); ;
         }
     }
 
@@ -43,9 +42,9 @@ namespace UI.Windows.MapSelection
     {
         public bool isSelectedCar = false;
         public string configKey = "";
-        
-        public TrackModel() {}
-        
+
+        public TrackModel() { }
+
         public TrackModel(string configKey, bool isSelectedCar)
         {
             this.configKey = configKey;

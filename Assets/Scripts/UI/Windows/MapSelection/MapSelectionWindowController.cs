@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Installers;
+using Managers.Libraries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Installers;
-using Managers;
-using Managers.Libraries;
 using UI.Elements;
 using UnityEngine;
 using Zenject;
@@ -26,7 +25,7 @@ namespace UI.Windows.MapSelection
             _view.OpenLobbyAction += OpenLobby;
             _view.GoToGameAction += GoToGame;
             _trackCustomScroll.OnSelectTrackAction += SelectedNewTrack;
-            
+
             InitAllTracks();
             base.Init();
         }
@@ -40,7 +39,7 @@ namespace UI.Windows.MapSelection
         {
             return new MapSelectionWindowModel();
         }
-        
+
         private void OnDestroy()
         {
             if (_view != null)
@@ -52,7 +51,7 @@ namespace UI.Windows.MapSelection
             if (_trackCustomScroll != null)
                 _trackCustomScroll.OnSelectTrackAction -= SelectedNewTrack;
         }
-        
+
         private void OpenLobby()
         {
             OpenLobbyAction?.Invoke();
@@ -62,7 +61,7 @@ namespace UI.Windows.MapSelection
         {
             GoToGameAction?.Invoke();
         }
-        
+
         private void SelectedNewTrack(TrackModel uiModel)
         {
             if (_currentTrackModel.configKey == uiModel.configKey)
@@ -72,7 +71,7 @@ namespace UI.Windows.MapSelection
             _currentTrackModel = uiModel;
             UpdateAllTracks();
         }
-        
+
         private void InitAllTracks()
         {
             var trackConfigs = TrackLibrary.Instance.GetAllConfigs().Values.ToList();
@@ -81,11 +80,11 @@ namespace UI.Windows.MapSelection
             {
                 var isSelectedTrack = trackConfig.configKey == currentTrackConfigKey;
                 _trackModels.Add(new TrackModel(trackConfig.configKey, isSelectedTrack));
-                
+
                 if (isSelectedTrack)
                     _currentTrackModel = _trackModels[^1];
             }
-            
+
             _trackCustomScroll.AddRange(_trackModels);
         }
 
@@ -93,7 +92,7 @@ namespace UI.Windows.MapSelection
         {
             foreach (var carModel in _trackModels)
                 carModel.isSelectedCar = carModel.configKey == _currentTrackModel.configKey;
-            
+
             _trackCustomScroll.HideAll();
             _trackCustomScroll.AddRange(_trackModels);
         }

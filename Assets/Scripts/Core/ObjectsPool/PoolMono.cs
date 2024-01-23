@@ -13,7 +13,7 @@ namespace Base.Pool
         private Transform _objectsContainer;
         private List<T> _pool;
 
-        private Dictionary<T, int> _spawn;
+        private readonly Dictionary<T, int> _spawn;
 
         public PoolMono(T prefab, int count, bool autoExpand = true)
         {

@@ -11,10 +11,11 @@ public class WaypointCircuit : MonoBehaviour
     {
         get { return _waypointList.Items; }
     }
-    public float Length {
+    public float Length
+    {
         get
         {
-            if (_lenght == 0) 
+            if (_lenght == 0)
                 _lenght = _distances[^1];
 
             return _lenght;

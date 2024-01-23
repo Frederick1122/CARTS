@@ -18,7 +18,7 @@ namespace FsmStates.LobbyFsm
         {
             if (_lobbyUIManager == null)
                 return;
-            
+
             _lobbyUIManager.OpenLobbyAction -= OpenLobby;
         }
 
@@ -27,7 +27,7 @@ namespace FsmStates.LobbyFsm
             base.Enter();
             LobbyUIManager.Instance.ShowWindow(typeof(SettingsWindowController), true);
         }
-        
+
         private void OpenLobby()
         {
             _fsm.SetState<LobbyState>();

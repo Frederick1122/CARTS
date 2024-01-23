@@ -1,5 +1,4 @@
-﻿using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Base
 {
@@ -7,7 +6,7 @@ namespace Base
     {
         protected string _secondPath = "";
         private string _fullPath = "";
-        
+
         protected T _saveData;
 
         protected override void Awake()
@@ -17,13 +16,13 @@ namespace Base
         }
 
         protected virtual void OnApplicationQuit() => Save();
-        
+
         protected virtual void OnApplicationPause(bool pauseStatus)
         {
-            if(pauseStatus)
+            if (pauseStatus)
                 Save();
         }
-        
+
         protected virtual void Load()
         {
             UpdatePath();

@@ -1,8 +1,8 @@
-using Managers.Libraries;
-using Managers;
-using UnityEngine;
 using Cars.Controllers;
 using FreeRide;
+using Managers;
+using Managers.Libraries;
+using UnityEngine;
 
 public class FreeRideManager : RaceManager
 {
@@ -33,7 +33,7 @@ public class FreeRideManager : RaceManager
         var playerPreset = PresetLibrary.Instance.GetConfig(PLAYER_PRESET_NAME);
         var playerPrefab = playerConfig.prefab;
         var player = Instantiate(playerPrefab, _startPosition);
-        _player = (CarController) player.gameObject.AddComponent(playerPreset.CarController);
+        _player = (CarController)player.gameObject.AddComponent(playerPreset.CarController);
 
         var playerInputSystem = (IInputSystem)_player.gameObject.AddComponent(playerPreset.InputSystem);
         playerInputSystem.Init(playerPreset, playerPrefab);
@@ -41,5 +41,5 @@ public class FreeRideManager : RaceManager
         _player.Init(playerInputSystem, playerConfig, playerPreset);
     }
 
-    
+
 }

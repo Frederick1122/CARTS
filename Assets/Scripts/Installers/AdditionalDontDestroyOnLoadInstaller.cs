@@ -9,7 +9,7 @@ namespace Installers
 
         public override void InstallBindings()
         {
-            foreach (var gameObjectToInstall in _gameObjects) 
+            foreach (var gameObjectToInstall in _gameObjects)
                 DontDestroyOnLoad(Instantiate(gameObjectToInstall));
         }
     }

@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using Cars.Controllers;
 using Installers;
 using Managers;
 using Managers.Libraries;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -47,16 +47,16 @@ namespace Race
             var playerPreset = PresetLibrary.Instance.GetConfig(PLAYER_PRESET_NAME);
             var playerPrefab = playerConfig.prefab;
             var spawnPlayerData = _currentTrack.SpawnPlayer(playerPrefab);
-            _player = (CarController) spawnPlayerData.car.gameObject.AddComponent(playerPreset.CarController);
+            _player = (CarController)spawnPlayerData.car.gameObject.AddComponent(playerPreset.CarController);
 
-            var playerInputSystem = (IInputSystem) _player.gameObject.AddComponent(playerPreset.InputSystem);
+            var playerInputSystem = (IInputSystem)_player.gameObject.AddComponent(playerPreset.InputSystem);
             playerInputSystem.Init(playerPreset, playerPrefab);
-            
+
             var waypointTracker =
                 _player.gameObject.AddComponent<WaypointProgressTracker>();
             waypointTracker.Circuit = spawnPlayerData.circuit;
             waypointTracker.OnLapEndAction += () => UpdateLapStats(0);
-            
+
             waypointTracker.Init(_player, playerInputSystem);
             _player.Init(playerInputSystem, playerConfig, playerPreset, waypointTracker);
         }
@@ -70,9 +70,9 @@ namespace Race
             for (var i = 0; i < spawnEnemyDatas.Count; i++)
             {
                 var enemyPreset = PresetLibrary.Instance.GetRandomConfig(PLAYER_PRESET_NAME);
-                _enemies.Add((CarController) spawnEnemyDatas[i].car.gameObject.AddComponent(enemyPreset.CarController));
+                _enemies.Add((CarController)spawnEnemyDatas[i].car.gameObject.AddComponent(enemyPreset.CarController));
 
-                var aiInputSystem = (IInputSystem) _enemies[i].gameObject.AddComponent(enemyPreset.InputSystem);
+                var aiInputSystem = (IInputSystem)_enemies[i].gameObject.AddComponent(enemyPreset.InputSystem);
                 aiInputSystem.Init(enemyPreset, spawnEnemyDatas[i].car);
 
                 var waypointTracker = _enemies[i].gameObject.AddComponent<WaypointProgressTracker>();

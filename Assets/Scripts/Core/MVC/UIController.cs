@@ -28,17 +28,17 @@ public abstract class UIController<T, T2> : MonoBehaviour, IUiController where T
     {
         _view.UpdateView(uiModel);
     }
-    
+
     protected abstract T2 GetViewData();
 }
 
 public interface IUiController
 {
-    public void Show() {}
+    public void Show() { }
 
-    public virtual void Hide() {}
+    public virtual void Hide() { }
 
-    public virtual void Init() {}
+    public virtual void Init() { }
 
-    public virtual void UpdateView() {}
+    public virtual void UpdateView() { }
 }

@@ -9,7 +9,7 @@ namespace UI.Windows.Lobby
         public event Action OpenShopAction;
         public event Action OpenSettingsAction;
         public event Action OpenMapSelectionAction;
-        
+
         [SerializeField] private Button _openShopButton;
         [SerializeField] private Button _openSettingsButton;
         [SerializeField] private Button _openMapSelectionButton;
@@ -32,6 +32,6 @@ namespace UI.Windows.Lobby
 
     public class LobbyWindowModel : UIModel
     {
-        
+
     }
 }

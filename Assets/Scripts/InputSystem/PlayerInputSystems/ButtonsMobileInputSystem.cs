@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UI.Windows.RaceLoadOut;
 using UnityEngine;
@@ -69,7 +67,7 @@ public class ButtonsMobileInputSystem : MonoBehaviour, IInputSystem
         _horInp = -1;
 
     public void StopTurn() =>
-        _horInp = 0;    
+        _horInp = 0;
 
     public void Brake() =>
         _vertInp = -1;

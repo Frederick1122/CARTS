@@ -24,7 +24,7 @@ namespace FreeRide
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.TryGetComponent(out CarController _))
+            if (other.TryGetComponent(out CarController _))
             {
                 OnReach?.Invoke(this);
                 DestroyTask(_brakeToken).Forget();

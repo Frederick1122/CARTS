@@ -11,8 +11,8 @@ namespace UI.Elements
         {
             var isNewController = _hidingControllers.Count == 0;
             base.AddElement(uiModel);
-            
-            if(isNewController)
+
+            if (isNewController)
                 _activeControllers[^1].OnSelectTrackAction += SelectTrack;
         }
 
@@ -25,7 +25,7 @@ namespace UI.Elements
 
                 activeController.OnSelectTrackAction -= SelectTrack;
             }
-            
+
             foreach (var hidingController in _hidingControllers)
             {
                 if (hidingController == null)

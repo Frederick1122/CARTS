@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Base;
+﻿using Base;
 using ConfigScripts;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Managers.Libraries
@@ -10,7 +10,7 @@ namespace Managers.Libraries
     {
         protected string _path = "";
         protected Dictionary<string, T> _allConfigs = new();
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -19,13 +19,13 @@ namespace Managers.Libraries
 
             foreach (var config in allConfigs)
             {
-                var castConfig = (T) config;
+                var castConfig = (T)config;
                 if (_allConfigs.ContainsKey(castConfig.configKey))
                 {
                     Debug.LogAssertion($"{castConfig.configKey} is duplicated. Check {castConfig.name} and {_allConfigs[castConfig.configKey].name}");
                     return;
-                }    
-                
+                }
+
                 _allConfigs.Add(castConfig.configKey, castConfig);
             }
         }
@@ -34,7 +34,7 @@ namespace Managers.Libraries
         {
             var config = _allConfigs[configKey];
 
-            if (config == null) 
+            if (config == null)
                 Debug.LogAssertion($"CarLibrary not founded config with this key: {configKey}");
 
             return config;
@@ -52,16 +52,16 @@ namespace Managers.Libraries
         public List<T> GetRandomsConfigs(int count, bool withoutDuplicate = false, string excludedKey = "")
         {
             var randomConfigs = new List<T>();
-            
+
             if (withoutDuplicate)
             {
                 if (_allConfigs.Count < count)
                 {
                     Debug.LogError($"{this} can't execute GetRandomConfig. all configs - {_allConfigs.Count}, need configs - {count}. Add new configs or change parameter 'without duplicates'");
                 }
-                
+
                 var allConfigsWithoutExcludedKey = _allConfigs.Where(p => p.Key != excludedKey).ToList();
-                
+
                 if (allConfigsWithoutExcludedKey.Count < count)
                 {
                     Debug.LogError($"{this} can't execute GetRandomConfig. all configs - {_allConfigs.Count}, need configs - {count}. Add new configs or change parameter 'without duplicates'");
@@ -79,7 +79,7 @@ namespace Managers.Libraries
                         randomConfigs.Add(randomConfig.Value);
                         allConfigCopy.Remove(randomConfig.Key);
                     }
-                } 
+                }
             }
             else
                 while (randomConfigs.Count < count)

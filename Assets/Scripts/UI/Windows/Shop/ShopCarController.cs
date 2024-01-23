@@ -19,7 +19,7 @@ namespace UI.Windows.Shop
             _uiModel = uiModel;
             base.UpdateView(uiModel);
         }
-        
+
         protected override ShopCarModel GetViewData()
         {
             return _uiModel;
@@ -29,7 +29,7 @@ namespace UI.Windows.Shop
         {
             if (_view == null)
                 return;
-            
+
             _view.OnSelectCarAction -= SelectCar;
         }
 

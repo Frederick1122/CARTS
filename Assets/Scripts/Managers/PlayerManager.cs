@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Base;
 using Managers.Libraries;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Managers
@@ -10,12 +10,12 @@ namespace Managers
     public class PlayerManager : SaveLoadManager<PlayerData, PlayerManager>
     {
         private const string PLAYER_JSON_PATH = "Player.json";
-        
+
         [SerializeField] private CarData _defaultCar;
 
         public void AddPurchasedCar(string carConfigKey)
         {
-            if(_saveData.purchasedCars.ContainsKey(carConfigKey))
+            if (_saveData.purchasedCars.ContainsKey(carConfigKey))
                 return;
 
             _saveData.purchasedCars.Add(carConfigKey, new CarData(carConfigKey));
@@ -49,9 +49,9 @@ namespace Managers
                     throw new ArgumentOutOfRangeException(nameof(modificationType), modificationType, null);
             }
 
-            if (_saveData.currentCar.configKey == carConfigKey) 
+            if (_saveData.currentCar.configKey == carConfigKey)
                 _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
-            
+
             Save();
         }
 
@@ -71,10 +71,10 @@ namespace Managers
         {
             if (_saveData == null)
                 Load();
-            
+
             return _saveData.currentCar;
         }
-        
+
         protected override void Load()
         {
             base.Load();
@@ -84,14 +84,14 @@ namespace Managers
                 Save();
             }
         }
-        
+
         protected override void UpdatePath()
         {
             _secondPath = PLAYER_JSON_PATH;
             base.UpdatePath();
         }
     }
-    
+
     public enum ModificationType
     {
         MaxSpeed,
@@ -107,12 +107,12 @@ public class PlayerData
     public CarData currentCar;
     [JsonProperty("PurchasedCars")]
     public Dictionary<string, CarData> purchasedCars = new();
-    
+
     [JsonConstructor]
     private PlayerData()
     {
     }
-    
+
     public PlayerData(CarData baseCar)
     {
         currentCar = baseCar;
@@ -131,12 +131,12 @@ public class CarData
     public int accelerationLevel = 0;
     [JsonProperty("TurnLevel")]
     public int turnLevel = 0;
-    
+
     [JsonConstructor]
     private CarData()
     {
     }
-    
+
     public CarData(string configKey)
     {
         this.configKey = configKey;

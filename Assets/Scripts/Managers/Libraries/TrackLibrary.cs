@@ -10,6 +10,6 @@ namespace Managers.Libraries
         {
             _path = TRACK_CONFIG_PATH;
             base.Awake();
-        }   
+        }
     }
 }

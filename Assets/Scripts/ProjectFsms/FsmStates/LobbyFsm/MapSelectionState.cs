@@ -19,7 +19,7 @@ namespace FsmStates.LobbyFsm
         {
             if (_lobbyUIManager == null)
                 return;
-            
+
             _lobbyUIManager.OpenLobbyAction -= OpenLobby;
             _lobbyUIManager.GoToGameAction -= GoToGame;
         }
@@ -29,7 +29,7 @@ namespace FsmStates.LobbyFsm
             base.Enter();
             LobbyUIManager.Instance.ShowWindow(typeof(MapSelectionWindowController), true);
         }
-        
+
         private void OpenLobby()
         {
             _fsm.SetState<LobbyState>();

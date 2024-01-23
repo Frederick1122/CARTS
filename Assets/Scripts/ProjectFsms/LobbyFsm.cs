@@ -12,7 +12,7 @@ namespace ProjectFsms
         {
             _lobbyUIManager = lobbyUIManager;
         }
-        
+
         public override void Init()
         {
             _states.Add(typeof(PreInitializeState), new PreInitializeState(this));

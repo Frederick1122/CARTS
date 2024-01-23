@@ -1,5 +1,5 @@
-using System;
 using Cars.Controllers;
+using System;
 using UnityEngine;
 
 public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHolder
@@ -7,7 +7,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
     public event Action OnLapEndAction = delegate { };
 
     [SerializeField] private float _timeToRespawn = 3;
-    
+
     public Transform Target { get; set; }
 
     public WaypointCircuit Circuit { get; set; }
@@ -50,7 +50,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
 
     private float _lapDistance;
     private int _lapCount = 1;
-    
+
     private CarController _controller;
     private IInputSystem _inputSystem;
 
@@ -79,10 +79,10 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
                     parent = transform.parent
                 }
             };
-            
+
             Target = newTargetObject.transform;
         }
-        
+
         if (_progressStyle == ProgressStyle.PointToPoint)
         {
             var point = Circuit.Waypoints[_progressNum];

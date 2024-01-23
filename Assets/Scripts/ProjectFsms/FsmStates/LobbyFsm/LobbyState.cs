@@ -1,14 +1,13 @@
 ﻿using Core.FSM;
 using UI;
 using UI.Windows.Lobby;
-using Zenject;
 
 namespace FsmStates.LobbyFsm
 {
     public class LobbyState : FsmState
     {
         private LobbyUIManager _lobbyUIManager;
-        
+
         public LobbyState(Fsm fsm, LobbyUIManager lobbyUIManager) : base(fsm)
         {
             _lobbyUIManager = lobbyUIManager;
@@ -21,7 +20,7 @@ namespace FsmStates.LobbyFsm
         {
             if (_lobbyUIManager == null)
                 return;
-            
+
             _lobbyUIManager.OpenShopAction -= OpenShop;
             _lobbyUIManager.OpenSettingsAction -= OpenSettings;
             _lobbyUIManager.OpenMapSelectionAction -= OpenMapSelection;
@@ -37,12 +36,12 @@ namespace FsmStates.LobbyFsm
         {
             _fsm.SetState<ShopState>();
         }
-        
+
         private void OpenSettings()
         {
             _fsm.SetState<SettingsState>();
         }
-        
+
         private void OpenMapSelection()
         {
             _fsm.SetState<MapSelectionState>();

@@ -3,7 +3,7 @@ using UnityEngine;
 // test script
 public class TargetFollower : MonoBehaviour, ITargetHolder
 {
-    [field:SerializeField] public Transform Target { get ; set; }
+    [field: SerializeField] public Transform Target { get; set; }
 
     [SerializeField] private Transform _follower;
 

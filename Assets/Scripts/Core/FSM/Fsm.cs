@@ -10,11 +10,11 @@ namespace Core.FSM
         protected Dictionary<Type, FsmState> _states = new Dictionary<Type, FsmState>();
 
         public virtual void Init() { }
-        
+
         public void SetState<T>() where T : FsmState
         {
             var type = typeof(T);
-            
+
             if (_currentState?.GetType() == type)
                 return;
 

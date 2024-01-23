@@ -7,7 +7,7 @@ namespace UI.Windows.Shop
     public class ShopWindowView : UIView<ShopWindowModel>
     {
         public event Action OpenLobbyAction;
-        
+
         [SerializeField] private Button _openLobbyButton;
 
         public override void Init(ShopWindowModel uiModel)
@@ -24,6 +24,6 @@ namespace UI.Windows.Shop
 
     public class ShopWindowModel : UIModel
     {
-        
+
     }
 }

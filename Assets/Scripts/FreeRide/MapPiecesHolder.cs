@@ -1,8 +1,6 @@
 using CustomSnapTool;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 
 namespace FreeRide
@@ -56,7 +54,7 @@ namespace FreeRide
         {
             int rndScale = UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1;
             transform.localScale = new Vector3(rndScale, 1, 1);
-            transform.position = to.transform.position - 
+            transform.position = to.transform.position -
                 (_startPiece.StartPoint.transform.position - transform.position);
         }
 

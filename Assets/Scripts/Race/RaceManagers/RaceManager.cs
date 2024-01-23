@@ -1,6 +1,5 @@
 using Base;
 using Cars.Controllers;
-using UnityEngine;
 
 public abstract class RaceManager : Singleton<RaceManager>
 {
@@ -11,6 +10,6 @@ public abstract class RaceManager : Singleton<RaceManager>
 
     protected abstract void InitPlayer();
 
-    
+
     public abstract void StartRace();
 }

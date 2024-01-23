@@ -10,7 +10,7 @@ namespace FsmStates.LobbyFsm
         {
             base.Enter();
             //In this moment we can get stats or something else
-            
+
             _fsm.SetState<LobbyState>();
         }
     }

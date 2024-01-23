@@ -8,7 +8,7 @@ public interface IInputSystem
     public void Init(CarPresetConfig presetConfig, CarPrefabData prefabData) { }
 
     public float VerticalInput { get; }
-    public float HorizontalInput { get;}
+    public float HorizontalInput { get; }
     public float BrakeInput { get; }
 
     void ReadInput();

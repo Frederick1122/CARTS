@@ -12,13 +12,13 @@ namespace Cars
         [field: Header("Visual")]
         [field: SerializeField] public Transform BodyMesh { get; private set; }
         [field: SerializeField] public Transform[] FrontWheels { get; private set; } = new Transform[2];
-        [field: SerializeField] public Transform[] RearWheels { get; private set; } = new Transform[2];   
-        
+        [field: SerializeField] public Transform[] RearWheels { get; private set; } = new Transform[2];
+
         [field: Header("Camera")]
         [field: SerializeField] public CinemachineVirtualCamera Camera { get; private set; }
-        
+
         [field: Header("Rays")]
-        
+
         [field: SerializeField] public Transform[] RayPoses { get; private set; } = new Transform[4];
     }
 }
