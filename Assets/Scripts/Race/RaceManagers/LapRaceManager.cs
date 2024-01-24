@@ -49,7 +49,7 @@ namespace Race
             var spawnPlayerData = _currentTrack.SpawnPlayer(playerPrefab);
             _player = (CarController)spawnPlayerData.car.gameObject.AddComponent(playerPreset.CarController);
 
-            var playerInputSystem = (IInputSystem)_player.gameObject.AddComponent(playerPreset.InputSystem);
+            var playerInputSystem = (IInputSystem)_player.gameObject.AddComponent(typeof(AutoGasInputSystem));
             playerInputSystem.Init(playerPreset, playerPrefab);
 
             var waypointTracker =

@@ -35,7 +35,7 @@ public class FreeRideManager : RaceManager
         var player = Instantiate(playerPrefab, _startPosition);
         _player = (CarController)player.gameObject.AddComponent(playerPreset.CarController);
 
-        var playerInputSystem = (IInputSystem)_player.gameObject.AddComponent(playerPreset.InputSystem);
+        var playerInputSystem = (IInputSystem)_player.gameObject.AddComponent(typeof(FreeRideInputSystem));
         playerInputSystem.Init(playerPreset, playerPrefab);
 
         _player.Init(playerInputSystem, playerConfig, playerPreset);
