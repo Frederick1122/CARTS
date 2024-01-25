@@ -1,4 +1,5 @@
 using Cars.Controllers;
+using Core.FSM;
 using FreeRide;
 using Managers;
 using Managers.Libraries;
@@ -10,17 +11,19 @@ public class FreeRideManager : RaceManager
     private const string PLAYER_PRESET_NAME = "PlayerPreset";
 
     public event Action<int> OnResultUpdate;
+    public event Action OnFinish;
+
 
     [SerializeField] private Transform _startPosition;
     [SerializeField] private MapFabric _mapFabric;
     [SerializeField] private DifficultyModifier _difficultyModifier;
 
     // temp
-    private void Start()
-    {
-        Init();
-        StartRace();
-    }
+    //private void Start()
+    //{
+    //    Init();
+    //    StartRace();
+    //}
 
     public override void Init()
     {
@@ -60,7 +63,7 @@ public class FreeRideManager : RaceManager
     private void PlayerFall()
     {
         _player.StopCar();
-        Debug.Log("Loose");
+        OnFinish?.Invoke();
     }
 
     private void UpdateResult(int val)

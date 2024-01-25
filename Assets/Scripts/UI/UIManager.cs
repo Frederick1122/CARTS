@@ -8,11 +8,13 @@ namespace UI
     {
         [SerializeField] private LobbyUI _lobbyUI;
         [SerializeField] private RaceUI _raceUI;
-
+        [SerializeField] private FreeRideUI _freeRideUI;
+ 
         public void Init()
         {
             _lobbyUI.Init();
             _raceUI.Init();
+            _freeRideUI.Init();
         }
         
         public LobbyUI GetLobbyUi()
@@ -25,10 +27,16 @@ namespace UI
             return _raceUI;
         }
 
+        public FreeRideUI GetFreeRideUI()
+        {
+            return _freeRideUI;
+        }
+
         public void SetUiType(UiType uiType)
         {
             _lobbyUI.gameObject.SetActive(false);
             _raceUI.gameObject.SetActive(false);
+            _freeRideUI.gameObject.SetActive(false);
             
             switch (uiType)
             {
@@ -37,6 +45,9 @@ namespace UI
                     break;
                 case UiType.Race:
                     _raceUI.gameObject.SetActive(true);
+                    break;
+                case UiType.FreeRide:
+                    _freeRideUI.gameObject.SetActive(true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(uiType), uiType, null);
@@ -47,6 +58,7 @@ namespace UI
     public enum UiType
     {
         Lobby, 
-        Race
+        Race,
+        FreeRide
     }
 }

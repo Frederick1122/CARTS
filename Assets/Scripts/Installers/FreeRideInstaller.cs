@@ -1,3 +1,5 @@
+using Core.FSM;
+using ProjectFsms;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +15,8 @@ namespace Installers
 
         public override void InstallBindings()
         {
-            var raceManager = Container.InstantiatePrefabForComponent<RaceManager>(_raceManagerPrefab);
+            Container.InstantiatePrefabForComponent<RaceManager>(_raceManagerPrefab);
+            Container.Bind<IFsm>().To<FreeRideFsm>().AsSingle();
         }
     }
 }
