@@ -1,4 +1,5 @@
 using Base.Pool;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -6,7 +7,18 @@ namespace FreeRide
 {
     public class MapFabric : MonoBehaviour
     {
-        public int Result { get; private set; } = 0;
+        public event Action<int> OnResultUpdate;
+
+        private int _result = 0;
+        public int Result
+        {
+            get { return _result; }
+            private set
+            {
+                _result = value;
+                OnResultUpdate?.Invoke(_result);
+            }
+        }
 
         [SerializeField] private int _startCountOfPeieces = 2;
         [SerializeField] private MapPiecesHolder _startPiece;

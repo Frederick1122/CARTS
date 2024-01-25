@@ -32,9 +32,12 @@ namespace Cars.Controllers
 
         private RaycastHit _hit;
         private float _radius;
-        private Dictionary<Transform, Transform> _wheelsAxel = new();
+        private readonly Dictionary<Transform, Transform> _wheelsAxel = new();
         private SphereCollider _sphereCollider;
         private bool _isCarActive = false;
+
+        private float _speedModifier = 0;
+        private float _accelerationModifier = 0;
 
         public void StartCar()
         {
@@ -61,6 +64,8 @@ namespace Cars.Controllers
             _sphereCollider = _rbSphere.GetComponent<SphereCollider>();
             _radius = _sphereCollider.radius;
 
+            _sphereCollider.material = CopyMaterial(Config.frictionMaterial);
+
             if (_movementMode == MovementMode.AngularVelocity)
                 Physics.defaultMaxAngularSpeed = 100;
 
@@ -79,10 +84,27 @@ namespace Cars.Controllers
             CalculateDesiredAngle();
         }
 
+        protected virtual void FixedUpdate()
+        {
+            if (!_isCarActive)
+                return;
+
+            Move();
+        }
+
+        private PhysicMaterial CopyMaterial(PhysicMaterial mat)
+        {
+            var frictionMaterial = new PhysicMaterial();
+            frictionMaterial.staticFriction = mat.staticFriction;
+            frictionMaterial.dynamicFriction = mat.dynamicFriction;
+            frictionMaterial.frictionCombine = mat.frictionCombine;
+            frictionMaterial.bounciness = mat.bounciness;
+            frictionMaterial.bounceCombine = mat.bounceCombine;
+
+            return frictionMaterial;
+        }    
+
         protected abstract void CalculateDesiredAngle();
-
-
-        protected virtual void FixedUpdate() => Move();
 
         protected virtual void Move()
         {
@@ -92,21 +114,25 @@ namespace Cars.Controllers
             var horizontalInput = _inputSystem.HorizontalInput;
             var brakeInput = _inputSystem.BrakeInput;
 
+            var maxSpeed = Config.maxSpeedLevels[0] * (1 + _speedModifier);
+            var acceleration = Config.accelerationLevels[0] * (1 + _accelerationModifier);
+            var turnSpeed = Config.turnLevels[0];
+
             //changes friction according to sideways speed of car
             if (Mathf.Abs(CarVelocity.x) > 0)
-                Config.frictionMaterial.dynamicFriction = Config.frictionCurve.Evaluate(Mathf.Abs(CarVelocity.x / 100));
+                _sphereCollider.material.dynamicFriction = Config.frictionCurve.Evaluate(Mathf.Abs(CarVelocity.x / 100));
 
             if (CheckIfGrounded())
             {
                 //turnlogic
                 float sign = Mathf.Sign(CarVelocity.z);
-                float turnMultiplyer = Config.turnCurve.Evaluate(CarVelocity.magnitude / Config.maxSpeedLevels[0]);
+                float turnMultiplyer = Config.turnCurve.Evaluate(CarVelocity.magnitude / maxSpeed);
 
                 // ????
                 if (verticalInput > 0.1f || CarVelocity.z > 1)
-                    _carBody.AddTorque(Vector3.up * horizontalInput * sign * Config.turnLevels[0] * 100 * turnMultiplyer);
+                    _carBody.AddTorque(Vector3.up * horizontalInput * sign * turnSpeed * 100 * turnMultiplyer);
                 else if (verticalInput < -0.1f || CarVelocity.z < -1)
-                    _carBody.AddTorque(Vector3.up * horizontalInput * sign * Config.turnLevels[0] * 100 * turnMultiplyer);
+                    _carBody.AddTorque(Vector3.up * horizontalInput * sign * turnSpeed * 100 * turnMultiplyer);
 
 
                 //brakelogic
@@ -122,7 +148,7 @@ namespace Cars.Controllers
                         if (Mathf.Abs(verticalInput) > 0.1f)
                         {
                             _rbSphere.angularVelocity = Vector3.Lerp(_rbSphere.angularVelocity,
-                                _carBody.transform.right * verticalInput * Config.maxSpeedLevels[0] / _radius, Config.accelerationLevels[0] * Time.deltaTime);
+                                maxSpeed * verticalInput * _carBody.transform.right / _radius, acceleration * Time.deltaTime);
                         }
                         break;
 
@@ -130,13 +156,13 @@ namespace Cars.Controllers
                         if (Mathf.Abs(verticalInput) > 0.1f && brakeInput < 0.1f)
                         {
                             _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity,
-                                _carBody.transform.forward * verticalInput * Config.maxSpeedLevels[0], Config.accelerationLevels[0] / 10 * Time.deltaTime);
+                                maxSpeed * verticalInput * _carBody.transform.forward, acceleration / 10 * Time.deltaTime);
                         }
                         break;
                 }
 
                 // down froce
-                _rbSphere.AddForce(-transform.up * Config.downforce * _rbSphere.mass);
+                _rbSphere.AddForce(_rbSphere.mass * Config.downforce * -transform.up);
 
                 //body tilt
                 _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation,
@@ -147,9 +173,9 @@ namespace Cars.Controllers
                 if (Config.airControl)
                 {
                     //turnlogic
-                    float TurnMultiplyer = Config.turnCurve.Evaluate(CarVelocity.magnitude / Config.maxSpeedLevels[0]);
+                    float TurnMultiplyer = Config.turnCurve.Evaluate(CarVelocity.magnitude / maxSpeed);
 
-                    _carBody.AddTorque(Vector3.up * horizontalInput * Config.turnLevels[0] * 100 * TurnMultiplyer);
+                    _carBody.AddTorque(100 * horizontalInput * TurnMultiplyer * turnSpeed * Vector3.up);
                 }
 
                 _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation,
@@ -204,6 +230,12 @@ namespace Cars.Controllers
             }
 
             return false;
+        }
+
+        public void IncreaseModifier(float speed, float acceleration)
+        {
+            _speedModifier += speed;
+            _accelerationModifier += acceleration;
         }
 
         private void InitFromConfig(CarPresetConfig carPresetConfig)
