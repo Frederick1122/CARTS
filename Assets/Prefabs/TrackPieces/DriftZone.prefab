@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 436758588690365868}
   - component: {fileID: 68415409545021650}
+  - component: {fileID: 2023474274880756289}
   m_Layer: 0
   m_Name: DriftZone
   m_TagString: Untagged
@@ -60,6 +61,27 @@ MonoBehaviour:
   - {fileID: 5227511592936041497}
   - {fileID: 5285810455623827659}
   - {fileID: 1269662371031806614}
+--- !u!65 &2023474274880756289
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7698285271775762238}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 300, y: 1, z: 120.34606}
+  m_Center: {x: 0, y: -5, z: 59.462757}
 --- !u!1001 &353028876719672948
 PrefabInstance:
   m_ObjectHideFlags: 0

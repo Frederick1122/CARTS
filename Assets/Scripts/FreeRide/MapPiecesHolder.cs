@@ -1,3 +1,4 @@
+using Cars.Controllers;
 using CustomSnapTool;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,6 @@ namespace FreeRide
         public event Action<IPoolObject> OnObjectNeededToDeactivate = delegate { };
 
         [SerializeField] private float _timeToDestroySec = 5f;
-
-        [SerializeField] private BoxCollider _fallCollider;
 
         [Header("Pieces")]
         [SerializeField] private MapPiece _startPiece;
@@ -90,7 +89,8 @@ namespace FreeRide
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.name);
+            if (other.TryGetComponent(out CarController _) || other.transform.parent.TryGetComponent(out CarController _))
+                OnFall?.Invoke();
         }
     }
 }

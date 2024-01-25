@@ -26,6 +26,8 @@ public class FreeRideManager : RaceManager
     {
         _mapFabric.Init();
         _mapFabric.OnResultUpdate += UpdateResult;
+        _mapFabric.OnFall += PlayerFall;
+
         base.Init();
 
         _difficultyModifier.Init(_player, this);
@@ -34,6 +36,7 @@ public class FreeRideManager : RaceManager
     private void OnDestroy()
     {
         _mapFabric.OnResultUpdate -= UpdateResult;
+        _mapFabric.OnFall -= PlayerFall;
     }
 
     public override void StartRace() =>
@@ -51,6 +54,13 @@ public class FreeRideManager : RaceManager
         playerInputSystem.Init(playerPreset, playerPrefab);
 
         _player.Init(playerInputSystem, playerConfig, playerPreset);
+    }
+
+
+    private void PlayerFall()
+    {
+        _player.StopCar();
+        Debug.Log("Loose");
     }
 
     private void UpdateResult(int val)
