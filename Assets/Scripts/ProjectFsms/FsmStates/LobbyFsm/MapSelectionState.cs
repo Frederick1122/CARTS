@@ -6,28 +6,28 @@ namespace FsmStates.LobbyFsm
 {
     public class MapSelectionState : FsmState
     {
-        private LobbyUIManager _lobbyUIManager;
+        private LobbyUI _lobbyUI;
 
-        public MapSelectionState(Fsm fsm, LobbyUIManager lobbyUIManager) : base(fsm)
+        public MapSelectionState(Fsm fsm, LobbyUI lobbyUI) : base(fsm)
         {
-            _lobbyUIManager = lobbyUIManager;
-            _lobbyUIManager.OpenLobbyAction += OpenLobby;
-            _lobbyUIManager.GoToGameAction += GoToGame;
+            _lobbyUI = lobbyUI;
+            _lobbyUI.OpenLobbyAction += OpenLobby;
+            _lobbyUI.GoToGameAction += GoToGame;
         }
 
         ~MapSelectionState()
         {
-            if (_lobbyUIManager == null)
+            if (_lobbyUI == null)
                 return;
 
-            _lobbyUIManager.OpenLobbyAction -= OpenLobby;
-            _lobbyUIManager.GoToGameAction -= GoToGame;
+            _lobbyUI.OpenLobbyAction -= OpenLobby;
+            _lobbyUI.GoToGameAction -= GoToGame;
         }
 
         public override void Enter()
         {
             base.Enter();
-            LobbyUIManager.Instance.ShowWindow(typeof(MapSelectionWindowController), true);
+            UIManager.Instance.GetLobbyUi().ShowWindow(typeof(MapSelectionWindowController), true);
         }
 
         private void OpenLobby()
@@ -35,8 +35,9 @@ namespace FsmStates.LobbyFsm
             _fsm.SetState<LobbyState>();
         }
 
-        private void GoToGame()
+        private void GoToGame(GameType gameType)
         {
+            ((ProjectFsms.LobbyFsm)_fsm).CurrentGameType = gameType;
             _fsm.SetState<StartGameState>();
         }
     }

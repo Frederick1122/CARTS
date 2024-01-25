@@ -6,30 +6,30 @@ namespace FsmStates.LobbyFsm
 {
     public class LobbyState : FsmState
     {
-        private LobbyUIManager _lobbyUIManager;
+        private LobbyUI _lobbyUI;
 
-        public LobbyState(Fsm fsm, LobbyUIManager lobbyUIManager) : base(fsm)
+        public LobbyState(Fsm fsm, LobbyUI lobbyUI) : base(fsm)
         {
-            _lobbyUIManager = lobbyUIManager;
-            _lobbyUIManager.OpenShopAction += OpenShop;
-            _lobbyUIManager.OpenSettingsAction += OpenSettings;
-            _lobbyUIManager.OpenMapSelectionAction += OpenMapSelection;
+            _lobbyUI = lobbyUI;
+            _lobbyUI.OpenShopAction += OpenShop;
+            _lobbyUI.OpenSettingsAction += OpenSettings;
+            _lobbyUI.OpenMapSelectionAction += OpenMapSelection;
         }
 
         ~LobbyState()
         {
-            if (_lobbyUIManager == null)
+            if (_lobbyUI == null)
                 return;
 
-            _lobbyUIManager.OpenShopAction -= OpenShop;
-            _lobbyUIManager.OpenSettingsAction -= OpenSettings;
-            _lobbyUIManager.OpenMapSelectionAction -= OpenMapSelection;
+            _lobbyUI.OpenShopAction -= OpenShop;
+            _lobbyUI.OpenSettingsAction -= OpenSettings;
+            _lobbyUI.OpenMapSelectionAction -= OpenMapSelection;
         }
 
         public override void Enter()
         {
             base.Enter();
-            LobbyUIManager.Instance.ShowWindow(typeof(LobbyWindowController), true);
+            UIManager.Instance.GetLobbyUi().ShowWindow(typeof(LobbyWindowController), true);
         }
 
         private void OpenShop()

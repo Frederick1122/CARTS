@@ -7,14 +7,14 @@ using UnityEngine;
 
 namespace UI
 {
-    public class LobbyUIManager : UIManager<LobbyUIManager>
+    public class LobbyUI : WindowManager
     {
         public event Action OpenShopAction = delegate { };
         public event Action OpenSettingsAction = delegate { };
         public event Action OpenMapSelectionAction = delegate { };
 
         public event Action OpenLobbyAction = delegate { };
-        public event Action GoToGameAction = delegate { };
+        public event Action<GameType> GoToGameAction = delegate { };
 
         [Header("Controllers")]
         [SerializeField] private LobbyWindowController _lobbyWindowController;
@@ -80,7 +80,7 @@ namespace UI
         private void RequestToOpenLobby() =>
             OpenLobbyAction?.Invoke();
 
-        private void RequestToGoToGame() =>
-            GoToGameAction?.Invoke();
+        private void RequestToGoToGame(GameType gameType) =>
+            GoToGameAction?.Invoke(gameType);
     }
 }

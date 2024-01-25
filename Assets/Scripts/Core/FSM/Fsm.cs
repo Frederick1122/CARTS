@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.FSM
 {
-    public class Fsm
+    public class Fsm : IFsm
     {
         private FsmState _currentState;
         protected Dictionary<Type, FsmState> _states = new Dictionary<Type, FsmState>();
@@ -34,5 +34,12 @@ namespace Core.FSM
         {
             _currentState?.Update();
         }
+    }
+
+    public interface IFsm
+    {
+        public void Init() { }
+
+        public void SetState<T>() where T : FsmState { }
     }
 }

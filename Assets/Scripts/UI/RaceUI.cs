@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class RaceUIManager : UIManager<RaceUIManager>
+    public class RaceUI : WindowManager
     {
         [SerializeField] private RaceLoadoutController _raceLoadoutController;
 

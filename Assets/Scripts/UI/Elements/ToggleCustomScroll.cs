@@ -3,17 +3,17 @@ using UI.Windows.MapSelection;
 
 namespace UI.Elements
 {
-    public class TrackCustomScroll : CustomScroll<TrackController, TrackView, TrackModel>
+    public class ToggleCustomScroll : CustomScroll<CustomToggleController, CustomToggleView, CustomToggleModel>
     {
-        public event Action<TrackModel> OnSelectTrackAction;
+        public event Action<CustomToggleModel> OnSelectAction;
 
-        public override void AddElement(TrackModel uiModel)
+        public override void AddElement(CustomToggleModel uiModel)
         {
             var isNewController = _hidingControllers.Count == 0;
             base.AddElement(uiModel);
 
             if (isNewController)
-                _activeControllers[^1].OnSelectTrackAction += SelectTrack;
+                _activeControllers[^1].OnSelectAction += Select;
         }
 
         private void OnDestroy()
@@ -23,7 +23,7 @@ namespace UI.Elements
                 if (activeController == null)
                     continue;
 
-                activeController.OnSelectTrackAction -= SelectTrack;
+                activeController.OnSelectAction -= Select;
             }
 
             foreach (var hidingController in _hidingControllers)
@@ -31,13 +31,13 @@ namespace UI.Elements
                 if (hidingController == null)
                     continue;
 
-                hidingController.OnSelectTrackAction -= SelectTrack;
+                hidingController.OnSelectAction -= Select;
             }
         }
 
-        private void SelectTrack(TrackModel uiModel)
+        private void Select(CustomToggleModel uiModel)
         {
-            OnSelectTrackAction?.Invoke(uiModel);
+            OnSelectAction?.Invoke(uiModel);
         }
     }
 }

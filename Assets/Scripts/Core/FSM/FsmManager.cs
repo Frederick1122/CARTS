@@ -8,6 +8,15 @@ namespace Core.FSM
     {
         private Dictionary<Type, Fsm> _currentFsms = new Dictionary<Type, Fsm>();
 
+        protected override void Awake()
+        {
+            base.Awake();
+            foreach (var currentFsm in _currentFsms)
+            {
+                currentFsm.Value.Init();
+            }
+        }
+
         public Fsm TryGetFsm<T>() where T : Fsm
         {
             AddNewFsm<Fsm>();
@@ -24,18 +33,23 @@ namespace Core.FSM
             _currentFsms.Add(typeof(T), newFsm);
         }
 
-        public void AddNewFsm(Fsm newFsm)
+        public void AddNewFsm(IFsm newFsm)
         {
             if (_currentFsms.ContainsKey(newFsm.GetType()))
                 return;
 
             newFsm.Init();
-            _currentFsms.Add(newFsm.GetType(), newFsm);
+            _currentFsms.Add(newFsm.GetType(), (Fsm)newFsm);
         }
 
         public void RemoveFsm<T>() where T : Fsm
         {
             _currentFsms.Remove(typeof(T));
+        }
+
+        public void RemoveFsm(IFsm fsm)
+        {
+            _currentFsms.Remove(fsm.GetType());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Core.FSM;
+using UI;
 
 namespace FsmStates.LobbyFsm
 {
@@ -11,6 +12,8 @@ namespace FsmStates.LobbyFsm
             base.Enter();
             //In this moment we can get stats or something else
 
+            UIManager.Instance.SetUiType(UiType.Lobby);
+            
             _fsm.SetState<LobbyState>();
         }
     }

@@ -6,26 +6,26 @@ namespace FsmStates.LobbyFsm
 {
     public class ShopState : FsmState
     {
-        private LobbyUIManager _lobbyUIManager;
+        private LobbyUI _lobbyUI;
 
-        public ShopState(Fsm fsm, LobbyUIManager lobbyUIManager) : base(fsm)
+        public ShopState(Fsm fsm, LobbyUI lobbyUI) : base(fsm)
         {
-            _lobbyUIManager = lobbyUIManager;
-            _lobbyUIManager.OpenLobbyAction += OpenLobby;
+            _lobbyUI = lobbyUI;
+            _lobbyUI.OpenLobbyAction += OpenLobby;
         }
 
         ~ShopState()
         {
-            if (_lobbyUIManager == null)
+            if (_lobbyUI == null)
                 return;
 
-            _lobbyUIManager.OpenLobbyAction -= OpenLobby;
+            _lobbyUI.OpenLobbyAction -= OpenLobby;
         }
 
         public override void Enter()
         {
             base.Enter();
-            LobbyUIManager.Instance.ShowWindow(typeof(ShopWindowController), true);
+            UIManager.Instance.GetLobbyUi().ShowWindow(typeof(ShopWindowController), true);
         }
 
         private void OpenLobby()

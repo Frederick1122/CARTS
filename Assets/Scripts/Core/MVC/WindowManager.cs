@@ -1,9 +1,9 @@
 using Base;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public abstract class UIManager<TM> : Singleton<TM>
-        where TM : UIManager<TM>
+public abstract class WindowManager : MonoBehaviour
 {
     protected Dictionary<Type, IUiController> _controllers = new();
 

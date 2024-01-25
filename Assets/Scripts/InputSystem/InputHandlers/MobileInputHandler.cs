@@ -17,7 +17,7 @@ public class MobileInputHandler : MonoBehaviour, IInputHandler
 
     private void Start()
     {
-        var controller = (RaceLoadoutController)RaceUIManager.Instance.ShowWindow(typeof(RaceLoadoutController));
+        var controller = (RaceLoadoutController)UIManager.Instance.GetRaceUi().ShowWindow(typeof(RaceLoadoutController));
         Init(controller.GetButtons());
     }
 
