@@ -2,14 +2,18 @@ using Cars.Controllers;
 using FreeRide;
 using Managers;
 using Managers.Libraries;
+using System;
 using UnityEngine;
 
 public class FreeRideManager : RaceManager
 {
     private const string PLAYER_PRESET_NAME = "PlayerPreset";
 
+    public event Action<int> OnResultUpdate;
+
     [SerializeField] private Transform _startPosition;
     [SerializeField] private MapFabric _mapFabric;
+    [SerializeField] private DifficultyModifier _difficultyModifier;
 
     // temp
     private void Start()
@@ -21,7 +25,18 @@ public class FreeRideManager : RaceManager
     public override void Init()
     {
         _mapFabric.Init();
+        _mapFabric.OnResultUpdate += UpdateResult;
+        _mapFabric.OnFall += PlayerFall;
+
         base.Init();
+
+        _difficultyModifier.Init(_player, this);
+    }
+
+    private void OnDestroy()
+    {
+        _mapFabric.OnResultUpdate -= UpdateResult;
+        _mapFabric.OnFall -= PlayerFall;
     }
 
     public override void StartRace() =>
@@ -42,4 +57,15 @@ public class FreeRideManager : RaceManager
     }
 
 
+    private void PlayerFall()
+    {
+        _player.StopCar();
+        Debug.Log("Loose");
+    }
+
+    private void UpdateResult(int val)
+    {
+        Debug.Log($"Result {val}");
+        OnResultUpdate?.Invoke(val);
+    }
 }

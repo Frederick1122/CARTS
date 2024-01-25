@@ -1,3 +1,4 @@
+using Cars.Controllers;
 using CustomSnapTool;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,18 @@ namespace FreeRide
 
     public class MapPiecesHolder : MonoBehaviour, IPoolObject
     {
+        public event Action OnFall = delegate { };
         public event Action<MapPiece> OnReach = delegate { };
         public event Action<MapPiecesHolder> OnFinish = delegate { };
         public event Action<IPoolObject> OnObjectNeededToDeactivate = delegate { };
 
         [SerializeField] private float _timeToDestroySec = 5f;
 
+        [Header("Pieces")]
         [SerializeField] private MapPiece _startPiece;
         [SerializeField] private MapPiece _endPiece;
-
         [SerializeField] private List<MapPiece> _mapPieces = new();
+
         private int _lastsCount = 0;
         private int _reachCount = 0;
 
@@ -82,6 +85,12 @@ namespace FreeRide
             _reachCount = 0;
             foreach (var piece in _mapPieces)
                 piece.ResetPiece();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out CarController _) || other.transform.parent.TryGetComponent(out CarController _))
+                OnFall?.Invoke();
         }
     }
 }
