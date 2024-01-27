@@ -18,12 +18,15 @@ namespace Race
             return new SpawnData(player, playerPlace.GetWaypointCircuit());
         }
 
-        public List<SpawnData> SpawnAiTrucks(List<CarConfig> enemyConfigs)
+        public List<SpawnData> SpawnAiTrucks(List<CarConfig> enemyConfigs, int count)
         {
             var skipPlace = _playerPlace == -1 ? _carPlaces.Count - 1 : _playerPlace;
             var enemiesSpawnDatas = new List<SpawnData>();
             for (int i = 0; i < _carPlaces.Count - 1; i++)
             {
+                if (enemiesSpawnDatas.Count == count)
+                    break;
+                
                 if (skipPlace == i)
                     continue;
 

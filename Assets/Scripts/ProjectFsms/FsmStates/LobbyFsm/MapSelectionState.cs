@@ -1,4 +1,5 @@
 ﻿using Core.FSM;
+using Installers;
 using UI;
 using UI.Windows.MapSelection;
 
@@ -35,9 +36,8 @@ namespace FsmStates.LobbyFsm
             _fsm.SetState<LobbyState>();
         }
 
-        private void GoToGame(GameType gameType)
+        private void GoToGame()
         {
-            ((ProjectFsms.LobbyFsm)_fsm).CurrentGameType = gameType;
             _fsm.SetState<StartGameState>();
         }
     }

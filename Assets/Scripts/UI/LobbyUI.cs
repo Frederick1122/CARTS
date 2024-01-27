@@ -14,7 +14,7 @@ namespace UI
         public event Action OpenMapSelectionAction = delegate { };
 
         public event Action OpenLobbyAction = delegate { };
-        public event Action<GameType> GoToGameAction = delegate { };
+        public event Action GoToGameAction = delegate { };
 
         [Header("Controllers")]
         [SerializeField] private LobbyWindowController _lobbyWindowController;
@@ -80,7 +80,7 @@ namespace UI
         private void RequestToOpenLobby() =>
             OpenLobbyAction?.Invoke();
 
-        private void RequestToGoToGame(GameType gameType) =>
-            GoToGameAction?.Invoke(gameType);
+        private void RequestToGoToGame() =>
+            GoToGameAction?.Invoke();
     }
 }

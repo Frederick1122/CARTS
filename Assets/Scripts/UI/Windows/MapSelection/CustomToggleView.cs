@@ -41,12 +41,20 @@ namespace UI.Windows.MapSelection
     {
         public bool isSelected = false;
         public string text = "";
+        public string key = "";
 
         public CustomToggleModel() { }
 
         public CustomToggleModel(string text, bool isSelected)
         {
             this.text = text;
+            this.isSelected = isSelected;
+        }
+        
+        public CustomToggleModel(string text, string key, bool isSelected)
+        {
+            this.text = text;
+            this.key = key;
             this.isSelected = isSelected;
         }
     }

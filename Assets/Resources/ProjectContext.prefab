@@ -97,8 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1fc65c7a9746d49b9522c75b3b62d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultTrackData:
-    configKey: DefaultTrack
+  _defaultLapRaceGameData:
+    trackName: DefaultTrack
+    lapCount: 1
+    botCount: 2
 --- !u!114 &7405112807621069112
 MonoBehaviour:
   m_ObjectHideFlags: 0

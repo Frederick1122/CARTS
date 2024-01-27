@@ -1,14 +1,17 @@
 ﻿using Core.FSM;
 using FsmStates.LobbyFsm;
+using Installers;
 using UI;
-using UI.Windows.MapSelection;
+using Zenject;
 
 namespace ProjectFsms
 {
     public class LobbyFsm : Fsm
     {
         private LobbyUI _lobbyUI;
-        public GameType CurrentGameType;
+
+        [Inject] public GameDataInstaller.GameData gameData;
+        
         
         public override void Init()
         {

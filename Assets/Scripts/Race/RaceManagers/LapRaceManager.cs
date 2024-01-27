@@ -12,7 +12,10 @@ namespace Race
     {
         private const string PLAYER_PRESET_NAME = "PlayerPreset";
 
-        [Inject] private TrackData _trackData;
+        [Inject] private GameDataInstaller.GameData _gameData;
+        [Inject] private GameDataInstaller.LapRaceGameData _defaultLapRaceGameData;
+        
+        private GameDataInstaller.LapRaceGameData _lapRaceGameData;
 
         private Track _currentTrack;
         private List<CarController> _enemies = new();
@@ -20,6 +23,16 @@ namespace Race
 
         public override void Init()
         {
+            if (_gameData.gameModeData is GameDataInstaller.LapRaceGameData lapRaceGameData)
+            {
+                _lapRaceGameData = lapRaceGameData;
+            }
+            else
+            {
+                Debug.LogWarning("ALERT! TEST MODE! Game initialize in base config");
+                _lapRaceGameData = _defaultLapRaceGameData;
+            }
+            
             InitTrack();
             base.Init();
             InitAi();
@@ -65,7 +78,7 @@ namespace Race
         {
             var enemyConfigs = CarLibrary.Instance.GetRandomsConfigs(_currentTrack.GetCarPlacesCount() - 1);
 
-            var spawnEnemyDatas = _currentTrack.SpawnAiTrucks(enemyConfigs);
+            var spawnEnemyDatas = _currentTrack.SpawnAiTrucks(enemyConfigs, _lapRaceGameData.botCount);
 
             for (var i = 0; i < spawnEnemyDatas.Count; i++)
             {
@@ -76,8 +89,8 @@ namespace Race
                 aiInputSystem.Init(enemyPreset, spawnEnemyDatas[i].car);
 
                 var waypointTracker = _enemies[i].gameObject.AddComponent<WaypointProgressTracker>();
-                var lapStatindex = i + 1;
-                waypointTracker.OnLapEndAction += () => UpdateLapStats(lapStatindex);
+                var lapStatsIndex = i + 1;
+                waypointTracker.OnLapEndAction += () => UpdateLapStats(lapStatsIndex);
                 waypointTracker.Circuit = spawnEnemyDatas[i].circuit;
                 _lapsStats.Add(0);
                 waypointTracker.Init(_enemies[i], aiInputSystem);
@@ -89,7 +102,7 @@ namespace Race
 
         private void InitTrack()
         {
-            var trackConfig = TrackLibrary.Instance.GetConfig(_trackData.configKey);
+            var trackConfig = TrackLibrary.Instance.GetConfig(_lapRaceGameData.trackKey);
             _currentTrack = Instantiate(trackConfig.trackPrefab);
         }
 

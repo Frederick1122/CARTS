@@ -1,8 +1,8 @@
-﻿using Installers;
-using Managers.Libraries;
+﻿using Managers.Libraries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Installers;
 using UI.Elements;
 using UnityEngine;
 using Zenject;
@@ -14,27 +14,52 @@ namespace UI.Windows.MapSelection
         private const string DEFAULT_RACE_MODE = "Default race";
         private const string FREE_RIDE_MODE = "Free ride";
         
-        public event Action OpenLobbyAction = delegate {  };
-        public event Action<GameType> GoToGameAction = delegate {  };
-
-        [SerializeField] private ToggleCustomScroll _toggleCustomScroll;
+        private const string ONE_LAP_MODE = "One lap";
+        private const string THREE_LAP_MODE = "Three laps";
+        private const string ONE_BOT_MODE = "One bot";
+        private const string THREE_BOT_MODE = "Three bots";
         
+        public event Action OpenLobbyAction = delegate {  };
+        public event Action GoToGameAction = delegate {  };
+        [Space]
+        [SerializeField] private ToggleCustomScroll _toggleCustomScroll;
+        [Space]
         [SerializeField] private CustomToggleController _defaultRaceToggleController;
         [SerializeField] private CustomToggleController _freeRideToggleController;
+        [Space]
+        [SerializeField] private CustomToggleController _oneLapToggleController;
+        [SerializeField] private CustomToggleController _threeLapsToggleController;
+        [SerializeField] private CustomToggleController _oneBotRaceToggleController;
+        [SerializeField] private CustomToggleController _threeBotsToggleController;
 
-        [Inject] private TrackData _trackData;
+        [Inject] private GameDataInstaller.GameData _gameData;
+        
+        private GameDataInstaller.LapRaceGameData _lapRaceGameData = new ();
+        private GameDataInstaller.FreeRideGameData _freeRideGameData = new ();
 
         private CustomToggleModel _currentCustomToggleModel;
         private List<CustomToggleModel> _trackModels = new();
-        private GameType _gameType;
+        private GameDataInstaller.GameType _gameType;
+        private int _lapCount;
+        private int _botCount;
 
         public override void Init()
         {
             _view.OpenLobbyAction += OpenLobby;
             _view.GoToGameAction += GoToGame;
-            _toggleCustomScroll.OnSelectAction += SelectedNewToggle;
+            _toggleCustomScroll.OnSelectAction += SelectNewTrack;
             _defaultRaceToggleController.OnSelectAction += SetDefaultRaceState;
             _freeRideToggleController.OnSelectAction += SetFreeRideState;
+
+            _oneLapToggleController.OnSelectAction += SetOneLapMode;
+            _threeLapsToggleController.OnSelectAction += SetThreeLapsMode;
+            _oneBotRaceToggleController.OnSelectAction += SetOneBotMode;
+            _threeBotsToggleController.OnSelectAction += SetThreeBotsMode;
+            
+            _oneLapToggleController.Init();
+            _threeLapsToggleController.Init();
+            _oneBotRaceToggleController.Init();
+            _threeBotsToggleController.Init();
             
             _defaultRaceToggleController.Init();
             _freeRideToggleController.Init();
@@ -42,14 +67,16 @@ namespace UI.Windows.MapSelection
             _defaultRaceToggleController.UpdateView(new CustomToggleModel(DEFAULT_RACE_MODE, true));
             _freeRideToggleController.UpdateView(new CustomToggleModel(FREE_RIDE_MODE, false));
             
+            _oneLapToggleController.UpdateView(new CustomToggleModel(ONE_LAP_MODE, true));
+            _threeLapsToggleController.UpdateView(new CustomToggleModel(THREE_LAP_MODE, false));
+            _oneBotRaceToggleController.UpdateView(new CustomToggleModel(ONE_BOT_MODE, false));
+            _threeBotsToggleController.UpdateView(new CustomToggleModel(THREE_BOT_MODE, true));
+
             InitAllTracks();
             base.Init();
         }
 
-        public override void UpdateView()
-        {
-            UpdateAllTracks();
-        }
+        public override void UpdateView() => UpdateAllTracks();
 
         protected override MapSelectionWindowModel GetViewData()
         {
@@ -65,13 +92,25 @@ namespace UI.Windows.MapSelection
             }
 
             if (_toggleCustomScroll != null)
-                _toggleCustomScroll.OnSelectAction -= SelectedNewToggle;
+                _toggleCustomScroll.OnSelectAction -= SelectNewTrack;
             
             if (_defaultRaceToggleController != null)
                 _defaultRaceToggleController.OnSelectAction -= SetDefaultRaceState;
             
             if (_toggleCustomScroll != null)
                 _toggleCustomScroll.OnSelectAction -= SetFreeRideState;
+            
+            if (_oneLapToggleController != null)
+                _oneLapToggleController.OnSelectAction -= SetOneLapMode;
+            
+            if (_threeLapsToggleController != null)
+                _threeLapsToggleController.OnSelectAction -= SetThreeLapsMode;
+            
+            if (_oneBotRaceToggleController != null)
+                _oneBotRaceToggleController.OnSelectAction -= SetOneBotMode;
+            
+            if (_threeBotsToggleController != null)
+                _threeBotsToggleController.OnSelectAction -= SetThreeBotsMode;
         }
 
         private void OpenLobby()
@@ -81,48 +120,82 @@ namespace UI.Windows.MapSelection
 
         private void GoToGame()
         {
-            GoToGameAction?.Invoke(_gameType);
+            _gameData.gameType = _gameType;
+            
+            _gameData.gameModeData = _gameType switch
+            {
+                GameDataInstaller.GameType.LapRace => _lapRaceGameData,
+                GameDataInstaller.GameType.FreeRide => _freeRideGameData,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            GoToGameAction?.Invoke();
         }
 
-        private void SelectedNewToggle(CustomToggleModel uiModel)
+        private void SelectNewTrack(CustomToggleModel uiModel)
         {
-            if (_currentCustomToggleModel.text == uiModel.text)
+            if (_currentCustomToggleModel?.text == uiModel.text)
                 return;
 
-            _trackData.configKey = uiModel.text;
+            _lapRaceGameData.trackKey = uiModel.key;
             _currentCustomToggleModel = uiModel;
             UpdateAllTracks();
         }
-        
-        private void SetDefaultRaceState(CustomToggleModel customToggleModel) => SetGameState(GameType.DefaultRace);
 
-        private void SetFreeRideState(CustomToggleModel customToggleModel) => SetGameState(GameType.FreeRide);
-
-        private void SetGameState(GameType gameType)
+        private void SetThreeLapsMode(CustomToggleModel uiModel)
         {
-            switch (_gameType)
-            {
-                case GameType.DefaultRace:
-                    _defaultRaceToggleController.Unselect();
-                    break;
-                case GameType.FreeRide:
-                    _freeRideToggleController.Unselect();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
+            _oneLapToggleController.Unselect();
+            SetMode(3, ref _lapRaceGameData.lapCount);
+        }
+        
+        private void SetOneLapMode(CustomToggleModel uiModel)
+        {
+            _threeLapsToggleController.Unselect();
+            SetMode(1, ref _lapRaceGameData.lapCount);
+        }
+
+        private void SetThreeBotsMode(CustomToggleModel uiModel)
+        {
+            _oneBotRaceToggleController.Unselect();
+            SetMode(3, ref _lapRaceGameData.botCount);
+        }
+
+        private void SetOneBotMode(CustomToggleModel uiModel)
+        {
+            _threeBotsToggleController.Unselect();
+            SetMode(1, ref _lapRaceGameData.botCount);
+        }
+
+        private void SetMode(int count, ref int counter)
+        {
+            counter = count;
+        }
+        
+        private void SetDefaultRaceState(CustomToggleModel customToggleModel)
+        {
+            _freeRideToggleController.Unselect();
+            SetGameState(GameDataInstaller.GameType.LapRace);
+        }
+
+        private void SetFreeRideState(CustomToggleModel customToggleModel)
+        {
+            _defaultRaceToggleController.Unselect();
+            SetGameState(GameDataInstaller.GameType.FreeRide);
+        }
+
+        private void SetGameState(GameDataInstaller.GameType gameType)
+        {
             _gameType = gameType;
         }
 
         private void InitAllTracks()
         {
             var trackConfigs = TrackLibrary.Instance.GetAllConfigs().Values.ToList();
-            var currentTrackConfigKey = _trackData.configKey;
+            var currentTrackConfigKey = _lapRaceGameData.trackKey;
             foreach (var trackConfig in trackConfigs)
             {
                 var isSelectedTrack = trackConfig.configKey == currentTrackConfigKey;
-                _trackModels.Add(new CustomToggleModel(TrackLibrary.Instance.GetConfig(trackConfig.configKey).configName, isSelectedTrack));
+                _trackModels.Add(new CustomToggleModel(TrackLibrary.Instance.GetConfig(trackConfig.configKey).configName, trackConfig.configKey, isSelectedTrack));
 
                 if (isSelectedTrack)
                     _currentCustomToggleModel = _trackModels[^1];
@@ -139,11 +212,5 @@ namespace UI.Windows.MapSelection
             _toggleCustomScroll.HideAll();
             _toggleCustomScroll.AddRange(_trackModels);
         }
-    }
-
-    public enum GameType
-    {
-        DefaultRace,
-        FreeRide
     }
 }
