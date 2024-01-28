@@ -90,6 +90,11 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
         }
     }
 
+    public float GetPassedDistance()
+    {
+        return _progressDistance;
+    }
+
     private void Update()
     {
         if (!_inputSystem.IsActive)

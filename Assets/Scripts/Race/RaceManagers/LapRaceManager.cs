@@ -1,8 +1,11 @@
+using System;
 using Cars.Controllers;
 using Installers;
 using Managers;
 using Managers.Libraries;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +15,9 @@ namespace Race
     {
         private const string PLAYER_PRESET_NAME = "PlayerPreset";
 
+        public event Action<int> OnPlayerChangePositionAction = delegate {  };
+        public event Action OnPlayerEndsLapAction = delegate {  };
+        
         [Inject] private GameDataInstaller.GameData _gameData;
         [Inject] private GameDataInstaller.LapRaceGameData _defaultLapRaceGameData;
         
@@ -20,6 +26,10 @@ namespace Race
         private Track _currentTrack;
         private List<CarController> _enemies = new();
         private List<int> _lapsStats = new();
+
+        private int _lastPlayerPosition;
+        private float _checkPositionDelay = 0.1f;
+        private readonly CancellationTokenSource _positionCts = new();
 
         public override void Init()
         {
@@ -38,22 +48,70 @@ namespace Race
             InitAi();
         }
 
+        private void OnDestroy()
+        {
+            _positionCts.Cancel();
+        }
+
         public override void StartRace()
         {
             foreach (var en in _enemies)
                 en.StartCar();
 
             _player.StartCar();
+            CheckPlayerPosition(_positionCts.Token).Forget();
         }
+        
+        public int GetMaxLapCount() => _lapRaceGameData.lapCount;
 
-        [ContextMenu("Test Race")]
-        public void TestRace()
+        public int GetMaxPositions() => _lapRaceGameData.botCount + 1;
+
+        public int GetPlayerPosition()
         {
-            Init();
-            StartRace();
-        }
+            var playerPassedDistance = _player.GetPassedDistance();
+            var playerPosition = GetMaxPositions();
 
-        protected override void InitPlayer()
+            foreach (var enemy in _enemies)
+            {
+                var enemyPassedDistance = enemy.GetPassedDistance();
+
+                if (playerPassedDistance > enemyPassedDistance) 
+                    playerPosition--;
+            }
+
+            return playerPosition;
+        }
+        
+        private void UpdateLapStats(int lapStatsIndex)
+        {
+            _lapsStats[lapStatsIndex]++;
+            if (lapStatsIndex == 0)
+            {
+                Debug.Log("PLAYER ENDS LAP");
+                OnPlayerEndsLapAction?.Invoke();                
+            }
+            else
+                Debug.Log($"BOT {lapStatsIndex} ENDS LAP");
+        }
+        
+        private async UniTaskVoid CheckPlayerPosition(CancellationToken token)
+        {
+            while (true)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(_checkPositionDelay), cancellationToken: token);
+                var playerPosition = GetPlayerPosition();                
+
+                if (playerPosition == _lastPlayerPosition)
+                    continue;
+
+                OnPlayerChangePositionAction?.Invoke(playerPosition);
+                _lastPlayerPosition = playerPosition;
+            }
+        }
+        
+        #region initialization
+
+         protected override void InitPlayer()
         {
             _lapsStats.Add(0);
             var playerConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
@@ -106,13 +164,13 @@ namespace Race
             _currentTrack = Instantiate(trackConfig.trackPrefab);
         }
 
-        private void UpdateLapStats(int lapStatsIndex)
+        #endregion
+        
+        [ContextMenu("Test Race")]
+        private void TestRace()
         {
-            _lapsStats[lapStatsIndex]++;
-            if (lapStatsIndex == 0)
-                Debug.Log("PLAYER ENDS LAP");
-            else
-                Debug.Log($"BOT {lapStatsIndex} ENDS LAP");
+            Init();
+            StartRace();
         }
     }
 }

@@ -5,12 +5,16 @@ using UnityEngine;
 public class AITargetCarController : CarController
 {
     private Transform _target;
+    private WaypointProgressTracker _waypointProgressTracker;
+
+    public override float GetPassedDistance() => _waypointProgressTracker.GetPassedDistance();
 
     public override void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig, ITargetHolder targetHolder)
     {
         base.Init(inputSystem, carConfig, carPresetConfig, targetHolder);
 
         _target = targetHolder.Target;
+        _waypointProgressTracker = targetHolder as WaypointProgressTracker;
     }
 
     protected override void CalculateDesiredAngle()

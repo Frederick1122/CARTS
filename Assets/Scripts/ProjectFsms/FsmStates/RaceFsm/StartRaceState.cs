@@ -1,4 +1,6 @@
 ﻿using Core.FSM;
+using UI;
+using UI.Windows.Race.RaceUI;
 
 namespace FsmStates.RaceFsm
 {
@@ -16,6 +18,7 @@ namespace FsmStates.RaceFsm
             //todo: make delay before start
             _raceManager.Init();
             _raceManager.StartRace();
+            UIManager.Instance.GetRaceUi().ShowWindow(typeof(RaceWindowController), false);
             base.Enter();
             _fsm.SetState<RaceState>();
         }

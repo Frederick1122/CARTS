@@ -51,6 +51,8 @@ namespace Cars.Controllers
             _isCarActive = false;
         }
 
+        public abstract float GetPassedDistance();
+
         public virtual void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig, ITargetHolder targetHolder = null)
         {
             _targetHolder = targetHolder;
