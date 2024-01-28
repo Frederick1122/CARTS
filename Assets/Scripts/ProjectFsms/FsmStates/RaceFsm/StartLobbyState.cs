@@ -4,8 +4,6 @@ namespace FsmStates.RaceFsm
 {
     public class StartLobbyState : FsmState
     {
-        public StartLobbyState(Fsm fsm) : base(fsm)
-        {
-        }
+        public StartLobbyState(Fsm fsm) : base(fsm) { }
     }
 }

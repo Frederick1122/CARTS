@@ -1,15 +1,6 @@
-﻿using TMPro;
-using UnityEngine;
-
-namespace UI.Windows.Race.RaceUI
+﻿namespace UI.Windows.Race.RaceUI
 {
-    public class RaceWindowView : UIView<RaceWindowModel>
-    {
-        
-    }
-    
-    public class RaceWindowModel : UIModel
-    {
-        
-    }
+    public class RaceWindowView : UIView<RaceWindowModel> { }
+
+    public class RaceWindowModel : UIModel { }
 }

@@ -1,4 +1,5 @@
 ﻿using Cars.Controllers;
+using Cars.InputSystem.AI;
 using System;
 using UnityEngine;
 
@@ -13,16 +14,12 @@ namespace ConfigScripts
         {
             get
             {
-                switch (CarControllerType)
+                return CarControllerType switch
                 {
-                    case CarControllerType.player:
-                        return typeof(PlayerCarController);
-                    case CarControllerType.baseBot:
-                    case CarControllerType.proBot:
-                        return typeof(AITargetCarController);
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    CarControllerType.player => typeof(PlayerCarController),
+                    CarControllerType.baseBot or CarControllerType.proBot => typeof(AITargetCarController),
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
             }
             private set { }
         }
@@ -32,17 +29,13 @@ namespace ConfigScripts
         {
             get
             {
-                switch (CarControllerType)
+                return CarControllerType switch
                 {
-                    case CarControllerType.player:
-                        throw new ArgumentOutOfRangeException();
-                    case CarControllerType.baseBot:
-                        return typeof(AITargetInputSystem);
-                    case CarControllerType.proBot:
-                        return typeof(ProAITargetInputSystem);
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    CarControllerType.player => throw new ArgumentOutOfRangeException(),
+                    CarControllerType.baseBot => typeof(AITargetInputSystem),
+                    CarControllerType.proBot => typeof(ProAITargetInputSystem),
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
             }
             private set { }
         }

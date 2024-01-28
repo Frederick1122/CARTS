@@ -10,6 +10,5 @@ public abstract class RaceManager : Singleton<RaceManager>
 
     protected abstract void InitPlayer();
 
-
     public abstract void StartRace();
 }

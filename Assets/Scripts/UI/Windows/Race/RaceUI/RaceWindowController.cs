@@ -4,7 +4,7 @@ namespace UI.Windows.Race.RaceUI
 {
     public class RaceWindowController : UIController<RaceWindowView, RaceWindowModel>
     {
-        private RaceWindowModel _model = new ();
+        private readonly RaceWindowModel _model = new();
         [SerializeField] private LapCounterController _lapCounterController;
         [SerializeField] private PositionCounterController _positionCounterController;
 

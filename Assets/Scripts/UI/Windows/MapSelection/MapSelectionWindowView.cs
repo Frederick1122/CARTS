@@ -27,8 +27,5 @@ namespace UI.Windows.MapSelection
         }
     }
 
-    public class MapSelectionWindowModel : UIModel
-    {
-
-    }
+    public class MapSelectionWindowModel : UIModel { }
 }

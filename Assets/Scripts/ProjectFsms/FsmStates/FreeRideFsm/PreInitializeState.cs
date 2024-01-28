@@ -5,9 +5,7 @@ namespace FsmStates.FreeRideFsm
 {
     public class PreInitializeState : FsmState
     {
-        public PreInitializeState(Fsm fsm) : base(fsm)
-        {
-        }
+        public PreInitializeState(Fsm fsm) : base(fsm) { }
 
         public override void Enter()
         {
@@ -17,6 +15,5 @@ namespace FsmStates.FreeRideFsm
 
             _fsm.SetState<StartFreeRideState>();
         }
-
     }
 }

@@ -21,7 +21,6 @@ namespace UI
         {
             _controllers.Add(_raceLoadoutController.GetType(), _raceLoadoutController);
             _controllers.Add(_raceWindowController.GetType(), _raceWindowController);
-
         }
     }
 }

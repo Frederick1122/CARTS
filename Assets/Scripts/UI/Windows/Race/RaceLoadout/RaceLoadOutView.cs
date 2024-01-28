@@ -1,3 +1,4 @@
+using Cars.InputSystem.Player;
 using UnityEngine;
 
 namespace UI.Windows.RaceLoadOut

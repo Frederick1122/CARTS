@@ -26,7 +26,7 @@ namespace Race
             {
                 if (enemiesSpawnDatas.Count == count)
                     break;
-                
+
                 if (skipPlace == i)
                     continue;
 

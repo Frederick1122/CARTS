@@ -11,6 +11,7 @@ public class WaypointCircuit : MonoBehaviour
     {
         get { return _waypointList.Items; }
     }
+
     public float Length
     {
         get
@@ -113,8 +114,8 @@ public class WaypointCircuit : MonoBehaviour
         // comments are no use here... it's the catmull-rom equation.
         // Un-magic this, lord vector!
         return 0.5f *
-               ((2 * p1) + (-p0 + p2) * i + (2 * p0 - 5 * p1 + 4 * p2 - p3) * i * i +
-                (-p0 + 3 * p1 - 3 * p2 + p3) * i * i * i);
+               ((2 * p1) + (-p0 + p2) * i + i * i * (2 * p0 - 5 * p1 + 4 * p2 - p3) +
+                i * i * i * (-p0 + 3 * p1 - 3 * p2 + p3));
     }
 
     private void CachePositionsAndDistances()

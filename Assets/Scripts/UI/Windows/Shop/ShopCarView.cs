@@ -27,15 +27,11 @@ namespace UI.Windows.Shop
             _selectedCarText.text = uiModel.isSelectedCar ? "x" : "";
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() =>
             _selectButton?.onClick.RemoveListener(SelectCar);
-        }
 
-        private void SelectCar()
-        {
-            OnSelectCarAction?.Invoke(); ;
-        }
+        private void SelectCar() =>
+            OnSelectCarAction?.Invoke();
     }
 
     public class ShopCarModel : UIModel

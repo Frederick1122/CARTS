@@ -4,12 +4,10 @@ namespace FsmStates.FreeRideFsm
 {
     public class StartFreeRideState : FsmState
     {
-        private RaceManager _raceManager;
+        private readonly RaceManager _raceManager;
 
-        public StartFreeRideState(Fsm fsm, RaceManager raceManager) : base(fsm)
-        {
+        public StartFreeRideState(Fsm fsm, RaceManager raceManager) : base(fsm) =>
             _raceManager = raceManager;
-        }
 
         public override void Enter()
         {
@@ -17,7 +15,7 @@ namespace FsmStates.FreeRideFsm
             _raceManager.Init();
             _raceManager.StartRace();
             base.Enter();
-            _fsm.SetState<RaceState>();
+            _fsm.SetState<FreeRideState>();
         }
 
     }

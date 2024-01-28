@@ -1,7 +1,4 @@
 namespace UI.Windows.RaceLoadOut
 {
-    public class RaceLoadOutModel : UIModel
-    {
-
-    }
+    public class RaceLoadOutModel : UIModel { }
 }

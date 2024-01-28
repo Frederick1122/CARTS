@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Core.FSM;
+using System;
 using System.Collections.Generic;
-using Core.FSM;
 using Zenject;
 
 namespace ProjectFsms
@@ -9,7 +9,7 @@ namespace ProjectFsms
     {
         private readonly List<IFsm> _fsms;
         private readonly FsmManager _fsmManager;
-        
+
         public FsmRegisterHandler(
             // We need to use InjectSources.Local here, otherwise we will
             // add any project context modals again in each scene
@@ -23,9 +23,7 @@ namespace ProjectFsms
         public void Initialize()
         {
             foreach (var fsm in _fsms)
-            {
                 _fsmManager.AddNewFsm(fsm);
-            }
         }
 
         public void Dispose()
@@ -33,9 +31,7 @@ namespace ProjectFsms
             // We don't want ModalManager to retain references to Modals defined in unloaded scenes
             // (dispose is executed on scene unload)
             foreach (var fsm in _fsms)
-            {
                 _fsmManager.RemoveFsm(fsm);
-            }
         }
     }
 }

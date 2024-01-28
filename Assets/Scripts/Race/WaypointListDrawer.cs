@@ -10,8 +10,8 @@ public class WaypointListDrawer : PropertyDrawer
     private const string ITEMS = "Items";
     private const string CIRCUIT = "Circuit";
 
-    private float _lineHeight = 18;
-    private float _spacing = 4;
+    private readonly float _lineHeight = 18;
+    private readonly float _spacing = 4;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -97,8 +97,8 @@ public class WaypointListDrawer : PropertyDrawer
         else
         {
             // add button
-            var addButtonRect = new Rect((x + position.width) - widths[widths.Length - 1] * inspectorWidth, y,
-                                         widths[widths.Length - 1] * inspectorWidth, lineHeight);
+            var addButtonRect = new Rect((x + position.width) - widths[^1] * inspectorWidth, y,
+                                         widths[^1] * inspectorWidth, lineHeight);
             if (GUI.Button(addButtonRect, "+"))
                 items.InsertArrayElementAtIndex(items.arraySize);
 

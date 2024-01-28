@@ -4,8 +4,6 @@ namespace FsmStates.RaceFsm
 {
     public class RaceState : FsmState
     {
-        public RaceState(Fsm fsm) : base(fsm)
-        {
-        }
+        public RaceState(Fsm fsm) : base(fsm) { }
     }
 }

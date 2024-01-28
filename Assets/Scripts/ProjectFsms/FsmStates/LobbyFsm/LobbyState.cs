@@ -6,7 +6,7 @@ namespace FsmStates.LobbyFsm
 {
     public class LobbyState : FsmState
     {
-        private LobbyUI _lobbyUI;
+        private readonly LobbyUI _lobbyUI;
 
         public LobbyState(Fsm fsm, LobbyUI lobbyUI) : base(fsm)
         {
@@ -32,19 +32,13 @@ namespace FsmStates.LobbyFsm
             UIManager.Instance.GetLobbyUi().ShowWindow(typeof(LobbyWindowController), true);
         }
 
-        private void OpenShop()
-        {
+        private void OpenShop() =>
             _fsm.SetState<ShopState>();
-        }
 
-        private void OpenSettings()
-        {
+        private void OpenSettings() =>
             _fsm.SetState<SettingsState>();
-        }
 
-        private void OpenMapSelection()
-        {
+        private void OpenMapSelection() =>
             _fsm.SetState<MapSelectionState>();
-        }
     }
 }

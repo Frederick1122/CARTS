@@ -6,7 +6,7 @@ namespace FsmStates.LobbyFsm
 {
     public class ShopState : FsmState
     {
-        private LobbyUI _lobbyUI;
+        private readonly LobbyUI _lobbyUI;
 
         public ShopState(Fsm fsm, LobbyUI lobbyUI) : base(fsm)
         {
@@ -28,9 +28,7 @@ namespace FsmStates.LobbyFsm
             UIManager.Instance.GetLobbyUi().ShowWindow(typeof(ShopWindowController), true);
         }
 
-        private void OpenLobby()
-        {
+        private void OpenLobby() =>
             _fsm.SetState<LobbyState>();
-        }
     }
 }

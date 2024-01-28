@@ -33,9 +33,7 @@ namespace UI.Windows.Shop
             _view.OnSelectCarAction -= SelectCar;
         }
 
-        private void SelectCar()
-        {
+        private void SelectCar() =>
             OnSelectCarAction?.Invoke(_uiModel);
-        }
     }
 }

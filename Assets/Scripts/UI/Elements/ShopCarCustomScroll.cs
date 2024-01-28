@@ -35,9 +35,7 @@ namespace UI.Elements
             }
         }
 
-        private void SelectCar(ShopCarModel uiModel)
-        {
+        private void SelectCar(ShopCarModel uiModel) =>
             OnSelectCarAction?.Invoke(uiModel);
-        }
     }
 }

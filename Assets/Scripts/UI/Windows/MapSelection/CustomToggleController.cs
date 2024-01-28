@@ -19,14 +19,14 @@ namespace UI.Windows.MapSelection
             _uiModel = uiModel;
             base.UpdateView(uiModel);
         }
-        
+
         public void Select()
         {
             _uiModel.isSelected = true;
             OnSelectAction?.Invoke(_uiModel);
             UpdateView(_uiModel);
         }
-        
+
         public void Unselect()
         {
             _uiModel.isSelected = false;

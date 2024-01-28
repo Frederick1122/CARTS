@@ -1,4 +1,5 @@
 using Cars.Controllers;
+using Cars.InputSystem;
 using System;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
     public WaypointCircuit.RoutePoint ProgressPoint { get; private set; }
 
     // The offset ahead along the route that the we will aim for
-    [SerializeField] private float _lookAheadForTargetOffset = 5;
+    [SerializeField] private float _lookAheadForTargetOffset = 20;
 
     // A multiplier adding distance ahead along the route to aim for, based on current speed
     [SerializeField] private float _lookAheadForTargetFactor = .1f;
@@ -134,9 +135,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
             {
                 _progressNum = (_progressNum + 1) % Circuit.Waypoints.Length;
                 if (_progressNum == 0)
-                {
                     OnLapEndAction?.Invoke();
-                }
             }
 
             var routePoint = Circuit.Waypoints[_progressNum];
@@ -166,8 +165,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
             Vector3 pos = Target.position;
             pos.y = 2;
 
-            transform.position = pos;
-            transform.rotation = Target.rotation;
+            transform.SetPositionAndRotation(pos, Target.rotation);
             _currentRespawnTime = 0f;
 
             gameObject.SetActive(true);

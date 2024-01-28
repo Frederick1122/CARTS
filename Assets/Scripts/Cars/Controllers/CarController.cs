@@ -1,3 +1,4 @@
+using Cars.InputSystem;
 using Cinemachine;
 using ConfigScripts;
 using System.Collections.Generic;
@@ -7,7 +8,12 @@ namespace Cars.Controllers
 {
     public abstract class CarController : MonoBehaviour
     {
+        public float SkidWidth { get; set; }
+        public float DesiredTurning { get; protected set; }
+        public Vector3 CarVelocity { get; protected set; }
+
         public CarConfig Config { get; protected set; }
+
         private CarPresetConfig _presetConfig;
 
         private MovementMode _movementMode;
@@ -22,10 +28,6 @@ namespace Cars.Controllers
         private Transform[] _rearWheels = new Transform[2];
 
         protected CinemachineVirtualCamera _camera;
-
-        public float SkidWidth { get; set; }
-        public float DesiredTurning { get; protected set; }
-        public Vector3 CarVelocity { get; protected set; }
 
         private IInputSystem _inputSystem;
         private ITargetHolder _targetHolder;
@@ -96,15 +98,17 @@ namespace Cars.Controllers
 
         private PhysicMaterial CopyMaterial(PhysicMaterial mat)
         {
-            var frictionMaterial = new PhysicMaterial();
-            frictionMaterial.staticFriction = mat.staticFriction;
-            frictionMaterial.dynamicFriction = mat.dynamicFriction;
-            frictionMaterial.frictionCombine = mat.frictionCombine;
-            frictionMaterial.bounciness = mat.bounciness;
-            frictionMaterial.bounceCombine = mat.bounceCombine;
+            var frictionMaterial = new PhysicMaterial
+            {
+                staticFriction = mat.staticFriction,
+                dynamicFriction = mat.dynamicFriction,
+                frictionCombine = mat.frictionCombine,
+                bounciness = mat.bounciness,
+                bounceCombine = mat.bounceCombine
+            };
 
             return frictionMaterial;
-        }    
+        }
 
         protected abstract void CalculateDesiredAngle();
 
@@ -132,16 +136,14 @@ namespace Cars.Controllers
 
                 // ????
                 if (verticalInput > 0.1f || CarVelocity.z > 1)
-                    _carBody.AddTorque(Vector3.up * horizontalInput * sign * turnSpeed * 100 * turnMultiplyer);
+                    _carBody.AddTorque(100 * horizontalInput * sign * turnMultiplyer * turnSpeed * Vector3.up);
                 else if (verticalInput < -0.1f || CarVelocity.z < -1)
-                    _carBody.AddTorque(Vector3.up * horizontalInput * sign * turnSpeed * 100 * turnMultiplyer);
+                    _carBody.AddTorque(100 * horizontalInput * sign * turnMultiplyer * turnSpeed * Vector3.up);
 
 
                 //brakelogic
-                if (brakeInput > 0.1f)
-                    _rbSphere.constraints = RigidbodyConstraints.FreezeRotationX;
-                else
-                    _rbSphere.constraints = RigidbodyConstraints.None;
+                _rbSphere.constraints = brakeInput > 0.1f ? RigidbodyConstraints.FreezeRotationX :
+                    RigidbodyConstraints.None;
 
                 //accelaration logic
                 switch (_movementMode)

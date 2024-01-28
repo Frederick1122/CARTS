@@ -1,4 +1,5 @@
 using Cars.Controllers;
+using Cars.InputSystem;
 using ConfigScripts;
 
 public class PlayerCarController : CarController
@@ -21,8 +22,6 @@ public class PlayerCarController : CarController
         _camera.gameObject.SetActive(true);
     }
 
-    protected override void CalculateDesiredAngle()
-    {
+    protected override void CalculateDesiredAngle() =>
         DesiredTurning = Config.bodyTilt;
-    }
 }

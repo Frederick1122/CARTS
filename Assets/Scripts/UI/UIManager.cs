@@ -1,5 +1,5 @@
-﻿using System;
-using Base;
+﻿using Base;
+using System;
 using UnityEngine;
 
 namespace UI
@@ -9,14 +9,14 @@ namespace UI
         [SerializeField] private LobbyUI _lobbyUI;
         [SerializeField] private RaceUI _raceUI;
         [SerializeField] private FreeRideUI _freeRideUI;
- 
+
         public void Init()
         {
             _lobbyUI.Init();
             _raceUI.Init();
             _freeRideUI.Init();
         }
-        
+
         public LobbyUI GetLobbyUi()
         {
             return _lobbyUI;
@@ -37,7 +37,7 @@ namespace UI
             _lobbyUI.gameObject.SetActive(false);
             _raceUI.gameObject.SetActive(false);
             _freeRideUI.gameObject.SetActive(false);
-            
+
             switch (uiType)
             {
                 case UiType.Lobby:
@@ -57,7 +57,7 @@ namespace UI
 
     public enum UiType
     {
-        Lobby, 
+        Lobby,
         Race,
         FreeRide
     }

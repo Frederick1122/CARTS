@@ -31,19 +31,13 @@ namespace UI.Windows.Lobby
             return new LobbyWindowModel();
         }
 
-        private void OpenShop()
-        {
+        private void OpenShop() =>
             OpenShopAction?.Invoke();
-        }
 
-        private void OpenSettings()
-        {
+        private void OpenSettings() =>
             OpenSettingsAction?.Invoke();
-        }
 
-        private void OpenMapSelection()
-        {
+        private void OpenMapSelection() =>
             OpenMapSelectionAction?.Invoke();
-        }
     }
 }

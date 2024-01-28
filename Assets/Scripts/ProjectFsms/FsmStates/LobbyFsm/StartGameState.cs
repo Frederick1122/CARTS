@@ -1,7 +1,6 @@
-﻿using System;
-using Core.FSM;
+﻿using Core.FSM;
 using Installers;
-using UI.Windows.MapSelection;
+using System;
 using UnityEngine.SceneManagement;
 
 namespace FsmStates.LobbyFsm
@@ -16,21 +15,14 @@ namespace FsmStates.LobbyFsm
         public override void Enter()
         {
             base.Enter();
-            
+
             //In this moment we can async load new scene
-            var sceneName = "";
-            switch (((ProjectFsms.LobbyFsm)_fsm).gameData.gameType)
+            var sceneName = ((ProjectFsms.LobbyFsm)_fsm).gameData.gameType switch
             {
-                case GameDataInstaller.GameType.LapRace:
-                    sceneName = LAP_RACE_SCENE;
-                    break;
-                case GameDataInstaller.GameType.FreeRide:
-                    sceneName = FREE_RIDE_SCENE;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
+                GameDataInstaller.GameType.LapRace => LAP_RACE_SCENE,
+                GameDataInstaller.GameType.FreeRide => FREE_RIDE_SCENE,
+                _ => throw new ArgumentOutOfRangeException(),
+            };
             SceneManager.LoadScene(sceneName);
         }
     }

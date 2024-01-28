@@ -1,13 +1,14 @@
-public class FreeRideInputSystem : PlayerInputSystem
+namespace Cars.InputSystem.Player
 {
-    private void Start()
+    public class FreeRideInputSystem : PlayerInputSystem
     {
-        _vertInput = 1;
-    }
-
-    protected override void OnVerticalAxisChange(float value) =>
+        private void Start() =>
             _vertInput = 1;
 
-    protected override void OnHandBrakeAxisChange(float value) =>
-        _handBrInput = 0;
+        protected override void OnVerticalAxisChange(float value) =>
+            _vertInput = 1;
+
+        protected override void OnHandBrakeAxisChange(float value) =>
+            _handBrInput = 0;
+    }
 }

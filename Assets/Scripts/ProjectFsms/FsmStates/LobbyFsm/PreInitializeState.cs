@@ -13,7 +13,7 @@ namespace FsmStates.LobbyFsm
             //In this moment we can get stats or something else
 
             UIManager.Instance.SetUiType(UiType.Lobby);
-            
+
             _fsm.SetState<LobbyState>();
         }
     }

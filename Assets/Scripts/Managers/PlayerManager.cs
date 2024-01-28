@@ -109,9 +109,7 @@ public class PlayerData
     public Dictionary<string, CarData> purchasedCars = new();
 
     [JsonConstructor]
-    private PlayerData()
-    {
-    }
+    private PlayerData() { }
 
     public PlayerData(CarData baseCar)
     {
@@ -133,12 +131,8 @@ public class CarData
     public int turnLevel = 0;
 
     [JsonConstructor]
-    private CarData()
-    {
-    }
+    private CarData() { }
 
-    public CarData(string configKey)
-    {
+    public CarData(string configKey) =>
         this.configKey = configKey;
-    }
 }

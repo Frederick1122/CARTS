@@ -1,7 +1,6 @@
 ﻿using Core.FSM;
 using FsmStates.RaceFsm;
 using Race;
-using UI;
 
 namespace ProjectFsms
 {
@@ -18,7 +17,7 @@ namespace ProjectFsms
             _states.Add(typeof(RaceState), new RaceState(this));
             _states.Add(typeof(FinishRaceState), new FinishRaceState(this));
             _states.Add(typeof(StartLobbyState), new StartLobbyState(this));
-            
+
             SetState<PreInitializeState>();
             base.Init();
         }

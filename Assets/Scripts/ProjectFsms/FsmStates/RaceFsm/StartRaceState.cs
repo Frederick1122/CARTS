@@ -8,10 +8,8 @@ namespace FsmStates.RaceFsm
     {
         private RaceManager _raceManager;
 
-        public StartRaceState(Fsm fsm, RaceManager raceManager) : base(fsm)
-        {
+        public StartRaceState(Fsm fsm, RaceManager raceManager) : base(fsm) =>
             _raceManager = raceManager;
-        }
 
         public override void Enter()
         {

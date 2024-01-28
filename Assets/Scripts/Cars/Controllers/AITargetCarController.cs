@@ -1,4 +1,5 @@
 using Cars.Controllers;
+using Cars.InputSystem;
 using ConfigScripts;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ public class AITargetCarController : CarController
 
     public override float GetPassedDistance() => _waypointProgressTracker.GetPassedDistance();
 
-    public override void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig, ITargetHolder targetHolder)
+    public override void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig,
+        ITargetHolder targetHolder)
     {
         base.Init(inputSystem, carConfig, carPresetConfig, targetHolder);
 
@@ -21,9 +23,11 @@ public class AITargetCarController : CarController
     {
         Vector3 aimedPoint = _target.position;
         aimedPoint.y = transform.position.y;
+
         Vector3 aimedDir = (aimedPoint - transform.position).normalized;
         Vector3 myDir = transform.forward;
         myDir.Normalize();
+
         DesiredTurning = Mathf.Abs(Vector3.Angle(myDir, Vector3.ProjectOnPlane(aimedDir, transform.up)));
     }
 }

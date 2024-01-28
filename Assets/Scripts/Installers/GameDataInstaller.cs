@@ -15,7 +15,7 @@ namespace Installers
             Container.Bind<LapRaceGameData>().FromInstance(_defaultLapRaceGameData).AsSingle().NonLazy();
             Container.Bind<FreeRideGameData>().FromInstance(_defaultFreeRideGameData).AsSingle().NonLazy();
             //
-            
+
             Container.Bind<GameData>().FromInstance(new GameData(GameType.LapRace)).AsSingle().NonLazy();
         }
 
@@ -26,16 +26,13 @@ namespace Installers
             {
                 this.gameType = gameType;
             }
-        
+
             public GameType gameType;
             public GameModeData gameModeData;
         }
 
-        public abstract class GameModeData
-        {
-            
-        }
-        
+        public abstract class GameModeData { }
+
         [Serializable]
         public class LapRaceGameData : GameModeData
         {
@@ -44,7 +41,7 @@ namespace Installers
             public int botCount;
 
             public LapRaceGameData() { }
-            
+
             public LapRaceGameData(string trackKey, int lapCount, int botCount)
             {
                 this.trackKey = trackKey;
@@ -54,11 +51,8 @@ namespace Installers
         }
 
         [Serializable]
-        public class FreeRideGameData : GameModeData
-        {
-            
-        }
-        
+        public class FreeRideGameData : GameModeData { }
+
         public enum GameType
         {
             LapRace,

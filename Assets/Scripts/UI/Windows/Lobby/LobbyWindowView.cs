@@ -30,8 +30,5 @@ namespace UI.Windows.Lobby
         }
     }
 
-    public class LobbyWindowModel : UIModel
-    {
-
-    }
+    public class LobbyWindowModel : UIModel { }
 }

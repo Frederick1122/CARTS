@@ -1,3 +1,5 @@
+using Cars.InputSystem.Player;
+
 namespace UI.Windows.RaceLoadOut
 {
     public class RaceLoadoutController : UIController<RaceLoadOutView, RaceLoadOutModel>

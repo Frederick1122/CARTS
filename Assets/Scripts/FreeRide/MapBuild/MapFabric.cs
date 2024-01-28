@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace FreeRide
+namespace FreeRide.Map
 {
     public class MapFabric : MonoBehaviour
     {
         public event Action<int> OnResultUpdate;
         public event Action OnFall = delegate { };
+
+        [SerializeField] private int _startCountOfPeieces = 2;
+        [SerializeField] private MapPiecesHolder _startPiece;
+        [SerializeField] private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
 
         private int _result = 0;
         public int Result
@@ -22,13 +26,9 @@ namespace FreeRide
             }
         }
 
-        [SerializeField] private int _startCountOfPeieces = 2;
-        [SerializeField] private MapPiecesHolder _startPiece;
-        [SerializeField] private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
-
         private PoolMono<MapPiecesHolder> _piecePool;
         private MapPiecesHolder _lastPiece = null;
-        private static int _poolCount = 6;
+        private static readonly int _poolCount = 6;
 
         private readonly List<MapPiecesHolder> _spawned = new();
 
@@ -45,6 +45,7 @@ namespace FreeRide
         public void SpawnPiece()
         {
             var piece = _piecePool.GetObject();
+
             if (_lastPiece != null)
                 piece.ConnectToPoint(_lastPiece.GetConnector());
 
@@ -60,9 +61,9 @@ namespace FreeRide
             Result++;
             piece.OnFinish -= WhenReachPiece;
             piece.OnFall -= StopFabic;
-            SpawnPiece();
-
             _spawned.Remove(piece);
+
+            SpawnPiece();
         }
 
         private void StopFabic()

@@ -35,9 +35,7 @@ namespace UI.Elements
             }
         }
 
-        private void Select(CustomToggleModel uiModel)
-        {
+        private void Select(CustomToggleModel uiModel) =>
             OnSelectAction?.Invoke(uiModel);
-        }
     }
 }

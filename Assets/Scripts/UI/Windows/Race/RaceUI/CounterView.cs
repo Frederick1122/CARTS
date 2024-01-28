@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UI.Windows.Race.RaceUI
 {
-    public class CounterView: UIView<CounterModel>
+    public class CounterView : UIView<CounterModel>
     {
         [SerializeField] private TMP_Text _maxCount;
         [SerializeField] private TMP_Text _count;
@@ -11,7 +11,7 @@ namespace UI.Windows.Race.RaceUI
         public override void UpdateView(CounterModel uiModel)
         {
             base.UpdateView(uiModel);
-            
+
             _maxCount.text = uiModel.maxCount.ToString();
             _count.text = uiModel.count.ToString();
         }

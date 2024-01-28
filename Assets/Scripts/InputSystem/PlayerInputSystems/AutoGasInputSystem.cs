@@ -1,18 +1,14 @@
-public class AutoGasInputSystem : PlayerInputSystem
+namespace Cars.InputSystem.Player
 {
-    private void Start()
+    public class AutoGasInputSystem : PlayerInputSystem
     {
-        _vertInput = 1;
-    }
-
-    protected override void OnVerticalAxisChange(float value)
-    {
-        if (value >= 0)
+        private void Start() =>
             _vertInput = 1;
-        else
-            _vertInput = value;
-    }
 
-    protected override void OnHandBrakeAxisChange(float value) =>
-        _handBrInput = 0;
+        protected override void OnVerticalAxisChange(float value) =>
+            _vertInput = value >= 0 ? 1 : value;
+
+        protected override void OnHandBrakeAxisChange(float value) =>
+            _handBrInput = 0;
+    }
 }

@@ -1,8 +1,8 @@
-﻿using Managers.Libraries;
+﻿using Installers;
+using Managers.Libraries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Installers;
 using UI.Elements;
 using UnityEngine;
 using Zenject;
@@ -13,14 +13,14 @@ namespace UI.Windows.MapSelection
     {
         private const string DEFAULT_RACE_MODE = "Default race";
         private const string FREE_RIDE_MODE = "Free ride";
-        
+
         private const string ONE_LAP_MODE = "One lap";
         private const string THREE_LAP_MODE = "Three laps";
         private const string ONE_BOT_MODE = "One bot";
         private const string THREE_BOT_MODE = "Three bots";
-        
-        public event Action OpenLobbyAction = delegate {  };
-        public event Action GoToGameAction = delegate {  };
+
+        public event Action OpenLobbyAction = delegate { };
+        public event Action GoToGameAction = delegate { };
         [Space]
         [SerializeField] private ToggleCustomScroll _toggleCustomScroll;
         [Space]
@@ -33,9 +33,9 @@ namespace UI.Windows.MapSelection
         [SerializeField] private CustomToggleController _threeBotsToggleController;
 
         [Inject] private GameDataInstaller.GameData _gameData;
-        
-        private GameDataInstaller.LapRaceGameData _lapRaceGameData = new ();
-        private GameDataInstaller.FreeRideGameData _freeRideGameData = new ();
+
+        private readonly GameDataInstaller.LapRaceGameData _lapRaceGameData = new();
+        private readonly GameDataInstaller.FreeRideGameData _freeRideGameData = new();
 
         private CustomToggleModel _currentCustomToggleModel;
         private List<CustomToggleModel> _trackModels = new();
@@ -55,18 +55,18 @@ namespace UI.Windows.MapSelection
             _threeLapsToggleController.OnSelectAction += SetThreeLapsMode;
             _oneBotRaceToggleController.OnSelectAction += SetOneBotMode;
             _threeBotsToggleController.OnSelectAction += SetThreeBotsMode;
-            
+
             _oneLapToggleController.Init();
             _threeLapsToggleController.Init();
             _oneBotRaceToggleController.Init();
             _threeBotsToggleController.Init();
-            
+
             _defaultRaceToggleController.Init();
             _freeRideToggleController.Init();
-            
+
             _defaultRaceToggleController.UpdateView(new CustomToggleModel(DEFAULT_RACE_MODE, true));
             _freeRideToggleController.UpdateView(new CustomToggleModel(FREE_RIDE_MODE, false));
-            
+
             _oneLapToggleController.UpdateView(new CustomToggleModel(ONE_LAP_MODE, true));
             _threeLapsToggleController.UpdateView(new CustomToggleModel(THREE_LAP_MODE, false));
             _oneBotRaceToggleController.UpdateView(new CustomToggleModel(ONE_BOT_MODE, false));
@@ -93,35 +93,33 @@ namespace UI.Windows.MapSelection
 
             if (_toggleCustomScroll != null)
                 _toggleCustomScroll.OnSelectAction -= SelectNewTrack;
-            
+
             if (_defaultRaceToggleController != null)
                 _defaultRaceToggleController.OnSelectAction -= SetDefaultRaceState;
-            
+
             if (_toggleCustomScroll != null)
                 _toggleCustomScroll.OnSelectAction -= SetFreeRideState;
-            
+
             if (_oneLapToggleController != null)
                 _oneLapToggleController.OnSelectAction -= SetOneLapMode;
-            
+
             if (_threeLapsToggleController != null)
                 _threeLapsToggleController.OnSelectAction -= SetThreeLapsMode;
-            
+
             if (_oneBotRaceToggleController != null)
                 _oneBotRaceToggleController.OnSelectAction -= SetOneBotMode;
-            
+
             if (_threeBotsToggleController != null)
                 _threeBotsToggleController.OnSelectAction -= SetThreeBotsMode;
         }
 
-        private void OpenLobby()
-        {
+        private void OpenLobby() =>
             OpenLobbyAction?.Invoke();
-        }
 
         private void GoToGame()
         {
             _gameData.gameType = _gameType;
-            
+
             _gameData.gameModeData = _gameType switch
             {
                 GameDataInstaller.GameType.LapRace => _lapRaceGameData,
@@ -147,7 +145,7 @@ namespace UI.Windows.MapSelection
             _oneLapToggleController.Unselect();
             SetMode(3, ref _lapRaceGameData.lapCount);
         }
-        
+
         private void SetOneLapMode(CustomToggleModel uiModel)
         {
             _threeLapsToggleController.Unselect();
@@ -166,11 +164,9 @@ namespace UI.Windows.MapSelection
             SetMode(1, ref _lapRaceGameData.botCount);
         }
 
-        private void SetMode(int count, ref int counter)
-        {
+        private void SetMode(int count, ref int counter) =>
             counter = count;
-        }
-        
+
         private void SetDefaultRaceState(CustomToggleModel customToggleModel)
         {
             _freeRideToggleController.Unselect();
@@ -183,10 +179,8 @@ namespace UI.Windows.MapSelection
             SetGameState(GameDataInstaller.GameType.FreeRide);
         }
 
-        private void SetGameState(GameDataInstaller.GameType gameType)
-        {
+        private void SetGameState(GameDataInstaller.GameType gameType) =>
             _gameType = gameType;
-        }
 
         private void InitAllTracks()
         {

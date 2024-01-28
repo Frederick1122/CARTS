@@ -5,9 +5,7 @@ namespace FsmStates.FreeRideFsm
 {
     public class FinishRaceState : FsmState
     {
-        public FinishRaceState(Fsm fsm) : base(fsm)
-        {
-        }
+        public FinishRaceState(Fsm fsm) : base(fsm) { }
 
         public override void Enter()
         {

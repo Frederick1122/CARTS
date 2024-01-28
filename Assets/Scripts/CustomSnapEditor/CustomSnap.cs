@@ -2,7 +2,5 @@ using UnityEngine;
 
 namespace CustomSnapTool
 {
-    public class CustomSnap : MonoBehaviour
-    {
-    }
+    public class CustomSnap : MonoBehaviour { }
 }

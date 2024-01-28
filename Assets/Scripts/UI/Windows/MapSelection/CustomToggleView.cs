@@ -22,19 +22,15 @@ namespace UI.Windows.MapSelection
         public override void UpdateView(CustomToggleModel uiModel)
         {
             base.UpdateView(uiModel);
-            _trackNameText.text = uiModel.text; 
+            _trackNameText.text = uiModel.text;
             _selectedTrackText.text = uiModel.isSelected ? "x" : "";
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() =>
             _selectButton?.onClick.RemoveListener(Select);
-        }
 
-        private void Select()
-        {
+        private void Select() =>
             OnSelectAction?.Invoke();
-        }
     }
 
     public class CustomToggleModel : UIModel
@@ -50,7 +46,7 @@ namespace UI.Windows.MapSelection
             this.text = text;
             this.isSelected = isSelected;
         }
-        
+
         public CustomToggleModel(string text, string key, bool isSelected)
         {
             this.text = text;

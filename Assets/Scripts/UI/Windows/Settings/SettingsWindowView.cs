@@ -16,14 +16,9 @@ namespace UI.Windows.Settings
             _openLobbyButton.onClick.AddListener(OpenLobbyAction.Invoke);
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() =>
             _openLobbyButton?.onClick.RemoveAllListeners();
-        }
     }
 
-    public class SettingsWindowModel : UIModel
-    {
-
-    }
+    public class SettingsWindowModel : UIModel { }
 }

@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-namespace FreeRide
+namespace FreeRide.Map
 {
     public class MapPiece : MonoBehaviour
     {

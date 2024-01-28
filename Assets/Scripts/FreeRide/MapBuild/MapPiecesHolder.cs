@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FreeRide
+namespace FreeRide.Map
 {
-
     public class MapPiecesHolder : MonoBehaviour, IPoolObject
     {
         public event Action OnFall = delegate { };
@@ -45,8 +44,11 @@ namespace FreeRide
             }
         }
 
-        public void Spawn() =>
-            gameObject.SetActive(true);
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out CarController _) || other.transform.parent.TryGetComponent(out CarController _))
+                OnFall?.Invoke();
+        }
 
         public CustomSnapPoint GetConnector()
         {
@@ -85,12 +87,6 @@ namespace FreeRide
             _reachCount = 0;
             foreach (var piece in _mapPieces)
                 piece.ResetPiece();
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent(out CarController _) || other.transform.parent.TryGetComponent(out CarController _))
-                OnFall?.Invoke();
         }
     }
 }

@@ -1,13 +1,15 @@
-using Cars;
 using ConfigScripts;
 
-public interface IInputSystem
+namespace Cars.InputSystem
 {
-    public bool IsActive { get; set; }
+    public interface IInputSystem
+    {
+        public bool IsActive { get; set; }
 
-    public void Init(CarPresetConfig presetConfig, CarPrefabData prefabData) { }
+        public void Init(CarPresetConfig presetConfig, CarPrefabData prefabData) { }
 
-    public float VerticalInput { get; }
-    public float HorizontalInput { get; }
-    public float BrakeInput { get; }
+        public float VerticalInput { get; }
+        public float HorizontalInput { get; }
+        public float BrakeInput { get; }
+    }
 }

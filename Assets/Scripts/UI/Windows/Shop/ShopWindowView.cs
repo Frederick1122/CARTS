@@ -16,10 +16,8 @@ namespace UI.Windows.Shop
             _openLobbyButton.onClick.AddListener(OpenLobbyAction.Invoke);
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() =>
             _openLobbyButton?.onClick.RemoveAllListeners();
-        }
     }
 
     public class ShopWindowModel : UIModel

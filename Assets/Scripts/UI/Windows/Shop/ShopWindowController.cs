@@ -14,7 +14,7 @@ namespace UI.Windows.Shop
 
         [SerializeField] private ShopCarCustomScroll _shopCarCustomScroll;
 
-        private List<ShopCarModel> _carModels = new();
+        private readonly List<ShopCarModel> _carModels = new();
 
         public override void Init()
         {
@@ -24,10 +24,8 @@ namespace UI.Windows.Shop
             base.Init();
         }
 
-        public override void UpdateView()
-        {
+        public override void UpdateView() =>
             UpdateAllShopCars();
-        }
 
         protected override ShopWindowModel GetViewData()
         {
@@ -45,10 +43,8 @@ namespace UI.Windows.Shop
         }
 
 
-        private void OpenLobby()
-        {
+        private void OpenLobby() =>
             OpenLobbyAction?.Invoke();
-        }
 
         private void SelectedNewCar(ShopCarModel uiModel)
         {

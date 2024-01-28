@@ -25,9 +25,7 @@ namespace UI.Windows.Settings
             return new SettingsWindowModel();
         }
 
-        private void OpenLobby()
-        {
+        private void OpenLobby() =>
             OpenLobbyAction?.Invoke();
-        }
     }
 }
