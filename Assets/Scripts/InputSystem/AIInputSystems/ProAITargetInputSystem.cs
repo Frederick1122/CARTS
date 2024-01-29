@@ -7,8 +7,8 @@ namespace Cars.InputSystem.AI
     {
         private Transform[] _rayPoses = new Transform[4];
         private LayerMask _obstacleLayers;
-        private float _rayLength = 5;
-        private float _backRatio = 0.2f;
+        private float _rayLength = 20;
+        private float _backRatio = 0.1f;
 
         private RaycastHit _hitL1, _hitL2, _hitR2, _hitR1;
         private Ray _rayL1, _rayL2, _rayR2, _rayR1;
@@ -77,17 +77,18 @@ namespace Cars.InputSystem.AI
                 }
             }
 
-            _horInp = Mathf.Clamp(horInpAfter, -1, 1);
+            var newHorInput = Mathf.Clamp(horInpAfter, -1, 1);
+            var neededSpeed = Mathf.Clamp(InterpolateRayDistance(mindist), -1, 1) * _config.maxSpeedLevels[0] / 2;
 
-            if (mindist >= _rayLength)
+            if (mindist >= _rayLength / 2)
                 _needToRev = false;
 
-            var neededSpeed = Mathf.Clamp(InterpolateRayDistance(mindist), -1, 1) * _config.maxSpeedLevels[0];
+            _horInp = Mathf.Lerp(_horInp, newHorInput, _config.turnLevels[0] * 10);
 
             if (_needToRev)
             {
                 _vertInp = -1;
-                _horInp = 0;
+                _horInp *= -1;
                 return;
             }
 
@@ -97,7 +98,7 @@ namespace Cars.InputSystem.AI
 
         private float InterpolateRayDistance(float dist)
         {
-            if (dist <= _backRatio * _rayLength)
+            if (dist <= _backRatio)
             {
                 _needToRev = true;
                 return -1;
