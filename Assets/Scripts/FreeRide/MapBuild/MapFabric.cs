@@ -49,17 +49,22 @@ namespace FreeRide.Map
             if (_lastPiece != null)
                 piece.ConnectToPoint(_lastPiece.GetConnector());
 
-            piece.OnFinish += WhenReachPiece;
+            piece.OnPieceReach += UpdateResult;
+            piece.OnFinish += WhenFinishPiece;
             piece.OnFall += StopFabic;
             _lastPiece = piece;
 
             _spawned.Add(piece);
         }
 
-        private void WhenReachPiece(MapPiecesHolder piece)
+        private void UpdateResult() =>
+            Result++;
+
+        private void WhenFinishPiece(MapPiecesHolder piece)
         {
             Result++;
-            piece.OnFinish -= WhenReachPiece;
+            piece.OnPieceReach -= UpdateResult;
+            piece.OnFinish -= WhenFinishPiece;
             piece.OnFall -= StopFabic;
             _spawned.Remove(piece);
 
@@ -70,7 +75,7 @@ namespace FreeRide.Map
         {
             foreach (var piece in _spawned)
             {
-                piece.OnFinish -= WhenReachPiece;
+                piece.OnFinish -= WhenFinishPiece;
                 piece.OnFall -= StopFabic;
             }
 

@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace UI.Windows.Race.RaceUI
+namespace UI.Windows.LapRace
 {
     public class CounterView : UIView<CounterModel>
     {

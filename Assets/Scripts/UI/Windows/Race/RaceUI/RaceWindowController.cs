@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UI.Windows.Race.RaceUI
+namespace UI.Windows.LapRace
 {
     public class RaceWindowController : UIController<RaceWindowView, RaceWindowModel>
     {

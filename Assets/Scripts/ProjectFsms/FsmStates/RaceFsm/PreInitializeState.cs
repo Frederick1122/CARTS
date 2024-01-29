@@ -12,6 +12,7 @@ namespace FsmStates.RaceFsm
             base.Enter();
 
             UIManager.Instance.SetUiType(UiType.Race);
+            UIManager.Instance.SetUiType(UiType.MobileLayout, false);
 
             _fsm.SetState<StartRaceState>();
         }

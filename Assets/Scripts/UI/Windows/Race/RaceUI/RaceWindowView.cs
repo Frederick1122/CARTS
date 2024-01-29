@@ -1,4 +1,4 @@
-﻿namespace UI.Windows.Race.RaceUI
+﻿namespace UI.Windows.LapRace
 {
     public class RaceWindowView : UIView<RaceWindowModel> { }
 

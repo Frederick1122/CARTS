@@ -1,4 +1,6 @@
 using Core.FSM;
+using UI;
+using UI.Windows.FreeRide;
 
 namespace FsmStates.FreeRideFsm
 {
@@ -14,6 +16,7 @@ namespace FsmStates.FreeRideFsm
             //todo: make delay before start
             _raceManager.Init();
             _raceManager.StartRace();
+            UIManager.Instance.GetFreeRideUI().ShowWindow(typeof(FreeRideWindowController), false);
             base.Enter();
             _fsm.SetState<FreeRideState>();
         }

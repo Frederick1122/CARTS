@@ -12,6 +12,7 @@ namespace FsmStates.FreeRideFsm
             base.Enter();
 
             UIManager.Instance.SetUiType(UiType.FreeRide);
+            UIManager.Instance.SetUiType(UiType.MobileLayout, false);
 
             _fsm.SetState<StartFreeRideState>();
         }

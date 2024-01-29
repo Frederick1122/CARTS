@@ -1,9 +1,9 @@
 using Cars.InputSystem.Player;
 using UnityEngine;
 
-namespace UI.Windows.RaceLoadOut
+namespace UI.Windows.MobileLayout
 {
-    public class RaceLoadOutView : UIView<RaceLoadOutModel>, IButtonsInput
+    public class MobileLayoutView : UIView<MobileLayoutModel>, IButtonsInput
     {
         [field: SerializeField] public RaceButton ForwardButton { get; private set; }
         [field: SerializeField] public RaceButton BackwardButton { get; private set; }

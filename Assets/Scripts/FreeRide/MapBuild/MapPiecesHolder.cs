@@ -9,7 +9,7 @@ namespace FreeRide.Map
     public class MapPiecesHolder : MonoBehaviour, IPoolObject
     {
         public event Action OnFall = delegate { };
-        public event Action<MapPiece> OnReach = delegate { };
+        public event Action OnPieceReach = delegate { };
         public event Action<MapPiecesHolder> OnFinish = delegate { };
         public event Action<IPoolObject> OnObjectNeededToDeactivate = delegate { };
 
@@ -73,7 +73,7 @@ namespace FreeRide.Map
         private void PieceReach(MapPiece piece)
         {
             _reachCount++;
-            OnReach?.Invoke(piece);
+            OnPieceReach?.Invoke();
             if (_reachCount >= _mapPieces.Count)
                 OnFinish?.Invoke(this);
         }

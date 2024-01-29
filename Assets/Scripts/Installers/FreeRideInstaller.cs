@@ -16,6 +16,8 @@ namespace Installers
         public override void InstallBindings()
         {
             Container.InstantiatePrefabForComponent<RaceManager>(_raceManagerPrefab);
+            Debug.Log("Installer free ride");
+
             Container.Bind<IFsm>().To<FreeRideFsm>().AsSingle();
         }
     }

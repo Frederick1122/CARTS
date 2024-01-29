@@ -20,6 +20,12 @@ namespace FreeRide
         [SerializeField] private MapFabric _mapFabric;
         [SerializeField] private DifficultyModifier _difficultyModifier;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            Debug.Log("Free ride manager");
+        }
+
         public override void Init()
         {
             _mapFabric.Init();
@@ -29,6 +35,8 @@ namespace FreeRide
             base.Init();
 
             _difficultyModifier.Init(_player, this);
+
+            
         }
 
         private void OnDestroy()

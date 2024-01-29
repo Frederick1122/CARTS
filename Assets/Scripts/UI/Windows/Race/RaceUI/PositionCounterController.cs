@@ -1,6 +1,6 @@
 ﻿using Race;
 
-namespace UI.Windows.Race.RaceUI
+namespace UI.Windows.LapRace
 {
     public class PositionCounterController : UIController<CounterView, CounterModel>
     {

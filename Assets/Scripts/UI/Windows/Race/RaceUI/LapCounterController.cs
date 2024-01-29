@@ -1,11 +1,11 @@
 ﻿using Race;
 using UnityEngine;
 
-namespace UI.Windows.Race.RaceUI
+namespace UI.Windows.LapRace
 {
     public class LapCounterController : UIController<CounterView, CounterModel>
     {
-        private CounterModel _counterModel = new();
+        private readonly CounterModel _counterModel = new();
 
         public override void Show()
         {

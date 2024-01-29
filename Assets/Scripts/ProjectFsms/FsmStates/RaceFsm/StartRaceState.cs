@@ -1,6 +1,6 @@
 ﻿using Core.FSM;
 using UI;
-using UI.Windows.Race.RaceUI;
+using UI.Windows.LapRace;
 
 namespace FsmStates.RaceFsm
 {

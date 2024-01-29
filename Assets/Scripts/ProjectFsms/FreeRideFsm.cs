@@ -1,6 +1,8 @@
 using Core.FSM;
 using FreeRide;
 using FsmStates.FreeRideFsm;
+using UnityEngine;
+
 
 namespace ProjectFsms
 {
@@ -10,6 +12,7 @@ namespace ProjectFsms
 
         public override void Init()
         {
+            Debug.Log(FreeRideManager.Instance);
             _raceManager = FreeRideManager.Instance;
 
             _states.Add(typeof(PreInitializeState), new PreInitializeState(this));

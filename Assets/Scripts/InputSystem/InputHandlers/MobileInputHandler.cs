@@ -1,6 +1,6 @@
 using System;
 using UI;
-using UI.Windows.RaceLoadOut;
+using UI.Windows.MobileLayout;
 using UnityEngine;
 
 namespace Cars.InputSystem.Player
@@ -17,7 +17,8 @@ namespace Cars.InputSystem.Player
 
         private void Start()
         {
-            var controller = (RaceLoadoutController)UIManager.Instance.GetRaceUi().ShowWindow(typeof(RaceLoadoutController), false);
+            var controller = UIManager.Instance.GetMobileLayoutUI().ShowWindow(typeof(MobileLayoutController))
+                as MobileLayoutController;
             Init(controller.GetButtons());
         }
 
