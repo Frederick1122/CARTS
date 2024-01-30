@@ -15,9 +15,8 @@ namespace FsmStates.RaceFsm
         public override void Enter()
         {
             //todo: make delay before start
-            
             _raceManager.StartRace();
-            
+
             UIManager.Instance.GetRaceUi().ShowWindow(typeof(RaceWindowController), false);
             base.Enter();
             _fsm.SetState<InRaceState>();

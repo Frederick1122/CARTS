@@ -5,15 +5,7 @@ namespace UI
 {
     public class RaceUI : WindowManager
     {
-        [SerializeField] private RaceWindowController _raceWindowController;
-
-        //[ContextMenu("Init")]
-        //public override void Init()
-        //{
-        //    base.Init();
-        //    _raceLoadoutController.Init();
-        //    _raceWindowController.Init();
-        //}
+        [SerializeField] private Windows.LapRace.RaceWindowController _raceWindowController;
 
         protected override void AddControllers() =>
             _controllers.Add(_raceWindowController.GetType(), _raceWindowController);
