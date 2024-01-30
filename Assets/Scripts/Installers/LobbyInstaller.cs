@@ -7,7 +7,9 @@ namespace Installers
 {
     public class LobbyInstaller : MonoInstaller
     {
-        public override void InstallBindings() =>
-            Container.Bind<IFsm>().To<LobbyFsm>().AsSingle();
+        public override void InstallBindings()
+        {
+            FsmManager.Instance.SetActiveFsm<LobbyFsm>();
+        }
     }
 }

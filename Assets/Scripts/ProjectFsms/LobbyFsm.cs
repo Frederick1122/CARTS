@@ -23,7 +23,6 @@ namespace ProjectFsms
             _states.Add(typeof(MapSelectionState), new MapSelectionState(this, _lobbyUI));
             _states.Add(typeof(StartGameState), new StartGameState(this));
 
-            SetState<PreInitializeState>();
             base.Init();
         }
     }

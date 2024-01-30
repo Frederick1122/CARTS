@@ -1,5 +1,4 @@
 ﻿using Core.FSM;
-using ProjectFsms;
 using UnityEngine;
 using Zenject;
 
@@ -11,9 +10,8 @@ namespace Installers
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesTo<FsmRegisterHandler>().AsSingle().CopyIntoDirectSubContainers();
-
             var fsmManager = Container.InstantiatePrefabForComponent<FsmManager>(_fsmManagerPrefab);
+            fsmManager.Create();
             Container.Bind<FsmManager>().FromInstance(fsmManager).AsSingle().NonLazy();
         }
     }

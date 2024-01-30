@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5194547606787660830}
   - component: {fileID: 7405112807621069112}
   - component: {fileID: 782465251632419076}
+  - component: {fileID: 6916373430263503882}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: -704391670628229925}
   - {fileID: 5194547606787660830}
+  - {fileID: 6916373430263503882}
   - {fileID: 7405112807621069112}
   - {fileID: 782465251632419076}
   _installerPrefabs: []
@@ -81,9 +83,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameObjects:
-  - {fileID: 5917893761303100043, guid: 8f4a99891b374764782c9ef62c187fe9, type: 3}
   - {fileID: 1797692952574625256, guid: f9c3cb60b67711644a6ef3d14aba661c, type: 3}
   - {fileID: 5309863259165996599, guid: 98f82800505e5604fa53c442ba54a041, type: 3}
+  - {fileID: 2017441374765592813, guid: f80e6f4952b465d45a06c07abb659046, type: 3}
+  - {fileID: 5917893761303100043, guid: 8f4a99891b374764782c9ef62c187fe9, type: 3}
   - {fileID: 1034980889749589774, guid: 015a02c860646ea4c9afc9472927aa8c, type: 3}
 --- !u!114 &5194547606787660830
 MonoBehaviour:
@@ -101,6 +104,8 @@ MonoBehaviour:
     trackKey: DefaultTrack
     lapCount: 1
     botCount: 2
+  _defaultFreeRideGameData:
+    trackKey: DefaultFreeRide
 --- !u!114 &7405112807621069112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,4 +133,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fsmManagerPrefab: {fileID: 2331019657218551813, guid: c501721798d719a45a8691df8efaca06,
+    type: 3}
+--- !u!114 &6916373430263503882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515597395968422695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad8d628b1d94715bbd3e3c589e3da3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _raceManagerPrefab: {fileID: 2933929960542434951, guid: 9040793b0dc0f634a9e3a8cddfa4f7ba,
     type: 3}

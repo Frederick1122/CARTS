@@ -1,4 +1,5 @@
 using Cars.Controllers;
+using Race.RaceManagers;
 using UnityEngine;
 
 namespace FreeRide
@@ -14,19 +15,19 @@ namespace FreeRide
         private int _level = 0;
 
         private CarController _car;
-        private FreeRideManager _manager;
+        private FreeRideState _state;
 
-        public void Init(CarController car, FreeRideManager manager)
+        public void Init(CarController car, FreeRideState state)
         {
             _car = car;
-            _manager = manager;
+            _state = state;
 
-            _manager.OnResultUpdate += UpDifficulty;
+            _state.OnResultUpdateAction += UpDifficulty;
         }
 
         private void OnDestroy()
         {
-            _manager.OnResultUpdate -= UpDifficulty;
+            _state.OnResultUpdateAction -= UpDifficulty;
         }
 
         public void UpDifficulty(int res)

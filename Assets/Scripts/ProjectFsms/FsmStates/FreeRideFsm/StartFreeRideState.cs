@@ -1,4 +1,5 @@
 using Core.FSM;
+using Race.RaceManagers;
 using UI;
 using UI.Windows.FreeRide;
 
@@ -14,11 +15,12 @@ namespace FsmStates.FreeRideFsm
         public override void Enter()
         {
             //todo: make delay before start
-            _raceManager.Init();
+            
             _raceManager.StartRace();
+            
             UIManager.Instance.GetFreeRideUI().ShowWindow(typeof(FreeRideWindowController), false);
             base.Enter();
-            _fsm.SetState<FreeRideState>();
+            _fsm.SetState<InFreeRideState>();
         }
 
     }

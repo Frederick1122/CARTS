@@ -34,8 +34,11 @@ namespace UI.Windows.MapSelection
 
         [Inject] private GameDataInstaller.GameData _gameData;
 
-        private readonly GameDataInstaller.LapRaceGameData _lapRaceGameData = new();
-        private readonly GameDataInstaller.FreeRideGameData _freeRideGameData = new();
+        [Inject] private readonly GameDataInstaller.LapRaceGameData _defaultLapRaceGameData;
+        [Inject] private readonly GameDataInstaller.FreeRideGameData _defaultFreeRideGameData;
+        
+        private GameDataInstaller.LapRaceGameData _lapRaceGameData;
+        private GameDataInstaller.FreeRideGameData _freeRideGameData;
 
         private CustomToggleModel _currentCustomToggleModel;
         private List<CustomToggleModel> _trackModels = new();
@@ -56,6 +59,9 @@ namespace UI.Windows.MapSelection
             _oneBotRaceToggleController.OnSelectAction += SetOneBotMode;
             _threeBotsToggleController.OnSelectAction += SetThreeBotsMode;
 
+            _lapRaceGameData = _defaultLapRaceGameData;
+            _freeRideGameData = _defaultFreeRideGameData;
+            
             _oneLapToggleController.Init();
             _threeLapsToggleController.Init();
             _oneBotRaceToggleController.Init();
