@@ -9,8 +9,7 @@ namespace FsmStates.FreeRideFsm
 
         public InFreeRideState(Fsm fsm, RaceManager raceManager) : base(fsm)
         {
-            
-            _freeRideState = raceManager.GetState<FreeRideState>() as FreeRideState;
+            _freeRideState = raceManager.GetState<FreeRideState>();
             _freeRideState.OnFinishAction += FinishAction;
         }
 

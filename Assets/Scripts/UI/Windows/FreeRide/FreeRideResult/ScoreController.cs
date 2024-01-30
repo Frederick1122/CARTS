@@ -14,7 +14,7 @@ namespace UI.Windows.FreeRide
 
         public override void Init()
         {
-            _freeRideState = RaceManager.Instance.GetState<FreeRideState>() as FreeRideState;
+            _freeRideState = RaceManager.Instance.GetState<FreeRideState>();
             _freeRideState.OnResultUpdateAction += UpdateActionScore;
             _freeRideState.OnStartAction += ResetScore;
 

@@ -9,7 +9,7 @@ namespace UI.Windows.LapRace
 
         public override void Init()
         {
-            _lapRaceState = RaceManager.Instance.GetState<LapRaceState>() as LapRaceState;
+            _lapRaceState = RaceManager.Instance.GetState<LapRaceState>();
             _lapRaceState.OnStartAction += ResetCounter;
             _lapRaceState.OnPlayerChangePositionAction += ChangePosition;
             base.Init();

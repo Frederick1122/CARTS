@@ -12,9 +12,9 @@ namespace Race.RaceManagers
         private Dictionary<Type, RaceState> _raceStates = new();
         private RaceState _currentRaceState;
 
-        public RaceState GetState<T>() where T : RaceState
+        public T GetState<T>() where T : RaceState
         {
-            return _raceStates[typeof(T)];
+            return (T)_raceStates[typeof(T)];
         }
         
         public void SetState<T>() where T : RaceState
