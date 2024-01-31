@@ -10,27 +10,19 @@ namespace Installers
 {
     public class LobbyInstaller : MonoInstaller
     {
-        //[SerializeField] private GameObject _lobbyEnvironment;
-        [SerializeField] private LobbyCameraManager _cameraManager;
-        [SerializeField] private Garage _garage;
+        [SerializeField] private LobbyManager _manager;
 
         public override void InstallBindings()
         {
-            CameraManagerInstall();
-            GarageInstall();
+            CreateLobbyManager();
             FsmManager.Instance.SetActiveFsm<LobbyFsm>();
         }
 
-        private void CameraManagerInstall()
+        private void CreateLobbyManager()
         {
-            _cameraManager.Create();
-            _cameraManager.Init();
-        }
-
-        private void GarageInstall()
-        {
-            _garage.Init();
-            Container.Bind<Garage>().FromInstance(_garage).AsSingle().NonLazy();
+            var manager = Container.InstantiatePrefabForComponent<LobbyManager>(_manager);
+            manager.Create();
+            manager.Init();
         }
     }
 }

@@ -12,7 +12,8 @@ namespace ProjectFsms
         private LobbyUI _lobbyUI;
 
         [Inject] public GameDataInstaller.GameData gameData;
-        /*[Inject]*/ private Garage _garage;
+
+        private Garage _garage => LobbyManager.Instance.Garage;
 
         public override void Init()
         {
