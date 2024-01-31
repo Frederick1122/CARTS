@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CameraManger.Rotate
 {
-    public class CameraRotateInput : MonoBehaviour
+    public class ObjectRotateAroundInput : MonoBehaviour
     {
         [SerializeField] private Transform _target;
 
