@@ -11,6 +11,7 @@ namespace UI.Windows.Shop
     public class ShopWindowController : UIController<ShopWindowView, ShopWindowModel>
     {
         public event Action OpenLobbyAction;
+        public event Action OnNewCarBuy;
 
         [SerializeField] private ShopCarCustomScroll _shopCarCustomScroll;
 
@@ -55,6 +56,7 @@ namespace UI.Windows.Shop
 
             PlayerManager.Instance.AddPurchasedCar(uiModel.configKey);
             PlayerManager.Instance.SetCurrentCar(uiModel.configKey);
+            OnNewCarBuy?.Invoke();
             UpdateAllShopCars();
         }
 

@@ -1,4 +1,5 @@
-﻿using Core.FSM;
+﻿using CameraManger.Lobby;
+using Core.FSM;
 using UI;
 using UI.Windows.Lobby;
 
@@ -29,6 +30,7 @@ namespace FsmStates.LobbyFsm
         public override void Enter()
         {
             base.Enter();
+            LobbyCameraManager.Instance.SwitchCamera(CameraPositions.Default);
             UIManager.Instance.GetLobbyUi().ShowWindow(typeof(LobbyWindowController), true);
         }
 

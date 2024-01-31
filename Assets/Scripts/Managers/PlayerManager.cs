@@ -11,6 +11,8 @@ namespace Managers
     {
         private const string PLAYER_JSON_PATH = "Player.json";
 
+        public event Action<CarData> OnPlayerCarChange;
+
         [SerializeField] private CarData _defaultCar;
 
         public void AddPurchasedCar(string carConfigKey)
@@ -65,6 +67,7 @@ namespace Managers
 
             _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
             Save();
+            OnPlayerCarChange?.Invoke(_saveData.currentCar);
         }
 
         public CarData GetCurrentCar()
