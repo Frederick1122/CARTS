@@ -2,7 +2,7 @@
 
 namespace UI.Windows.MapSelection
 {
-    public class CustomToggleController : UIController<CustomToggleView, CustomToggleModel>
+    public class CustomToggleController : UIController
     {
         public event Action<CustomToggleModel> OnSelectAction;
 
@@ -10,13 +10,13 @@ namespace UI.Windows.MapSelection
 
         public override void Init()
         {
-            _view.OnSelectAction += Select;
+            GetView<CustomToggleView>().OnSelectAction += Select;
             base.Init();
         }
 
-        public override void UpdateView(CustomToggleModel uiModel)
+        public override void UpdateView(UIModel uiModel)
         {
-            _uiModel = uiModel;
+            _uiModel = (CustomToggleModel)uiModel;
             base.UpdateView(uiModel);
         }
 
@@ -33,7 +33,7 @@ namespace UI.Windows.MapSelection
             UpdateView(_uiModel);
         }
 
-        protected override CustomToggleModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _uiModel;
         }
@@ -43,7 +43,7 @@ namespace UI.Windows.MapSelection
             if (_view == null)
                 return;
 
-            _view.OnSelectAction -= Select;
+            GetView<CustomToggleView>().OnSelectAction -= Select;
         }
     }
 }

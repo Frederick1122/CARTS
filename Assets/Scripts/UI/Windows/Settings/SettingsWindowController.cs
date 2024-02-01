@@ -2,13 +2,13 @@
 
 namespace UI.Windows.Settings
 {
-    public class SettingsWindowController : UIController<SettingsWindowView, SettingsWindowModel>
+    public class SettingsWindowController : UIController
     {
         public event Action OpenLobbyAction;
 
         public override void Init()
-        {
-            _view.OpenLobbyAction += OpenLobby;
+        { 
+            GetView<SettingsWindowView>().OpenLobbyAction += OpenLobby;
             base.Init();
         }
 
@@ -17,10 +17,10 @@ namespace UI.Windows.Settings
             if (_view == null)
                 return;
 
-            _view.OpenLobbyAction -= OpenLobby;
+            GetView<SettingsWindowView>().OpenLobbyAction -= OpenLobby;
         }
 
-        protected override SettingsWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return new SettingsWindowModel();
         }

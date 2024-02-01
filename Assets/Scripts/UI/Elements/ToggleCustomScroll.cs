@@ -3,7 +3,7 @@ using UI.Windows.MapSelection;
 
 namespace UI.Elements
 {
-    public class ToggleCustomScroll : CustomScroll<CustomToggleController, CustomToggleView, CustomToggleModel>
+    public class ToggleCustomScroll : CustomScroll<CustomToggleController, CustomToggleModel>
     {
         public event Action<CustomToggleModel> OnSelectAction;
 

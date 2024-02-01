@@ -3,7 +3,7 @@ using UI.Windows.Shop;
 
 namespace UI.Elements
 {
-    public sealed class ShopCarCustomScroll : CustomScroll<ShopCarController, ShopCarView, ShopCarModel>
+    public sealed class ShopCarCustomScroll : CustomScroll<ShopCarController, ShopCarModel>
     {
         public event Action<ShopCarModel> OnSelectCarAction;
 

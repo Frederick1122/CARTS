@@ -1,6 +1,7 @@
+using UI.Windows.MapSelection;
 using UnityEngine;
 
-public class UIView<T> : MonoBehaviour where T : UIModel
+public class UIView : MonoBehaviour
 {
     virtual public void Show()
     {
@@ -22,12 +23,12 @@ public class UIView<T> : MonoBehaviour where T : UIModel
         }
     }
 
-    virtual public void Init(T uiModel)
+    virtual public void Init(UIModel uiModel)
     {
 
     }
 
-    virtual public void UpdateView(T uiModel)
+    virtual public void UpdateView(UIModel uiModel)
     {
 
     }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UI.Windows.MapSelection
 {
-    public class MapSelectionWindowView : UIView<MapSelectionWindowModel>
+    public class MapSelectionWindowView : UIView
     {
         public event Action OpenLobbyAction;
 
@@ -13,9 +13,9 @@ namespace UI.Windows.MapSelection
         [SerializeField] private Button _openLobbyButton;
         [SerializeField] private Button _goToGameButton;
 
-        public override void Init(MapSelectionWindowModel uiModel)
+        public override void Init(UIModel model)
         {
-            base.Init(uiModel);
+            base.Init(model);
             _openLobbyButton.onClick.AddListener(OpenLobbyAction.Invoke);
             _goToGameButton.onClick.AddListener(GoToGameAction.Invoke);
         }

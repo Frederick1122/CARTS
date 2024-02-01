@@ -2,7 +2,7 @@
 
 namespace UI.Windows.LapRace
 {
-    public class RaceWindowController : UIController<RaceWindowView, RaceWindowModel>
+    public class RaceWindowController : UIController
     {
         private readonly RaceWindowModel _model = new();
         [SerializeField] private LapCounterController _lapCounterController;
@@ -29,7 +29,7 @@ namespace UI.Windows.LapRace
             base.Hide();
         }
 
-        protected override RaceWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _model;
         }

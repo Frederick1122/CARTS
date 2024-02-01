@@ -2,7 +2,7 @@
 
 namespace UI.Windows.LapRace
 {
-    public class PositionCounterController : UIController<CounterView, CounterModel>
+    public class PositionCounterController : UIController
     {
         private readonly CounterModel _counterModel = new();
         private LapRaceState _lapRaceState;
@@ -36,7 +36,9 @@ namespace UI.Windows.LapRace
             UpdateView(_counterModel);
         }
 
-        protected override CounterModel GetViewData() =>
-            _counterModel;
+        protected override UIModel GetViewData()
+        {
+            return _counterModel;
+        }
     }
 }

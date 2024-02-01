@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI.Windows.FreeRide
 {
-    public class FreeRideWindowController : UIController<FreeRideWindowView, FreeRideWindowModel>
+    public class FreeRideWindowController : UIController
     {
         [Header("Own controllers")]
         [SerializeField] private ScoreController _scoreController;
@@ -26,7 +26,7 @@ namespace UI.Windows.FreeRide
             base.Hide();
         }
 
-        protected override FreeRideWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _model;
         }

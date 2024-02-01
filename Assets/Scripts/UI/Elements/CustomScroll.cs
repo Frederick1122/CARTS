@@ -4,10 +4,7 @@ using UnityEngine.UI;
 
 namespace UI.Elements
 {
-    public abstract class CustomScroll<T, T2, T3> : MonoBehaviour
-        where T : UIController<T2, T3>
-        where T2 : UIView<T3>, new()
-        where T3 : UIModel
+    public abstract class CustomScroll<T, T2> : MonoBehaviour where T : UIController where T2: UIModel 
     {
         [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private T _uiControllerPrefab;
@@ -24,7 +21,7 @@ namespace UI.Elements
             _activeControllers.Clear();
         }
 
-        public virtual void AddElement(T3 uiModel)
+        public virtual void AddElement(T2 uiModel)
         {
             T controller;
 
@@ -44,7 +41,7 @@ namespace UI.Elements
             _activeControllers.Add(controller);
         }
 
-        public void AddRange(List<T3> uiModels)
+        public void AddRange(List<T2> uiModels)
         {
             foreach (var uiModel in uiModels)
                 AddElement(uiModel);
