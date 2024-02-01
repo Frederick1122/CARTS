@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UI.Windows.LapRace;
 using UnityEngine;
 
 namespace UI.Windows.FreeRide
 {
-    public class FreeRideWindowController : UIController<FreeRideWindowView, FreeRideWindowModel>
+    public class FreeRideWindowController : RaceLayout
     {
         [Header("Own controllers")]
         [SerializeField] private ScoreController _scoreController;
@@ -26,7 +27,7 @@ namespace UI.Windows.FreeRide
             base.Hide();
         }
 
-        protected override FreeRideWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _model;
         }

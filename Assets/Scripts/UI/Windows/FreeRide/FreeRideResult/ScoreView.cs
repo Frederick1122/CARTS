@@ -3,15 +3,21 @@ using UnityEngine;
 
 namespace UI.Windows.FreeRide
 {
-    public class ScoreView : UIView<ScoreModel>
+    public class ScoreView : UIView
     {
         [SerializeField] private TMP_Text _scoreText;
 
-        public override void Init(ScoreModel uiModel) =>
-            UpdateScore(uiModel.Score);
+        public override void Init(UIModel model)
+        {
+            UpdateView(model);
+        }
 
-        public override void UpdateView(ScoreModel uiModel) =>
-            UpdateScore(uiModel.Score);
+        public override void UpdateView(UIModel model)
+        {
+            var castModel = (ScoreModel) model;
+
+            UpdateScore(castModel.Score);
+        }
 
         private void UpdateScore(int value)
         {

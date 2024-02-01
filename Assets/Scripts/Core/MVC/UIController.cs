@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public abstract class UIController<T, T2> : MonoBehaviour, IUiController where T : UIView<T2>, new() where T2 : UIModel
+public abstract class UIController : MonoBehaviour, IUiController
 {
-    [SerializeField] protected T _view;
+    [SerializeField] protected UIView _view;
 
     public virtual void Show()
     {
@@ -21,15 +21,20 @@ public abstract class UIController<T, T2> : MonoBehaviour, IUiController where T
 
     public virtual void UpdateView()
     {
-
+        _view.UpdateView(GetViewData());
     }
 
-    public virtual void UpdateView(T2 uiModel)
+    public virtual void UpdateView(UIModel uiModel)
     {
-        _view.UpdateView(uiModel);
+        UpdateView();
     }
 
-    protected abstract T2 GetViewData();
+    protected abstract UIModel GetViewData();
+
+    protected T GetView<T>() where T : UIView
+    {
+        return (T) _view;
+    }
 }
 
 public interface IUiController

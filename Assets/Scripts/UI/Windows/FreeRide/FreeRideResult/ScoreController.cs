@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UI.Windows.FreeRide
 {
-    public class ScoreController : UIController<ScoreView, ScoreModel>
+    public class ScoreController : UIController
     {
         private readonly ScoreModel _model = new();
         private FreeRideState _freeRideState;
@@ -39,7 +39,7 @@ namespace UI.Windows.FreeRide
         public override void UpdateView() =>
             _view.UpdateView(_model);
 
-        protected override ScoreModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _model;
         }

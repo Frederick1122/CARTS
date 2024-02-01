@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace UI.Windows.Shop
 {
-    public class ShopWindowController : UIController<ShopWindowView, ShopWindowModel>
+    public class ShopWindowController : UIController
     {
         public event Action OpenLobbyAction;
         public event Action OnNewCarBuy;
@@ -19,30 +19,29 @@ namespace UI.Windows.Shop
 
         public override void Init()
         {
-            _view.OpenLobbyAction += OpenLobby;
+            GetView<ShopWindowView>().OpenLobbyAction += OpenLobby;
             _shopCarCustomScroll.OnSelectCarAction += SelectedNewCar;
             InitAllShopCars();
             base.Init();
         }
 
-        public override void UpdateView() =>
-            UpdateAllShopCars();
-
-        protected override ShopWindowModel GetViewData()
-        {
-            return new ShopWindowModel();
-        }
-
         private void OnDestroy()
         {
             if (_view != null)
-                _view.OpenLobbyAction -= OpenLobby;
+                GetView<ShopWindowView>().OpenLobbyAction -= OpenLobby;
 
 
             if (_shopCarCustomScroll != null)
                 _shopCarCustomScroll.OnSelectCarAction -= SelectedNewCar;
         }
 
+        public override void UpdateView() =>
+            UpdateAllShopCars();
+
+        protected override UIModel GetViewData()
+        {
+            return new ShopWindowModel();
+        }
 
         private void OpenLobby() =>
             OpenLobbyAction?.Invoke();

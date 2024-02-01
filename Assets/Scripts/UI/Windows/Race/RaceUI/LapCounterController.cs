@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI.Windows.LapRace
 {
-    public class LapCounterController : UIController<CounterView, CounterModel>
+    public class LapCounterController : UIController
     {
         private readonly CounterModel _counterModel = new();
         private LapRaceState _lapRaceState;
@@ -40,7 +40,7 @@ namespace UI.Windows.LapRace
             UpdateView(_counterModel);
         }
 
-        protected override CounterModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _counterModel;
         }

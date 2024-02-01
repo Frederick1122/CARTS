@@ -2,7 +2,7 @@
 
 namespace UI.Windows.Lobby
 {
-    public class LobbyWindowController : UIController<LobbyWindowView, LobbyWindowModel>
+    public class LobbyWindowController : UIController
     {
         public event Action OpenShopAction;
         public event Action OpenSettingsAction;
@@ -11,10 +11,11 @@ namespace UI.Windows.Lobby
 
         public override void Init()
         {
-            _view.OpenShopAction += OpenShop;
-            _view.OpenSettingsAction += OpenSettings;
-            _view.OpenMapSelectionAction += OpenMapSelection;
-            _view.OpenGarageAction += OpenGarage;
+            GetView<LobbyWindowView>().OpenShopAction += OpenShop;
+            GetView<LobbyWindowView>().OpenSettingsAction += OpenSettings;
+            GetView<LobbyWindowView>().OpenMapSelectionAction += OpenMapSelection;
+            GetView<LobbyWindowView>().OpenGarageAction += OpenGarage;
+
             base.Init();
         }
 
@@ -23,13 +24,13 @@ namespace UI.Windows.Lobby
             if (_view == null)
                 return;
 
-            _view.OpenShopAction -= OpenShop;
-            _view.OpenSettingsAction -= OpenSettings;
-            _view.OpenMapSelectionAction -= OpenMapSelection;
-            _view.OpenGarageAction += OpenGarage;
+            GetView<LobbyWindowView>().OpenShopAction -= OpenShop;
+            GetView<LobbyWindowView>().OpenSettingsAction -= OpenSettings;
+            GetView<LobbyWindowView>().OpenMapSelectionAction -= OpenMapSelection;
+            GetView<LobbyWindowView>().OpenGarageAction -= OpenGarage;
         }
 
-        protected override LobbyWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return new LobbyWindowModel();
         }

@@ -2,16 +2,16 @@ using Cars.InputSystem.Player;
 
 namespace UI.Windows.MobileLayout
 {
-    public class MobileLayoutController : UIController<MobileLayoutView, MobileLayoutModel>
+    public class MobileLayoutController : UIController
     {
-        protected override MobileLayoutModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return new MobileLayoutModel();
         }
 
         public IButtonsInput GetButtons()
         {
-            return _view;
+            return GetView<MobileLayoutView>();
         }
     }
 }

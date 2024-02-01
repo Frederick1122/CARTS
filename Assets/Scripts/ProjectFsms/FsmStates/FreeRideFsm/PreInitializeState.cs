@@ -1,6 +1,7 @@
 using Core.FSM;
 using Race.RaceManagers;
 using UI;
+using UI.Windows.FreeRide;
 
 namespace FsmStates.FreeRideFsm
 {
@@ -18,7 +19,8 @@ namespace FsmStates.FreeRideFsm
             _raceManager.SetState<FreeRideState>();
             _raceManager.InitState();
             
-            UIManager.Instance.SetUiType(UiType.FreeRide);
+            UIManager.Instance.SetUiType(UiType.Race);
+            UIManager.Instance.GetRaceUi().GetRaceLayout<FreeRideWindowController>().Show();
             UIManager.Instance.SetUiType(UiType.MobileLayout, false);
 
             _fsm.SetState<StartFreeRideState>();

@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI.Windows.Pause
 {
-    public class PauseWindowController : UIController<PauseWindowView, PauseWindowModel>
+    public class PauseWindowController : UIController
     {
         protected PauseWindowModel _model;
 
@@ -20,13 +18,11 @@ namespace UI.Windows.Pause
             Time.timeScale = 1;
         }
 
-        protected override PauseWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _model;
         }
     }
-
-    public class PauseWindowView : UIView<PauseWindowModel> { }
 
     public class PauseWindowModel : UIModel { }
 }
