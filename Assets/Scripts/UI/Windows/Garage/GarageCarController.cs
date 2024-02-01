@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UI.Windows.Garage
 {
-    public class GarageCarController : UIController<GarageCarView, GarageCarModel>
+    public class GarageCarController : UIController
     {
         public event Action<ModificationType> OnUpgrade = delegate { };
         public event Action OnEquipCar = delegate { };
@@ -15,16 +15,16 @@ namespace UI.Windows.Garage
 
         public override void Init()
         {
-            _view.OnUpgrade += Upgrade;
-            _view.OnEquip += EquipCar;
+            GetView<GarageCarView>().OnUpgrade += Upgrade;
+            GetView<GarageCarView>().OnEquip += EquipCar;
 
             _view.Init(_model);
         }
 
         private void OnDestroy()
         {
-            _view.OnUpgrade -= Upgrade;
-            _view.OnEquip -= EquipCar;
+            GetView<GarageCarView>().OnUpgrade -= Upgrade;
+            GetView<GarageCarView>().OnEquip -= EquipCar;
         }
 
         public override void UpdateView() =>
@@ -41,7 +41,7 @@ namespace UI.Windows.Garage
             UpdateView();
         }
 
-        protected override GarageCarModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _model;
         }

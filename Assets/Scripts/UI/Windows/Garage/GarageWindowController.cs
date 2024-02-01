@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace UI.Windows.Garage
 {
-    public class GarageWindowController : UIController<GarageWindowView, GarageWindowModel>
+    public class GarageWindowController : UIController
     {
         public event Action OnOpenLobby = delegate { };
 
@@ -24,25 +24,25 @@ namespace UI.Windows.Garage
 
             _garageCarController.Init();
             _garageCarController.OnUpgrade += UpgradeCar;
-            _garageCarController.OnEquipCar += UpdateCurrentCar;
+            _garageCarController.OnEquipCar += EquipCar;
 
             _cars = PlayerManager.Instance.GetPurchasedCars();
 
-            _view.OnOpenLobby += OnOpenLobby;
+            GetView<GarageWindowView>().OnOpenLobby += RequestToOpenLobby;
 
-            _view.OnNextCar += ChooseNextCar;
-            _view.OnPrevCar += ChoosePrevCar;
+            GetView<GarageWindowView>().OnNextCar += ChooseNextCar;
+            GetView<GarageWindowView>().OnPrevCar += ChoosePrevCar;
         }
 
         private void OnDestroy()
         {
             _garageCarController.OnUpgrade -= UpgradeCar;
-            _garageCarController.OnEquipCar -= UpdateCurrentCar;
+            _garageCarController.OnEquipCar -= EquipCar;
 
-            _view.OnOpenLobby += OnOpenLobby;
+            GetView<GarageWindowView>().OnOpenLobby += RequestToOpenLobby;
 
-            _view.OnNextCar -= ChooseNextCar;
-            _view.OnPrevCar -= ChoosePrevCar;
+            GetView<GarageWindowView>().OnNextCar -= ChooseNextCar;
+            GetView<GarageWindowView>().OnPrevCar -= ChoosePrevCar;
         }
 
         public override void Show()
@@ -61,7 +61,7 @@ namespace UI.Windows.Garage
             _garageCarController.Hide();
         }
 
-        protected override GarageWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return new GarageWindowModel();
         }
@@ -78,10 +78,11 @@ namespace UI.Windows.Garage
             UpdateGarage();
         }
 
-        private void UpdateCurrentCar()
-        {
+        private void EquipCar() =>
             PlayerManager.Instance.SetCurrentCar(_cars[_currentCarIndex].configKey);
-        }
+
+        private void RequestToOpenLobby() =>
+            OnOpenLobby?.Invoke();
 
         private void ChooseNextCar()
         {

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI.Windows.Garage
 {
-    public class GarageWindowView : UIView<GarageWindowModel>
+    public class GarageWindowView : UIView
     {
         public event Action OnNextCar = delegate { };
         public event Action OnPrevCar = delegate { };
@@ -19,7 +19,7 @@ namespace UI.Windows.Garage
         [SerializeField] private Button _nextCarButton;
         [SerializeField] private Button _prevCarButton;
 
-        public override void Init(GarageWindowModel uiModel)
+        public override void Init(UIModel uiModel)
         {
             _backButton.onClick.AddListener(OpenLobby);
 

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace UI.Windows.Garage
 {
-    public class GarageCarView : UIView<GarageCarModel>
+    public class GarageCarView : UIView
     {
         public event Action<ModificationType> OnUpgrade = delegate { };
         public event Action OnEquip = delegate { };
@@ -20,9 +20,9 @@ namespace UI.Windows.Garage
         [SerializeField] private CarCharacteristic _acceleration;
         [SerializeField] private CarCharacteristic _turnSpeed;
 
-        public override void Init(GarageCarModel uiModel)
+        public override void Init(UIModel uiModel)
         {
-            UpdateData(uiModel);
+            UpdateData((GarageCarModel)uiModel);
             _equipButton.onClick.AddListener(OnEquipCar);
 
             _speed.Init();
@@ -47,8 +47,8 @@ namespace UI.Windows.Garage
         private void Upgrade(ModificationType modification) =>
             OnUpgrade?.Invoke(modification);
 
-        public override void UpdateView(GarageCarModel uiModel) =>
-            UpdateData(uiModel);
+        public override void UpdateView(UIModel uiModel) =>
+            UpdateData((GarageCarModel)uiModel);
 
         private void UpdateData(GarageCarModel model)
         {
