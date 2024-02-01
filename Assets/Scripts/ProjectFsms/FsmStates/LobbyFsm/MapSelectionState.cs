@@ -29,7 +29,7 @@ namespace FsmStates.LobbyFsm
         {
             base.Enter();
             LobbyCameraManager.Instance.SwitchCamera(CameraPositions.StartRace);
-            UIManager.Instance.GetLobbyUi().ShowWindow(typeof(MapSelectionWindowController), true);
+            UIManager.Instance.GetLobbyUi().ShowWindow(typeof(MapSelectionWindowController));
         }
 
         private void OpenLobby() =>

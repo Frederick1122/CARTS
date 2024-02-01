@@ -3,6 +3,7 @@ using Managers.Libraries;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Managers
@@ -24,7 +25,7 @@ namespace Managers
             Save();
         }
 
-        public void UpdateModificationLevel(string carConfigKey, int newLevel, ModificationType modificationType)
+        public void UpdateModificationLevel(string carConfigKey, ModificationType modificationType)
         {
             if (!_saveData.purchasedCars.ContainsKey(carConfigKey))
             {
@@ -33,23 +34,32 @@ namespace Managers
             }
 
             var carConfig = CarLibrary.Instance.GetConfig(carConfigKey);
+            int level;
             switch (modificationType)
             {
                 case ModificationType.MaxSpeed:
-                    _saveData.purchasedCars[carConfigKey].maxSpeedLevel =
-                        Mathf.Clamp(newLevel, 0, carConfig.maxSpeedLevels.Count - 1);
+                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].maxSpeedLevel + 1, 0,
+                        carConfig.maxSpeedLevels.Count - 1);
+                    _saveData.purchasedCars[carConfigKey].maxSpeedLevel = level;
                     break;
+
                 case ModificationType.Acceleration:
-                    _saveData.purchasedCars[carConfigKey].accelerationLevel =
-                        Mathf.Clamp(newLevel, 0, carConfig.accelerationLevels.Count - 1);
+                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].accelerationLevel++, 0,
+                         carConfig.maxSpeedLevels.Count - 1);
+                    _saveData.purchasedCars[carConfigKey].accelerationLevel = level;
                     break;
+
                 case ModificationType.Turn:
-                    _saveData.purchasedCars[carConfigKey].turnLevel =
-                        Mathf.Clamp(newLevel, 0, carConfig.turnLevels.Count - 1);
+                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].turnLevel++, 0,
+                        carConfig.maxSpeedLevels.Count - 1);
+                    _saveData.purchasedCars[carConfigKey].turnLevel = level;           
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(modificationType), modificationType, null);
             }
+
+            Debug.Log($"{carConfigKey} upgrade {modificationType}, lvl: {level}");
 
             if (_saveData.currentCar.configKey == carConfigKey)
                 _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
@@ -68,6 +78,12 @@ namespace Managers
             _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
             Save();
             OnPlayerCarChange?.Invoke(_saveData.currentCar);
+        }
+
+        public IReadOnlyList<CarData> GetPurchasedCars()
+        {
+            var cars = _saveData.purchasedCars.Values.ToList();
+            return cars;
         }
 
         public CarData GetCurrentCar()

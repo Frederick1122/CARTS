@@ -9,10 +9,12 @@ namespace UI.Windows.Lobby
         public event Action OpenShopAction;
         public event Action OpenSettingsAction;
         public event Action OpenMapSelectionAction;
+        public event Action OpenGarageAction;
 
         [SerializeField] private Button _openShopButton;
         [SerializeField] private Button _openSettingsButton;
         [SerializeField] private Button _openMapSelectionButton;
+        [SerializeField] private Button _openGarageButton;
 
         public override void Init(LobbyWindowModel uiModel)
         {
@@ -20,6 +22,7 @@ namespace UI.Windows.Lobby
             _openShopButton.onClick.AddListener(OpenShopAction.Invoke);
             _openSettingsButton.onClick.AddListener(OpenSettingsAction.Invoke);
             _openMapSelectionButton.onClick.AddListener(OpenMapSelectionAction.Invoke);
+            _openGarageButton.onClick.AddListener(OpenGarageAction.Invoke);
         }
 
         private void OnDestroy()
@@ -27,6 +30,7 @@ namespace UI.Windows.Lobby
             _openShopButton?.onClick.RemoveAllListeners();
             _openSettingsButton?.onClick.RemoveAllListeners();
             _openMapSelectionButton?.onClick.RemoveAllListeners();
+            _openGarageButton?.onClick.RemoveListener(OpenGarageAction.Invoke);
         }
     }
 

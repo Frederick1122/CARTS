@@ -7,12 +7,14 @@ namespace UI.Windows.Lobby
         public event Action OpenShopAction;
         public event Action OpenSettingsAction;
         public event Action OpenMapSelectionAction;
+        public event Action OpenGarageAction = delegate { };
 
         public override void Init()
         {
             _view.OpenShopAction += OpenShop;
             _view.OpenSettingsAction += OpenSettings;
             _view.OpenMapSelectionAction += OpenMapSelection;
+            _view.OpenGarageAction += OpenGarage;
             base.Init();
         }
 
@@ -24,6 +26,7 @@ namespace UI.Windows.Lobby
             _view.OpenShopAction -= OpenShop;
             _view.OpenSettingsAction -= OpenSettings;
             _view.OpenMapSelectionAction -= OpenMapSelection;
+            _view.OpenGarageAction += OpenGarage;
         }
 
         protected override LobbyWindowModel GetViewData()
@@ -39,5 +42,8 @@ namespace UI.Windows.Lobby
 
         private void OpenMapSelection() =>
             OpenMapSelectionAction?.Invoke();
+
+        private void OpenGarage() =>
+            OpenGarageAction?.Invoke();
     }
 }

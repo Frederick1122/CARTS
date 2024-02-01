@@ -15,6 +15,7 @@ namespace FsmStates.LobbyFsm
             _lobbyUI.OpenShopAction += OpenShop;
             _lobbyUI.OpenSettingsAction += OpenSettings;
             _lobbyUI.OpenMapSelectionAction += OpenMapSelection;
+            _lobbyUI.OpenGarageAction += OpenGarage;
         }
 
         ~LobbyState()
@@ -25,6 +26,7 @@ namespace FsmStates.LobbyFsm
             _lobbyUI.OpenShopAction -= OpenShop;
             _lobbyUI.OpenSettingsAction -= OpenSettings;
             _lobbyUI.OpenMapSelectionAction -= OpenMapSelection;
+            _lobbyUI.OpenGarageAction -= OpenGarage;
         }
 
         public override void Enter()
@@ -42,5 +44,8 @@ namespace FsmStates.LobbyFsm
 
         private void OpenMapSelection() =>
             _fsm.SetState<MapSelectionState>();
+
+        private void OpenGarage() =>
+            _fsm.SetState<GarageState>();
     }
 }
