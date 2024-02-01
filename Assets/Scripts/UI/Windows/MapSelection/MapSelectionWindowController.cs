@@ -9,7 +9,7 @@ using Zenject;
 
 namespace UI.Windows.MapSelection
 {
-    public class MapSelectionWindowController : UIController<MapSelectionWindowView, MapSelectionWindowModel>
+    public class MapSelectionWindowController : UIController
     {
         private const string DEFAULT_RACE_MODE = "Default race";
         private const string FREE_RIDE_MODE = "Free ride";
@@ -34,8 +34,11 @@ namespace UI.Windows.MapSelection
 
         [Inject] private GameDataInstaller.GameData _gameData;
 
-        private readonly GameDataInstaller.LapRaceGameData _lapRaceGameData = new();
-        private readonly GameDataInstaller.FreeRideGameData _freeRideGameData = new();
+        [Inject] private readonly GameDataInstaller.LapRaceGameData _defaultLapRaceGameData;
+        [Inject] private readonly GameDataInstaller.FreeRideGameData _defaultFreeRideGameData;
+        
+        private GameDataInstaller.LapRaceGameData _lapRaceGameData;
+        private GameDataInstaller.FreeRideGameData _freeRideGameData;
 
         private CustomToggleModel _currentCustomToggleModel;
         private List<CustomToggleModel> _trackModels = new();
@@ -45,8 +48,8 @@ namespace UI.Windows.MapSelection
 
         public override void Init()
         {
-            _view.OpenLobbyAction += OpenLobby;
-            _view.GoToGameAction += GoToGame;
+            GetView<MapSelectionWindowView>().OpenLobbyAction += OpenLobby;
+            GetView<MapSelectionWindowView>().GoToGameAction += GoToGame;
             _toggleCustomScroll.OnSelectAction += SelectNewTrack;
             _defaultRaceToggleController.OnSelectAction += SetDefaultRaceState;
             _freeRideToggleController.OnSelectAction += SetFreeRideState;
@@ -56,6 +59,9 @@ namespace UI.Windows.MapSelection
             _oneBotRaceToggleController.OnSelectAction += SetOneBotMode;
             _threeBotsToggleController.OnSelectAction += SetThreeBotsMode;
 
+            _lapRaceGameData = _defaultLapRaceGameData;
+            _freeRideGameData = _defaultFreeRideGameData;
+            
             _oneLapToggleController.Init();
             _threeLapsToggleController.Init();
             _oneBotRaceToggleController.Init();
@@ -78,7 +84,7 @@ namespace UI.Windows.MapSelection
 
         public override void UpdateView() => UpdateAllTracks();
 
-        protected override MapSelectionWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return new MapSelectionWindowModel();
         }
@@ -87,8 +93,8 @@ namespace UI.Windows.MapSelection
         {
             if (_view != null)
             {
-                _view.OpenLobbyAction -= OpenLobby;
-                _view.GoToGameAction -= GoToGame;
+                GetView<MapSelectionWindowView>().OpenLobbyAction -= OpenLobby;
+                GetView<MapSelectionWindowView>().GoToGameAction -= GoToGame;
             }
 
             if (_toggleCustomScroll != null)

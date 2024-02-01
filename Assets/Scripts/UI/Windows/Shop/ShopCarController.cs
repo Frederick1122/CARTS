@@ -2,7 +2,7 @@
 
 namespace UI.Windows.Shop
 {
-    public class ShopCarController : UIController<ShopCarView, ShopCarModel>
+    public class ShopCarController : UIController
     {
         public event Action<ShopCarModel> OnSelectCarAction;
 
@@ -10,17 +10,17 @@ namespace UI.Windows.Shop
 
         public override void Init()
         {
-            _view.OnSelectCarAction += SelectCar;
+            GetView<ShopCarView>().OnSelectCarAction += SelectCar;
             base.Init();
         }
 
-        public override void UpdateView(ShopCarModel uiModel)
+        public override void UpdateView(UIModel uiModel)
         {
-            _uiModel = uiModel;
+            _uiModel = (ShopCarModel)uiModel;
             base.UpdateView(uiModel);
         }
 
-        protected override ShopCarModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _uiModel;
         }
@@ -30,7 +30,7 @@ namespace UI.Windows.Shop
             if (_view == null)
                 return;
 
-            _view.OnSelectCarAction -= SelectCar;
+            GetView<ShopCarView>().OnSelectCarAction -= SelectCar;
         }
 
         private void SelectCar() =>

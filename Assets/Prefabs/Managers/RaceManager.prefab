@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1511023913829620255}
-  - component: {fileID: 7875671608669033380}
+  - component: {fileID: 2933929960542434951}
   m_Layer: 0
   m_Name: RaceManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7875671608669033380
+--- !u!114 &2933929960542434951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,8 +41,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 851494984082271352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14dc495ceffd4c54eb5ddc48682147d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 4193f8e6cc2bca64fb6239056274f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 5509696963062973587, guid: c59158e403383c04c9e9b0a303a94990,
-    type: 3}

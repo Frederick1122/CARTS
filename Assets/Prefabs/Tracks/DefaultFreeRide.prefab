@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2309685275631690730}
-  - component: {fileID: 3485062525244976398}
   - component: {fileID: 2727372985032087034}
+  - component: {fileID: 2252254384423415066}
   m_Layer: 0
-  m_Name: FreeRideManager
+  m_Name: DefaultFreeRide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,21 +34,6 @@ Transform:
   - {fileID: 8517977202215949367}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3485062525244976398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405095174047219317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31f817ce6ce9bc14b9dac7fd61f5e335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startPosition: {fileID: 332541589175435442}
-  _mapFabric: {fileID: 2232766354044228307}
-  _difficultyModifier: {fileID: 2727372985032087034}
 --- !u!114 &2727372985032087034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +49,21 @@ MonoBehaviour:
   _levelToIncreaseDifficulty: 5
   _speedModifierByLevel: 0.1
   _accelerationModifierByLevel: 0.1
+--- !u!114 &2252254384423415066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405095174047219317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb74e72d0804c4bb9d854d9ccac886e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPosition: {fileID: 332541589175435442}
+  mapFabric: {fileID: 2232766354044228307}
+  difficultyModifier: {fileID: 2727372985032087034}
 --- !u!1 &2320488148374422834
 GameObject:
   m_ObjectHideFlags: 0

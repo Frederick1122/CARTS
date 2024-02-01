@@ -1,3 +1,4 @@
+using Base;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +11,18 @@ namespace Installers
         public override void InstallBindings()
         {
             foreach (var gameObjectToInstall in _gameObjects)
-                DontDestroyOnLoad(Instantiate(gameObjectToInstall));
+            {
+                var newGameObject = Instantiate(gameObjectToInstall);
+                DontDestroyOnLoad(newGameObject);
+
+                foreach (var component in newGameObject.GetComponents(typeof(Component)))
+                {
+                    if (component is ICreate createComponent)
+                    {
+                        createComponent.Create();
+                    }
+                }
+            }
         }
     }
 }

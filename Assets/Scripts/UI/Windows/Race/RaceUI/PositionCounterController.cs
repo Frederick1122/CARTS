@@ -1,31 +1,33 @@
-﻿using Race;
+﻿using Race.RaceManagers;
 
 namespace UI.Windows.LapRace
 {
-    public class PositionCounterController : UIController<CounterView, CounterModel>
+    public class PositionCounterController : UIController
     {
         private readonly CounterModel _counterModel = new();
+        private LapRaceState _lapRaceState;
 
-        public override void Show()
+        public override void Init()
         {
-            base.Show();
-            _counterModel.maxCount = ((LapRaceManager)LapRaceManager.Instance).GetMaxPositions();
-            _counterModel.count = ((LapRaceManager)LapRaceManager.Instance).GetPlayerPosition();
-            ((LapRaceManager)LapRaceManager.Instance).OnPlayerChangePositionAction += ChangePosition;
-            UpdateView(_counterModel);
+            _lapRaceState = RaceManager.Instance.GetState<LapRaceState>();
+            _lapRaceState.OnStartAction += ResetCounter;
+            _lapRaceState.OnPlayerChangePositionAction += ChangePosition;
+            base.Init();
         }
-
-        public override void Hide()
-        {
-            if (LapRaceManager.Instance != null)
-                ((LapRaceManager)LapRaceManager.Instance).OnPlayerChangePositionAction -= ChangePosition;
-            base.Hide();
-        }
-
+        
         private void OnDestroy()
         {
-            if (LapRaceManager.Instance != null)
-                ((LapRaceManager)LapRaceManager.Instance).OnPlayerChangePositionAction -= ChangePosition;
+            if (_lapRaceState == null)
+                return;
+
+            _lapRaceState.OnStartAction -= ResetCounter;
+            _lapRaceState.OnPlayerChangePositionAction -= ChangePosition;
+        }
+
+        private void ResetCounter()
+        {
+            _counterModel.maxCount = _lapRaceState.GetMaxPositions();
+            UpdateView(_counterModel);
         }
 
         private void ChangePosition(int position)
@@ -34,7 +36,9 @@ namespace UI.Windows.LapRace
             UpdateView(_counterModel);
         }
 
-        protected override CounterModel GetViewData() =>
-            _counterModel;
+        protected override UIModel GetViewData()
+        {
+            return _counterModel;
+        }
     }
 }

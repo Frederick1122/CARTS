@@ -10,13 +10,14 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
 
-namespace Race
+namespace Race.RaceManagers
 {
-    public class LapRaceManager : RaceManager
+    public class LapRaceState : RaceState
     {
         private const string PLAYER_PRESET_NAME = "PlayerPreset";
-
+        
         public event Action<int> OnPlayerChangePositionAction = delegate { };
         public event Action OnPlayerEndsLapAction = delegate { };
 
@@ -24,6 +25,8 @@ namespace Race
         [Inject] private GameDataInstaller.LapRaceGameData _defaultLapRaceGameData;
 
         private GameDataInstaller.LapRaceGameData _lapRaceGameData;
+
+        private CarController _player;
 
         private Track _currentTrack;
         private readonly List<CarController> _enemies = new();
@@ -46,12 +49,14 @@ namespace Race
             }
 
             InitTrack();
-            base.Init();
+            InitPlayer();
             InitAi();
         }
 
-        private void OnDestroy() =>
+        public override void Destroy()
+        {
             _positionCts.Cancel();
+        }
 
         public override void StartRace()
         {
@@ -60,6 +65,12 @@ namespace Race
 
             _player.StartCar();
             CheckPlayerPosition(_positionCts.Token).Forget();
+            base.StartRace();
+        }
+
+        public override void FinishRace()
+        {
+            _positionCts.Cancel();
         }
 
         public int GetMaxLapCount() =>
@@ -113,7 +124,7 @@ namespace Race
 
         #region initialization
 
-        protected override void InitPlayer()
+        protected void InitPlayer()
         {
             _lapsStats.Add(0);
             var playerConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
@@ -163,7 +174,7 @@ namespace Race
         private void InitTrack()
         {
             var trackConfig = TrackLibrary.Instance.GetConfig(_lapRaceGameData.trackKey);
-            _currentTrack = Instantiate(trackConfig.trackPrefab);
+            _currentTrack = Object.Instantiate(trackConfig.trackPrefab);
         }
 
         #endregion

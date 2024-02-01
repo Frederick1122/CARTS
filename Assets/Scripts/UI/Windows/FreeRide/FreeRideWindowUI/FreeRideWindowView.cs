@@ -1,6 +1,6 @@
 namespace UI.Windows.FreeRide
 {
-    public class FreeRideWindowView : UIView<FreeRideWindowModel> { }
+    public class FreeRideWindowView : UIView { }
 
     public class FreeRideWindowModel : UIModel { }
 }

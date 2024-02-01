@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UI.Windows.Lobby
 {
-    public class LobbyWindowView : UIView<LobbyWindowModel>
+    public class LobbyWindowView : UIView
     {
         public event Action OpenShopAction;
         public event Action OpenSettingsAction;
@@ -14,9 +14,9 @@ namespace UI.Windows.Lobby
         [SerializeField] private Button _openSettingsButton;
         [SerializeField] private Button _openMapSelectionButton;
 
-        public override void Init(LobbyWindowModel uiModel)
+        public override void Init(UIModel model)
         {
-            base.Init(uiModel);
+            base.Init(model);
             _openShopButton.onClick.AddListener(OpenShopAction.Invoke);
             _openSettingsButton.onClick.AddListener(OpenSettingsAction.Invoke);
             _openMapSelectionButton.onClick.AddListener(OpenMapSelectionAction.Invoke);

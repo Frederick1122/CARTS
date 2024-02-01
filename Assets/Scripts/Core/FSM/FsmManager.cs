@@ -1,13 +1,17 @@
 ﻿using Base;
 using System;
 using System.Collections.Generic;
+using Zenject;
 
 namespace Core.FSM
 {
     public class FsmManager : Singleton<FsmManager>
     {
-        private Dictionary<Type, Fsm> _currentFsms = new Dictionary<Type, Fsm>();
-
+        [Inject] private DiContainer _diContainer;
+        
+        private Dictionary<Type, Fsm> _currentFsms = new ();
+        private Fsm _activeFsm;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -15,6 +19,20 @@ namespace Core.FSM
             {
                 currentFsm.Value.Init();
             }
+        }
+
+        public void SetActiveFsm<T>() where T : Fsm, new()
+        {
+            if (!_currentFsms.ContainsKey(typeof(T)))
+            {
+                var newFsm = _diContainer.Instantiate(typeof(T)) as T;
+                newFsm.Init();
+                _currentFsms.Add(typeof(T), newFsm);
+            }
+            
+            _activeFsm?.Reset();
+            _activeFsm = _currentFsms[typeof(T)];
+            _activeFsm.SetStartState();
         }
 
         public Fsm TryGetFsm<T>() where T : Fsm

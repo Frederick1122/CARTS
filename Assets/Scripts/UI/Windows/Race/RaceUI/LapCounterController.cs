@@ -1,35 +1,37 @@
 ﻿using Race;
+using Race.RaceManagers;
 using UnityEngine;
 
 namespace UI.Windows.LapRace
 {
-    public class LapCounterController : UIController<CounterView, CounterModel>
+    public class LapCounterController : UIController
     {
         private readonly CounterModel _counterModel = new();
+        private LapRaceState _lapRaceState;
 
-        public override void Show()
+        public override void Init()
         {
-            if (_counterModel.maxCount == 0)
-            {
-                _counterModel.maxCount = ((LapRaceManager)LapRaceManager.Instance).GetMaxLapCount();
-                _counterModel.count = 1;
-            }
-            ((LapRaceManager)LapRaceManager.Instance).OnPlayerEndsLapAction += IncreaseLapCount;
-            UpdateView(_counterModel);
+            _lapRaceState = RaceManager.Instance.GetState<LapRaceState>();
+
+            _lapRaceState.OnStartAction += ResetCounter;
+            _lapRaceState.OnPlayerEndsLapAction += IncreaseLapCount;
             base.Show();
-        }
-
-        public override void Hide()
-        {
-            if (LapRaceManager.Instance != null)
-                ((LapRaceManager)LapRaceManager.Instance).OnPlayerEndsLapAction -= IncreaseLapCount;
-            base.Hide();
         }
 
         private void OnDestroy()
         {
-            if (LapRaceManager.Instance != null)
-                ((LapRaceManager)LapRaceManager.Instance).OnPlayerEndsLapAction -= IncreaseLapCount;
+            if (_lapRaceState == null)
+                return;
+
+            _lapRaceState.OnStartAction -= ResetCounter;
+            _lapRaceState.OnPlayerEndsLapAction -= IncreaseLapCount;
+        }
+        
+        private void ResetCounter()
+        {
+            _counterModel.maxCount = _lapRaceState.GetMaxLapCount();
+            _counterModel.count = 1;
+            UpdateView(_counterModel);
         }
 
         private void IncreaseLapCount()
@@ -38,7 +40,7 @@ namespace UI.Windows.LapRace
             UpdateView(_counterModel);
         }
 
-        protected override CounterModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _counterModel;
         }

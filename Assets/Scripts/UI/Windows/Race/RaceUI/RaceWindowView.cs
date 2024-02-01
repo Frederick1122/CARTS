@@ -1,6 +1,6 @@
 ﻿namespace UI.Windows.LapRace
 {
-    public class RaceWindowView : UIView<RaceWindowModel> { }
+    public class RaceWindowView : UIView { }
 
     public class RaceWindowModel : UIModel { }
 }

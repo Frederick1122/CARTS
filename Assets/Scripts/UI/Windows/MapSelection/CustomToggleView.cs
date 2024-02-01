@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace UI.Windows.MapSelection
 {
-    public class CustomToggleView : UIView<CustomToggleModel>
+    public class CustomToggleView : UIView
     {
         public event Action OnSelectAction;
 
@@ -13,17 +13,20 @@ namespace UI.Windows.MapSelection
         [SerializeField] private TMP_Text _trackNameText;
         [SerializeField] private TMP_Text _selectedTrackText;
 
-        public override void Init(CustomToggleModel uiModel)
+        public override void Init(UIModel model)
         {
-            base.Init(uiModel);
+            base.Init(model);
             _selectButton.onClick.AddListener(Select);
         }
 
-        public override void UpdateView(CustomToggleModel uiModel)
+        public override void UpdateView(UIModel uiModel)
         {
             base.UpdateView(uiModel);
-            _trackNameText.text = uiModel.text;
-            _selectedTrackText.text = uiModel.isSelected ? "x" : "";
+
+            var castModel = (CustomToggleModel) uiModel;
+            
+            _trackNameText.text = castModel.text;
+            _selectedTrackText.text = castModel.isSelected ? "x" : "";
         }
 
         private void OnDestroy() =>

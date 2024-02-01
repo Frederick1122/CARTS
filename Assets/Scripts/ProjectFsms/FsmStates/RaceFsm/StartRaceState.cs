@@ -1,4 +1,5 @@
 ﻿using Core.FSM;
+using Race.RaceManagers;
 using UI;
 using UI.Windows.LapRace;
 
@@ -14,11 +15,13 @@ namespace FsmStates.RaceFsm
         public override void Enter()
         {
             //todo: make delay before start
-            _raceManager.Init();
             _raceManager.StartRace();
-            UIManager.Instance.GetRaceUi().ShowWindow(typeof(RaceWindowController), false);
+
+            //UIManager.Instance.GetRaceUi().ShowWindow(typeof(LapRaceLayoutController), false);
+            UIManager.Instance.GetRaceUi().GetRaceLayout<LapRaceLayoutController>().Show();
+
             base.Enter();
-            _fsm.SetState<RaceState>();
+            _fsm.SetState<InRaceState>();
         }
     }
 }

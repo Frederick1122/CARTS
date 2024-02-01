@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI.Windows.Shop
 {
-    public class ShopCarView : UIView<ShopCarModel>
+    public class ShopCarView : UIView
     {
         public event Action OnSelectCarAction;
 
@@ -14,17 +14,19 @@ namespace UI.Windows.Shop
         [SerializeField] private TMP_Text _carNameText;
         [SerializeField] private TMP_Text _selectedCarText;
 
-        public override void Init(ShopCarModel uiModel)
+        public override void Init(UIModel uiModel)
         {
             base.Init(uiModel);
             _selectButton.onClick.AddListener(SelectCar);
         }
 
-        public override void UpdateView(ShopCarModel uiModel)
+        public override void UpdateView(UIModel uiModel)
         {
             base.UpdateView(uiModel);
-            _carNameText.text = CarLibrary.Instance.GetConfig(uiModel.configKey).configName;
-            _selectedCarText.text = uiModel.isSelectedCar ? "x" : "";
+
+            var castModel = (ShopCarModel) uiModel;
+            _carNameText.text = CarLibrary.Instance.GetConfig(castModel.configKey).configName;
+            _selectedCarText.text = castModel.isSelectedCar ? "x" : "";
         }
 
         private void OnDestroy() =>
