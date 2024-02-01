@@ -35,6 +35,7 @@ namespace Race.RaceManagers
         private int _lastPlayerPosition;
         private readonly float _checkPositionDelay = 0.1f;
         private readonly CancellationTokenSource _positionCts = new();
+        private DateTime _startTime;
 
         public override void Init()
         {
@@ -65,12 +66,14 @@ namespace Race.RaceManagers
 
             _player.StartCar();
             CheckPlayerPosition(_positionCts.Token).Forget();
+            _startTime = DateTime.Now;
             base.StartRace();
         }
 
         public override void FinishRace()
         {
             _positionCts.Cancel();
+            base.FinishRace();
         }
 
         public int GetMaxLapCount() =>
@@ -95,6 +98,13 @@ namespace Race.RaceManagers
             return playerPosition;
         }
 
+        public TimeSpan GetPassTime()
+        {
+            var dateTime = DateTime.Now - _startTime;
+            return new TimeSpan(dateTime.Days, dateTime.Hours, dateTime.Minutes, dateTime.Seconds,
+                dateTime.Milliseconds);
+        }
+
         private void UpdateLapStats(int lapStatsIndex)
         {
             _lapsStats[lapStatsIndex]++;
@@ -102,6 +112,9 @@ namespace Race.RaceManagers
             {
                 Debug.Log("PLAYER ENDS LAP");
                 OnPlayerEndsLapAction?.Invoke();
+                
+                if (GetMaxLapCount() <= _lapsStats[lapStatsIndex]) 
+                    FinishRace();
             }
             else
                 Debug.Log($"BOT {lapStatsIndex} ENDS LAP");
