@@ -24,7 +24,5 @@ namespace UI.Windows.Pause
         }
     }
 
-    public class PauseWindowView : UIView { }
-
     public class PauseWindowModel : UIModel { }
 }

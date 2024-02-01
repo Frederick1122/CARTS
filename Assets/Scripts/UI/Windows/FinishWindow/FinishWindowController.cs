@@ -10,7 +10,5 @@ namespace UI.Windows.Finish
         }
     }
 
-    public class FinishWindowView : UIView { }
-
     public class FinishWindowModel : UIModel { }
 }

@@ -18,7 +18,7 @@ namespace FsmStates.FreeRideFsm
             
             _raceManager.StartRace();
             
-            UIManager.Instance.GetFreeRideUI().ShowWindow(typeof(FreeRideWindowController), false);
+            //UIManager.Instance.GetFreeRideUI().ShowWindow(typeof(FreeRideWindowController), false);
             base.Enter();
             _fsm.SetState<InFreeRideState>();
         }

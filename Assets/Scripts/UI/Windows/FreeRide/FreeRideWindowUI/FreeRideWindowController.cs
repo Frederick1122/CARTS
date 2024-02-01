@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UI.Windows.LapRace;
 using UnityEngine;
 
 namespace UI.Windows.FreeRide
 {
-    public class FreeRideWindowController : UIController
+    public class FreeRideWindowController : RaceLayout
     {
         [Header("Own controllers")]
         [SerializeField] private ScoreController _scoreController;

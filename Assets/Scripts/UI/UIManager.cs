@@ -10,13 +10,13 @@ namespace UI
         [SerializeField] private MobileLayoutUI _mobileLayoutUI;
 
         [SerializeField] private RaceUI _raceUI;
-        [SerializeField] private FreeRideUI _freeRideUI;
+        //[SerializeField] private FreeRideUI _freeRideUI;
 
         public void Init()
         {
             _lobbyUI.Init();
             _raceUI.Init();
-            _freeRideUI.Init();
+            //_freeRideUI.Init();
             _mobileLayoutUI.Init();
         }
 
@@ -30,10 +30,10 @@ namespace UI
             return _raceUI;
         }
 
-        public FreeRideUI GetFreeRideUI()
-        {
-            return _freeRideUI;
-        }
+        // public FreeRideUI GetFreeRideUI()
+        // {
+        //     return _freeRideUI;
+        // }
 
         public MobileLayoutUI GetMobileLayoutUI()
         {
@@ -46,7 +46,6 @@ namespace UI
             {
                 _lobbyUI.gameObject.SetActive(false);
                 _raceUI.gameObject.SetActive(false);
-                _freeRideUI.gameObject.SetActive(false);
                 _mobileLayoutUI.gameObject.SetActive(false);
             }
 
@@ -57,9 +56,6 @@ namespace UI
                     break;
                 case UiType.Race:
                     _raceUI.gameObject.SetActive(true);
-                    break;
-                case UiType.FreeRide:
-                    _freeRideUI.gameObject.SetActive(true);
                     break;
                 case UiType.MobileLayout:
                     _mobileLayoutUI.gameObject.SetActive(true);
@@ -74,7 +70,6 @@ namespace UI
     {
         Lobby = 0,
         MobileLayout = 1,
-        Race = 2,
-        FreeRide = 3
+        Race = 2
     }
 }

@@ -2,7 +2,7 @@
 
 namespace UI.Windows.LapRace
 {
-    public class RaceWindowController : UIController
+    public class LapRaceLayoutController : RaceLayout
     {
         private readonly RaceWindowModel _model = new();
         [SerializeField] private LapCounterController _lapCounterController;

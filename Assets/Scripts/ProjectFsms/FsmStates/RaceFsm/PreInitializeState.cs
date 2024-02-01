@@ -1,6 +1,7 @@
 ﻿using Core.FSM;
 using Race.RaceManagers;
 using UI;
+using UI.Windows.LapRace;
 
 namespace FsmStates.RaceFsm
 {
@@ -19,6 +20,7 @@ namespace FsmStates.RaceFsm
             _raceManager.InitState();
 
             UIManager.Instance.SetUiType(UiType.Race);
+            UIManager.Instance.GetRaceUi().GetRaceLayout<LapRaceLayoutController>().Show();
             UIManager.Instance.SetUiType(UiType.MobileLayout, false);
 
             _fsm.SetState<StartRaceState>();

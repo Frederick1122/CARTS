@@ -17,7 +17,9 @@ namespace FsmStates.RaceFsm
             //todo: make delay before start
             _raceManager.StartRace();
 
-            UIManager.Instance.GetRaceUi().ShowWindow(typeof(RaceWindowController), false);
+            //UIManager.Instance.GetRaceUi().ShowWindow(typeof(LapRaceLayoutController), false);
+            UIManager.Instance.GetRaceUi().GetRaceLayout<LapRaceLayoutController>().Show();
+
             base.Enter();
             _fsm.SetState<InRaceState>();
         }
