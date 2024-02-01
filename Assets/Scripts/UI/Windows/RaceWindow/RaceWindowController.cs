@@ -1,20 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace UI.Windows.Race
 {
-    public class RaceWindowController : UIController<RaceWindowView, RaceWindowModel>
+    public class RaceWindowController : UIController
     {
         protected RaceWindowModel _model;
 
-        protected override RaceWindowModel GetViewData()
+        protected override UIModel GetViewData()
         {
             return _model;
         }
     }
 
-    public class RaceWindowView : UIView<RaceWindowModel> { }
+    public class RaceWindowView : UIView { }
 
     public class RaceWindowModel : UIModel { }
 }
