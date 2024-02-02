@@ -62,6 +62,8 @@ namespace Race.RaceManagers
             
             _mapFabric.OnResultUpdate -= UpdateResult;
             _mapFabric.OnFall -= PlayerFall;
+            Object.Destroy(_currentTrack.gameObject); 
+            Object.Destroy(_player.gameObject); 
         }
         
         public override void StartRace()

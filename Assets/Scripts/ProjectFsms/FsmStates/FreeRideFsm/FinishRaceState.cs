@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Core.FSM;
 using Cysharp.Threading.Tasks;
+using Race.RaceManagers;
 using UI;
 using UI.Windows.FreeRide;
 using UI.Windows.LapRace;
@@ -39,7 +40,9 @@ namespace FsmStates.FreeRideFsm
             base.Exit();
             UIManager.Instance.GetRaceUi().GetFinishWindowController<FreeRideLayoutController>().Hide();
             UIManager.Instance.GetRaceUi().GetFinishWindowController<FreeRideLayoutController>().OnGoToMainMenuAction -= GoToMenu;
+            RaceManager.Instance.DestroyRace();
             _positionCts.Cancel();
+            Time.timeScale = 1f;
         }
         
         private void GoToMenu()

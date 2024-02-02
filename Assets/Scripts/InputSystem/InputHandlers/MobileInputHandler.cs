@@ -78,7 +78,7 @@ namespace Cars.InputSystem.Player
             OnVerticalAxisChange?.Invoke(-1);
 
         public void StopMoving() =>
-            OnVerticalAxisChange?.Invoke(-1);
+            OnVerticalAxisChange?.Invoke(1);
 
         public void HandBrake() =>
             OnHandBrakeAxisChange?.Invoke(1);

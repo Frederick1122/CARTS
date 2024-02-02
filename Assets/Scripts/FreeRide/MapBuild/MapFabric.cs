@@ -11,20 +11,21 @@ namespace FreeRide.Map
         public event Action<int> OnResultUpdate;
         public event Action OnFall = delegate { };
 
-        [SerializeField] private int _startCountOfPeieces = 2;
-        [SerializeField] private MapPiecesHolder _startPiece;
-        [SerializeField] private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
-
-        private int _result = 0;
         public int Result
         {
-            get { return _result; }
+            get => _result;
             private set
             {
                 _result = value;
                 OnResultUpdate?.Invoke(_result);
             }
         }
+        
+        [SerializeField] private int _startCountOfPeieces = 2;
+        [SerializeField] private MapPiecesHolder _startPiece;
+        [SerializeField] private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
+
+        private int _result = 0;
 
         private PoolMono<MapPiecesHolder> _piecePool;
         private MapPiecesHolder _lastPiece = null;

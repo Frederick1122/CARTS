@@ -2,6 +2,7 @@
 using System.Threading;
 using Core.FSM;
 using Cysharp.Threading.Tasks;
+using Race.RaceManagers;
 using UI;
 using UI.Windows.LapRace;
 using UnityEngine;
@@ -37,11 +38,13 @@ namespace FsmStates.RaceFsm
             base.Exit();
             UIManager.Instance.GetRaceUi().GetFinishWindowController<LapRaceLayoutController>().Hide();
             UIManager.Instance.GetRaceUi().GetFinishWindowController<LapRaceLayoutController>().OnGoToMainMenuAction -= GoToMenu;
+            RaceManager.Instance.DestroyRace();
             _positionCts.Cancel();
+            Time.timeScale = 1f;
         }
 
         private void GoToMenu()
-        {
+        { 
             SceneManager.LoadScene(LOBBY_SCENE);
         }
         

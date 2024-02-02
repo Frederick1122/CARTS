@@ -57,6 +57,11 @@ namespace Race.RaceManagers
         public override void Destroy()
         {
             _positionCts.Cancel();
+            _enemies.Clear();
+            _lapsStats.Clear();
+            
+            Object.Destroy(_currentTrack.gameObject); 
+            Object.Destroy(_player.gameObject); 
         }
 
         public override void StartRace()

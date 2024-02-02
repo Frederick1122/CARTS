@@ -16,29 +16,35 @@ namespace FreeRide.Map
         [field: SerializeField] public CustomSnapPoint StartPoint { get; private set; }
         [field: SerializeField] public CustomSnapPoint EndPoint { get; private set; }
 
-        private CancellationToken _brakeToken = new();
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
+
         private float _timeToDestroySec = 5f;
 
         public void Init(float destroyTime) =>
             _timeToDestroySec = destroyTime;
+
+        private void OnDestroy()
+        {
+            _cancellationTokenSource.Cancel();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out CarController _))
             {
                 OnReach?.Invoke(this);
-                DestroyTask(_brakeToken).Forget();
+                DestroyTask(_cancellationTokenSource.Token).Forget();
             }
             else if (other.transform.parent.TryGetComponent(out CarController _))
             {
                 OnReach?.Invoke(this);
-                DestroyTask(_brakeToken).Forget();
+                DestroyTask(_cancellationTokenSource.Token).Forget();
             }
         }
 
-        private async UniTaskVoid DestroyTask(CancellationToken cancToken)
+        private async UniTaskVoid DestroyTask(CancellationToken cancellationToken)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_timeToDestroySec), cancellationToken: cancToken);
+            await UniTask.Delay(TimeSpan.FromSeconds(_timeToDestroySec), cancellationToken: cancellationToken);
             gameObject.SetActive(false);
 
             OnGoToDestroy?.Invoke(this);
