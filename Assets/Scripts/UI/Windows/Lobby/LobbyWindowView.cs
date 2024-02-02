@@ -30,7 +30,7 @@ namespace UI.Windows.Lobby
             _openShopButton?.onClick.RemoveAllListeners();
             _openSettingsButton?.onClick.RemoveAllListeners();
             _openMapSelectionButton?.onClick.RemoveAllListeners();
-            _openGarageButton?.onClick.RemoveListener(OpenGarageAction.Invoke);
+            _openGarageButton?.onClick.RemoveAllListeners();
         }
     }
 

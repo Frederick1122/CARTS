@@ -4,7 +4,7 @@ using UI.Windows.Finish;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Windows.LapRace.LapRaceEndWindow
+namespace UI.Windows.RaceUI.LapRace
 {
     public class LapRaceFinishWindowView : FinishWindowView
     {
@@ -26,7 +26,7 @@ namespace UI.Windows.LapRace.LapRaceEndWindow
 
         public override void UpdateView(UIModel uiModel)
         {
-            var castModel = (LapRaceEndWindowModel) uiModel;
+            var castModel = (LapRaceFinishWindowModel) uiModel;
             
             _currentPosition.text = $"{castModel.currentPosition} / {castModel.maxPosition}";
             _currentTime.text = String.Format("{0:00}:{1:00}.{2:00}", castModel.passTime.Minutes, castModel.passTime.Seconds, 
@@ -36,7 +36,7 @@ namespace UI.Windows.LapRace.LapRaceEndWindow
         }
     }
 
-    public class LapRaceEndWindowModel : UIModel
+    public class LapRaceFinishWindowModel : UIModel
     {
         public int maxPosition;
         public int currentPosition;

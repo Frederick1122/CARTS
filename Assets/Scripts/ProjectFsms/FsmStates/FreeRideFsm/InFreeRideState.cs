@@ -22,13 +22,13 @@ namespace FsmStates.FreeRideFsm
         public override void Enter()
         {
             base.Enter();
-            UIManager.Instance.GetRaceUi().GetRaceLayout<FreeRideWindowController>().Show();
+            UIManager.Instance.GetRaceUi().GetRaceLayout<FreeRideLayoutController>().Show();
         }
 
         public override void Exit()
         {
             base.Exit();
-            UIManager.Instance.GetRaceUi().GetRaceLayout<FreeRideWindowController>().Hide();
+            UIManager.Instance.GetRaceUi().GetRaceLayout<FreeRideLayoutController>().Hide();
         }
 
         private void FinishAction() =>

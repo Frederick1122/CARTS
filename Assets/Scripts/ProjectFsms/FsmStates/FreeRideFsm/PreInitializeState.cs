@@ -20,7 +20,7 @@ namespace FsmStates.FreeRideFsm
             _raceManager.InitState();
             
             UIManager.Instance.SetUiType(UiType.Race);
-            UIManager.Instance.GetRaceUi().GetRaceLayout<FreeRideWindowController>().Show();
+            UIManager.Instance.GetRaceUi().GetRaceLayout<FreeRideLayoutController>().Show();
             UIManager.Instance.SetUiType(UiType.MobileLayout, false);
 
             _fsm.SetState<StartFreeRideState>();

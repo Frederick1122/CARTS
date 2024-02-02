@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UI.Windows.FreeRide
 {
-    public class FreeRideWindowController : RaceLayout
+    public class FreeRideLayoutController : RaceLayout
     {
         [Header("Own controllers")]
         [SerializeField] private ScoreController _scoreController;

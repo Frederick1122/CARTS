@@ -30,6 +30,8 @@ namespace Race.RaceManagers
         private MapFabric _mapFabric;
         private DifficultyModifier _difficultyModifier;
         private FreeRidePrefabData _currentTrack;
+        private int _result;
+        private DateTime _startTime;
 
         public override void Init()
         {
@@ -50,6 +52,7 @@ namespace Race.RaceManagers
             _mapFabric.OnFall += PlayerFall;
 
             _difficultyModifier.Init(_player, this);
+            _startTime = DateTime.Now;
         }
 
         public override void Destroy()
@@ -67,11 +70,18 @@ namespace Race.RaceManagers
             base.StartRace();
         }
 
-        public override void FinishRace()
+        public int GetResult()
         {
-            
+            return _result;
         }
 
+        public TimeSpan GetPassTime()
+        {
+            var dateTime = DateTime.Now - _startTime;
+            return new TimeSpan(dateTime.Days, dateTime.Hours, dateTime.Minutes, dateTime.Seconds,
+                dateTime.Milliseconds);
+        }
+        
         private void InitPlayer()
         {
             var playerConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
@@ -102,10 +112,11 @@ namespace Race.RaceManagers
             FinishRace();
         }
 
-        private void UpdateResult(int val)
+        private void UpdateResult(int result)
         {
-            Debug.Log($"Result {val}");
-            OnResultUpdateAction?.Invoke(val);
+            Debug.Log($"Result {result}");
+            _result = result;
+            OnResultUpdateAction?.Invoke(result);
         }
     }
 }
