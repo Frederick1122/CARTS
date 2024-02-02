@@ -22,10 +22,10 @@ namespace Cars.InputSystem.Player
 
         protected virtual void Awake()
         {
-#if UNITY_STANDALONE_WIN
-            _inputHandler = gameObject.AddComponent(typeof(KeyBoardInputHandler)) as IInputHandler;
-#elif UNITY_ANDROID
+#if UNITY_ANDROID 
             _inputHandler = gameObject.AddComponent(typeof(MobileInputHandler)) as IInputHandler;
+#else
+            _inputHandler = gameObject.AddComponent(typeof(KeyBoardInputHandler)) as IInputHandler;
 #endif
 
             _inputHandler.OnVerticalAxisChange += OnVerticalAxisChange;
