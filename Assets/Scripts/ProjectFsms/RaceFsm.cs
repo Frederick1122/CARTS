@@ -1,25 +1,39 @@
-﻿using Core.FSM;
+﻿using System;
+using Core.FSM;
 using FsmStates.RaceFsm;
-using Race;
+using Installers;
 using Race.RaceManagers;
+using UI;
+using Zenject;
 
 namespace ProjectFsms
 {
     public class RaceFsm : Fsm
     {
-        private RaceManager _raceManager;
-
+        [Inject] private GameDataInstaller.GameData _gameData;
+        
+        // [Inject] private GameDataInstaller.LapRaceGameData _defaultLapRaceGameData;
+        // [Inject] private GameDataInstaller.FreeRideGameData _defaultFreeRideGameData;
+        
+        private RaceFsmData _raceFsmData = new ();
+        
         public override void Init()
         {
-            _raceManager = RaceManager.Instance;
+            _raceFsmData.raceManager = RaceManager.Instance;
 
-            _states.Add(typeof(PreInitializeState), new PreInitializeState(this, _raceManager));
-            _states.Add(typeof(StartRaceState), new StartRaceState(this, _raceManager));
-            _states.Add(typeof(InRaceState), new InRaceState(this, _raceManager));
-            _states.Add(typeof(FinishRaceState), new FinishRaceState(this));
-            _states.Add(typeof(StartLobbyState), new StartLobbyState(this));
+            _states.Add(typeof(PreInitializeState), new PreInitializeState(this, _raceFsmData));
+            _states.Add(typeof(StartRaceState), new StartRaceState(this, _raceFsmData));
+            _states.Add(typeof(InRaceState), new InRaceState(this, _raceFsmData));
+            _states.Add(typeof(FinishRaceState), new FinishRaceState(this, _raceFsmData));
+            _states.Add(typeof(StartLobbyState), new StartLobbyState(this, _raceFsmData));
 
             base.Init();
         }
+    }
+
+    public class RaceFsmData
+    {
+        public RaceManager raceManager;
+        public RaceType raceType;
     }
 }

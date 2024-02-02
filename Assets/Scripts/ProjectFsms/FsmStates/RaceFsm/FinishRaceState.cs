@@ -2,50 +2,50 @@
 using System.Threading;
 using Core.FSM;
 using Cysharp.Threading.Tasks;
+using ProjectFsms;
 using Race.RaceManagers;
 using UI;
-using UI.Windows.LapRace;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace FsmStates.RaceFsm
 {
     public class FinishRaceState : FsmState
     {
-        private const string LOBBY_SCENE = "Lobby";
+        private RaceFsmData _raceFsmData;
 
         private readonly float _freezeLifetimeTicks = 10;
-        private readonly CancellationTokenSource _positionCts = new();
+        private CancellationTokenSource _cancellationTokenSource;
         
-        public FinishRaceState(Fsm fsm) : base(fsm) { }
+        public FinishRaceState(Fsm fsm, RaceFsmData raceFsmData) : base(fsm) =>
+            _raceFsmData = raceFsmData;
 
         ~FinishRaceState()
         {
-            _positionCts.Cancel();
-            UIManager.Instance.GetRaceUi().GetFinishWindowController<LapRaceLayoutController>().OnGoToMainMenuAction -= GoToMenu;
+            _cancellationTokenSource.Cancel();
+            UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).OnGoToMainMenuAction -= GoToMenu;
         }
 
         public override void Enter()
         {
             base.Enter();
-            UIManager.Instance.GetRaceUi().GetFinishWindowController<LapRaceLayoutController>().Show();
-            UIManager.Instance.GetRaceUi().GetFinishWindowController<LapRaceLayoutController>().OnGoToMainMenuAction += GoToMenu;
-            FreezeTime(_positionCts.Token).Forget();
+            UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).Show();
+            UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).OnGoToMainMenuAction += GoToMenu;
+            _cancellationTokenSource = new CancellationTokenSource();
+            FreezeTime(_cancellationTokenSource.Token).Forget();
         }
 
         public override void Exit()
         {
             base.Exit();
-            UIManager.Instance.GetRaceUi().GetFinishWindowController<LapRaceLayoutController>().Hide();
-            UIManager.Instance.GetRaceUi().GetFinishWindowController<LapRaceLayoutController>().OnGoToMainMenuAction -= GoToMenu;
+            UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).Hide();
+            UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).OnGoToMainMenuAction -= GoToMenu;
             RaceManager.Instance.DestroyRace();
-            _positionCts.Cancel();
-            Time.timeScale = 1f;
+            _cancellationTokenSource.Cancel();
         }
 
         private void GoToMenu()
         { 
-            SceneManager.LoadScene(LOBBY_SCENE);
+            _fsm.SetState<StartLobbyState>();
         }
         
         private async UniTaskVoid FreezeTime(CancellationToken token)

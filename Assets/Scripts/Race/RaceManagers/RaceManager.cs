@@ -9,23 +9,23 @@ namespace Race.RaceManagers
     {
         [Inject] private DiContainer _diContainer;
         
-        private Dictionary<Type, RaceState> _raceStates = new();
+        private Dictionary<RaceType, RaceState> _raceStates = new();
         private RaceState _currentRaceState;
 
-        public T GetState<T>() where T : RaceState
+        public RaceState GetState(RaceType state) 
         {
-            return (T)_raceStates[typeof(T)];
+            return _raceStates[state];
         }
         
-        public void SetState<T>() where T : RaceState
+        public void SetState(RaceType state)
         {
-            _currentRaceState = _raceStates[typeof(T)];
+            _currentRaceState = _raceStates[state];
         }
 
         public void Init()
         {
-            _raceStates.Add(typeof(LapRaceState), _diContainer.Instantiate(typeof(LapRaceState)) as LapRaceState);
-            _raceStates.Add(typeof(FreeRideState), _diContainer.Instantiate(typeof(FreeRideState)) as FreeRideState);
+            _raceStates.Add(RaceType.LAP_RACE, _diContainer.Instantiate(typeof(LapRaceState)) as LapRaceState);
+            _raceStates.Add(RaceType.FREE_RIDE, _diContainer.Instantiate(typeof(FreeRideState)) as FreeRideState);
         }
 
         public void OnDestroy()
@@ -48,7 +48,7 @@ namespace Race.RaceManagers
     {
         public event Action OnFinishAction = delegate {  };
         public event Action OnStartAction = delegate {  };
-        
+
         public abstract void Init();
 
         public abstract void Destroy();
@@ -62,5 +62,11 @@ namespace Race.RaceManagers
         {
             OnFinishAction?.Invoke();
         }
+    }
+
+    public enum RaceType
+    {
+        LAP_RACE,
+        FREE_RIDE
     }
 }

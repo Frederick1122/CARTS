@@ -8,7 +8,7 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            FsmManager.Instance.SetActiveFsm<FreeRideFsm>();
+            FsmManager.Instance.SetActiveFsm<RaceFsm>();
         }
     }
 }

@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+﻿using Race.RaceManagers;
+using UnityEngine;
 
 namespace UI.Windows.LapRace
 {
     public class LapRaceLayoutController : RaceLayout
     {
+        public override RaceType raceType 
+        {
+            get { return RaceType.LAP_RACE; }
+        }
+
         private readonly RaceWindowModel _model = new();
         [SerializeField] private LapCounterController _lapCounterController;
         [SerializeField] private PositionCounterController _positionCounterController;

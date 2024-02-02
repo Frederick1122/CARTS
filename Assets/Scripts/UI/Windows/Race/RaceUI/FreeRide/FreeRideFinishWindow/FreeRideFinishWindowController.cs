@@ -21,8 +21,10 @@ namespace UI.Windows.Race.RaceUI.FreeRide
         public override void Show()
         {
             base.Show();
-            _freeRideFinishWindowModel.score = RaceManager.Instance.GetState<FreeRideState>().GetResult();
-            _freeRideFinishWindowModel.passTime = RaceManager.Instance.GetState<FreeRideState>().GetPassTime();
+            var freeRideState = (FreeRideState)RaceManager.Instance.GetState(RaceType.FREE_RIDE);
+            
+            _freeRideFinishWindowModel.score = freeRideState.GetResult();
+            _freeRideFinishWindowModel.passTime = freeRideState.GetPassTime();
             UpdateView(_freeRideFinishWindowModel);
         }
 

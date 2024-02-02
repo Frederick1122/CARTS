@@ -34,7 +34,7 @@ namespace Race.RaceManagers
 
         private int _lastPlayerPosition;
         private readonly float _checkPositionDelay = 0.1f;
-        private readonly CancellationTokenSource _positionCts = new();
+        private CancellationTokenSource _positionCts;
         private DateTime _startTime;
 
         public override void Init()
@@ -56,7 +56,7 @@ namespace Race.RaceManagers
 
         public override void Destroy()
         {
-            _positionCts.Cancel();
+            _positionCts?.Cancel();
             _enemies.Clear();
             _lapsStats.Clear();
             
@@ -70,6 +70,7 @@ namespace Race.RaceManagers
                 en.StartCar();
 
             _player.StartCar();
+            _positionCts = new CancellationTokenSource();
             CheckPlayerPosition(_positionCts.Token).Forget();
             _startTime = DateTime.Now;
             base.StartRace();

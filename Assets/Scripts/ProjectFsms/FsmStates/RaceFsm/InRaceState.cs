@@ -1,37 +1,34 @@
 ﻿using Core.FSM;
-using Race.RaceManagers;
+using ProjectFsms;
 using UI;
-using UI.Windows.LapRace;
 
 namespace FsmStates.RaceFsm
 {
     public class InRaceState : FsmState
     {
-        private RaceManager _raceManager;
-        
-        public InRaceState(Fsm fsm, RaceManager raceManager) : base(fsm)
-        {
-            _raceManager = raceManager;
-        }
+        private RaceFsmData _raceFsmData;
+
+        public InRaceState(Fsm fsm, RaceFsmData raceFsmData) : base(fsm) =>
+            _raceFsmData = raceFsmData;
 
         ~InRaceState()
         {
-            _raceManager.GetState<LapRaceState>().OnFinishAction -= SetFinishState;
+            _raceFsmData.raceManager.GetState(_raceFsmData.raceType).OnFinishAction -= SetFinishState;
         }
         
         
         public override void Enter()
         {
             base.Enter();
-            UIManager.Instance.GetRaceUi().GetRaceLayout<LapRaceLayoutController>().Show();
-            _raceManager.GetState<LapRaceState>().OnFinishAction += SetFinishState;
+            UIManager.Instance.GetRaceUi().GetRaceLayout(_raceFsmData.raceType).Show();
+            _raceFsmData.raceManager.GetState(_raceFsmData.raceType).OnFinishAction += SetFinishState;
         }
 
         public override void Exit()
         {
             base.Exit();
-            UIManager.Instance.GetRaceUi().GetRaceLayout<LapRaceLayoutController>().Hide();
-            _raceManager.GetState<LapRaceState>().OnFinishAction -= SetFinishState;
+            UIManager.Instance.GetRaceUi().GetRaceLayout(_raceFsmData.raceType).Hide();
+            _raceFsmData.raceManager.GetState(_raceFsmData.raceType).OnFinishAction -= SetFinishState;
         }
 
         private void SetFinishState()

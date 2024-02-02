@@ -6,10 +6,14 @@ namespace UI.Windows.RaceUI.LapRace
     public class LapRaceFinishWindowController : FinishWindowController
     {
         private LapRaceFinishWindowModel _lapRaceFinishWindowModel = new ();
+        
+        private LapRaceState _lapRaceState;
 
         public override void Init()
         {
             base.Init();
+            _lapRaceState = (LapRaceState)RaceManager.Instance.GetState(RaceType.LAP_RACE);
+            
             GetView<LapRaceFinishWindowView>().OnGoToMainMenuAction += GoToMainMenu;
         }
 
@@ -21,9 +25,10 @@ namespace UI.Windows.RaceUI.LapRace
         public override void Show()
         {
             base.Show();
-            _lapRaceFinishWindowModel.maxPosition = RaceManager.Instance.GetState<LapRaceState>().GetMaxPositions();
-            _lapRaceFinishWindowModel.currentPosition = RaceManager.Instance.GetState<LapRaceState>().GetPlayerPosition();
-            _lapRaceFinishWindowModel.passTime = RaceManager.Instance.GetState<LapRaceState>().GetPassTime();
+            
+            _lapRaceFinishWindowModel.maxPosition = _lapRaceState.GetMaxPositions();
+            _lapRaceFinishWindowModel.currentPosition = _lapRaceState.GetPlayerPosition();
+            _lapRaceFinishWindowModel.passTime = _lapRaceState.GetPassTime();
             UpdateView(_lapRaceFinishWindowModel);
         }
 

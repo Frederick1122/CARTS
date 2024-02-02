@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Race.RaceManagers;
 using UI.Windows;
 using UI.Windows.Finish;
 using UI.Windows.Pause;
@@ -11,7 +11,7 @@ namespace UI
     public class RaceUI : MonoBehaviour
     {
         [SerializeField] private List<RaceUIGroup> _raceUIGroups = new ();
-        private Dictionary<Type, RaceUIGroup> _raceUIGroupsDict = new();
+        private Dictionary<RaceType, RaceUIGroup> _raceUIGroupsDict = new();
 
         public void Init()
         {
@@ -19,14 +19,13 @@ namespace UI
             {
                 foreach (var raceLayout in raceUIGroup.raceLayouts)
                 {
-                    _raceUIGroupsDict.Add(raceLayout.GetType(), raceUIGroup);
+                    _raceUIGroupsDict.Add(raceLayout.raceType, raceUIGroup);
                     raceLayout.Init();                    
                 }
                 
                 raceUIGroup.pauseWindowController.Init();
                 raceUIGroup.finishWindowController.Init();
             }
-            
             
             HideAll();
         }
@@ -43,21 +42,21 @@ namespace UI
             }
         }
 
-        public PauseWindowController GetPauseWindowController<RaceLayout>()
+        public PauseWindowController GetPauseWindowController(RaceType raceType)
         {
-            return _raceUIGroupsDict[typeof(RaceLayout)].pauseWindowController;
+            return _raceUIGroupsDict[raceType].pauseWindowController;
         }
         
         
-        public FinishWindowController GetFinishWindowController<RaceLayout>()
+        public FinishWindowController GetFinishWindowController(RaceType raceType)
         {
-            return _raceUIGroupsDict[typeof(RaceLayout)].finishWindowController;
+            return _raceUIGroupsDict[raceType].finishWindowController;
         }
         
         
-        public RaceLayout GetRaceLayout<RaceLayout>()
+        public RaceLayout GetRaceLayout(RaceType raceType)
         {
-            return _raceUIGroupsDict[typeof(RaceLayout)].raceLayouts.OfType<RaceLayout>().FirstOrDefault();
+            return _raceUIGroupsDict[raceType].raceLayouts.Find(x => x.raceType == raceType);
         }
     }
     
