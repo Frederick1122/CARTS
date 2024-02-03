@@ -22,9 +22,13 @@ namespace CameraManger.Rotate
         {
             _limit = Mathf.Abs(_limit);
             _limit = _limit > 90 ? 90 : _limit;
-            _offset = new Vector3(_offset.x, _offset.y, -Mathf.Abs(_offsetZ));
+            _offset = new Vector3(_offset.x, _offset.y, Mathf.Abs(_offsetZ));
 
             transform.position = _target.position + _offset;
+
+#if UNITY_ANDROID
+            _sensitivity /= 10;
+#endif
         }
 
         private void FixedUpdate()

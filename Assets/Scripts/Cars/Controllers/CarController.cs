@@ -79,19 +79,21 @@ namespace Cars.Controllers
             _inputSystem.IsActive = false;
         }
 
-        protected virtual void Update()
+        //protected virtual void Update()
+        //{
+        //    if (!_isCarActive)
+        //        return;
+
+            
+        //}
+
+        protected virtual void FixedUpdate()
         {
             if (!_isCarActive)
                 return;
 
             Visual();
             CalculateDesiredAngle();
-        }
-
-        protected virtual void FixedUpdate()
-        {
-            if (!_isCarActive)
-                return;
 
             Move();
         }
@@ -132,27 +134,27 @@ namespace Cars.Controllers
             {
                 //turnlogic
                 float sign = Mathf.Sign(CarVelocity.z);
-                float turnMultiplyer = Config.turnCurve.Evaluate(CarVelocity.magnitude / maxSpeed);
+                float turnMultiplier = Config.turnCurve.Evaluate(CarVelocity.magnitude / maxSpeed);
 
                 // ????
                 if (verticalInput > 0.1f || CarVelocity.z > 1)
-                    _carBody.AddTorque(100 * horizontalInput * sign * turnMultiplyer * turnSpeed * Vector3.up);
+                    _carBody.AddTorque(100 * horizontalInput * sign * turnMultiplier * turnSpeed * Vector3.up);
                 else if (verticalInput < -0.1f || CarVelocity.z < -1)
-                    _carBody.AddTorque(100 * horizontalInput * sign * turnMultiplyer * turnSpeed * Vector3.up);
+                    _carBody.AddTorque(100 * horizontalInput * sign * turnMultiplier * turnSpeed * Vector3.up);
 
 
                 //brakelogic
                 _rbSphere.constraints = brakeInput > 0.1f ? RigidbodyConstraints.FreezeRotationX :
                     RigidbodyConstraints.None;
 
-                //accelaration logic
+                //acceleration logic
                 switch (_movementMode)
                 {
                     case MovementMode.AngularVelocity:
                         if (Mathf.Abs(verticalInput) > 0.1f)
                         {
                             _rbSphere.angularVelocity = Vector3.Lerp(_rbSphere.angularVelocity,
-                                maxSpeed * verticalInput * _carBody.transform.right / _radius, acceleration * Time.deltaTime);
+                                maxSpeed * verticalInput * _carBody.transform.right / _radius, acceleration * Time.fixedDeltaTime);
                         }
                         break;
 
@@ -160,12 +162,12 @@ namespace Cars.Controllers
                         if (Mathf.Abs(verticalInput) > 0.1f && brakeInput < 0.1f)
                         {
                             _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity,
-                                maxSpeed * verticalInput * _carBody.transform.forward, acceleration / 10 * Time.deltaTime);
+                                maxSpeed * verticalInput * _carBody.transform.forward, acceleration / 10 * Time.fixedDeltaTime);
                         }
                         break;
                 }
 
-                // down froce
+                // down force
                 _rbSphere.AddForce(_rbSphere.mass * Config.downforce * -transform.up);
 
                 //body tilt
@@ -177,16 +179,16 @@ namespace Cars.Controllers
                 if (Config.airControl)
                 {
                     //turnlogic
-                    float TurnMultiplyer = Config.turnCurve.Evaluate(CarVelocity.magnitude / maxSpeed);
+                    float turnMultiplier = Config.turnCurve.Evaluate(CarVelocity.magnitude / maxSpeed);
 
-                    _carBody.AddTorque(100 * horizontalInput * TurnMultiplyer * turnSpeed * Vector3.up);
+                    _carBody.AddTorque(100 * horizontalInput * turnMultiplier * turnSpeed * Vector3.up);
                 }
 
                 _carBody.MoveRotation(Quaternion.Slerp(_carBody.rotation,
                     Quaternion.FromToRotation(_carBody.transform.up, Vector3.up) * _carBody.transform.rotation, 0.02f));
 
                 _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity,
-                    _rbSphere.velocity + Vector3.down * Config.gravity, Time.deltaTime * Config.gravity);
+                    _rbSphere.velocity + Vector3.down * Config.gravity, Time.fixedDeltaTime * Config.gravity);
             }
 
         }

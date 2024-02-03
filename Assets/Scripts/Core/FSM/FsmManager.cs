@@ -1,6 +1,7 @@
 ﻿using Base;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 namespace Core.FSM
@@ -14,6 +15,8 @@ namespace Core.FSM
         
         protected override void Awake()
         {
+            
+
             base.Awake();
             foreach (var currentFsm in _currentFsms)
             {

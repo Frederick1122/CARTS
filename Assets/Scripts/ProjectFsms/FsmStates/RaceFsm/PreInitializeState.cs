@@ -4,6 +4,7 @@ using Race.RaceManagers;
 using UI;
 using UI.Windows.FreeRide;
 using UI.Windows.LapRace;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace FsmStates.RaceFsm
@@ -19,7 +20,7 @@ namespace FsmStates.RaceFsm
             _raceFsmData = raceFsmData;
 
         public override void Enter()
-        {
+        { 
             base.Enter();
 
             switch (SceneManager.GetActiveScene().name)

@@ -1,5 +1,6 @@
 using Core.FSM;
 using ProjectFsms;
+using UnityEngine;
 using Zenject;
 
 namespace Installers
@@ -8,6 +9,8 @@ namespace Installers
     {
         public override void InstallBindings()
         {
+            Application.targetFrameRate = 75;
+
             FsmManager.Instance.SetActiveFsm<RaceFsm>();
         }
     }
