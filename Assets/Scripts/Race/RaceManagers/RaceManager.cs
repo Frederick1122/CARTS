@@ -41,6 +41,8 @@ namespace Race.RaceManagers
         public void StartRace() => _currentRaceState?.StartRace();
 
         public void FinishRace() => _currentRaceState?.FinishRace();
+
+        public void PauseRace() => _currentRaceState?.PauseRace();
     }
 
 
@@ -48,20 +50,17 @@ namespace Race.RaceManagers
     {
         public event Action OnFinishAction = delegate {  };
         public event Action OnStartAction = delegate {  };
+        public event Action OnPauseAction = delegate {  };
 
         public abstract void Init();
 
         public abstract void Destroy();
 
-        public virtual void StartRace()
-        {
-            OnStartAction?.Invoke();   
-        }
+        public virtual void StartRace() => OnStartAction?.Invoke();   
 
-        public virtual void FinishRace()
-        {
-            OnFinishAction?.Invoke();
-        }
+        public virtual void FinishRace() => OnFinishAction?.Invoke();
+
+        public virtual void PauseRace() => OnPauseAction?.Invoke();
     }
 
     public enum RaceType

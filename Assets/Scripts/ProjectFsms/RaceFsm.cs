@@ -26,6 +26,7 @@ namespace ProjectFsms
             _states.Add(typeof(InRaceState), new InRaceState(this, _raceFsmData));
             _states.Add(typeof(FinishRaceState), new FinishRaceState(this, _raceFsmData));
             _states.Add(typeof(StartLobbyState), new StartLobbyState(this, _raceFsmData));
+            _states.Add(typeof(PauseState), new PauseState(this, _raceFsmData));
 
             base.Init();
         }

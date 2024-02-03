@@ -54,7 +54,7 @@ namespace UI
         }
         
         
-        public RaceLayout GetRaceLayout(RaceType raceType)
+        public RaceLayoutController GetRaceLayout(RaceType raceType)
         {
             return _raceUIGroupsDict[raceType].raceLayouts.Find(x => x.raceType == raceType);
         }
@@ -63,7 +63,7 @@ namespace UI
     [Serializable]
     public class RaceUIGroup
     {
-        public List<RaceLayout> raceLayouts;
+        public List<RaceLayoutController> raceLayouts;
         public PauseWindowController pauseWindowController;
         public FinishWindowController finishWindowController;
     }

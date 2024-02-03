@@ -1,14 +1,15 @@
 ﻿using Race.RaceManagers;
+using UI.Windows.LapRace;
 
 namespace UI.Windows
 {
-    public class RaceLayout : UIController
+    public abstract class RaceLayoutController : UIController
     {
         public virtual RaceType raceType { get; }
         
         protected override UIModel GetViewData()
         {
-            throw new System.NotImplementedException();
+            return new RaceLayoutModel();
         }
     }
 }

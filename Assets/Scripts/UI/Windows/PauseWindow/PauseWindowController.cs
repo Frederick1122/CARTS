@@ -1,27 +1,25 @@
+using System;
 using UnityEngine;
 
 namespace UI.Windows.Pause
 {
-    public class PauseWindowController : UIController
+    public abstract class PauseWindowController : UIController
     {
-        protected PauseWindowModel _model;
+        public event Action OnBackToLobby = delegate { };
+        public event Action OnResume = delegate { };
 
-        public override void Show()
-        {
-            base.Show();
-            Time.timeScale = 0;
-        }
-
-        public override void Hide()
-        {
-            base.Hide();
-            Time.timeScale = 1;
-        }
+        protected readonly PauseWindowModel _model = new();
 
         protected override UIModel GetViewData()
         {
             return _model;
         }
+
+        protected void BackToLobby() =>
+            OnBackToLobby?.Invoke();
+
+        protected void Resume() => 
+            OnResume?.Invoke();
     }
 
     public class PauseWindowModel : UIModel { }

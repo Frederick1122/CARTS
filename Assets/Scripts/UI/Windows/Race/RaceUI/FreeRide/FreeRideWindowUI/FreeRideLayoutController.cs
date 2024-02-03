@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using Race.RaceManagers;
-using UI.Windows.LapRace;
 using UnityEngine;
 
 namespace UI.Windows.FreeRide
 {
-    public class FreeRideLayoutController : RaceLayout
+    public class FreeRideLayoutController : RaceLayoutController
     {
         public override RaceType raceType 
         {
@@ -16,10 +13,18 @@ namespace UI.Windows.FreeRide
         [Header("Own controllers")]
         [SerializeField] private ScoreController _scoreController;
 
-        private readonly FreeRideWindowModel _model = new();
+        private readonly FreeRideLayoutModel _model = new();
 
-        public override void Init() =>
+        public override void Init()
+        {
+            GetView<FreeRideLayoutView>().OnNeedToPause += Pause;
+
             _scoreController.Init();
+            base.Init();
+        }
+
+        private void OnDestroy() =>
+            GetView<FreeRideLayoutView>().OnNeedToPause -= Pause;
 
         public override void Show()
         {
@@ -37,5 +42,13 @@ namespace UI.Windows.FreeRide
         {
             return _model;
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                Pause();
+        }
+
+        private void Pause() => RaceManager.Instance.PauseRace();
     }
 }
