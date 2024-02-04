@@ -1,6 +1,7 @@
 using Cars.Controllers;
 using UnityEngine;
 using UnityEditor;
+using Cars;
 
 public class VehicleCreator : EditorWindow
 {
@@ -53,6 +54,8 @@ public class VehicleCreator : EditorWindow
         {
             boxCollider.center = Vector3.zero;
             boxCollider.size = _bodyMesh.bounds.size;
+
+            SetUpRays(boxCollider);
         }
 
         if (_newVehicle.TryGetComponent(out CapsuleCollider capsuleCollider))
@@ -66,7 +69,7 @@ public class VehicleCreator : EditorWindow
                                               _wheelFL.position.y + _bodyMesh.bounds.extents.y - _wheelMesh.bounds.size.y / 2,
                                               _newVehicle.transform.position.z);
 
-        _newVehicle.GetComponent<CarController>().SkidWidth = _wheelMesh.bounds.size.x / 2;
+        //_newVehicle.GetComponent<CarController>().SkidWidth = _wheelMesh.bounds.size.x / 2;
         if (_newVehicle.transform.Find("SphereRB"))
         {
             _newVehicle.transform.Find("SphereRB").GetComponent<SphereCollider>().radius = _bodyMesh.bounds.extents.y;
@@ -84,7 +87,7 @@ public class VehicleCreator : EditorWindow
         MakeVehicleReadyForSetup();
 
         _newVehicle = Instantiate(_preset, _bodyMesh.bounds.center, _vehicleParent.rotation);
-        _newVehicle.name = "Arcade_Ai_" + _vehicleParent.name;
+        _newVehicle.name = _vehicleParent.name;
 
         DestroyImmediate(_newVehicle.transform.Find("Mesh").Find("Body").GetChild(0).gameObject);
         if (_newVehicle.transform.Find("Mesh").transform.Find("Wheels").Find("WheelFL"))
@@ -139,6 +142,8 @@ public class VehicleCreator : EditorWindow
 
     private void MakeVehicleReadyForSetup()
     {
+        _vehicleParent.transform.position = Vector3.zero;
+
         var AllVehicleColliders = _vehicleParent.GetComponentsInChildren<Collider>();
         foreach (var collider in AllVehicleColliders)
             DestroyImmediate(collider);
@@ -146,6 +151,23 @@ public class VehicleCreator : EditorWindow
         var AllRigidBodies = _vehicleParent.GetComponentsInChildren<Rigidbody>();
         foreach (var rb in AllRigidBodies)
             DestroyImmediate(rb);
+    }
+
+    private void SetUpRays(BoxCollider boxCollider)
+    {
+        var rays = _newVehicle.GetComponent<CarPrefabData>().RayPoses;
+        var rayParent = rays[0].parent;
+
+        var frontOffset = -0.05f + boxCollider.bounds.center.z + boxCollider.bounds.size.z / 2;
+        rayParent.localPosition = new Vector3(rayParent.localPosition.x, rayParent.localPosition.y, frontOffset);
+
+        var sideOffset = 0.01f  + boxCollider.bounds.center.x + boxCollider.bounds.size.x / 2 ;
+        rays[0].localPosition = new Vector3(rays[0].localPosition.x, rays[0].localPosition.y, -sideOffset);
+        rays[3].localPosition = new Vector3(rays[3].localPosition.x, rays[3].localPosition.y, sideOffset);
+
+        sideOffset /= 2f;
+        rays[1].localPosition = new Vector3(rays[1].localPosition.x, rays[1].localPosition.y, -sideOffset);
+        rays[2].localPosition = new Vector3(rays[2].localPosition.x, rays[2].localPosition.y, sideOffset);
     }
 }
 

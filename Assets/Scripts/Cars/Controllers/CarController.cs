@@ -79,14 +79,6 @@ namespace Cars.Controllers
             _inputSystem.IsActive = false;
         }
 
-        //protected virtual void Update()
-        //{
-        //    if (!_isCarActive)
-        //        return;
-
-            
-        //}
-
         protected virtual void FixedUpdate()
         {
             if (!_isCarActive)
