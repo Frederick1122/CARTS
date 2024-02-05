@@ -84,10 +84,11 @@ namespace Cars.Controllers
             if (!_isCarActive)
                 return;
 
-            Visual();
+            
             CalculateDesiredAngle();
 
             Move();
+            Visual();
         }
 
         private PhysicMaterial CopyMaterial(PhysicMaterial mat)
