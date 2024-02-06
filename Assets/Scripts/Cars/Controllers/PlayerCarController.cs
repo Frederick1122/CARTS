@@ -1,6 +1,7 @@
 using Cars.Controllers;
 using Cars.InputSystem;
 using ConfigScripts;
+using Managers;
 
 public class PlayerCarController : CarController
 {
@@ -20,6 +21,17 @@ public class PlayerCarController : CarController
         base.Init(inputSystem, carConfig, carPresetConfig, targetHolder);
         _waypointProgressTracker = targetHolder as WaypointProgressTracker;
         _camera.gameObject.SetActive(true);
+    }
+
+    public override void SetUpCharacteristic()
+    {
+        var speedLvl = PlayerManager.Instance.GetEquippedCarCharacteristicLevel(ModificationType.MaxSpeed);
+        var turnLvl = PlayerManager.Instance.GetEquippedCarCharacteristicLevel(ModificationType.Turn);
+        var accelerationLvl = PlayerManager.Instance.GetEquippedCarCharacteristicLevel(ModificationType.Acceleration);
+
+        _maxSpeed = Config.maxSpeedLevels[speedLvl];
+        _turnSpeed = Config.turnLevels[speedLvl];
+        _acceleration = Config.accelerationLevels[speedLvl];
     }
 
     protected override void CalculateDesiredAngle() =>

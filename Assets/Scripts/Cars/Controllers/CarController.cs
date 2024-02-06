@@ -1,6 +1,7 @@
 using Cars.InputSystem;
 using Cinemachine;
 using ConfigScripts;
+using Managers;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,8 +39,12 @@ namespace Cars.Controllers
         private SphereCollider _sphereCollider;
         private bool _isCarActive = false;
 
-        private float _speedModifier = 0;
-        private float _accelerationModifier = 0;
+        protected float _speedModifier = 0;
+        protected float _accelerationModifier = 0;
+
+        protected float _maxSpeed = 0;
+        protected float _turnSpeed = 0;
+        protected float _acceleration = 0;
 
         public void StartCar()
         {
@@ -77,7 +82,11 @@ namespace Cars.Controllers
             _wheelsAxel.Add(_frontWheels[1], _frontWheels[1].GetChild(0));
 
             _inputSystem.IsActive = false;
+
+            SetUpCharacteristic();
         }
+
+        public abstract void SetUpCharacteristic();
 
         protected virtual void FixedUpdate()
         {
@@ -115,13 +124,13 @@ namespace Cars.Controllers
             var horizontalInput = _inputSystem.HorizontalInput;
             var brakeInput = _inputSystem.BrakeInput;
 
-            var maxSpeed = Config.maxSpeedLevels[0] * (1 + _speedModifier);
-            var acceleration = Config.accelerationLevels[0] * (1 + _accelerationModifier);
-            var turnSpeed = Config.turnLevels[0];
+            var maxSpeed = _maxSpeed * (1 + _speedModifier);
+            var acceleration = _acceleration * (1 + _accelerationModifier);
+            var turnSpeed = _turnSpeed;
 
             //changes friction according to sideways speed of car
             if (Mathf.Abs(CarVelocity.x) > 0)
-                _sphereCollider.material.dynamicFriction = Config.frictionCurve.Evaluate(Mathf.Abs(CarVelocity.x / 100));
+                _sphereCollider.material.dynamicFriction = Config.frictionCurve.Evaluate(Mathf.Abs(CarVelocity.x / maxSpeed));
 
             if (CheckIfGrounded())
             {
@@ -202,7 +211,7 @@ namespace Cars.Controllers
             if (CarVelocity.z > 1)
             {
                 _bodyMesh.localRotation = Quaternion.Slerp(_bodyMesh.localRotation,
-                    Quaternion.Euler(Mathf.Lerp(0, -5, CarVelocity.z / Config.maxSpeedLevels[0]), _bodyMesh.localRotation.eulerAngles.y,
+                    Quaternion.Euler(Mathf.Lerp(0, -5, CarVelocity.z / _maxSpeed), _bodyMesh.localRotation.eulerAngles.y,
                         Mathf.Clamp(DesiredTurning * _inputSystem.HorizontalInput, -Config.bodyTilt, Config.bodyTilt)), 0.05f);
             }
             else
