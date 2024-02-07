@@ -18,6 +18,8 @@ namespace UI
         public event Action OpenLobbyAction = delegate { };
         public event Action GoToGameAction = delegate { };
 
+        public event Action<CarData> OnCarInGarageUpdate = delegate { };
+
         [Header("Controllers")]
         [SerializeField] private LobbyWindowController _lobbyWindowController;
         [SerializeField] private ShopWindowController _shopWindowController;
@@ -51,6 +53,7 @@ namespace UI
             _mapSelectionWindowController.GoToGameAction += RequestToGoToGame;
 
             _garageWindowController.OnOpenLobby += RequestToOpenLobby;
+            _garageWindowController.OnCarInGarageUpdate += RequestToUpdateCarInGarage;
         }
 
         private void OnDestroy()
@@ -78,6 +81,7 @@ namespace UI
             if(_garageWindowController != null)
             {
                 _garageWindowController.OnOpenLobby -= RequestToOpenLobby;
+                _garageWindowController.OnCarInGarageUpdate -= RequestToUpdateCarInGarage;
             }
         }
 
@@ -98,5 +102,8 @@ namespace UI
 
         private void RequestToOpenGarage() =>
             OpenGarageAction?.Invoke();
+
+        private void RequestToUpdateCarInGarage(CarData carData) =>
+            OnCarInGarageUpdate?.Invoke(carData);
     }
 }

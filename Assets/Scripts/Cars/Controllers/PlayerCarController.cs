@@ -30,8 +30,8 @@ public class PlayerCarController : CarController
         var accelerationLvl = PlayerManager.Instance.GetEquippedCarCharacteristicLevel(ModificationType.Acceleration);
 
         _maxSpeed = Config.maxSpeedLevels[speedLvl];
-        _turnSpeed = Config.turnLevels[speedLvl];
-        _acceleration = Config.accelerationLevels[speedLvl];
+        _turnSpeed = Config.turnLevels[turnLvl];
+        _acceleration = Config.accelerationLevels[accelerationLvl];
     }
 
     protected override void CalculateDesiredAngle() =>

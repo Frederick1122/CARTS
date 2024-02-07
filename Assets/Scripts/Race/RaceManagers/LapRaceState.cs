@@ -60,8 +60,8 @@ namespace Race.RaceManagers
             _enemies.Clear();
             _lapsStats.Clear();
             
-            Object.Destroy(_currentTrack?.gameObject); 
-            Object.Destroy(_player?.gameObject); 
+            Object.Destroy(_currentTrack != null ? _currentTrack.gameObject : null); 
+            Object.Destroy(_player != null ? _player.gameObject : null); 
         }
 
         public override void StartRace()

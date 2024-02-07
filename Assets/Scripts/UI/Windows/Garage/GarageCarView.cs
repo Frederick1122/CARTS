@@ -11,9 +11,6 @@ namespace UI.Windows.Garage
     public class GarageCarView : UIView
     {
         public event Action<ModificationType> OnUpgrade = delegate { };
-        public event Action OnEquip = delegate { };
-
-        [SerializeField] Button _equipButton;
 
         [Header("Characteristics")]
         [SerializeField] private CarCharacteristic _speed;
@@ -23,7 +20,6 @@ namespace UI.Windows.Garage
         public override void Init(UIModel uiModel)
         {
             UpdateData((GarageCarModel)uiModel);
-            _equipButton.onClick.AddListener(OnEquipCar);
 
             _speed.Init();
             _speed.OnCharacteristicUpgrade += Upgrade;
@@ -37,8 +33,6 @@ namespace UI.Windows.Garage
 
         private void OnDestroy()
         {
-            _equipButton.onClick.RemoveListener(OnEquipCar);
-
             _speed.OnCharacteristicUpgrade -= Upgrade;
             _acceleration.OnCharacteristicUpgrade -= Upgrade;
             _turnSpeed.OnCharacteristicUpgrade -= Upgrade;
@@ -55,22 +49,11 @@ namespace UI.Windows.Garage
             _speed.UpdateInfo(model.speedLvl, 0);
             _acceleration.UpdateInfo(model.accelerationLvl, 0);
             _turnSpeed.UpdateInfo(model.turnSpeedLvl, 0);
-
-            _equipButton.enabled = !model.isEquipped;
         }
-
-        private void OnEquipCar()
-        {
-            OnEquip?.Invoke();
-            _equipButton.enabled = false;
-        }
-
     }
 
     public class GarageCarModel : UIModel
     {
-        public bool isEquipped = false;
-
         public int speedLvl = 0;
         public int accelerationLvl = 0;
         public int turnSpeedLvl = 0;
