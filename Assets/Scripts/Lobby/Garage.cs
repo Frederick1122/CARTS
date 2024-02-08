@@ -2,6 +2,7 @@ using Managers;
 using Managers.Libraries;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 namespace Lobby.Garage
@@ -15,11 +16,13 @@ namespace Lobby.Garage
         public void Init()
         {
             PlayerManager.Instance.OnPlayerCarChange += UpdateGarage;
+            UIManager.Instance.GetLobbyUi().OnCarInGarageUpdate += UpdateGarage;
         }
 
         private void OnDestroy()
         {
             PlayerManager.Instance.OnPlayerCarChange -= UpdateGarage;
+            UIManager.Instance.GetLobbyUi().OnCarInGarageUpdate -= UpdateGarage;
         }
 
         public void UpdateGarage(CarData data)
@@ -30,7 +33,7 @@ namespace Lobby.Garage
             CurrentChosenCar = data;
             var carPref = CarLibrary.Instance.GetConfig(CurrentChosenCar.configKey).prefab;
 
-            var car = Instantiate(carPref, _carPlace);
+            var car = Instantiate(carPref, _carPlace).gameObject;
             Destroy(car.GetComponent<Rigidbody>());
         }
     }

@@ -44,13 +44,13 @@ namespace Managers
                     break;
 
                 case ModificationType.Acceleration:
-                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].accelerationLevel++, 0,
+                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].accelerationLevel+ 1, 0,
                          carConfig.maxSpeedLevels.Count - 1);
                     _saveData.purchasedCars[carConfigKey].accelerationLevel = level;
                     break;
 
                 case ModificationType.Turn:
-                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].turnLevel++, 0,
+                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].turnLevel+ 1, 0,
                         carConfig.maxSpeedLevels.Count - 1);
                     _saveData.purchasedCars[carConfigKey].turnLevel = level;           
                     break;
@@ -65,6 +65,24 @@ namespace Managers
                 _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
 
             Save();
+        }
+
+        public int GetEquippedCarCharacteristicLevel(ModificationType type)
+        {
+            switch (type)
+            {
+                case ModificationType.MaxSpeed:
+                    return _saveData.purchasedCars[_saveData.currentCar.configKey].maxSpeedLevel;
+
+                case ModificationType.Turn:
+                    return _saveData.purchasedCars[_saveData.currentCar.configKey].turnLevel;
+
+                case ModificationType.Acceleration:
+                    return _saveData.purchasedCars[_saveData.currentCar.configKey].accelerationLevel;
+
+                default:
+                    throw new Exception("No modification type");
+            }
         }
 
         public void SetCurrentCar(string carConfigKey)

@@ -36,7 +36,8 @@ namespace FreeRide.Map
         public void Init()
         {
             _piecePool = new PoolMono<MapPiecesHolder>(_piecePrefabs.ToList(), _poolCount);
-            _lastPiece = _startPiece;
+
+            InitPiece(_startPiece);
             _startPiece.gameObject.SetActive(true);
 
             for (int i = 0; i < _startCountOfPeieces; i++)
@@ -50,9 +51,16 @@ namespace FreeRide.Map
             if (_lastPiece != null)
                 piece.ConnectToPoint(_lastPiece.GetConnector());
 
+            InitPiece(piece);
+            
+        }
+
+        private void InitPiece(MapPiecesHolder piece)
+        {
             piece.OnPieceReach += UpdateResult;
             piece.OnFinish += WhenFinishPiece;
             piece.OnFall += StopFabic;
+
             _lastPiece = piece;
 
             _spawned.Add(piece);

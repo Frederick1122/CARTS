@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7405112807621069112}
   - component: {fileID: 782465251632419076}
   - component: {fileID: 6916373430263503882}
+  - component: {fileID: 8658226267054936496}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -146,3 +147,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _raceManagerPrefab: {fileID: 2933929960542434951, guid: 9040793b0dc0f634a9e3a8cddfa4f7ba, type: 3}
+--- !u!114 &8658226267054936496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515597395968422695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a44bbcac2922249b9536a609552a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frameRate: 60

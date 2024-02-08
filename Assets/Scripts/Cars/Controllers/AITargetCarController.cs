@@ -19,6 +19,13 @@ public class AITargetCarController : CarController
         _waypointProgressTracker = targetHolder as WaypointProgressTracker;
     }
 
+    public override void SetUpCharacteristic()
+    {
+        _maxSpeed = Config.maxSpeedLevels[0];
+        _acceleration = Config.accelerationLevels[0];
+        _turnSpeed = Config.turnLevels[0];
+    }
+
     protected override void CalculateDesiredAngle()
     {
         Vector3 aimedPoint = _target.position;

@@ -11,6 +11,7 @@ namespace UI.Windows.Garage
     public class GarageWindowController : UIController
     {
         public event Action OnOpenLobby = delegate { };
+        public event Action<CarData> OnCarInGarageUpdate = delegate { };
 
         [SerializeField] private GarageCarController _garageCarController;
 
@@ -24,7 +25,6 @@ namespace UI.Windows.Garage
 
             _garageCarController.Init();
             _garageCarController.OnUpgrade += UpgradeCar;
-            _garageCarController.OnEquipCar += EquipCar;
 
             _cars = PlayerManager.Instance.GetPurchasedCars();
 
@@ -37,7 +37,6 @@ namespace UI.Windows.Garage
         private void OnDestroy()
         {
             _garageCarController.OnUpgrade -= UpgradeCar;
-            _garageCarController.OnEquipCar -= EquipCar;
 
             GetView<GarageWindowView>().OnOpenLobby += RequestToOpenLobby;
 
@@ -49,7 +48,7 @@ namespace UI.Windows.Garage
         {
             _cars = PlayerManager.Instance.GetPurchasedCars();
             SetCurrentCarIndex();
-            UpdateGarage();
+            UpdateGarageUI();
 
             base.Show();
             _garageCarController.Show();
@@ -66,16 +65,13 @@ namespace UI.Windows.Garage
             return new GarageWindowModel();
         }
 
-        private void UpdateGarage()
-        {
-            var isQuipped = _cars[_currentCarIndex].configKey == _currentCar.configKey;
-            _garageCarController.UpdateInfo(_cars[_currentCarIndex], isQuipped);
-        }
+        private void UpdateGarageUI() =>
+            _garageCarController.UpdateInfo(_cars[_currentCarIndex]);
 
         private void UpgradeCar(ModificationType modification)
         {
             PlayerManager.Instance.UpdateModificationLevel(_cars[_currentCarIndex].configKey, modification);
-            UpdateGarage();
+            UpdateGarageUI();
         }
 
         private void EquipCar() =>
@@ -90,8 +86,9 @@ namespace UI.Windows.Garage
             if (_currentCarIndex >= _cars.Count)
                 _currentCarIndex = 0;
 
-            UpdateGarage();
-            LobbyManager.Instance.Garage.UpdateGarage(_cars[_currentCarIndex]);
+            UpdateGarageUI();
+            EquipCar();
+            OnCarInGarageUpdate?.Invoke(_cars[_currentCarIndex]);
         }
 
         private void ChoosePrevCar()
@@ -100,8 +97,9 @@ namespace UI.Windows.Garage
             if (_currentCarIndex < 0)
                 _currentCarIndex = _cars.Count - 1;
 
-            UpdateGarage();
-            LobbyManager.Instance.Garage.UpdateGarage(_cars[_currentCarIndex]);
+            UpdateGarageUI();
+            EquipCar();
+            OnCarInGarageUpdate?.Invoke(_cars[_currentCarIndex]);
         }
 
         private void SetCurrentCarIndex()
