@@ -3,11 +3,11 @@ using UI.Windows.Shop;
 
 namespace UI.Elements
 {
-    public sealed class ShopCarCustomScroll : CustomScroll<ShopCarController, ShopCarModel>
+    public sealed class ShopCarCustomScroll : CustomScroll<ShopItemController, ShopItemModel>
     {
-        public event Action<ShopCarModel> OnSelectCarAction;
+        public event Action<ShopItemModel> OnSelectCarAction;
 
-        public override void AddElement(ShopCarModel uiModel)
+        public override void AddElement(ShopItemModel uiModel)
         {
             var isNewController = _hidingControllers.Count == 0;
             base.AddElement(uiModel);
@@ -35,7 +35,7 @@ namespace UI.Elements
             }
         }
 
-        private void SelectCar(ShopCarModel uiModel) =>
+        private void SelectCar(ShopItemModel uiModel) =>
             OnSelectCarAction?.Invoke(uiModel);
     }
 }

@@ -15,7 +15,7 @@ namespace UI.Windows.Shop
 
         [SerializeField] private ShopCarCustomScroll _shopCarCustomScroll;
 
-        private readonly List<ShopCarModel> _carModels = new();
+        private readonly List<ShopItemModel> _carModels = new();
 
         public override void Init()
         {
@@ -46,7 +46,7 @@ namespace UI.Windows.Shop
         private void OpenLobby() =>
             OpenLobbyAction?.Invoke();
 
-        private void SelectedNewCar(ShopCarModel uiModel)
+        private void SelectedNewCar(ShopItemModel uiModel)
         {
             var currentCarConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
 
@@ -69,7 +69,7 @@ namespace UI.Windows.Shop
                     continue;
 
                 var isSelectedCar = carConfig.configKey == currentCar.configKey;
-                _carModels.Add(new ShopCarModel(carConfig.configKey, isSelectedCar));
+                _carModels.Add(new ShopItemModel(carConfig.configKey, isSelectedCar));
             }
 
             _shopCarCustomScroll.AddRange(_carModels);

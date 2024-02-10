@@ -7,10 +7,13 @@ namespace ConfigScripts
     [CreateAssetMenu(fileName = "CarConfig", menuName = "Configs/Car Config")]
     public class CarConfig : BaseConfig
     {
+        public Sprite CarIcon;
+
         public CarPrefabData prefab;
         public bool isOnlyForAi;
 
-        [Header("Characteristic")] public List<float> maxSpeedLevels = new() { 100 };
+        [Header("Characteristic")] 
+        public List<float> maxSpeedLevels = new() { 100 };
         public List<float> accelerationLevels = new() { 10 };
         public List<float> turnLevels = new() { 3 };
         public float gravity = 7f;
