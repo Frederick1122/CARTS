@@ -4,6 +4,7 @@ using Managers.Libraries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UI.Elements;
 using UI.Widgets.CurrencyWidget;
 using UnityEngine;
 
@@ -15,8 +16,9 @@ namespace UI.Windows.Shop
         public event Action<CarData> OnCarInShopUpdate = delegate { };
 
         [SerializeField] private ShopItemController _shopItemController;
-        [SerializeField] private Transform _carPreviewPlace;
 
+        [SerializeField] private ShopPreview _preview;
+        
         private CarData _currentCarData => PlayerManager.Instance.GetCurrentCar();
         private string _currentCarKey => _cars[_currentCarIndex].configKey;
         private IReadOnlyList<CarConfig> _cars;
@@ -53,7 +55,7 @@ namespace UI.Windows.Shop
             _cars = ((CarLibrary)CarLibrary.Instance).GetConfigsWithoutAI();
             SetCurrentCarIndex();
 
-            _shopItemController.Show();
+            _preview.StartPreview();
 
             UpdateShop();
             UIManager.Instance.GetWidgetUI().ShowWindow(typeof(CurrencyWidgetController), false);
@@ -62,7 +64,7 @@ namespace UI.Windows.Shop
         public override void Hide()
         {
             base.Hide();
-            _shopItemController.Hide();
+            _preview.StopPreview();
             UIManager.Instance.GetWidgetUI().HideWindow(typeof(CurrencyWidgetController));
         }
 
@@ -77,7 +79,7 @@ namespace UI.Windows.Shop
 
             _shopItemController.UpdateInfo(data);
             GetView<ShopWindowView>().UpdateCarName(_cars[_currentCarIndex].configName);
-            UpdatePreview(data);
+            _preview.SpawnCar(data);
         }
 
         private void BuyCar()
@@ -118,28 +120,6 @@ namespace UI.Windows.Shop
                     _currentCarIndex = i;
                     return;
                 }
-            }
-        }
-
-        public void UpdatePreview(CarData data)
-        {
-            for (int i = 0; i < _carPreviewPlace.childCount; i++)
-                Destroy(_carPreviewPlace.GetChild(i).gameObject);
-
-            var carPref = CarLibrary.Instance.GetConfig(data.configKey).prefab;
-
-            var car = Instantiate(carPref, _carPreviewPlace).gameObject;
-            Destroy(car.GetComponent<Rigidbody>());
-
-            SetGameLayerRecursive(car, 10);
-        }
-
-        private void SetGameLayerRecursive(GameObject gameObject, int layer)
-        {
-            gameObject.layer = layer;
-            foreach (Transform child in gameObject.transform)
-            {
-                SetGameLayerRecursive(child.gameObject, layer);
             }
         }
     }

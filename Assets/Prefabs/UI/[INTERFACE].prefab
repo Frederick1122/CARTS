@@ -666,7 +666,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8233673878174058336}
-  m_Layer: 0
+  - component: {fileID: 1191481116849801993}
+  m_Layer: 10
   m_Name: CarShopPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,6 +691,19 @@ Transform:
   - {fileID: 2657242199908216796}
   m_Father: {fileID: 3670364654066060140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1191481116849801993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662812867022900085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb9574e60e68c644bdc2fca2d6f49e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotator: {fileID: 3491502749551988945}
 --- !u!1 &746063093319413116
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,12 +2558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111d4d5b7ea28b34db1b3a73469cfc72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 4944448633607467057}
+  _rotateDirection: 0
   _speedRotate: 10
-  _offset: {x: 0, y: 0, z: 0}
-  _offsetZ: 6
-  _sensitivity: 3
-  _limit: 80
 --- !u!1 &2377760297459409369
 GameObject:
   m_ObjectHideFlags: 0
@@ -5923,7 +5933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 2757942519473491036}
   _shopItemController: {fileID: 8622118482543134722}
-  _carPreviewPlace: {fileID: 4944448633607467057}
+  _preview: {fileID: 1191481116849801993}
 --- !u!223 &2662075021685597882
 Canvas:
   m_ObjectHideFlags: 0
@@ -6095,7 +6105,7 @@ GameObject:
   - component: {fileID: 2657242199908216796}
   - component: {fileID: 8360920803790512833}
   - component: {fileID: 7926658201004801457}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CarShopPreviewCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
