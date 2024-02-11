@@ -1,5 +1,6 @@
 ﻿using Base;
 using System;
+using UI.Widgets;
 using UnityEngine;
 
 namespace UI
@@ -7,16 +8,15 @@ namespace UI
     public class UIManager : Singleton<UIManager>
     {
         [SerializeField] private LobbyUI _lobbyUI;
-        [SerializeField] private MobileLayoutUI _mobileLayoutUI;
-
         [SerializeField] private RaceUI _raceUI;
-        //[SerializeField] private FreeRideUI _freeRideUI;
+        [SerializeField] private WidgetUi _widgetUi;
+        [SerializeField] private MobileLayoutUI _mobileLayoutUI;
 
         public void Init()
         {
+            _widgetUi.Init();
             _lobbyUI.Init();
             _raceUI.Init();
-            //_freeRideUI.Init();
             _mobileLayoutUI.Init();
         }
 
@@ -30,10 +30,10 @@ namespace UI
             return _raceUI;
         }
 
-        // public FreeRideUI GetFreeRideUI()
-        // {
-        //     return _freeRideUI;
-        // }
+        public WidgetUi GetWidgetUI()
+        {
+            return _widgetUi;
+        }
 
         public MobileLayoutUI GetMobileLayoutUI()
         {

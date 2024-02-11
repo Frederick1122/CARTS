@@ -1,4 +1,5 @@
 ﻿using System;
+using UI.Widgets.CurrencyWidget;
 
 namespace UI.Windows.Lobby
 {
@@ -28,6 +29,18 @@ namespace UI.Windows.Lobby
             GetView<LobbyWindowView>().OpenSettingsAction -= OpenSettings;
             GetView<LobbyWindowView>().OpenMapSelectionAction -= OpenMapSelection;
             GetView<LobbyWindowView>().OpenGarageAction -= OpenGarage;
+        }
+
+        public override void Show()
+        {
+            UIManager.Instance.GetWidgetUI().ShowWindow(typeof(CurrencyWidgetController), false);
+            base.Show();
+        }
+
+        public override void Hide()
+        {
+            UIManager.Instance.GetWidgetUI().HideWindow(typeof(CurrencyWidgetController));
+            base.Hide();
         }
 
         protected override UIModel GetViewData()

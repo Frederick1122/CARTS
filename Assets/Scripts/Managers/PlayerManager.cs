@@ -12,7 +12,8 @@ namespace Managers
     {
         private const string PLAYER_JSON_PATH = "Player.json";
 
-        public event Action<CarData> OnPlayerCarChange;
+        public event Action<CarData> OnPlayerCarChange = delegate(CarData data) {  };
+        public event Action<CurrencyType, int> OnCurrencyChange = delegate(CurrencyType type, int i) {  };
 
         [SerializeField] private CarData _defaultCar;
 
@@ -121,6 +122,39 @@ namespace Managers
             return _saveData.currentCar;
         }
 
+        public int GetCurrency(CurrencyType currencyType)
+        {
+            return currencyType == CurrencyType.Regular ? _saveData.regularCurrency : _saveData.premiumCurrency;
+        }
+
+        public void DecreaseCurrency(CurrencyType currencyType, int value)
+        {
+            var currentValue = GetCurrency(currencyType); 
+            SetCurrency(currencyType,  Mathf.Clamp(currentValue - value, 0, currentValue));   
+        }
+        
+        public void IncreaseCurrency(CurrencyType currencyType, int value)
+        {
+            var currentValue = GetCurrency(currencyType); 
+            SetCurrency(currencyType, currentValue + value);   
+        }
+        
+        private void SetCurrency(CurrencyType currencyType, int newValue)
+        {
+            switch (currencyType)
+            {
+                case CurrencyType.Regular:
+                    _saveData.regularCurrency = newValue;
+                    break;
+                case CurrencyType.Premium:
+                    _saveData.premiumCurrency = newValue;
+                    break;
+            }
+            
+            OnCurrencyChange?.Invoke(currencyType, newValue);
+            Save();
+        }
+        
         protected override void Load()
         {
             base.Load();
@@ -144,11 +178,23 @@ namespace Managers
         Acceleration,
         Turn
     }
+
+    public enum CurrencyType
+    {
+        Regular,
+        Premium
+    }
 }
 
 [Serializable]
 public class PlayerData
 {
+    [JsonProperty("RegularCurrency")]
+    public int regularCurrency;
+    
+    [JsonProperty("premiumCurrency")]
+    public int premiumCurrency;
+
     [JsonProperty("CurrentCar")]
     public CarData currentCar;
     [JsonProperty("PurchasedCars")]

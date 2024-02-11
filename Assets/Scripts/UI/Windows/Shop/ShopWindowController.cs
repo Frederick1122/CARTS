@@ -4,6 +4,7 @@ using Managers.Libraries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UI.Widgets.CurrencyWidget;
 using UnityEngine;
 
 namespace UI.Windows.Shop
@@ -48,19 +49,21 @@ namespace UI.Windows.Shop
 
         public override void Show()
         {
+            base.Show();
             _cars = ((CarLibrary)CarLibrary.Instance).GetConfigsWithoutAI();
             SetCurrentCarIndex();
 
-            base.Show();
             _shopItemController.Show();
 
             UpdateShop();
+            UIManager.Instance.GetWidgetUI().ShowWindow(typeof(CurrencyWidgetController), false);
         }
 
         public override void Hide()
         {
             base.Hide();
             _shopItemController.Hide();
+            UIManager.Instance.GetWidgetUI().HideWindow(typeof(CurrencyWidgetController));
         }
 
         protected override UIModel GetViewData()

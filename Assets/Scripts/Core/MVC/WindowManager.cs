@@ -15,13 +15,13 @@ public abstract class WindowManager : MonoBehaviour
         HideAll();
     }
 
-    protected virtual void InitAll()
+    private void InitAll()
     {
         foreach (var controller in _controllers.Values)
             controller.Init();
     }
 
-    protected virtual void HideAll()
+    private void HideAll()
     {
         foreach (var controllerPair in _controllers)
             controllerPair.Value.Hide();
@@ -35,5 +35,10 @@ public abstract class WindowManager : MonoBehaviour
         var controller = _controllers[T];
         controller.Show();
         return controller;
+    }
+
+    public void HideWindow(Type T)
+    {
+        _controllers[T].Hide();
     }
 }
