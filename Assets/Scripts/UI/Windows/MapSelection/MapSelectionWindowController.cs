@@ -190,7 +190,7 @@ namespace UI.Windows.MapSelection
 
         private void InitAllTracks()
         {
-            var trackConfigs = TrackLibrary.Instance.GetAllConfigs().Values.ToList();
+            var trackConfigs = TrackLibrary.Instance.GetAllConfigs();
             var currentTrackConfigKey = _lapRaceGameData.trackKey;
             foreach (var trackConfig in trackConfigs)
             {

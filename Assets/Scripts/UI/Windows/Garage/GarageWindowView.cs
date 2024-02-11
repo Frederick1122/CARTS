@@ -13,11 +13,11 @@ namespace UI.Windows.Garage
 
         public event Action OnOpenLobby = delegate { };
 
-        [SerializeField] private Button _backButton;
+        [SerializeField] protected Button _backButton;
 
         [Header("Scroll")]
-        [SerializeField] private Button _nextCarButton;
-        [SerializeField] private Button _prevCarButton;
+        [SerializeField] protected Button _nextCarButton;
+        [SerializeField] protected Button _prevCarButton;
 
         public override void Init(UIModel uiModel)
         {

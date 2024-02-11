@@ -1,4 +1,5 @@
 ﻿using ConfigScripts;
+using System.Collections.Generic;
 
 namespace Managers.Libraries
 {
@@ -10,6 +11,21 @@ namespace Managers.Libraries
         {
             _path = CAR_CONFIG_PATH;
             base.Awake();
+        }
+
+        public IReadOnlyList<CarConfig> GetConfigsWithoutAI()
+        {
+            var allConfigs = GetAllConfigs();
+            var freeList = new List<CarConfig>();
+            foreach (var config in allConfigs)
+            {
+                if (config.isOnlyForAi)
+                    continue;
+
+                freeList.Add(config);
+            }
+
+            return freeList;
         }
     }
 }

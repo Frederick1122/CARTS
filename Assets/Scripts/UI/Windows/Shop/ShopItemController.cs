@@ -1,49 +1,40 @@
-﻿using System;
+﻿using Managers;
+using System;
+using System.Linq;
+using UI.Windows.Garage;
 using UnityEngine;
 
 namespace UI.Windows.Shop
 {
     public class ShopItemController : UIController
     {
-        public event Action<ShopItemModel> OnSelectCarAction;
+        public event Action OnCarBuy = delegate { };
 
-        private ShopItemModel _uiModel = new();
+        private ShopItemModel _model = new();
 
         public override void Init()
         {
-            GetView<ShopItemView>().OnSelectCarAction += SelectCar;
+            GetView<ShopItemView>().OnCarBuy += BuyCar;
             base.Init();
         }
 
-        public override void Show()
-        {
-            UpdateView(GetViewData());
-            base.Show();
-        }
+        private void OnDestroy() => 
+            GetView<ShopItemView>().OnCarBuy -= BuyCar;
 
-        public override void UpdateView(UIModel uiModel)
+        public void UpdateInfo(CarData data)
         {
-            _uiModel = (ShopItemModel)uiModel;
-            base.UpdateView(uiModel);
+            var purchased = PlayerManager.Instance.TryGetPurchasedCar(data.configKey, out CarData _);
+            _model = new(data.configKey, purchased, 0);
+
+            UpdateView();
         }
 
         protected override UIModel GetViewData()
         {
-            return _uiModel;
+            return _model;
         }
 
-        private void OnDestroy()
-        {
-            if (_view == null)
-                return;
-
-            GetView<ShopItemView>().OnSelectCarAction -= SelectCar;
-        }
-
-        public void SetUpModel(string configKey, bool isSelectedCar, bool purchased, Sprite icon, int price) =>
-            _uiModel = new ShopItemModel(configKey, isSelectedCar, purchased, icon, price);
-
-        private void SelectCar() =>
-            OnSelectCarAction?.Invoke(_uiModel);
+        private void BuyCar() =>
+            OnCarBuy?.Invoke();
     }
 }

@@ -1,85 +1,73 @@
-﻿using Managers.Libraries;
+﻿using ConfigScripts;
+using Managers.Libraries;
 using System;
 using TMPro;
+using UI.Elements;
+using UI.Windows.Garage;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI.Windows.Shop
 {
-    public class ShopItemView : UIView, IPointerClickHandler
+    public class ShopItemView : UIView
     {
-        public event Action OnSelectCarAction;
+        public event Action OnCarBuy = delegate { };
 
-        [SerializeField] private Image _contentImage;
-        [SerializeField] private Image _lockImage;
-        [SerializeField] private GameObject _priceParent;
+        [SerializeField] private Button _buyButton;
 
-        [SerializeField] private TMP_Text _priceText;
+        [Header("Characteristics")]
+        [SerializeField] private CarCharacteristicShop _speed;
+        [SerializeField] private CarCharacteristicShop _acceleration;
+        [SerializeField] private CarCharacteristicShop _turnSpeed;
 
         public override void Init(UIModel uiModel)
         {
-            var castModel = (ShopItemModel)uiModel;
-            _priceText.text = castModel.Price.ToString();
-            _contentImage.sprite = castModel.Icon;
+            //UpdateData((ShopItemModel)uiModel);
+            _buyButton.onClick.AddListener(BuyCar);
+        }
 
-            if (castModel.Purchased)
-                UnLock();
+        private void OnDestroy() =>
+            _buyButton.onClick.RemoveListener(BuyCar);
+
+        public override void UpdateView(UIModel uiModel) =>
+            UpdateData((ShopItemModel)uiModel);
+
+        private void UpdateData(ShopItemModel model)
+        {
+            if(model.Purchased)
+                _buyButton.gameObject.SetActive(false);
             else
-                Lock();
+                _buyButton.gameObject.SetActive(true);
+
+            _speed.UpdateInfo(model.Config.maxSpeedLevels[0], model.Config.maxSpeedLevels[^1]); 
+            _acceleration.UpdateInfo(model.Config.accelerationLevels[0], model.Config.accelerationLevels[^1]);
+            _turnSpeed.UpdateInfo(model.Config.turnLevels[0], model.Config.turnLevels[^1]);
         }
 
-        public void OnPointerClick(PointerEventData eventData) => OnSelectCarAction?.Invoke();
-
-        public override void UpdateView(UIModel uiModel)
+        private void BuyCar()
         {
-            var castModel = (ShopItemModel)uiModel;
-            if (castModel.Purchased)
-                UnLock();
-            else
-                Lock();
-        }
-
-        private void Lock()
-        {
-            _priceParent.SetActive(true);
-            _lockImage.gameObject.SetActive(true);
-        }
-
-        private void UnLock()
-        {
-            _priceParent.SetActive(false);
-            _lockImage.gameObject.SetActive(false);
+            _buyButton.gameObject.SetActive(false);
+            OnCarBuy?.Invoke();
         }
     }
 
     public class ShopItemModel : UIModel
     {
+        public CarConfig Config;
+
         public int Price = 0;
-        public Sprite Icon;
-        public bool Purchased;
+        public bool Purchased = false;
 
-        public bool isSelectedCar = false;
-        public string configKey = "";
-
-        public ShopItemModel() { }
-
-        public ShopItemModel(string configKey, bool isSelectedCar)
+        public ShopItemModel(string configKey = "", bool purchased = false, int price = 0)
         {
-            this.configKey = configKey;
-            this.isSelectedCar = isSelectedCar;
-        }
+            if (configKey == "")
+                return;
 
-        public ShopItemModel(string configKey, bool isSelectedCar, bool purchased, Sprite icon, int price)
-        {
-            this.configKey = configKey;
-            this.isSelectedCar = isSelectedCar;
+            Config = CarLibrary.Instance.GetConfig(configKey);
 
             Price = price;
-            Icon = icon;
             Purchased = purchased;
         }
-
-
     }
 }

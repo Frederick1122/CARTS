@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace UI.Elements
 {
-    public class CarCharacteristic : MonoBehaviour
+    public class CarCharacteristicGarage : MonoBehaviour
     {
         public event Action<ModificationType> OnCharacteristicUpgrade = delegate { };
 

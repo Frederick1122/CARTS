@@ -24,7 +24,7 @@ namespace CameraManger.Rotate
             _limit = _limit > 90 ? 90 : _limit;
             _offset = new Vector3(_offset.x, _offset.y, Mathf.Abs(_offsetZ));
 
-            transform.position = _target.position + _offset;
+            //transform.position = _target.position + _offset;
 
 #if UNITY_ANDROID
             _sensitivity /= 10;
@@ -33,32 +33,33 @@ namespace CameraManger.Rotate
 
         private void FixedUpdate()
         {
-#if UNITY_ANDROID
-            if (Input.touchCount > 0)
-            {
-                var touch = Input.GetTouch(0);
-                if (!(touch.deltaPosition.x != 0 && touch.deltaPosition.y != 0))
-                    transform.RotateAround(_target.position, Vector3.up, _speedRotate * Time.deltaTime);
-            }
-            else
-            {
-                transform.RotateAround(_target.position, Vector3.up, _speedRotate * Time.deltaTime);
-            }
-            if (Input.touchCount <= 0)
-                return;
-#else
-            if (!(Input.GetMouseButton(0) && Input.GetAxis("Mouse X") != 0 && Input.GetAxis("Mouse Y") != 0))
-                transform.RotateAround(_target.position, Vector3.up, _speedRotate * Time.deltaTime);
+            transform.Rotate(Vector3.up, _speedRotate * Time.deltaTime);
+            //#if UNITY_ANDROID
+            //            if (Input.touchCount > 0)
+            //            {
+            //                var touch = Input.GetTouch(0);
+            //                if (!(touch.deltaPosition.x != 0 && touch.deltaPosition.y != 0))
+            //                    transform.RotateAround(_target.position, Vector3.up, _speedRotate * Time.deltaTime);
+            //            }
+            //            else
+            //            {
+            //                transform.RotateAround(_target.position, Vector3.up, _speedRotate * Time.deltaTime);
+            //            }
+            //            if (Input.touchCount <= 0)
+            //                return;
+            //#else
+            //            if (!(Input.GetMouseButton(0) && Input.GetAxis("Mouse X") != 0 && Input.GetAxis("Mouse Y") != 0))
+            //                transform.RotateAround(_target.position, Vector3.up, _speedRotate * Time.deltaTime);
 
-            if (!Input.GetMouseButton(0))
-                return;
-#endif
-            _limit = Mathf.Abs(_limit); 
+            //            if (!Input.GetMouseButton(0))
+            //                return;
+            //#endif
+            //            _limit = Mathf.Abs(_limit); 
 
-            ReadInput();
+            //            ReadInput();
 
-            transform.localEulerAngles = new Vector3(-_y, _x, 0);
-            transform.position = transform.localRotation * _offset + _target.position;
+            //            transform.localEulerAngles = new Vector3(-_y, _x, 0);
+            //            transform.position = transform.localRotation * _offset + _target.position;
         }
 
         public void ReadInput()

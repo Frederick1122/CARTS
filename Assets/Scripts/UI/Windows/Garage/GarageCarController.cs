@@ -16,14 +16,14 @@ namespace UI.Windows.Garage
         {
             GetView<GarageCarView>().OnUpgrade += Upgrade;
 
-            _view.Init(_model);
+            base.Init();
         }
 
         private void OnDestroy() =>
             GetView<GarageCarView>().OnUpgrade -= Upgrade;
 
-        public override void UpdateView() =>
-            _view.UpdateView(_model);
+        //public override void UpdateView() =>
+        //    _view.UpdateView(_model);
 
         public void UpdateInfo(CarData data)
         {

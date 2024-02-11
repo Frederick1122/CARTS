@@ -88,9 +88,9 @@ namespace Managers.Libraries
             return randomConfigs;
         }
 
-        public Dictionary<string, T> GetAllConfigs()
+        public virtual IReadOnlyList<T> GetAllConfigs()
         {
-            return _allConfigs;
+            return _allConfigs.Values.ToList();
         }
     }
 }

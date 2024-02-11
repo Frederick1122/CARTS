@@ -1,27 +1,29 @@
 ﻿using System;
+using TMPro;
+using UI.Elements;
+using UI.Windows.Garage;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Windows.Shop
 {
-    public class ShopWindowView : UIView
+    public class ShopWindowView : GarageWindowView 
     {
-        public event Action OpenLobbyAction;
+        [SerializeField] private TMP_Text _name;
 
-        [SerializeField] private Button _openLobbyButton;
+        private readonly ShopWindowModel _model = new();
 
-        public override void Init(UIModel uiModel)
+        public void UpdateCarName(string name)
         {
-            base.Init(uiModel);
-            _openLobbyButton.onClick.AddListener(OpenLobbyAction.Invoke);
+            _model.CarName = name;
+            UpdateView(_model);
         }
 
-        private void OnDestroy() =>
-            _openLobbyButton?.onClick.RemoveAllListeners();
+        public override void UpdateView(UIModel uiModel) => _name.text = _model.CarName;
     }
 
-    public class ShopWindowModel : UIModel
+    public class ShopWindowModel : UIModel 
     {
-
+        public string CarName = "";
     }
 }

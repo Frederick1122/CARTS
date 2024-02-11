@@ -13,9 +13,9 @@ namespace UI.Windows.Garage
         public event Action<ModificationType> OnUpgrade = delegate { };
 
         [Header("Characteristics")]
-        [SerializeField] private CarCharacteristic _speed;
-        [SerializeField] private CarCharacteristic _acceleration;
-        [SerializeField] private CarCharacteristic _turnSpeed;
+        [SerializeField] private CarCharacteristicGarage _speed;
+        [SerializeField] private CarCharacteristicGarage _acceleration;
+        [SerializeField] private CarCharacteristicGarage _turnSpeed;
 
         public override void Init(UIModel uiModel)
         {

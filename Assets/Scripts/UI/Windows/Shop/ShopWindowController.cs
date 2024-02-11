@@ -1,89 +1,143 @@
-﻿using Managers;
+﻿using ConfigScripts;
+using Managers;
 using Managers.Libraries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UI.Elements;
 using UnityEngine;
 
 namespace UI.Windows.Shop
 {
     public class ShopWindowController : UIController
     {
-        public event Action OpenLobbyAction;
-        public event Action OnNewCarBuy;
+        public event Action OnOpenLobby = delegate { };
+        public event Action<CarData> OnCarInShopUpdate = delegate { };
 
-        [SerializeField] private ShopCarCustomScroll _shopCarCustomScroll;
+        [SerializeField] private ShopItemController _shopItemController;
+        [SerializeField] private Transform _carPreviewPlace;
 
-        private readonly List<ShopItemModel> _carModels = new();
+        private CarData _currentCarData => PlayerManager.Instance.GetCurrentCar();
+        private string _currentCarKey => _cars[_currentCarIndex].configKey;
+        private IReadOnlyList<CarConfig> _cars;
+        private int _currentCarIndex = 0;
 
         public override void Init()
         {
-            GetView<ShopWindowView>().OpenLobbyAction += OpenLobby;
-            _shopCarCustomScroll.OnSelectCarAction += SelectedNewCar;
-            InitAllShopCars();
-            base.Init();
+            _view.Init(GetViewData());
+            _shopItemController.Init();
+
+            _cars = ((CarLibrary)CarLibrary.Instance).GetConfigsWithoutAI();
+
+            _shopItemController.OnCarBuy += BuyCar;
+
+            GetView<ShopWindowView>().OnOpenLobby += RequestToOpenLobby;
+
+            GetView<ShopWindowView>().OnNextCar += ChooseNextCar;
+            GetView<ShopWindowView>().OnPrevCar += ChoosePrevCar;
         }
 
         private void OnDestroy()
         {
-            if (_view != null)
-                GetView<ShopWindowView>().OpenLobbyAction -= OpenLobby;
+            _shopItemController.OnCarBuy -= BuyCar;
 
+            GetView<ShopWindowView>().OnOpenLobby += RequestToOpenLobby;
 
-            if (_shopCarCustomScroll != null)
-                _shopCarCustomScroll.OnSelectCarAction -= SelectedNewCar;
+            GetView<ShopWindowView>().OnNextCar -= ChooseNextCar;
+            GetView<ShopWindowView>().OnPrevCar -= ChoosePrevCar;
         }
 
-        public override void UpdateView() =>
-            UpdateAllShopCars();
+        public override void Show()
+        {
+            _cars = ((CarLibrary)CarLibrary.Instance).GetConfigsWithoutAI();
+            SetCurrentCarIndex();
+
+            base.Show();
+            _shopItemController.Show();
+
+            UpdateShop();
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            _shopItemController.Hide();
+        }
 
         protected override UIModel GetViewData()
         {
             return new ShopWindowModel();
         }
 
-        private void OpenLobby() =>
-            OpenLobbyAction?.Invoke();
-
-        private void SelectedNewCar(ShopItemModel uiModel)
+        private void UpdateShop()
         {
-            var currentCarConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
+            var data = new CarData(_currentCarKey);
 
-            if (uiModel.configKey == currentCarConfig.configName)
-                return;
-
-            PlayerManager.Instance.AddPurchasedCar(uiModel.configKey);
-            PlayerManager.Instance.SetCurrentCar(uiModel.configKey);
-            OnNewCarBuy?.Invoke();
-            UpdateAllShopCars();
+            _shopItemController.UpdateInfo(data);
+            GetView<ShopWindowView>().UpdateCarName(_cars[_currentCarIndex].configName);
+            UpdatePreview(data);
         }
 
-        private void InitAllShopCars()
+        private void BuyCar()
         {
-            var carConfigs = CarLibrary.Instance.GetAllConfigs().Values.ToList();
-            var currentCar = PlayerManager.Instance.GetCurrentCar();
-            foreach (var carConfig in carConfigs)
+            PlayerManager.Instance.AddPurchasedCar(_currentCarKey);
+            PlayerManager.Instance.SetCurrentCar(_currentCarKey);
+        }
+
+        private void RequestToOpenLobby() =>
+           OnOpenLobby?.Invoke();
+
+        private void ChooseNextCar()
+        {
+            _currentCarIndex++;
+            if (_currentCarIndex >= _cars.Count)
+                _currentCarIndex = 0;
+
+            UpdateShop();
+            OnCarInShopUpdate?.Invoke(new CarData(_currentCarKey));
+        }
+
+        private void ChoosePrevCar()
+        {
+            _currentCarIndex--;
+            if (_currentCarIndex < 0)
+                _currentCarIndex = _cars.Count - 1;
+
+            UpdateShop(); 
+            OnCarInShopUpdate?.Invoke(new CarData(_currentCarKey));
+        }
+
+        private void SetCurrentCarIndex()
+        {
+            for (int i = 0; i < _cars.Count; i++)
             {
-                if (carConfig.isOnlyForAi)
-                    continue;
-
-                var isSelectedCar = carConfig.configKey == currentCar.configKey;
-                _carModels.Add(new ShopItemModel(carConfig.configKey, isSelectedCar));
+                if (_currentCarData.configKey == _cars[i].configKey)
+                {
+                    _currentCarIndex = i;
+                    return;
+                }
             }
-
-            _shopCarCustomScroll.AddRange(_carModels);
         }
 
-        private void UpdateAllShopCars()
+        public void UpdatePreview(CarData data)
         {
-            var currentCarConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
+            for (int i = 0; i < _carPreviewPlace.childCount; i++)
+                Destroy(_carPreviewPlace.GetChild(i).gameObject);
 
-            foreach (var carModel in _carModels)
-                carModel.isSelectedCar = carModel.configKey == currentCarConfig.configKey;
+            var carPref = CarLibrary.Instance.GetConfig(data.configKey).prefab;
 
-            _shopCarCustomScroll.HideAll();
-            _shopCarCustomScroll.AddRange(_carModels);
+            var car = Instantiate(carPref, _carPreviewPlace).gameObject;
+            Destroy(car.GetComponent<Rigidbody>());
+
+            SetGameLayerRecursive(car, 10);
+        }
+
+        private void SetGameLayerRecursive(GameObject gameObject, int layer)
+        {
+            gameObject.layer = layer;
+            foreach (Transform child in gameObject.transform)
+            {
+                SetGameLayerRecursive(child.gameObject, layer);
+            }
         }
     }
 }

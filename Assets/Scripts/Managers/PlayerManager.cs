@@ -104,6 +104,15 @@ namespace Managers
             return cars;
         }
 
+        public bool TryGetPurchasedCar(string key, out CarData data)
+        {
+            if(_saveData.purchasedCars.TryGetValue(key, out data))
+                return true;
+
+            data = null;
+            return false;
+        }
+
         public CarData GetCurrentCar()
         {
             if (_saveData == null)

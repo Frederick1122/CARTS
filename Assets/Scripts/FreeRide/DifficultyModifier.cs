@@ -32,7 +32,7 @@ namespace FreeRide
 
         public void UpDifficulty(int res)
         {
-            if (res % 5 != 0)
+            if (res % _levelToIncreaseDifficulty != 0)
                 return;
 
             _level++;
