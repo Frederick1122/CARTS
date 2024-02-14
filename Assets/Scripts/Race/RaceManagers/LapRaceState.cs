@@ -7,6 +7,7 @@ using Managers;
 using Managers.Libraries;
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using UnityEngine;
 using Zenject;
@@ -39,6 +40,8 @@ namespace Race.RaceManagers
 
         public override void Init()
         {
+            Clear();
+
             if (_gameData.gameModeData is GameDataInstaller.LapRaceGameData lapRaceGameData)
             {
                 _lapRaceGameData = lapRaceGameData;
@@ -54,12 +57,17 @@ namespace Race.RaceManagers
             InitAi();
         }
 
+        private void Clear()
+        {
+            _enemies.Clear();
+            _lapsStats.Clear();
+        }
+
         public override void Destroy()
         {
             _positionCts?.Cancel();
-            _enemies.Clear();
-            _lapsStats.Clear();
-            
+            Clear();
+
             Object.Destroy(_currentTrack != null ? _currentTrack.gameObject : null); 
             Object.Destroy(_player != null ? _player.gameObject : null); 
         }
