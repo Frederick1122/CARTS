@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swiper;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,23 +9,63 @@ namespace UI.Windows.MapSelection
     {
         public event Action OpenLobbyAction;
 
-        public event Action GoToGameAction;
+        public event Action<SwiperData> OnModSelect;
+        public event Action<SwiperData> OnMapSelect;
 
-        [SerializeField] private Button _openLobbyButton;
-        [SerializeField] private Button _goToGameButton;
+        [Header("Base")]
+        [SerializeField] private Button _selectionButton;
+        [SerializeField] private Button _backButton;
+
+        [Header("Mod Selection")]
+        [SerializeField] private SwiperController _modSwiper;
+
+        [Header("Map Selection")]
+        [SerializeField] private SwiperController _mapSwiper;
 
         public override void Init(UIModel model)
         {
             base.Init(model);
-            _openLobbyButton.onClick.AddListener(OpenLobbyAction.Invoke);
-            _goToGameButton.onClick.AddListener(GoToGameAction.Invoke);
+            
+
+            _modSwiper.Init();
+            _mapSwiper.Init();
         }
 
-        private void OnDestroy()
+        public void AddMap(SwiperData data) =>
+            _mapSwiper.AddItems(data);
+
+        public void AddMod(SwiperData data) =>
+            _modSwiper.AddItems(data);
+
+        public void ShowModSelection()
         {
-            _openLobbyButton?.onClick.RemoveAllListeners();
-            _goToGameButton?.onClick.RemoveAllListeners();
+            _modSwiper.gameObject.SetActive(true);
+            _mapSwiper.gameObject.SetActive(false);
+
+            _selectionButton.onClick.RemoveAllListeners();
+            _selectionButton.onClick.AddListener(SelectMod);
+
+            _backButton.onClick.RemoveAllListeners();
+            _backButton.onClick.AddListener(GoToLobby);
         }
+
+        public void ShowMapSelection()
+        {
+            _modSwiper.gameObject.SetActive(false);
+            _mapSwiper.gameObject.SetActive(true);
+
+            _selectionButton.onClick.RemoveAllListeners();
+            _selectionButton.onClick.AddListener(SelectMap);
+
+            _backButton.onClick.RemoveAllListeners();
+            _backButton.onClick.AddListener(ShowModSelection);
+        }
+
+        private void SelectMap() => OnMapSelect?.Invoke(_mapSwiper.SelectedData);
+        private void SelectMod() => OnModSelect?.Invoke(_modSwiper.SelectedData);
+
+        private void GoToLobby() => OpenLobbyAction?.Invoke();
+        //private void GoToGame() => GoToGameAction?.Invoke();
     }
 
     public class MapSelectionWindowModel : UIModel { }

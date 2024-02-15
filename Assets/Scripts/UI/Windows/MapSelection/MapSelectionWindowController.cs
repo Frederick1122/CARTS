@@ -49,7 +49,7 @@ namespace UI.Windows.MapSelection
         public override void Init()
         {
             GetView<MapSelectionWindowView>().OpenLobbyAction += OpenLobby;
-            GetView<MapSelectionWindowView>().GoToGameAction += GoToGame;
+            //GetView<MapSelectionWindowView>().GoToGameAction += GoToGame;
             _toggleCustomScroll.OnSelectAction += SelectNewTrack;
             _defaultRaceToggleController.OnSelectAction += SetDefaultRaceState;
             _freeRideToggleController.OnSelectAction += SetFreeRideState;
@@ -94,7 +94,7 @@ namespace UI.Windows.MapSelection
             if (_view != null)
             {
                 GetView<MapSelectionWindowView>().OpenLobbyAction -= OpenLobby;
-                GetView<MapSelectionWindowView>().GoToGameAction -= GoToGame;
+                //GetView<MapSelectionWindowView>().GoToGameAction -= GoToGame;
             }
 
             if (_toggleCustomScroll != null)

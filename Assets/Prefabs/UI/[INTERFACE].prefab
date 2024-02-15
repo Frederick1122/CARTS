@@ -3343,7 +3343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5474159915149417508
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3386,6 +3386,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _openLobbyButton: {fileID: 1169689963973897427}
   _goToGameButton: {fileID: 7841949959823735879}
+  _modSwiper: {fileID: 0}
+  _mapSwiper: {fileID: 0}
+  _backButton: {fileID: 0}
 --- !u!1 &3450490485271055395
 GameObject:
   m_ObjectHideFlags: 0
@@ -8372,7 +8375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6834968677958873923
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10516,7 +10519,7 @@ Canvas:
   m_OverridePixelPerfect: 1
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -11054,6 +11057,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefaultRaceToggle
       objectReference: {fileID: 0}
+    - target: {fileID: 1234106494283979638, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2207335819355918474, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11433,6 +11440,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThreeLapMode
       objectReference: {fileID: 0}
+    - target: {fileID: 1234106494283979638, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2207335819355918474, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11657,6 +11668,10 @@ PrefabInstance:
     - target: {fileID: 8407924816737709561, guid: dbce1aa8c8ea9d447bdf364ddbd835c6, type: 3}
       propertyPath: m_Name
       value: TrackVerticalScrollView
+      objectReference: {fileID: 0}
+    - target: {fileID: 8407924816737709561, guid: dbce1aa8c8ea9d447bdf364ddbd835c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8628112396831315300, guid: dbce1aa8c8ea9d447bdf364ddbd835c6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -11915,6 +11930,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FourBotMode
       objectReference: {fileID: 0}
+    - target: {fileID: 1234106494283979638, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2207335819355918474, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -12059,6 +12078,10 @@ PrefabInstance:
     - target: {fileID: 1234106494283979638, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
       propertyPath: m_Name
       value: OneBotMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 1234106494283979638, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2207335819355918474, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
       propertyPath: m_Pivot.x
@@ -12207,7 +12230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11414302, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_Size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11414302, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_Value
@@ -12499,6 +12522,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OneLapMode
       objectReference: {fileID: 0}
+    - target: {fileID: 1234106494283979638, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2207335819355918474, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -12643,6 +12670,10 @@ PrefabInstance:
     - target: {fileID: 1234106494283979638, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
       propertyPath: m_Name
       value: FreeRideToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1234106494283979638, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2207335819355918474, guid: 327d0d92e7b20af43a10f05bc217014c, type: 3}
       propertyPath: m_Pivot.x
