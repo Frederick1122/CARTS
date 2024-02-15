@@ -9,8 +9,8 @@ namespace UI.Windows.MapSelection
     {
         public event Action OpenLobbyAction;
 
-        public event Action<SwiperData> OnModSelect;
-        public event Action<SwiperData> OnMapSelect;
+        public event Action<string> OnModSelect;
+        public event Action<string> OnMapSelect;
 
         [Header("Base")]
         [SerializeField] private Button _selectionButton;
@@ -25,7 +25,6 @@ namespace UI.Windows.MapSelection
         public override void Init(UIModel model)
         {
             base.Init(model);
-            
 
             _modSwiper.Init();
             _mapSwiper.Init();
@@ -36,6 +35,12 @@ namespace UI.Windows.MapSelection
 
         public void AddMod(SwiperData data) =>
             _modSwiper.AddItems(data);
+
+        public void ClearMapSwiper() =>
+            _mapSwiper.Clear();
+
+        public void ClearModSwiper() =>
+            _modSwiper.Clear();
 
         public void ShowModSelection()
         {
@@ -61,8 +66,8 @@ namespace UI.Windows.MapSelection
             _backButton.onClick.AddListener(ShowModSelection);
         }
 
-        private void SelectMap() => OnMapSelect?.Invoke(_mapSwiper.SelectedData);
-        private void SelectMod() => OnModSelect?.Invoke(_modSwiper.SelectedData);
+        private void SelectMap() => OnMapSelect?.Invoke(_mapSwiper.SelectedData.Key);
+        private void SelectMod() => OnModSelect?.Invoke(_modSwiper.SelectedData.Key);
 
         private void GoToLobby() => OpenLobbyAction?.Invoke();
         //private void GoToGame() => GoToGameAction?.Invoke();

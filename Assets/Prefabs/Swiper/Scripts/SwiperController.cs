@@ -149,6 +149,17 @@ namespace Swiper
             if (!_isFree)
                 _swipeSnapMenu.RecalculatePositions();
         }
+
+        public void Clear()
+        {
+            foreach (var item in _items)
+            {
+                item.OnClick -= OnTabClick;
+                Destroy(item.gameObject);
+            }
+
+            _swipeSnapMenu.RecalculatePositions();
+        }
     }
 
     public enum SwipeMenuType
