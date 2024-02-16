@@ -852,7 +852,7 @@ GameObject:
   - component: {fileID: 6395944382911287814}
   - component: {fileID: 4784730504993729578}
   - component: {fileID: 9187846146773414320}
-  - component: {fileID: 5869374004800144311}
+  - component: {fileID: 8958333605065372574}
   m_Layer: 7
   m_Name: cm
   m_TagString: Untagged
@@ -900,16 +900,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 1.57, z: -6}
+  m_FollowOffset: {x: 0, y: 2, z: -6}
   m_XDamping: 0
   m_YDamping: 0
-  m_ZDamping: 0.1
+  m_ZDamping: 0.2
   m_AngularDampingMode: 0
   m_PitchDamping: 2
-  m_YawDamping: 1.5
+  m_YawDamping: 1
   m_RollDamping: 2
   m_AngularDamping: 0
---- !u!114 &5869374004800144311
+--- !u!114 &8958333605065372574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

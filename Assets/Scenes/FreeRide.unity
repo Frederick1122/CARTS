@@ -265,9 +265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e5b747cc7cae74698e0ef264f6bb39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _managersParent: {fileID: 848091257}
-  _raceManagerPrefab: {fileID: 3485062525244976398, guid: 940ce3afa9b58014dba667e12e4b4b1e,
-    type: 3}
 --- !u!1 &848091256
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +362,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1015
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
