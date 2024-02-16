@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 namespace Swiper
 {
@@ -133,6 +134,8 @@ namespace Swiper
 
         public void AddItems(SwiperData data)
         {
+            var curTab = SelectedTab;
+
             var item = Instantiate(_itemPrefab, _contentContainer);
             item.Init();
             item.InsertData(data);
@@ -140,6 +143,7 @@ namespace Swiper
 
             _swiperItems.Add(_items.Count, item);
             _items.Add(item);
+            //Destroy(_items[^1].gameObject);
 
             if(!_isFree)
                 _swipeSnapMenu.RecalculatePositions();
@@ -148,16 +152,22 @@ namespace Swiper
 
             if (!_isFree)
                 _swipeSnapMenu.RecalculatePositions();
+
+            SelectTab(curTab);
         }
 
         public void Clear()
         {
-            foreach (var item in _items)
+            SelectTab(0);
+            for (int i = 0; i < _items.Count; i++)
             {
+                var item = _items[i];
                 item.OnClick -= OnTabClick;
-                Destroy(item.gameObject);
+                DestroyImmediate(item.gameObject);
             }
 
+            _items.Clear();
+            _swiperItems.Clear();
             _swipeSnapMenu.RecalculatePositions();
         }
     }

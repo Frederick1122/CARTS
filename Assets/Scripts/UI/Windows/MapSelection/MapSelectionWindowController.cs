@@ -45,14 +45,23 @@ namespace UI.Windows.MapSelection
                 _keyModePairs.Add(castItem.configKey, castItem);
             }
 
-            AddAllMods();
             base.Init();
         }
 
         public override void Show()
         {
+            AddAllMods();
+
             GetView<MapSelectionWindowView>().ShowModSelection();
             base.Show();
+        }
+
+        public override void Hide()
+        {
+            //GetView<MapSelectionWindowView>().ClearMapSwiper();
+            //GetView<MapSelectionWindowView>().ClearModSwiper();
+
+            base.Hide();
         }
 
         private void OnDestroy()
@@ -71,20 +80,26 @@ namespace UI.Windows.MapSelection
 
         private void AddAllMods()
         {
+            var view = GetView<MapSelectionWindowView>();
+            view.ClearModSwiper();
+
             foreach (var item in _keyModePairs.Values)
             {
                 var data = new SwiperData(item.configKey, item.Icon, item.configName);
-                GetView<MapSelectionWindowView>().AddMod(data);
+                view.AddMod(data);
             }
         }
 
         private void AddAllMaps()
         {
+            var view = GetView<MapSelectionWindowView>();
+            view.ClearMapSwiper();
+
             var maps = GetMaps();
             foreach (var item in maps)
             {
                 var data = new SwiperData(item.configKey, null, item.configName);
-                GetView<MapSelectionWindowView>().AddMap(data);
+                view.AddMap(data);
             }
         }
 
@@ -161,11 +176,13 @@ namespace UI.Windows.MapSelection
             switch (_gameType)
             {
                 case GameDataInstaller.GameType.LapRace:
-                    maps = (List<BaseConfig>)TrackLibrary.Instance.GetAllConfigs();
+                    foreach (var config in TrackLibrary.Instance.GetAllConfigs())
+                        maps.Add(config);
                     break;
 
                 case GameDataInstaller.GameType.FreeRide:
-                    maps = (List<BaseConfig>)FreeRideTrackLibrary.Instance.GetAllConfigs();
+                    foreach (var config in FreeRideTrackLibrary.Instance.GetAllConfigs())
+                        maps.Add(config);
                     break;
             }
             return maps;
