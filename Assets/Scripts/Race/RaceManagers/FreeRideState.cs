@@ -30,7 +30,7 @@ namespace Race.RaceManagers
         private MapFabric _mapFabric;
         private DifficultyModifier _difficultyModifier;
         private FreeRidePrefabData _currentTrack;
-        private int _result;
+        private int _score;
         private DateTime _startTime;
 
         public override void Init()
@@ -72,9 +72,14 @@ namespace Race.RaceManagers
             base.StartRace();
         }
 
-        public int GetResult()
+        public int GetScore()
         {
-            return _result;
+            return _score;
+        }
+
+        public override int GetResult()
+        {
+            return GameResult.GetFreeRideResult(_score);
         }
 
         public TimeSpan GetPassTime()
@@ -117,7 +122,7 @@ namespace Race.RaceManagers
         private void UpdateResult(int result)
         {
             Debug.Log($"Result {result}");
-            _result = result;
+            _score = result;
             OnResultUpdateAction?.Invoke(result);
         }
     }

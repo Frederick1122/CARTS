@@ -2,6 +2,7 @@
 using System.Threading;
 using Core.FSM;
 using Cysharp.Threading.Tasks;
+using Managers;
 using ProjectFsms;
 using Race.RaceManagers;
 using UI;
@@ -28,6 +29,7 @@ namespace FsmStates.RaceFsm
         public override void Enter()
         {
             base.Enter();
+            PlayerManager.Instance.IncreaseCurrency(CurrencyType.Regular, _raceFsmData.raceManager.GetResult());
             UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).Show();
             UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).OnGoToMainMenuAction += GoToMenu;
             _cancellationTokenSource = new CancellationTokenSource();
