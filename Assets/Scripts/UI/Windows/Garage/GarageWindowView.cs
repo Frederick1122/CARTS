@@ -42,7 +42,7 @@ namespace UI.Windows.Garage
             OnNextCar?.Invoke();
 
         public void PrevCar() =>
-            OnNextCar?.Invoke();
+            OnPrevCar?.Invoke();
     }
 
     public class GarageWindowModel : UIModel { }
