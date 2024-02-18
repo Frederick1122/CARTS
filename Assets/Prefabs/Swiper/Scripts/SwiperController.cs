@@ -27,16 +27,18 @@ namespace Swiper
         [Header("SwipeSnapMenu Attribute")]
         [SerializeField] private SwipeSnapMenu _swipeSnapMenu;
         [SerializeField] private RectTransform _contentContainer;
-        [SerializeField] private float _snapSpeed = 15f;
-        [SerializeField] ScrollRect _scrollRect;
-
+        [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private SwiperItem _itemPrefab;
-        private readonly List<SwiperItem> _items = new();
+
+        [Header("Characteristic")]
+        [SerializeField] private float _snapSpeed = 15f;
+        [SerializeField] private float _spacing = 0f;
 
         [Header("UI")]
         [SerializeField] private Button _nextItemButton;
         [SerializeField] private Button _previousItemButton;
 
+        private readonly List<SwiperItem> _items = new();
         private readonly Dictionary<int, SwiperItem> _swiperItems = new();
 
         public void Init()
@@ -78,6 +80,8 @@ namespace Swiper
             layoutGroup.childForceExpandWidth = false;
             layoutGroup.childControlHeight = false;
             layoutGroup.childControlWidth = false;
+            layoutGroup.spacing = _spacing;
+
             _scrollRect.vertical = false;
             _scrollRect.horizontal = true;
             _swipeSnapMenu.Init(_contentContainer, _scrollRect.horizontalScrollbar, _snapSpeed);
@@ -94,6 +98,8 @@ namespace Swiper
             layoutGroup.childControlHeight = false;
             layoutGroup.childControlHeight = false;
             layoutGroup.childControlWidth = false;
+            layoutGroup.spacing = _spacing;
+
             _scrollRect.vertical = true;
             _scrollRect.horizontal = false;
             _swipeSnapMenu.Init(_contentContainer, _scrollRect.verticalScrollbar, _snapSpeed);

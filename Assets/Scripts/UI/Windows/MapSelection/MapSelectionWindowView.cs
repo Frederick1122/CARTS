@@ -1,5 +1,6 @@
 ﻿using Swiper;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ namespace UI.Windows.MapSelection
         [Header("Base")]
         [SerializeField] private Button _selectionButton;
         [SerializeField] private Button _backButton;
+        [SerializeField] private TMP_Text _nameOfChosen;
 
         [Header("Mod Selection")]
         [SerializeField] private SwiperController _modSwiper;
@@ -28,6 +30,15 @@ namespace UI.Windows.MapSelection
 
             _modSwiper.Init();
             _mapSwiper.Init();
+
+            _modSwiper.OnTabSelected += UpdateName;
+            _mapSwiper.OnTabSelected += UpdateName;
+        }
+
+        private void OnDestroy()
+        {
+            _modSwiper.OnTabSelected -= UpdateName;
+            _mapSwiper.OnTabSelected -= UpdateName;
         }
 
         public void AddMap(SwiperData data) =>
@@ -66,11 +77,13 @@ namespace UI.Windows.MapSelection
             _backButton.onClick.AddListener(ShowModSelection);
         }
 
+        private void UpdateName(SwiperData data) => 
+            _nameOfChosen.text = data.Name;
+
         private void SelectMap() => OnMapSelect?.Invoke(_mapSwiper.SelectedData.Key);
         private void SelectMod() => OnModSelect?.Invoke(_modSwiper.SelectedData.Key);
-
         private void GoToLobby() => OpenLobbyAction?.Invoke();
-        //private void GoToGame() => GoToGameAction?.Invoke();
+        
     }
 
     public class MapSelectionWindowModel : UIModel { }
