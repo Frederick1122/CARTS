@@ -1,8 +1,5 @@
 ﻿using Managers;
 using System;
-using System.Linq;
-using UI.Windows.Garage;
-using UnityEngine;
 
 namespace UI.Windows.Shop
 {

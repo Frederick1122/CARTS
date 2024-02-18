@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Mini Cooper
   configKey: MiniCooperKey
+  CarIcon: {fileID: 0}
   prefab: {fileID: 8878324910303656987, guid: 272ceb233a8a42346a4557cc4af47520, type: 3}
   isOnlyForAi: 0
+  price:
+    value: 100
+    currencyType: 0
   maxSpeedLevels:
   - 50
   - 60

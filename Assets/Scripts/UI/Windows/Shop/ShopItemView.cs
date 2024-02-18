@@ -15,6 +15,8 @@ namespace UI.Windows.Shop
         public event Action OnCarBuy = delegate { };
 
         [SerializeField] private Button _buyButton;
+        [SerializeField] private CurrencyImage _currencyImage;
+        [SerializeField] private TMP_Text _price;
 
         [Header("Characteristics")]
         [SerializeField] private CarCharacteristicShop _speed;
@@ -38,7 +40,11 @@ namespace UI.Windows.Shop
             if(model.Purchased)
                 _buyButton.gameObject.SetActive(false);
             else
+            {
                 _buyButton.gameObject.SetActive(true);
+                _currencyImage.SetImage(model.Config.price.currencyType);
+                _price.text = model.Config.price.value.ToString();
+            }
 
             _speed.UpdateInfo(model.Config.maxSpeedLevels[0], model.Config.maxSpeedLevels[^1]); 
             _acceleration.UpdateInfo(model.Config.accelerationLevels[0], model.Config.accelerationLevels[^1]);

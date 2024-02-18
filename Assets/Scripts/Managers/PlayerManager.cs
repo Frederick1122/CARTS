@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ConfigScripts;
 using UnityEngine;
 
 namespace Managers
@@ -22,6 +23,14 @@ namespace Managers
             if (_saveData.purchasedCars.ContainsKey(carConfigKey))
                 return;
 
+            var carConfig = CarLibrary.Instance.GetConfig(carConfigKey);
+            if (!IsThereEnoughMoney(carConfig.price))
+            {
+                return;    
+            }
+            
+            DecreaseCurrency(carConfig.price.currencyType, carConfig.price.value);
+            
             _saveData.purchasedCars.Add(carConfigKey, new CarData(carConfigKey));
             Save();
         }
@@ -103,6 +112,13 @@ namespace Managers
         {
             var cars = _saveData.purchasedCars.Values.ToList();
             return cars;
+        }
+
+        public bool IsThereEnoughMoney(Price price)
+        {
+            return price.currencyType == CurrencyType.Regular
+                ? _saveData.regularCurrency >= price.value
+                : _saveData.premiumCurrency >= price.value;
         }
 
         public bool TryGetPurchasedCar(string key, out CarData data)
