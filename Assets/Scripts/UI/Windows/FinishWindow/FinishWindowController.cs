@@ -18,6 +18,4 @@ namespace UI.Windows.Finish
             return _model;
         }
     }
-
-    public class FinishWindowModel : UIModel { }
 }

@@ -36,7 +36,7 @@ namespace UI.Windows.Race.RaceUI.FreeRide
         }
     }
     
-    public class FreeRideFinishWindowModel : UIModel
+    public class FreeRideFinishWindowModel : FinishWindowModel
     {
         public int score;
         public TimeSpan passTime;

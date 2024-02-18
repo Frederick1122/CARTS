@@ -36,7 +36,7 @@ namespace UI.Windows.RaceUI.LapRace
         }
     }
 
-    public class LapRaceFinishWindowModel : UIModel
+    public class LapRaceFinishWindowModel : FinishWindowModel
     {
         public int maxPosition;
         public int currentPosition;

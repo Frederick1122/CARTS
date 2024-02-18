@@ -72,6 +72,11 @@ namespace Race.RaceManagers
             Object.Destroy(_player != null ? _player.gameObject : null); 
         }
 
+        public override int GetResult()
+        {
+            return GameResult.GetLapRaceResult(_lastPlayerPosition, (float)GetPassTime().TotalSeconds);
+        }
+
         public override void StartRace()
         {
             foreach (var en in _enemies)

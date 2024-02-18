@@ -43,6 +43,8 @@ namespace Race.RaceManagers
         public void FinishRace() => _currentRaceState?.FinishRace();
 
         public void PauseRace() => _currentRaceState?.PauseRace();
+
+        public int GetResult() => _currentRaceState?.GetResult() ?? 0;
     }
 
 
@@ -55,7 +57,9 @@ namespace Race.RaceManagers
         public abstract void Init();
 
         public abstract void Destroy();
-
+        
+        public abstract int GetResult();
+        
         public virtual void StartRace() => OnStartAction?.Invoke();   
 
         public virtual void FinishRace() => OnFinishAction?.Invoke();

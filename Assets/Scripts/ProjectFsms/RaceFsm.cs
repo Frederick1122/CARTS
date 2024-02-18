@@ -1,20 +1,11 @@
-﻿using System;
-using Core.FSM;
+﻿using Core.FSM;
 using FsmStates.RaceFsm;
-using Installers;
 using Race.RaceManagers;
-using UI;
-using Zenject;
 
 namespace ProjectFsms
 {
     public class RaceFsm : Fsm
     {
-        [Inject] private GameDataInstaller.GameData _gameData;
-        
-        // [Inject] private GameDataInstaller.LapRaceGameData _defaultLapRaceGameData;
-        // [Inject] private GameDataInstaller.FreeRideGameData _defaultFreeRideGameData;
-        
         private RaceFsmData _raceFsmData = new ();
         
         public override void Init()

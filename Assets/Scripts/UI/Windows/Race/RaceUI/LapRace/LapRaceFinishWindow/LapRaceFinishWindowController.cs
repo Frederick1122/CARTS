@@ -11,27 +11,27 @@ namespace UI.Windows.RaceUI.LapRace
 
         public override void Init()
         {
-            base.Init();
             _lapRaceState = (LapRaceState)RaceManager.Instance.GetState(RaceType.LAP_RACE);
             
             GetView<LapRaceFinishWindowView>().OnGoToMainMenuAction += GoToMainMenu;
+            base.Init();
         }
 
         private void OnDestroy()
         {
             GetView<LapRaceFinishWindowView>().OnGoToMainMenuAction -= GoToMainMenu;
         }
-        
+
         public override void Show()
         {
             base.Show();
-            
+            _lapRaceFinishWindowModel.result = RaceManager.Instance.GetResult();
             _lapRaceFinishWindowModel.maxPosition = _lapRaceState.GetMaxPositions();
             _lapRaceFinishWindowModel.currentPosition = _lapRaceState.GetPlayerPosition();
             _lapRaceFinishWindowModel.passTime = _lapRaceState.GetPassTime();
             UpdateView(_lapRaceFinishWindowModel);
         }
-
+        
         protected override UIModel GetViewData()
         {
             return _lapRaceFinishWindowModel;
