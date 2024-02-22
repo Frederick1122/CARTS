@@ -1,10 +1,7 @@
 using Managers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI.Windows.Garage
 {
@@ -66,7 +63,9 @@ namespace UI.Windows.Garage
         }
 
         private void UpdateGarageUI() =>
-            _garageCarController.UpdateInfo(_cars[_currentCarIndex]);
+            _garageCarController.UpdateInfo(
+                LobbyManager.Instance.Garage.SpawnedCarData, 
+                LobbyManager.Instance.Garage.SpawnedCarPrefabData);
 
         private void UpgradeCar(ModificationType modification)
         {
@@ -74,8 +73,8 @@ namespace UI.Windows.Garage
             UpdateGarageUI();
         }
 
-        private void EquipCar() =>
-            PlayerManager.Instance.SetCurrentCar(_cars[_currentCarIndex].configKey);
+        private void EquipCar(string key) =>
+            PlayerManager.Instance.SetCurrentCar(key);
 
         private void RequestToOpenLobby() =>
             OnOpenLobby?.Invoke();
@@ -86,9 +85,9 @@ namespace UI.Windows.Garage
             if (_currentCarIndex >= _cars.Count)
                 _currentCarIndex = 0;
 
+            EquipCar(_cars[_currentCarIndex].configKey);
             UpdateGarageUI();
-            EquipCar();
-            OnCarInGarageUpdate?.Invoke(_cars[_currentCarIndex]);
+            OnCarInGarageUpdate?.Invoke(_currentCar);
         }
 
         private void ChoosePrevCar()
@@ -97,9 +96,9 @@ namespace UI.Windows.Garage
             if (_currentCarIndex < 0)
                 _currentCarIndex = _cars.Count - 1;
 
+            EquipCar(_currentCar.configKey);
             UpdateGarageUI();
-            EquipCar();
-            OnCarInGarageUpdate?.Invoke(_cars[_currentCarIndex]);
+            OnCarInGarageUpdate?.Invoke(_currentCar);
         }
 
         private void SetCurrentCarIndex()

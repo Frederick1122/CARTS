@@ -1,4 +1,6 @@
 ﻿using Cinemachine;
+using Managers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cars
@@ -20,14 +22,29 @@ namespace Cars
         [field: SerializeField] public CinemachineVirtualCamera Camera { get; private set; }
 
         [field: Header("Rays")]
-
         [field: SerializeField] public Transform[] RayPoses { get; set; } = new Transform[4];
+
+        [Header("UI Upgrade Points")]
+        [SerializeField] private Transform _maxSpeedUpgradePlace;
+        [SerializeField] private Transform _accelerationUpgradePlace;
+        [SerializeField] private Transform _turnUpgradePlace;
+
+        public Transform GetModificationPlace(ModificationType mode)
+        {
+            return mode switch
+            {
+                ModificationType.MaxSpeed => _maxSpeedUpgradePlace,
+                ModificationType.Acceleration => _accelerationUpgradePlace,
+                ModificationType.Turn => _turnUpgradePlace,
+                _ => transform,
+            };
+        }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying)
-                return;
+            //if (Application.isPlaying)
+            //    return;
 
             Gizmos.color = Color.cyan;
 
@@ -39,6 +56,14 @@ namespace Cars
             Gizmos.DrawRay(RayPoses[2].position, RayPoses[2].forward * _editorRayLength);
             Gizmos.DrawRay(RayPoses[3].position, RayPoses[3].forward * _editorRayLength);
 
+            if (_maxSpeedUpgradePlace != null)
+                Gizmos.DrawSphere(_maxSpeedUpgradePlace.transform.position, 0.1f);
+
+            if (_accelerationUpgradePlace != null)
+                Gizmos.DrawSphere(_accelerationUpgradePlace.transform.position, 0.1f);
+
+            if (_turnUpgradePlace != null)
+                Gizmos.DrawSphere(_turnUpgradePlace.transform.position, 0.1f);
         }
 #endif
     }

@@ -1,7 +1,7 @@
+using Cars;
 using Managers;
+using Managers.Libraries;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI.Windows.Garage
@@ -10,34 +10,29 @@ namespace UI.Windows.Garage
     {
         public event Action<ModificationType> OnUpgrade = delegate { };
 
-        private GarageCarModel _model = new();
+        private readonly GarageCarModel _model = new();
 
         public override void Init()
         {
             GetView<GarageCarView>().OnUpgrade += Upgrade;
-
             base.Init();
         }
 
         private void OnDestroy() =>
             GetView<GarageCarView>().OnUpgrade -= Upgrade;
 
-        //public override void UpdateView() =>
-        //    _view.UpdateView(_model);
-
-        public void UpdateInfo(CarData data)
+        public void UpdateInfo(CarData data, CarPrefabData spawnedCar)
         {
-            _model.speedLvl = data.maxSpeedLevel;
-            _model.accelerationLvl = data.accelerationLevel;
-            _model.turnSpeedLvl = data.turnLevel;
+            _model.SpeedLvl = data.maxSpeedLevel;
+            _model.AccelerationLvl = data.accelerationLevel;
+            _model.TurnSpeedLvl = data.turnLevel;
+
+            _model.CarPrefabData = spawnedCar;
 
             UpdateView();
         }
 
-        protected override UIModel GetViewData()
-        {
-            return _model;
-        }
+        protected override UIModel GetViewData() { return _model; }
 
         private void Upgrade(ModificationType modification) =>
             OnUpgrade?.Invoke(modification);

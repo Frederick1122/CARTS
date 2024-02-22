@@ -1,3 +1,4 @@
+using Cars;
 using Managers;
 using Managers.Libraries;
 using UI;
@@ -9,7 +10,8 @@ namespace Lobby.Garage
     {
         [SerializeField] private Transform _carPlace;
 
-        public CarData CurrentChosenCar {  get; private set; }
+        public CarData SpawnedCarData {  get; private set; }
+        public CarPrefabData SpawnedCarPrefabData { get; private set; }
 
         public void Init()
         {
@@ -28,11 +30,11 @@ namespace Lobby.Garage
             for (int i = 0; i < _carPlace.childCount; i++)
                 Destroy(_carPlace.GetChild(i).gameObject);
             
-            CurrentChosenCar = data;
-            var carPref = CarLibrary.Instance.GetConfig(CurrentChosenCar.configKey).prefab;
+            var carPref = CarLibrary.Instance.GetConfig(data.configKey).prefab;
+            SpawnedCarPrefabData = Instantiate(carPref, _carPlace);
+            SpawnedCarData = data;
 
-            var car = Instantiate(carPref, _carPlace).gameObject;
-            Destroy(car.GetComponent<Rigidbody>());
+            Destroy(SpawnedCarPrefabData.gameObject.GetComponent<Rigidbody>());
         }
     }
 }
