@@ -1,4 +1,6 @@
 using Managers;
+using Managers.Libraries;
+using Swiper;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,40 +13,40 @@ namespace UI.Windows.Garage
         public event Action<CarData> OnCarInGarageUpdate = delegate { };
 
         [SerializeField] private GarageCarController _garageCarController;
+        [SerializeField] private SwiperController _carSwiper;
 
         private CarData _currentCar => PlayerManager.Instance.GetCurrentCar();
         private IReadOnlyList<CarData> _cars;
-        private int _currentCarIndex = 0;
+        private string _currentCarKey = "";
 
         public override void Init()
         {
+            //SetUpPurchasedCarSwiper();
+            _currentCarKey = _currentCar.configKey;
+
             _view.Init(GetViewData());
 
             _garageCarController.Init();
             _garageCarController.OnUpgrade += UpgradeCar;
 
-            _cars = PlayerManager.Instance.GetPurchasedCars();
-
             GetView<GarageWindowView>().OnOpenLobby += RequestToOpenLobby;
 
-            GetView<GarageWindowView>().OnNextCar += ChooseNextCar;
-            GetView<GarageWindowView>().OnPrevCar += ChoosePrevCar;
+            _carSwiper.Init();
+            _carSwiper.OnTabClick += ChooseCarFromPurchased;
         }
 
         private void OnDestroy()
         {
             _garageCarController.OnUpgrade -= UpgradeCar;
 
-            GetView<GarageWindowView>().OnOpenLobby += RequestToOpenLobby;
+            _carSwiper.OnTabClick -= ChooseCarFromPurchased;
 
-            GetView<GarageWindowView>().OnNextCar -= ChooseNextCar;
-            GetView<GarageWindowView>().OnPrevCar -= ChoosePrevCar;
+            GetView<GarageWindowView>().OnOpenLobby += RequestToOpenLobby;
         }
 
         public override void Show()
         {
-            _cars = PlayerManager.Instance.GetPurchasedCars();
-            SetCurrentCarIndex();
+            SetUpPurchasedCarSwiper();
             UpdateGarageUI();
 
             base.Show();
@@ -57,60 +59,78 @@ namespace UI.Windows.Garage
             _garageCarController.Hide();
         }
 
-        protected override UIModel GetViewData()
+        protected override UIModel GetViewData() { return new GarageWindowModel(); }
+
+        private void RequestToOpenLobby() => OnOpenLobby?.Invoke();
+
+        private void UpdateGarageUI()
         {
-            return new GarageWindowModel();
+            var garage = LobbyManager.Instance.Garage;
+            _garageCarController.UpdateInfo(garage.SpawnedCarData, garage.SpawnedCarPrefabData);
         }
 
-        private void UpdateGarageUI() =>
-            _garageCarController.UpdateInfo(
-                LobbyManager.Instance.Garage.SpawnedCarData, 
-                LobbyManager.Instance.Garage.SpawnedCarPrefabData);
-
-        private void UpgradeCar(ModificationType modification)
+        private void SetUpPurchasedCarSwiper()
         {
-            PlayerManager.Instance.UpdateModificationLevel(_cars[_currentCarIndex].configKey, modification);
+            _cars = PlayerManager.Instance.GetPurchasedCars();
+            _currentCarKey = _currentCar.configKey;
+
+            _carSwiper.Clear();
+            foreach (var car in _cars)
+            {
+                var config = CarLibrary.Instance.GetConfig(car.configKey);
+                var data = new SwiperData(car.configKey, config.CarIcon, config.configName);
+                _carSwiper.AddItems(data);
+            }
+        }
+
+        private void ChooseCarFromPurchased(SwiperData data)
+        {
+            EquipCar(data.Key);
+            OnCarInGarageUpdate?.Invoke(_currentCar);
             UpdateGarageUI();
         }
 
         private void EquipCar(string key) =>
             PlayerManager.Instance.SetCurrentCar(key);
 
-        private void RequestToOpenLobby() =>
-            OnOpenLobby?.Invoke();
-
-        private void ChooseNextCar()
+        private void UpgradeCar(ModificationType modification)
         {
-            _currentCarIndex++;
-            if (_currentCarIndex >= _cars.Count)
-                _currentCarIndex = 0;
-
-            EquipCar(_cars[_currentCarIndex].configKey);
+            PlayerManager.Instance.UpdateModificationLevel(_currentCarKey, modification);
             UpdateGarageUI();
-            OnCarInGarageUpdate?.Invoke(_currentCar);
         }
 
-        private void ChoosePrevCar()
-        {
-            _currentCarIndex--;
-            if (_currentCarIndex < 0)
-                _currentCarIndex = _cars.Count - 1;
+        //private void ChooseNextCar()
+        //{
+        //    _currentCarIndex++;
+        //    if (_currentCarIndex >= _cars.Count)
+        //        _currentCarIndex = 0;
 
-            EquipCar(_currentCar.configKey);
-            UpdateGarageUI();
-            OnCarInGarageUpdate?.Invoke(_currentCar);
-        }
+        //    EquipCar(_cars[_currentCarIndex].configKey);
+        //    UpdateGarageUI();
+        //    OnCarInGarageUpdate?.Invoke(_currentCar);
+        //}
 
-        private void SetCurrentCarIndex()
-        {
-            for (int i = 0; i < _cars.Count; i++)
-            {
-                if (_currentCar.configKey == _cars[i].configKey)
-                {
-                    _currentCarIndex = i;
-                    return;
-                }
-            }
-        }
+        //private void ChoosePrevCar()
+        //{
+        //    _currentCarIndex--;
+        //    if (_currentCarIndex < 0)
+        //        _currentCarIndex = _cars.Count - 1;
+
+        //    EquipCar(_currentCar.configKey);
+        //    UpdateGarageUI();
+        //    OnCarInGarageUpdate?.Invoke(_currentCar);
+        //}
+
+        //private void SetCurrentCarIndex()
+        //{
+        //    for (int i = 0; i < _cars.Count; i++)
+        //    {
+        //        if (_currentCar.configKey == _cars[i].configKey)
+        //        {
+        //            _currentCarIndex = i;
+        //            return;
+        //        }
+        //    }
+        //}
     }
 }

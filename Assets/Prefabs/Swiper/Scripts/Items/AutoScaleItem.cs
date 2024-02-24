@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace Swiper
 {
@@ -15,8 +14,10 @@ namespace Swiper
         private SwiperController _swiper;
 
         private bool _isFree;
+        private SwipeMenuType _menuType;
 
-        public void Init(SwiperController swiper, RectTransform parent, bool isFree = false)
+        public void Init(SwiperController swiper, RectTransform parent, 
+            bool isFree = false, SwipeMenuType menuType = SwipeMenuType.Horizontal)
         {
             _lastScreenChangeCalculationTime = Time.time;
             _item = GetComponent<RectTransform>();
@@ -25,11 +26,9 @@ namespace Swiper
             _parent = parent;
             _swiper = swiper;
             _isFree = isFree;
+            _menuType = menuType;
 
-            if (!_isFree)
-                _item.sizeDelta = new Vector2(_parent.rect.width, _parent.rect.height);
-            else
-                _item.sizeDelta = new Vector2(_item.rect.width, _parent.rect.height);
+            _item.sizeDelta = RecalculateSize();
         }
 
         private void Update()
@@ -41,17 +40,33 @@ namespace Swiper
                 return;
 
             _lastScreenChangeCalculationTime = Time.time;
-
-            if (!_isFree)
-                _item.sizeDelta = new Vector2(_parent.rect.width, _parent.rect.height);
-            else
-                _item.sizeDelta = new Vector2(_item.rect.width, _parent.rect.height);
-
-            _swiper.SelectTab(_swiper.SelectedTab);
-
             _lastScreenWidth = new Vector2(Screen.width, Screen.height);
 
-            Debug.Log($"Window dimensions changed to {Screen.width}x{Screen.height}");
+            _item.sizeDelta = RecalculateSize();
+
+            _swiper.SelectTab(_swiper.SelectedTab);
+        }
+
+        private Vector2 RecalculateSize()
+        {
+            var size = Vector2.zero;
+
+            if (!_isFree)
+                size = new Vector2(_parent.rect.width, _parent.rect.height);
+            else
+            {
+                switch (_menuType)
+                {
+                    case SwipeMenuType.Horizontal:
+                        size = new Vector2(_item.rect.width, _parent.rect.height);
+                        break;
+                    case SwipeMenuType.Vertical:
+                        size = new Vector2(_parent.rect.width, _item.rect.height);
+                        break;
+                }
+            }
+
+            return size;
         }
     }
 }

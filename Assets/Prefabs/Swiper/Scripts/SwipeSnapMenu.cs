@@ -27,6 +27,8 @@ namespace Swiper
         private float _itemSizeNormalized;
         private int _selectedTabIndex;
 
+        private int _topValue = 0;
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             _isDragging = true;
@@ -43,11 +45,12 @@ namespace Swiper
             FindSnappingTabAndStartSnapping();
         }
 
-        public void Init(RectTransform contentContainer, Scrollbar scrollbar, float snapSpeed = 15f)
+        public void Init(RectTransform contentContainer, Scrollbar scrollbar, float snapSpeed = 15f, int top = 0)
         {
             _contentContainer = contentContainer;
             _scrollbar = scrollbar;
             _snapSpeed = snapSpeed;
+            _topValue = top;
 
             RecalculatePositions();
         }
@@ -75,6 +78,9 @@ namespace Swiper
                 float itemPosNormal = _itemSizeNormalized * i;
                 _itemPositionsNormalized.Add(itemPosNormal);
             }
+
+            if (_topValue == 1)
+                _itemPositionsNormalized.Reverse();
 
             SelectTab(_selectedTabIndex + 1);
         }

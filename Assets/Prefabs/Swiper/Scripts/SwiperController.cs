@@ -71,10 +71,10 @@ namespace Swiper
         #region Direction
         public void MakeHorizontal()
         {
-            if (_contentContainer.TryGetComponent(out VerticalLayoutGroup toDestr))
-                Destroy(toDestr);
-            HorizontalLayoutGroup layoutGroup = null;
-            if (!_contentContainer.TryGetComponent(out layoutGroup))
+            if (_contentContainer.TryGetComponent(out VerticalLayoutGroup wrongGroup))
+                Destroy(wrongGroup);
+
+            if (!_contentContainer.TryGetComponent(out HorizontalLayoutGroup layoutGroup))
                 layoutGroup = _contentContainer.AddComponent<HorizontalLayoutGroup>();
 
             layoutGroup.childForceExpandWidth = false;
@@ -89,10 +89,10 @@ namespace Swiper
 
         public void MakeVertical()
         {
-            if (_contentContainer.TryGetComponent(out HorizontalLayoutGroup toDestr))
-                Destroy(toDestr);
-            VerticalLayoutGroup layoutGroup = null;
-            if (!_contentContainer.TryGetComponent(out layoutGroup))
+            if (_contentContainer.TryGetComponent(out HorizontalLayoutGroup wrongGroup))
+                Destroy(wrongGroup);
+
+            if (!_contentContainer.TryGetComponent(out VerticalLayoutGroup layoutGroup))
                 layoutGroup = _contentContainer.AddComponent<VerticalLayoutGroup>();
 
             layoutGroup.childControlHeight = false;
@@ -102,7 +102,7 @@ namespace Swiper
 
             _scrollRect.vertical = true;
             _scrollRect.horizontal = false;
-            _swipeSnapMenu.Init(_contentContainer, _scrollRect.verticalScrollbar, _snapSpeed);
+            _swipeSnapMenu.Init(_contentContainer, _scrollRect.verticalScrollbar, _snapSpeed, 1);
         }
         #endregion
 
@@ -149,15 +149,9 @@ namespace Swiper
 
             _swiperItems.Add(_items.Count, item);
             _items.Add(item);
-            //Destroy(_items[^1].gameObject);
 
-            if(!_isFree)
-                _swipeSnapMenu.RecalculatePositions();
-
-            item.AddComponent<AutoScaleItem>().Init(this, _scrollRect.viewport, _isFree);
-
-            if (!_isFree)
-                _swipeSnapMenu.RecalculatePositions();
+            item.AddComponent<AutoScaleItem>().Init(this, _scrollRect.viewport, _isFree, _swipeMenuType);
+            TryRecalculatePositions();
 
             SelectTab(curTab);
         }
@@ -174,6 +168,14 @@ namespace Swiper
 
             _items.Clear();
             _swiperItems.Clear();
+            TryRecalculatePositions();
+        }
+
+        private void TryRecalculatePositions()
+        {
+            //if (_isFree)
+            //    return;
+
             _swipeSnapMenu.RecalculatePositions();
         }
     }
