@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UI.Elements;
 using UI.Widgets.CurrencyWidget;
+using UI.Windows.Shop.Sections.BattlePass;
+using UI.Windows.Shop.Sections.Gacha;
+using UI.Windows.Shop.Sections.SaleShop;
 using UnityEngine;
 
 namespace UI.Windows.Shop
@@ -13,113 +16,93 @@ namespace UI.Windows.Shop
     public class ShopWindowController : UIController
     {
         public event Action OnOpenLobby = delegate { };
-        public event Action<CarData> OnCarInShopUpdate = delegate { };
 
-        [SerializeField] private ShopItemController _shopItemController;
+        [Header("Sections")]
+        [SerializeField] private GachaWindowController _gachaWindowController;
+        [SerializeField] private SaleShopWindowController _saleShopWindowController;
+        [SerializeField] private BattlePassWindowController _battlePassWindowController;
 
-        [SerializeField] private ShopPreview _preview;
-        
-        private CarData _currentCarData => PlayerManager.Instance.GetCurrentCar();
-        private string _currentCarKey => _cars[_currentCarIndex].configKey;
-        private IReadOnlyList<CarConfig> _cars;
-        private int _currentCarIndex = 0;
+        private readonly List<UIController> _allSectionWindows = new();
 
         public override void Init()
         {
             _view.Init(GetViewData());
-            _shopItemController.Init();
 
-            _cars = ((CarLibrary)CarLibrary.Instance).GetConfigsWithoutAI();
+            _allSectionWindows.Add(_gachaWindowController);
+            _allSectionWindows.Add(_saleShopWindowController);
+            _allSectionWindows.Add(_battlePassWindowController);
 
-            _shopItemController.OnCarBuy += BuyCar;
-
-            GetView<ShopWindowView>().OnOpenLobby += RequestToOpenLobby;
-
-            GetView<ShopWindowView>().OnNextCar += ChooseNextCar;
-            GetView<ShopWindowView>().OnPrevCar += ChoosePrevCar;
+            var castView = GetView<ShopWindowView>();
+            castView.OnOpenLobby += RequestToOpenLobby;
+            castView.OnOpenBattlePass += RequestToOpenBattlePass;
+            castView.OnOpenGacha += RequestToOpenGacha;
+            castView.OnOpenSaleShop += RequestToOpenSaleShop;
         }
 
         private void OnDestroy()
         {
-            _shopItemController.OnCarBuy -= BuyCar;
-
-            GetView<ShopWindowView>().OnOpenLobby += RequestToOpenLobby;
-
-            GetView<ShopWindowView>().OnNextCar -= ChooseNextCar;
-            GetView<ShopWindowView>().OnPrevCar -= ChoosePrevCar;
+            var castView = GetView<ShopWindowView>();
+            castView.OnOpenLobby -= RequestToOpenLobby;
+            castView.OnOpenBattlePass -= RequestToOpenBattlePass;
+            castView.OnOpenGacha -= RequestToOpenGacha;
+            castView.OnOpenSaleShop -= RequestToOpenSaleShop;
         }
 
         public override void Show()
         {
             base.Show();
-            _cars = ((CarLibrary)CarLibrary.Instance).GetConfigsWithoutAI();
-            SetCurrentCarIndex();
-
-            _preview.StartPreview();
-
-            UpdateShop();
+            ShowStartSection();
             UIManager.Instance.GetWidgetUI().ShowWindow(typeof(CurrencyWidgetController), false);
         }
 
         public override void Hide()
         {
             base.Hide();
-            _preview.StopPreview();
             UIManager.Instance.GetWidgetUI().HideWindow(typeof(CurrencyWidgetController));
         }
 
-        protected override UIModel GetViewData()
+        protected override UIModel GetViewData() { return new ShopWindowModel(); }
+
+        private void RequestToOpenLobby() => OnOpenLobby?.Invoke();
+
+        private void ShowStartSection()
         {
-            return new ShopWindowModel();
+            HideAllSectionWindows();
+            _gachaWindowController.Show();
+            GetView<ShopWindowView>().OpenStartSection();
         }
 
-        private void UpdateShop()
+        private void HideAllSectionWindows()
         {
-            var data = new CarData(_currentCarKey);
-
-            _shopItemController.UpdateInfo(data);
-            GetView<ShopWindowView>().UpdateCarName(_cars[_currentCarIndex].configName);
-            _preview.SpawnCar(data);
+            foreach (var window in _allSectionWindows)
+                window.Hide();
         }
 
-        private void BuyCar()
+        private void RequestToOpenGacha()
         {
-            PlayerManager.Instance.AddPurchasedCar(_currentCarKey);
-            PlayerManager.Instance.SetCurrentCar(_currentCarKey);
+            HideAllSectionWindows();
+            _gachaWindowController.Show();
         }
 
-        private void RequestToOpenLobby() =>
-           OnOpenLobby?.Invoke();
-
-        private void ChooseNextCar()
+        private void RequestToOpenSaleShop()
         {
-            _currentCarIndex++;
-            if (_currentCarIndex >= _cars.Count)
-                _currentCarIndex = 0;
-
-            UpdateShop();
-            OnCarInShopUpdate?.Invoke(new CarData(_currentCarKey));
+            HideAllSectionWindows();
+            _saleShopWindowController.Show();
         }
 
-        private void ChoosePrevCar()
+        private void RequestToOpenBattlePass()
         {
-            _currentCarIndex--;
-            if (_currentCarIndex < 0)
-                _currentCarIndex = _cars.Count - 1;
-
-            UpdateShop(); 
-            OnCarInShopUpdate?.Invoke(new CarData(_currentCarKey));
+            HideAllSectionWindows();
+            _battlePassWindowController.Show();
         }
 
-        private void SetCurrentCarIndex()
+        [ContextMenu("BuyAllCar")]
+        private void BuyAllCarDev()
         {
-            for (int i = 0; i < _cars.Count; i++)
+            foreach (var config in ((CarLibrary)CarLibrary.Instance).GetConfigsWithoutAI())
             {
-                if (_currentCarData.configKey == _cars[i].configKey)
-                {
-                    _currentCarIndex = i;
-                    return;
-                }
+                PlayerManager.Instance.AddPurchasedCar(config.configKey);
+                PlayerManager.Instance.SetCurrentCar(config.configKey);
             }
         }
     }
