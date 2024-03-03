@@ -1,5 +1,6 @@
 ﻿using ConfigScripts;
 using Installers;
+using Managers;
 using Managers.Libraries;
 using Swiper;
 using System;
@@ -30,10 +31,14 @@ namespace UI.Windows.MapSelection
 
         public override void Init()
         {
-            GetView<MapSelectionWindowView>().OpenLobbyAction += OpenLobby;
+            var castView = GetView<MapSelectionWindowView>();
 
-            GetView<MapSelectionWindowView>().OnModSelect += SelectMode;
-            GetView<MapSelectionWindowView>().OnMapSelect += SelectMap;
+            castView.OpenLobbyAction += OpenLobby;
+
+            castView.OnModSelect += SelectMode;
+            castView.OnMapSelect += SelectMap;
+
+            castView.OnModeSwipe += CheckIfCanBeParticipant;
 
             _lapRaceGameData = _defaultLapRaceGameData;
             _freeRideGameData = _defaultFreeRideGameData;
@@ -50,26 +55,22 @@ namespace UI.Windows.MapSelection
 
         public override void Show()
         {
-            AddAllMods();
+            AddMods();
 
             GetView<MapSelectionWindowView>().ShowModSelection();
             base.Show();
-        }
-
-        public override void Hide()
-        {
-            //GetView<MapSelectionWindowView>().ClearMapSwiper();
-            //GetView<MapSelectionWindowView>().ClearModSwiper();
-
-            base.Hide();
         }
 
         private void OnDestroy()
         {
             if (_view != null)
             {
-                GetView<MapSelectionWindowView>().OpenLobbyAction -= OpenLobby;
-                //GetView<MapSelectionWindowView>().GoToGameAction -= GoToGame;
+                var castView = GetView<MapSelectionWindowView>();
+
+                castView.OpenLobbyAction -= OpenLobby;
+                castView.OnModeSwipe -= CheckIfCanBeParticipant;
+                castView.OnModSelect -= SelectMode;
+                castView.OnMapSelect -= SelectMap;
             }
         }
 
@@ -78,7 +79,7 @@ namespace UI.Windows.MapSelection
             return new MapSelectionWindowModel();
         }
 
-        private void AddAllMods()
+        private void AddMods()
         {
             var view = GetView<MapSelectionWindowView>();
             view.ClearModSwiper();
@@ -90,15 +91,15 @@ namespace UI.Windows.MapSelection
             }
         }
 
-        private void AddAllMaps()
+        private void AddMaps(string key)
         {
             var view = GetView<MapSelectionWindowView>();
             view.ClearMapSwiper();
 
-            var maps = GetMaps();
-            foreach (var item in maps)
+            var mode = _keyModePairs[key];
+            foreach (var map in mode.Maps)
             {
-                var data = new SwiperData(item.configKey, null, item.configName);
+                var data = new SwiperData(map.configKey, null, map.configName);
                 view.AddMap(data);
             }
         }
@@ -108,9 +109,22 @@ namespace UI.Windows.MapSelection
             _gameType = _keyModePairs[key].GetGameType();
             SetLapCount(_keyModePairs[key].GetLapCount());
             SetBotCount(_keyModePairs[key].GetLapCount());
-            AddAllMaps();
+            AddMaps(key);
 
             GetView<MapSelectionWindowView>().ShowMapSelection();
+        }
+
+        private void CheckIfCanBeParticipant(string modeKey)
+        {
+            var modeClass = _keyModePairs[modeKey].GetCarClass();
+            var carClass = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).CarClass;
+
+            var castView = GetView<MapSelectionWindowView>();
+
+            if (modeClass == carClass || modeClass == CarClass.Default)
+                castView.OpenMode();
+            else
+                castView.CloseMode();
         }
 
         private void SelectMap(string key)
@@ -168,24 +182,6 @@ namespace UI.Windows.MapSelection
                     _lapRaceGameData.botCount = count;
                     break;
             }
-        }
-
-        private List<BaseConfig> GetMaps()
-        {
-            var maps = new List<BaseConfig>();
-            switch (_gameType)
-            {
-                case GameDataInstaller.GameType.LapRace:
-                    foreach (var config in TrackLibrary.Instance.GetAllConfigs())
-                        maps.Add(config);
-                    break;
-
-                case GameDataInstaller.GameType.FreeRide:
-                    foreach (var config in FreeRideTrackLibrary.Instance.GetAllConfigs())
-                        maps.Add(config);
-                    break;
-            }
-            return maps;
         }
     }
 }

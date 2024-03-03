@@ -9,20 +9,15 @@ namespace ConfigScripts
     [CreateAssetMenu(fileName = "ModeConfig", menuName = "Configs/Mode Config")]
     public class ModeConfig : BaseConfig
     {
-        //private const string DEFAULT_RACE_MODE = "Default race";
-        //private const string FREE_RIDE_MODE = "Free ride";
-
-        //private const string ONE_LAP_MODE = "One lap";
-        //private const string THREE_LAP_MODE = "Three laps";
-
-        //private const string ONE_BOT_MODE = "One bot";
-        //private const string THREE_BOT_MODE = "Three bots";
-
         public Sprite Icon;
 
         [SerializeField] private GameDataInstaller.GameType _gameType;
         [SerializeField] private BotCount _botCount;
         [SerializeField] private LapCount _lapCount;
+        [SerializeField] private CarClass _carClass;
+        [SerializeField] private List<BaseConfig> _maps = new();
+
+        public IReadOnlyList<BaseConfig> Maps { get {  return _maps; } }
 
         public GameDataInstaller.GameType GetGameType()
         {
@@ -48,6 +43,8 @@ namespace ConfigScripts
                 _ => throw new System.NotImplementedException()
             };
         }
+
+        public CarClass GetCarClass() { return _carClass; }
     }
 
     public enum BotCount

@@ -10,6 +10,8 @@ namespace UI.Windows.MapSelection
     {
         public event Action OpenLobbyAction;
 
+        public event Action<string> OnModeSwipe;
+
         public event Action<string> OnModSelect;
         public event Action<string> OnMapSelect;
 
@@ -32,14 +34,18 @@ namespace UI.Windows.MapSelection
             _mapSwiper.Init();
 
             _modSwiper.OnTabSelected += UpdateName;
+            _modSwiper.OnTabSelected += SwipeMode;
             _mapSwiper.OnTabSelected += UpdateName;
         }
 
         private void OnDestroy()
         {
             _modSwiper.OnTabSelected -= UpdateName;
+            _modSwiper.OnTabSelected -= SwipeMode;
             _mapSwiper.OnTabSelected -= UpdateName;
         }
+
+        private void GoToLobby() => OpenLobbyAction?.Invoke();
 
         public void AddMap(SwiperData data) =>
             _mapSwiper.AddItems(data);
@@ -52,6 +58,10 @@ namespace UI.Windows.MapSelection
 
         public void ClearModSwiper() =>
             _modSwiper.Clear();
+
+        private void SwipeMode(SwiperData data) => OnModeSwipe?.Invoke(data.Key);
+        private void SelectMod() => OnModSelect?.Invoke(_modSwiper.SelectedData.Key);
+        private void SelectMap() => OnMapSelect?.Invoke(_mapSwiper.SelectedData.Key);
 
         public void ShowModSelection()
         {
@@ -79,10 +89,24 @@ namespace UI.Windows.MapSelection
 
         private void UpdateName(SwiperData data) => 
             _nameOfChosen.text = data.Name;
+       
+        public void OpenMode()
+        {
+            _selectionButton.enabled = true;
+            var colorBlock = _selectionButton.colors;
+            colorBlock.normalColor = Color.white;
+            colorBlock.highlightedColor = Color.white;
+            _selectionButton.colors = colorBlock;
+        }
 
-        private void SelectMap() => OnMapSelect?.Invoke(_mapSwiper.SelectedData.Key);
-        private void SelectMod() => OnModSelect?.Invoke(_modSwiper.SelectedData.Key);
-        private void GoToLobby() => OpenLobbyAction?.Invoke();
+        public void CloseMode()
+        {
+            _selectionButton.enabled = false;
+            var colorBlock = _selectionButton.colors;
+            colorBlock.normalColor = Color.grey;
+            colorBlock.highlightedColor = Color.grey;
+            _selectionButton.colors = colorBlock;
+        }
         
     }
 

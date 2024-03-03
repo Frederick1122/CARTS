@@ -7,6 +7,7 @@ using Managers;
 using Managers.Libraries;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using UnityEngine;
@@ -179,7 +180,9 @@ namespace Race.RaceManagers
 
         private void InitAi()
         {
-            var enemyConfigs = CarLibrary.Instance.GetRandomsConfigs(_currentTrack.GetCarPlacesCount() - 1);
+            var carClass = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).CarClass;
+
+            var enemyConfigs = ((CarLibrary)CarLibrary.Instance).GetRandomConfigsCertainClass(carClass, _currentTrack.GetCarPlacesCount() - 1);
 
             var spawnEnemyDatas = _currentTrack.SpawnAiTrucks(enemyConfigs, _lapRaceGameData.botCount);
 

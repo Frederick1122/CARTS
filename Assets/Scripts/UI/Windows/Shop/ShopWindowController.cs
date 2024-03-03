@@ -52,6 +52,8 @@ namespace UI.Windows.Shop
         {
             base.Show();
             ShowStartSection();
+            //temp
+            BuyAllCarDev();
             UIManager.Instance.GetWidgetUI().ShowWindow(typeof(CurrencyWidgetController), false);
         }
 

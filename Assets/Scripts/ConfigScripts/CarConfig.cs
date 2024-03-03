@@ -10,10 +10,11 @@ namespace ConfigScripts
     public class CarConfig : BaseConfig
     {
         public Sprite CarIcon;
-
         public CarPrefabData prefab;
         public bool isOnlyForAi;
         public Price price = new();
+
+        [field: SerializeField] public CarClass CarClass { get; private set; } = CarClass.Default;
         
         [Header("Characteristic")] 
         public List<float> maxSpeedLevels = new() { 100 };
@@ -27,7 +28,8 @@ namespace ConfigScripts
         public AnimationCurve turnCurve;
         public PhysicMaterial frictionMaterial;
 
-        [Header("Visual")][Range(0, 10)] public float bodyTilt;
+        [Header("Visual")]
+        [Range(0, 10)] public float bodyTilt;
     }
 
     [Serializable]
@@ -35,5 +37,13 @@ namespace ConfigScripts
     {
         public int value = 0;
         public CurrencyType currencyType = CurrencyType.Regular;
+    }
+
+    public enum CarClass
+    {
+        Default = 0,
+        Common = 1, 
+        Rare = 2, 
+        Epic = 3
     }
 }
