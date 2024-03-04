@@ -125,6 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4065921827258284669}
   - component: {fileID: 7014117583414198791}
+  - component: {fileID: 427143790177169672}
   - component: {fileID: 5197895964794665244}
   - component: {fileID: 1832166376762013389}
   m_Layer: 7
@@ -174,6 +175,27 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.7357906, y: 1.0530534, z: 4.2855234}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &427143790177169672
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598972699637293889}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.835791, y: 1.153053, z: 4.385523}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5197895964794665244
 Rigidbody:
@@ -229,6 +251,9 @@ MonoBehaviour:
   - {fileID: 1324645011916582628}
   - {fileID: 30787255494647551}
   - {fileID: 9183460110723736743}
+  <OnCarLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 384
   _maxSpeedUpgradePlace: {fileID: 3730399752565935213}
   _accelerationUpgradePlace: {fileID: 5773524573203896008}
   _turnUpgradePlace: {fileID: 939090735922408883}

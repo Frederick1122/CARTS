@@ -1,6 +1,7 @@
 using Cars.Controllers;
 using Cars.InputSystem;
 using Cars.InputSystem.Player;
+using Cars.Tools;
 using Cysharp.Threading.Tasks;
 using Installers;
 using Managers;
@@ -16,7 +17,7 @@ using Object = UnityEngine.Object;
 
 namespace Race.RaceManagers
 {
-    public class LapRaceState : RaceState
+    public class LapRaceState : RaceState, IWorldCollisionsSetUpper
     {
         private const string PLAYER_PRESET_NAME = "PlayerPreset";
         
@@ -39,6 +40,8 @@ namespace Race.RaceManagers
         private CancellationTokenSource _positionCts;
         private DateTime _startTime;
 
+        public Dictionary<CarCollisionDetection, Collider> AllCollisions { get; private set; } = new();
+
         public override void Init()
         {
             Clear();
@@ -56,10 +59,13 @@ namespace Race.RaceManagers
             InitTrack();
             InitPlayer();
             InitAi();
+
+            InitCollisionsDetetections();
         }
 
         private void Clear()
         {
+            AllCollisions.Clear();
             _enemies.Clear();
             _lapsStats.Clear();
         }
@@ -81,9 +87,9 @@ namespace Race.RaceManagers
         public override void StartRace()
         {
             foreach (var en in _enemies)
-                en.StartCar();
+                en.TurnEngineOn();
 
-            _player.StartCar();
+            _player.TurnEngineOn();
             _positionCts = new CancellationTokenSource();
             CheckPlayerPosition(_positionCts.Token).Forget();
             _startTime = DateTime.Now;
@@ -175,7 +181,11 @@ namespace Race.RaceManagers
             waypointTracker.OnLapEndAction += () => UpdateLapStats(0);
 
             waypointTracker.Init(_player, playerInputSystem);
-            _player.Init(playerInputSystem, playerConfig, playerPreset, waypointTracker);
+
+            var collisionDetection = _player.gameObject.AddComponent<CarCollisionDetection>();
+            AddCollision(collisionDetection, _player.gameObject.GetComponent<BoxCollider>());
+
+            _player.Init(playerInputSystem, playerConfig, playerPreset, collisionDetection, waypointTracker);
         }
 
         private void InitAi()
@@ -191,18 +201,23 @@ namespace Race.RaceManagers
                 var enemyPreset = PresetLibrary.Instance.GetRandomConfig(PLAYER_PRESET_NAME);
                 _enemies.Add((CarController)spawnEnemyDatas[i].car.gameObject.AddComponent(enemyPreset.CarController));
 
-                var aiInputSystem = (IInputSystem)_enemies[i].gameObject.AddComponent(enemyPreset.InputSystem);
+                var enemy = _enemies[i];
+
+                var aiInputSystem = (IInputSystem)enemy.gameObject.AddComponent(enemyPreset.InputSystem);
                 aiInputSystem.Init(enemyPreset, spawnEnemyDatas[i].car);
 
-                var waypointTracker = _enemies[i].gameObject.AddComponent<WaypointProgressTracker>();
+                var waypointTracker = enemy.gameObject.AddComponent<WaypointProgressTracker>();
                 var lapStatsIndex = i + 1;
                 waypointTracker.OnLapEndAction += () => UpdateLapStats(lapStatsIndex);
                 waypointTracker.Circuit = spawnEnemyDatas[i].circuit;
                 _lapsStats.Add(0);
-                waypointTracker.Init(_enemies[i], aiInputSystem);
+                waypointTracker.Init(enemy, aiInputSystem);
 
-                _enemies[i].Init(aiInputSystem, enemyConfigs[i], PresetLibrary.Instance.GetRandomConfig(),
-                    waypointTracker);
+                var collisionDetection = enemy.gameObject.AddComponent<CarCollisionDetection>();
+                AddCollision(collisionDetection, enemy.gameObject.GetComponent<BoxCollider>());
+
+                enemy.Init(aiInputSystem, enemyConfigs[i], PresetLibrary.Instance.GetRandomConfig(), 
+                    collisionDetection, waypointTracker);
             }
         }
 
@@ -210,6 +225,15 @@ namespace Race.RaceManagers
         {
             var trackConfig = TrackLibrary.Instance.GetConfig(_lapRaceGameData.trackKey);
             _currentTrack = Object.Instantiate(trackConfig.trackPrefab);
+        }
+
+        public void AddCollision(CarCollisionDetection collision, Collider collider) =>
+            AllCollisions.Add(collision, collider);
+
+        public void InitCollisionsDetetections()
+        {
+            foreach (var collision in AllCollisions.Keys)
+                collision.SetUpAllWorldCollider(AllCollisions.Values.ToList());
         }
 
         #endregion

@@ -24,6 +24,9 @@ namespace Cars
         [field: Header("Rays")]
         [field: SerializeField] public Transform[] RayPoses { get; set; } = new Transform[4];
 
+        [field: Header("Car Layers")]
+        [field: SerializeField] public LayerMask OnCarLayers { get; private set; }
+
         [Header("UI Upgrade Points")]
         [SerializeField] private Transform _maxSpeedUpgradePlace;
         [SerializeField] private Transform _accelerationUpgradePlace;

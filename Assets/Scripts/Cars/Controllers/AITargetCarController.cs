@@ -1,5 +1,6 @@
 using Cars.Controllers;
 using Cars.InputSystem;
+using Cars.Tools;
 using ConfigScripts;
 using UnityEngine;
 
@@ -10,11 +11,11 @@ public class AITargetCarController : CarController
 
     public override float GetPassedDistance() => _waypointProgressTracker.GetPassedDistance();
 
-    public override void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig,
-        ITargetHolder targetHolder)
+    public override void Init(IInputSystem inputSystem, CarConfig carConfig, 
+        CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
+        ITargetHolder targetHolder = null)
     {
-        base.Init(inputSystem, carConfig, carPresetConfig, targetHolder);
-
+        base.Init(inputSystem, carConfig, carPresetConfig, carCollisionDetection, targetHolder);
         _target = targetHolder.Target;
         _waypointProgressTracker = targetHolder as WaypointProgressTracker;
     }

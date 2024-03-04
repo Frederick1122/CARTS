@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: 
   configKey: 
+  CarIcon: {fileID: 0}
   prefab: {fileID: 6549516125224588660, guid: e711f6190ee54c840a39697069dcf1d5, type: 3}
   isOnlyForAi: 1
+  price:
+    value: 0
+    currencyType: 0
+  <CarClass>k__BackingField: 0
   maxSpeedLevels:
-  - 70
+  - 50
   accelerationLevels:
-  - 10
+  - 5
   turnLevels:
   - 3
   gravity: 7

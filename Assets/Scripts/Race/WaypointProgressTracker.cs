@@ -7,46 +7,33 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
 {
     public event Action OnLapEndAction = delegate { };
 
+    // Time for respawn
     [SerializeField] private float _timeToRespawn = 3;
-
-    public Transform Target { get; set; }
-
-    public WaypointCircuit Circuit { get; set; }
-
-    //public WaypointCircuit.RoutePoint TargetPoint { get; private set; }
-    //public WaypointCircuit.RoutePoint SpeedPoint { get; private set; }
-    public WaypointCircuit.RoutePoint ProgressPoint { get; private set; }
-
     // The offset ahead along the route that the we will aim for
     [SerializeField] private float _lookAheadForTargetOffset = 20;
-
     // A multiplier adding distance ahead along the route to aim for, based on current speed
     [SerializeField] private float _lookAheadForTargetFactor = .1f;
-
     // whether to update the position smoothly along the route (good for curved paths) or just when we reach each waypoint.
     [SerializeField] private ProgressStyle _progressStyle = ProgressStyle.SmoothAlongRoute;
 
+    public Transform Target { get; set; }
+    public WaypointCircuit Circuit { get; set; }
+    public WaypointCircuit.RoutePoint ProgressPoint { get; private set; }
+
     // The offset ahead only the route for speed adjustments (applied as the rotation of the waypoint target transform)
     private float _lookAheadForSpeedOffset = 50;
-
     // A multiplier adding distance ahead along the route for speed adjustments
     private float _lookAheadForSpeedFactor = .2f;
 
     // proximity to waypoint which must be reached to switch target to next waypoint : only used in PointToPoint mode.
     private float _pointToPointThreshold = 4;
-
+    // the current waypoint number, used in point-to-point mode.
+    private int _progressNum;
     // The progress round the route, used in smooth mode.
     private float _progressDistance;
 
-    // the current waypoint number, used in point-to-point mode.
-    private int _progressNum;
-
-    // Used to calculate current speed (since we may not have a rigidbody component)
     private Vector3 _lastPosition;
-
-    // current speed of this object (calculated from delta since last frame)
     private float _speed;
-
     private float _currentRespawnTime;
 
     private float _lapDistance;
@@ -107,44 +94,50 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
         var progressDelta = ProgressPoint.Position - transform.position;
         var dot = Vector3.Dot(progressDelta, ProgressPoint.Direction);
 
-        if (_progressStyle == ProgressStyle.SmoothAlongRoute)
+        switch (_progressStyle)
         {
-            // determine the position we should currently be aiming for
-            // (this is different to the current progress position, it is a a certain amount ahead along the route)
-            // we use lerp as a simple way of smoothing out the speed over time.
-            _speed = _controller.CarVelocity.z;
-
-            var routePoint = Circuit.GetRoutePoint(
-                _progressDistance + _lookAheadForTargetOffset + _lookAheadForTargetFactor * _speed);
-            Target.SetPositionAndRotation(routePoint.Position, Quaternion.LookRotation(routePoint.Direction));
-
-            if (dot < 0)
-                _progressDistance += progressDelta.magnitude * 0.5f;
-
-            if (_progressDistance > _lapDistance * _lapCount)
+            case ProgressStyle.SmoothAlongRoute:
             {
-                OnLapEndAction?.Invoke();
-                _lapCount++;
-            }
-        }
-        else
-        {
-            // point to point mode. Just increase the waypoint if we're close enough:
-            var targetDelta = Target.position - transform.position;
-            if (targetDelta.magnitude < _pointToPointThreshold)
-            {
-                _progressNum = (_progressNum + 1) % Circuit.Waypoints.Length;
-                if (_progressNum == 0)
+                // determine the position we should currently be aiming for
+                // (this is different to the current progress position, it is a a certain amount ahead along the route)
+                // we use lerp as a simple way of smoothing out the speed over time.
+                _speed = _controller.CarVelocity.z;
+
+                var routePoint = Circuit.GetRoutePoint(
+                    _progressDistance + _lookAheadForTargetOffset + _lookAheadForTargetFactor * _speed);
+                Target.SetPositionAndRotation(routePoint.Position, Quaternion.LookRotation(routePoint.Direction));
+
+                if (dot < 0)
+                    _progressDistance += progressDelta.magnitude * 0.5f;
+
+                if (_progressDistance > _lapDistance * _lapCount)
+                {
                     OnLapEndAction?.Invoke();
+                    _lapCount++;
+                }
+                break;
             }
 
-            var routePoint = Circuit.Waypoints[_progressNum];
-            Target.SetPositionAndRotation(routePoint.position, routePoint.rotation);
+            case ProgressStyle.PointToPoint:
+            {
+                // point to point mode. Just increase the waypoint if we're close enough:
+                var targetDelta = Target.position - transform.position;
+                if (targetDelta.magnitude < _pointToPointThreshold)
+                {
+                    _progressNum = (_progressNum + 1) % Circuit.Waypoints.Length;
+                    if (_progressNum == 0)
+                        OnLapEndAction?.Invoke();
+                }
 
-            if (dot < 0)
-                _progressDistance += progressDelta.magnitude;
+                var routePoint = Circuit.Waypoints[_progressNum];
+                Target.SetPositionAndRotation(routePoint.position, routePoint.rotation);
+
+                if (dot < 0)
+                    _progressDistance += progressDelta.magnitude;
+                break;
+            }
         }
-
+        
         _lastPosition = transform.position;
 
         RespawnOnRoad();
@@ -165,7 +158,8 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
             Vector3 pos = Target.position;
             pos.y = 2;
 
-            transform.SetPositionAndRotation(pos, Target.rotation);
+            _controller.ResetCar(pos, Target.rotation);
+            //transform.SetPositionAndRotation(pos, Target.rotation);
             _currentRespawnTime = 0f;
 
             gameObject.SetActive(true);

@@ -1,5 +1,6 @@
 using Cars.Controllers;
 using Cars.InputSystem;
+using Cars.Tools;
 using ConfigScripts;
 using Managers;
 
@@ -15,10 +16,11 @@ public class PlayerCarController : CarController
         return 0;
     }
 
-    public override void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig,
+    public override void Init(IInputSystem inputSystem, CarConfig carConfig, 
+        CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
         ITargetHolder targetHolder = null)
     {
-        base.Init(inputSystem, carConfig, carPresetConfig, targetHolder);
+        base.Init(inputSystem, carConfig, carPresetConfig, carCollisionDetection, targetHolder);
         _waypointProgressTracker = targetHolder as WaypointProgressTracker;
         _camera.gameObject.SetActive(true);
     }

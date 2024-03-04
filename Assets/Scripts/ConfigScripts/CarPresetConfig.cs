@@ -50,6 +50,9 @@ namespace ConfigScripts
 
         [Header("Rays Settings")]
         public float RayLength = 5;
+
+        [Header("Other")]
+        public float CarResistanceAfterSpawn = 2f;
         [Range(0, 1)] public float BackRatio = 0.1f;
     }
 

@@ -1,12 +1,17 @@
 using Cars.InputSystem;
+using Cars.Tools;
 using Cinemachine;
 using ConfigScripts;
-using Managers;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 namespace Cars.Controllers
 {
+    [RequireComponent(typeof(BoxCollider))]
     public abstract class CarController : MonoBehaviour
     {
         public float SkidWidth { get; set; }
@@ -20,6 +25,7 @@ namespace Cars.Controllers
         private MovementMode _movementMode;
         private GroundCheck _groundCheck;
         private LayerMask _drivableSurface;
+        private LayerMask _onCarLayers;
 
         private Rigidbody _rbSphere;
         private Rigidbody _carBody;
@@ -39,6 +45,10 @@ namespace Cars.Controllers
         private SphereCollider _sphereCollider;
         private bool _isCarActive = false;
 
+        private CarCollisionDetection _collisionDetection;
+        private float _carResistanceAfterSpawn;
+        private CancellationTokenSource _resistanceToken;
+
         protected float _speedModifier = 0;
         protected float _accelerationModifier = 0;
 
@@ -46,21 +56,11 @@ namespace Cars.Controllers
         protected float _turnSpeed = 0;
         protected float _acceleration = 0;
 
-        public void StartCar()
-        {
-            _inputSystem.IsActive = true;
-            _isCarActive = true;
-        }
+        private readonly List<Material> _onCarMaterial = new();
 
-        public void StopCar()
-        {
-            _inputSystem.IsActive = false;
-            _isCarActive = false;
-        }
-
-        public abstract float GetPassedDistance();
-
-        public virtual void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig, ITargetHolder targetHolder = null)
+        public virtual void Init(IInputSystem inputSystem, CarConfig carConfig, 
+            CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
+            ITargetHolder targetHolder = null)
         {
             _targetHolder = targetHolder;
             _inputSystem = inputSystem;
@@ -83,38 +83,134 @@ namespace Cars.Controllers
 
             _inputSystem.IsActive = false;
 
+            _collisionDetection = carCollisionDetection;
+            _collisionDetection.Init(GetComponent<BoxCollider>(), _onCarLayers);
+
+            var childRenderer = GetComponentsInChildren<Renderer>();
+            foreach (var child in childRenderer)
+                _onCarMaterial.Add(child.material);
+
             SetUpCharacteristic();
         }
 
-        public abstract void SetUpCharacteristic();
+        private void OnDestroy()
+        {
+            _resistanceToken?.Cancel();
+        }
 
         protected virtual void FixedUpdate()
         {
             if (!_isCarActive)
                 return;
 
-            
             CalculateDesiredAngle();
 
             Move();
             Visual();
         }
 
-        private PhysicMaterial CopyMaterial(PhysicMaterial mat)
-        {
-            var frictionMaterial = new PhysicMaterial
-            {
-                staticFriction = mat.staticFriction,
-                dynamicFriction = mat.dynamicFriction,
-                frictionCombine = mat.frictionCombine,
-                bounciness = mat.bounciness,
-                bounceCombine = mat.bounceCombine
-            };
+        public abstract void SetUpCharacteristic();
+        protected abstract void CalculateDesiredAngle();
+        public abstract float GetPassedDistance();
 
-            return frictionMaterial;
+        private void InitFromConfig(CarPresetConfig carPresetConfig)
+        {
+            _movementMode = carPresetConfig.MovementMode;
+            _groundCheck = carPresetConfig.GroundCheck;
+            _drivableSurface = carPresetConfig.DrivableSurface;
+            _carResistanceAfterSpawn = carPresetConfig.CarResistanceAfterSpawn;
         }
 
-        protected abstract void CalculateDesiredAngle();
+        private void InitFromCarPrefabData(CarPrefabData carData)
+        {
+            _rbSphere = carData.RbSphere;
+            _carBody = carData.CarBody;
+            _bodyMesh = carData.BodyMesh;
+            _frontWheels = carData.FrontWheels;
+            _rearWheels = carData.RearWheels;
+            _camera = carData.Camera;
+            _onCarLayers = carData.OnCarLayers;
+        }
+
+        public void TurnEngineOn()
+        {
+            _inputSystem.IsActive = true;
+            _isCarActive = true;
+
+            // test
+            MakeResistance(_carResistanceAfterSpawn);
+        }
+
+        public void TurnEngineOff()
+        {
+            _inputSystem.IsActive = false;
+            _isCarActive = false;
+        }
+
+        public void ResetCar(Vector3 pos, Quaternion rot)
+        {
+            MakeResistance(_carResistanceAfterSpawn);
+
+            _carBody.velocity = Vector3.zero;
+            _bodyMesh.localRotation = Quaternion.Euler(Vector3.zero);
+
+            _rbSphere.transform.localRotation = Quaternion.Euler(Vector3.zero);
+            _rbSphere.velocity = Vector3.zero;
+            _rbSphere.angularVelocity = Vector3.zero;
+            _rbSphere.constraints = RigidbodyConstraints.None;
+
+            foreach (var fwheel in _frontWheels)
+                fwheel.localRotation = Quaternion.Euler(Vector3.zero);
+            foreach (var rwheel in _rearWheels)
+                rwheel.localRotation = Quaternion.Euler(Vector3.zero);
+
+            transform.SetPositionAndRotation(pos, rot);
+        }
+
+        public void MakeResistance(float time = -1)
+        {
+            _resistanceToken = new CancellationTokenSource();
+            MakeResistanceCuro(_resistanceToken.Token, time).Forget();
+        }
+
+        private async UniTaskVoid MakeResistanceCuro(CancellationToken token, float time = -1)
+        {
+            var resistanceTime = time == -1 ? _carResistanceAfterSpawn : time;
+            _collisionDetection.IsWork = true;
+            BeResistance();
+
+            await UniTask.Delay(TimeSpan.FromSeconds(resistanceTime), cancellationToken: token);
+
+            if (_collisionDetection.CollisionCanTurnOn)
+                BeUnResistance();
+            else
+                _collisionDetection.OnNoCollidersIn += BeUnResistance;
+        }
+
+        private void BeResistance()
+        {
+            foreach (var mat in _onCarMaterial)
+            {
+                var color1 = new Color(mat.color.r, mat.color.g, mat.color.b, 0.3f);
+                var color2 = new Color(mat.color.r, mat.color.g, mat.color.b, 0.6f);
+                mat.color = color2;
+                mat.DOColor(color1, 2f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+            }
+        }
+
+        private void BeUnResistance()
+        {
+            _collisionDetection.OnNoCollidersIn -= BeUnResistance;
+            _collisionDetection.IsWork = false;
+
+            foreach (var mat in _onCarMaterial)
+            {
+                var color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
+                DOTween.Kill(mat);
+                mat.DOColor(color, 0);
+            }
+            
+        }
 
         protected virtual void Move()
         {
@@ -246,21 +342,18 @@ namespace Cars.Controllers
             _accelerationModifier += acceleration;
         }
 
-        private void InitFromConfig(CarPresetConfig carPresetConfig)
+        private PhysicMaterial CopyMaterial(PhysicMaterial mat)
         {
-            _movementMode = carPresetConfig.MovementMode;
-            _groundCheck = carPresetConfig.GroundCheck;
-            _drivableSurface = carPresetConfig.DrivableSurface;
-        }
+            var frictionMaterial = new PhysicMaterial
+            {
+                staticFriction = mat.staticFriction,
+                dynamicFriction = mat.dynamicFriction,
+                frictionCombine = mat.frictionCombine,
+                bounciness = mat.bounciness,
+                bounceCombine = mat.bounceCombine
+            };
 
-        private void InitFromCarPrefabData(CarPrefabData carData)
-        {
-            _rbSphere = carData.RbSphere;
-            _carBody = carData.CarBody;
-            _bodyMesh = carData.BodyMesh;
-            _frontWheels = carData.FrontWheels;
-            _rearWheels = carData.RearWheels;
-            _camera = carData.Camera;
+            return frictionMaterial;
         }
 
 #if UNITY_EDITOR

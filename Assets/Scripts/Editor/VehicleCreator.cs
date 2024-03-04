@@ -50,6 +50,21 @@ public class VehicleCreator : EditorWindow
 
     private void AdjustColliders()
     {
+        var colliders = _newVehicle.GetComponents<BoxCollider>();
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            var collider = colliders[i];
+            collider.center = Vector3.zero;
+            collider.size = _bodyMesh.bounds.size;
+            SetUpRays(collider);
+
+            if (i != 0)
+            {
+                collider.size += new Vector3(0.1f, 0.1f, 0.1f);
+                collider.isTrigger = true;
+            }
+        }
+
         if (_newVehicle.TryGetComponent(out BoxCollider boxCollider))
         {
             boxCollider.center = Vector3.zero;
