@@ -2,6 +2,7 @@ using Cars.InputSystem;
 using Cars.Tools;
 using Cinemachine;
 using ConfigScripts;
+using Core.Tools;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
@@ -56,7 +57,7 @@ namespace Cars.Controllers
         protected float _turnSpeed = 0;
         protected float _acceleration = 0;
 
-        private readonly List<Material> _onCarMaterial = new();
+        private readonly List<Renderer> _onCarRenderer = new();
 
         public virtual void Init(IInputSystem inputSystem, CarConfig carConfig, 
             CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
@@ -88,7 +89,7 @@ namespace Cars.Controllers
 
             var childRenderer = GetComponentsInChildren<Renderer>();
             foreach (var child in childRenderer)
-                _onCarMaterial.Add(child.material);
+                _onCarRenderer.Add(child);
 
             SetUpCharacteristic();
         }
@@ -189,12 +190,14 @@ namespace Cars.Controllers
 
         private void BeResistance()
         {
-            foreach (var mat in _onCarMaterial)
+            foreach (var renderer in _onCarRenderer)
             {
+                var mat = renderer.material;
+                mat.ToFadeMode();
                 var color1 = new Color(mat.color.r, mat.color.g, mat.color.b, 0.3f);
                 var color2 = new Color(mat.color.r, mat.color.g, mat.color.b, 0.6f);
                 mat.color = color2;
-                mat.DOColor(color1, 2f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+                mat.DOColor(color1, 2).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
             }
         }
 
@@ -203,10 +206,13 @@ namespace Cars.Controllers
             _collisionDetection.OnNoCollidersIn -= BeUnResistance;
             _collisionDetection.IsWork = false;
 
-            foreach (var mat in _onCarMaterial)
+            foreach (var renderer in _onCarRenderer)
             {
-                var color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
+                var mat = renderer.material;
+                mat.ToOpaqueMode();
                 DOTween.Kill(mat);
+                mat.SetOverrideTag("RenderType", "");
+                var color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
                 mat.DOColor(color, 0);
             }
             
