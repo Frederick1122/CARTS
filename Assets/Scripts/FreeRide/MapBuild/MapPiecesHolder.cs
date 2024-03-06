@@ -1,33 +1,48 @@
 using Cars.Controllers;
 using CustomSnapTool;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace FreeRide.Map
 {
     public class MapPiecesHolder : MonoBehaviour, IPoolObject
     {
+        private const float LASTS_TIME = 5f;
+
         public event Action OnFall = delegate { };
         public event Action OnPieceReach = delegate { };
         public event Action<MapPiecesHolder> OnFinish = delegate { };
         public event Action<IPoolObject> OnObjectNeededToDeactivate = delegate { };
 
-        [SerializeField] private float _timeToDestroySec = 5f;
+        public int MaxCoinsCount => _coinsPlace.Length;
 
         [Header("Pieces")]
         [SerializeField] private MapPiece _startPiece;
         [SerializeField] private MapPiece _endPiece;
         [SerializeField] private List<MapPiece> _mapPieces = new();
 
+        [Header("Coins")]
+        [SerializeField] private FloatingCoin[] _coinsPlace = new FloatingCoin[1];
+
+        private int[] _coinsOrder;
+        private readonly System.Random _rnd = new();
+
         private int _lastsCount = 0;
         private int _reachCount = 0;
 
+        private CancellationTokenSource _cancellationTokenSource = new();
+
         private void Awake()
         {
+            _coinsOrder = Enumerable.Range(0, _coinsPlace.Length).ToArray();
+
             foreach (MapPiece piece in _mapPieces)
             {
-                piece.Init(_timeToDestroySec);
                 piece.OnReach += PieceReach;
                 piece.OnGoToDestroy += PieceDestroy;
             }
@@ -42,12 +57,28 @@ namespace FreeRide.Map
                 piece.OnReach -= PieceReach;
                 piece.OnGoToDestroy -= PieceDestroy;
             }
+
+            _cancellationTokenSource.Cancel();
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out CarController _) || other.transform.parent.TryGetComponent(out CarController _))
                 OnFall?.Invoke();
+        }
+
+        public void Spawn(float timeToDestroySec, int coinsCount)
+        {
+            var count = Mathf.Clamp(coinsCount, 0, _coinsPlace.Length);
+            if (count > 0)
+            {
+                ShuffleOrder();
+                for (int i = 0; i < count; i++)
+                    _coinsPlace[_coinsOrder[i]].Spawn();
+            }
+
+            foreach (MapPiece piece in _mapPieces)
+                piece.Init(timeToDestroySec);
         }
 
         public CustomSnapPoint GetConnector()
@@ -63,11 +94,28 @@ namespace FreeRide.Map
                 (_startPiece.StartPoint.transform.position - transform.position);
         }
 
+        public void ResetBeforeBackToPool()
+        {
+            gameObject.SetActive(false);
+            transform.localScale = new Vector3(1, 1, 1);
+
+            _lastsCount = 0;
+            _reachCount = 0;
+            foreach (var piece in _mapPieces)
+                piece.ResetPiece();
+
+            foreach (var coin in _coinsPlace)
+                coin.gameObject.SetActive(false);
+        }
+
         private void PieceDestroy(MapPiece _)
         {
             _lastsCount++;
             if (_lastsCount >= _mapPieces.Count)
-                OnObjectNeededToDeactivate?.Invoke(this);
+            {
+                _cancellationTokenSource = new CancellationTokenSource();
+                DestroyTask(_cancellationTokenSource.Token);
+            }
         }
 
         private void PieceReach(MapPiece piece)
@@ -78,15 +126,23 @@ namespace FreeRide.Map
                 OnFinish?.Invoke(this);
         }
 
-        public void ResetBeforeBackToPool()
+        private async UniTaskVoid DestroyTask(CancellationToken cancellationToken)
         {
-            gameObject.SetActive(false);
-            transform.localScale = new Vector3(1, 1, 1);
+            await UniTask.Delay(TimeSpan.FromSeconds(LASTS_TIME), cancellationToken: cancellationToken);
+            OnObjectNeededToDeactivate?.Invoke(this);
+        }
 
-            _lastsCount = 0;
-            _reachCount = 0;
-            foreach (var piece in _mapPieces)
-                piece.ResetPiece();
+        private void ShuffleOrder()
+        {
+            var count = _coinsOrder.Length;
+
+            for (int i = count - 1; i >= 1; i--)
+            {
+                int j = _rnd.Next(i + 1);
+                int tmp = _coinsOrder[j];
+                _coinsOrder[j] = _coinsOrder[i];
+                _coinsOrder[i] = _coinsOrder[tmp];
+            }
         }
     }
 }

@@ -50,8 +50,8 @@ namespace Cars.Controllers
         private float _carResistanceAfterSpawn;
         private CancellationTokenSource _resistanceToken;
 
-        protected float _speedModifier = 0;
-        protected float _accelerationModifier = 0;
+        protected float _speedModifier = 1;
+        protected float _accelerationModifier = 1;
 
         protected float _maxSpeed = 0;
         protected float _turnSpeed = 0;
@@ -174,6 +174,12 @@ namespace Cars.Controllers
             MakeResistanceCuro(_resistanceToken.Token, time).Forget();
         }
 
+        public void ChangeModifier(float speedModifire, float accelerationModifire)
+        {
+            _speedModifier = speedModifire;
+            _accelerationModifier = accelerationModifire;
+        }
+
         private async UniTaskVoid MakeResistanceCuro(CancellationToken token, float time = -1)
         {
             var resistanceTime = time == -1 ? _carResistanceAfterSpawn : time;
@@ -215,7 +221,6 @@ namespace Cars.Controllers
                 var color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
                 mat.DOColor(color, 0);
             }
-            
         }
 
         protected virtual void Move()
@@ -226,8 +231,8 @@ namespace Cars.Controllers
             var horizontalInput = _inputSystem.HorizontalInput;
             var brakeInput = _inputSystem.BrakeInput;
 
-            var maxSpeed = _maxSpeed * (1 + _speedModifier);
-            var acceleration = _acceleration * (1 + _accelerationModifier);
+            var maxSpeed = _maxSpeed * _speedModifier;
+            var acceleration = _acceleration * _accelerationModifier;
             var turnSpeed = _turnSpeed;
 
             //changes friction according to sideways speed of car
@@ -340,12 +345,6 @@ namespace Cars.Controllers
             }
 
             return false;
-        }
-
-        public void IncreaseModifier(float speed, float acceleration)
-        {
-            _speedModifier += speed;
-            _accelerationModifier += acceleration;
         }
 
         private PhysicMaterial CopyMaterial(PhysicMaterial mat)

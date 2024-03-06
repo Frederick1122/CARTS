@@ -16,7 +16,7 @@ namespace FreeRide.Map
         [field: SerializeField] public CustomSnapPoint StartPoint { get; private set; }
         [field: SerializeField] public CustomSnapPoint EndPoint { get; private set; }
 
-        private readonly CancellationTokenSource _cancellationTokenSource = new();
+        private CancellationTokenSource _cancellationTokenSource = new();
 
         private float _timeToDestroySec = 5f;
 
@@ -33,11 +33,13 @@ namespace FreeRide.Map
             if (other.TryGetComponent(out CarController _))
             {
                 OnReach?.Invoke(this);
+                _cancellationTokenSource = new CancellationTokenSource();
                 DestroyTask(_cancellationTokenSource.Token).Forget();
             }
             else if (other.transform.parent.TryGetComponent(out CarController _))
             {
                 OnReach?.Invoke(this);
+                _cancellationTokenSource = new CancellationTokenSource();
                 DestroyTask(_cancellationTokenSource.Token).Forget();
             }
         }

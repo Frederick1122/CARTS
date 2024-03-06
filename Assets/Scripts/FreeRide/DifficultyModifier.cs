@@ -6,11 +6,9 @@ namespace FreeRide
 {
     public class DifficultyModifier : MonoBehaviour
     {
-        [SerializeField] private int _levelToIncreaseDifficulty = 5;
-
         [Header("Modifiers")]
-        [SerializeField, Range(0, 1)] private float _speedModifierByLevel = 0.1f;
-        [SerializeField, Range(0, 1)] private float _accelerationModifierByLevel = 0.1f;
+        [SerializeField] private AnimationCurve _speedModifire;
+        [SerializeField] private AnimationCurve _accelerationModifier;
 
         private int _level = 0;
 
@@ -25,18 +23,15 @@ namespace FreeRide
             _state.OnResultUpdateAction += UpDifficulty;
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() => 
             _state.OnResultUpdateAction -= UpDifficulty;
-        }
 
         public void UpDifficulty(int res)
         {
-            if (res % _levelToIncreaseDifficulty != 0)
-                return;
-
             _level++;
-            _car.IncreaseModifier(_speedModifierByLevel, _accelerationModifierByLevel);
+            var speedMod = _speedModifire.Evaluate(_level);
+            var accelerationMod = _accelerationModifier.Evaluate(_level);
+            _car.ChangeModifier(speedMod, accelerationMod);
             Debug.Log($"Level up: {_level}");
         }
     }

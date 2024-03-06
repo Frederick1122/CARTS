@@ -20,7 +20,9 @@ namespace FreeRide.Map
                 OnResultUpdate?.Invoke(_result);
             }
         }
-        
+
+        [SerializeField] private AnimationCurve _destroyTime;
+
         [SerializeField] private int _startCountOfPeieces = 2;
         [SerializeField] private MapPiecesHolder _startPiece;
         [SerializeField] private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
@@ -51,8 +53,7 @@ namespace FreeRide.Map
             if (_lastPiece != null)
                 piece.ConnectToPoint(_lastPiece.GetConnector());
 
-            InitPiece(piece);
-            
+            InitPiece(piece); 
         }
 
         private void InitPiece(MapPiecesHolder piece)
@@ -62,6 +63,9 @@ namespace FreeRide.Map
             piece.OnFall += StopFabic;
 
             _lastPiece = piece;
+
+            var coinsCount = UnityEngine.Random.Range(0, piece.MaxCoinsCount);
+            piece.Spawn(_destroyTime.Evaluate(_result), coinsCount);
 
             _spawned.Add(piece);
         }
