@@ -8,6 +8,8 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
+using Obstacles;
 using UnityEngine;
 
 namespace Cars.Controllers
@@ -15,6 +17,8 @@ namespace Cars.Controllers
     [RequireComponent(typeof(BoxCollider))]
     public abstract class CarController : MonoBehaviour
     {
+        private const int SPEED_STEP_PERCENT = 50;
+        
         public float SkidWidth { get; set; }
         public float DesiredTurning { get; protected set; }
         public Vector3 CarVelocity { get; protected set; }
@@ -49,16 +53,34 @@ namespace Cars.Controllers
         private CarCollisionDetection _collisionDetection;
         private float _carResistanceAfterSpawn;
         private CancellationTokenSource _resistanceToken;
+        private int _permanentSpeedModifier;
+        private List<SpeedModifier> _speedModifiers = new();
 
-        protected float _speedModifier = 1;
-        protected float _accelerationModifier = 1;
+        protected float _baseSpeedModifier = 0;
+        protected float _baseAccelerationModifier = 0;
 
         protected float _maxSpeed = 0;
         protected float _turnSpeed = 0;
         protected float _acceleration = 0;
 
         private readonly List<Renderer> _onCarRenderer = new();
+        
+        public void IncreaseModifier(float speed, float acceleration)
+        {
+            _baseSpeedModifier += speed;
+            _baseAccelerationModifier += acceleration;
+        }
 
+        public void AddSpeedModifier(SpeedModifier speedModifier, bool isPermanent = false)
+        {
+            if (isPermanent) 
+                _permanentSpeedModifier = speedModifier.isBoost ? 1 : -1;
+            else 
+                _speedModifiers.Add(speedModifier);
+        }
+
+        public void RemovePermanentSpeedModifier() => _permanentSpeedModifier = 0;
+        
         public virtual void Init(IInputSystem inputSystem, CarConfig carConfig, 
             CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
             ITargetHolder targetHolder = null)
@@ -174,10 +196,10 @@ namespace Cars.Controllers
             MakeResistanceCuro(_resistanceToken.Token, time).Forget();
         }
 
-        public void ChangeModifier(float speedModifire, float accelerationModifire)
+        public void ChangeModifier(float speedModifier, float accelerationModifier)
         {
-            _speedModifier = speedModifire;
-            _accelerationModifier = accelerationModifire;
+            _baseSpeedModifier = speedModifier;
+            _baseAccelerationModifier = accelerationModifier;
         }
 
         private async UniTaskVoid MakeResistanceCuro(CancellationToken token, float time = -1)
@@ -231,8 +253,25 @@ namespace Cars.Controllers
             var horizontalInput = _inputSystem.HorizontalInput;
             var brakeInput = _inputSystem.BrakeInput;
 
-            var maxSpeed = _maxSpeed * _speedModifier;
-            var acceleration = _acceleration * _accelerationModifier;
+
+            var speedModificator = _permanentSpeedModifier;
+
+            foreach (var speedModifier in _speedModifiers)
+            {
+                speedModificator += speedModifier.isBoost ? 1 : -1;
+            }
+
+            if (speedModificator != 0)
+            {
+                speedModificator = speedModificator < 0 ? -1 : 1; 
+                speedModificator *= SPEED_STEP_PERCENT;
+            }
+
+            var maxSpeed = _maxSpeed / 100 * speedModificator * (1 + _baseSpeedModifier);
+            UpdateSpeedModifiers(Time.fixedDeltaTime);
+
+            var acceleration = _acceleration * (1 + _baseAccelerationModifier);
+            
             var turnSpeed = _turnSpeed;
 
             //changes friction according to sideways speed of car
@@ -346,7 +385,18 @@ namespace Cars.Controllers
 
             return false;
         }
-
+        
+        private void UpdateSpeedModifiers(float elapsedTime)
+        {
+            for (var i = _speedModifiers.Count - 1; i > -1; i--)
+            {
+                if (_speedModifiers[i].time - elapsedTime < 0)
+                    _speedModifiers.RemoveAt(i);
+                else 
+                    _speedModifiers[i].time -= elapsedTime;
+            }
+        }
+        
         private PhysicMaterial CopyMaterial(PhysicMaterial mat)
         {
             var frictionMaterial = new PhysicMaterial
