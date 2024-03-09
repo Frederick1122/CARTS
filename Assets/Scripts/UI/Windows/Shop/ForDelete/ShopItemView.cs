@@ -42,13 +42,13 @@ namespace UI.Windows.Shop
             else
             {
                 _buyButton.gameObject.SetActive(true);
-                _currencyImage.SetImage(model.Config.price.currencyType);
-                _price.text = model.Config.price.value.ToString();
+                _currencyImage.SetImage(model.Config.price.CurrencyType);
+                _price.text = model.Config.price.Value.ToString();
             }
 
-            _speed.UpdateInfo(model.Config.maxSpeedLevels[0], model.Config.maxSpeedLevels[^1]); 
-            _acceleration.UpdateInfo(model.Config.accelerationLevels[0], model.Config.accelerationLevels[^1]);
-            _turnSpeed.UpdateInfo(model.Config.turnLevels[0], model.Config.turnLevels[^1]);
+            //_speed.UpdateInfo(model.Config.maxSpeedLevels[0], model.Config.maxSpeedLevels[^1]); 
+            //_acceleration.UpdateInfo(model.Config.accelerationLevels[0], model.Config.accelerationLevels[^1]);
+            //_turnSpeed.UpdateInfo(model.Config.turnLevels[0], model.Config.turnLevels[^1]);
         }
 
         private void BuyCar()

@@ -22,11 +22,14 @@ MonoBehaviour:
     currencyType: 0
   <CarClass>k__BackingField: 0
   maxSpeedLevels:
-  - 50
+  - <Value>k__BackingField: 50
+    <Price>k__BackingField: 1
   accelerationLevels:
-  - 5
+  - <Value>k__BackingField: 5
+    <Price>k__BackingField: 1
   turnLevels:
-  - 3
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 1
   gravity: 7
   downforce: 5
   airControl: 0

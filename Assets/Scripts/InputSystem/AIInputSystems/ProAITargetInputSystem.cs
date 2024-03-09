@@ -15,6 +15,10 @@ namespace Cars.InputSystem.AI
 
         private bool _needToRev = false;
 
+        private float _maxSpeed;
+        private float _turnSpeed;
+        private float _accelereation;
+
         public override void Init(CarPresetConfig presetConfig, CarPrefabData prefabData)
         {
             base.Init(presetConfig, prefabData);
@@ -23,6 +27,10 @@ namespace Cars.InputSystem.AI
             _backRatio = presetConfig.BackRatio;
 
             _rayPoses = prefabData.RayPoses;
+
+            _maxSpeed = _config.maxSpeedLevels[0].Value;
+            _turnSpeed = _config.turnLevels[0].Value;
+            _accelereation = _config.accelerationLevels[0].Value;
         }
 
         public override void ReadInput()
@@ -78,12 +86,12 @@ namespace Cars.InputSystem.AI
             }
 
             var newHorInput = Mathf.Clamp(horInpAfter, -1, 1);
-            var neededSpeed = Mathf.Clamp(InterpolateRayDistance(mindist), -1, 1) * _config.maxSpeedLevels[0] / 2;
+            var neededSpeed = Mathf.Clamp(InterpolateRayDistance(mindist), -1, 1) * _maxSpeed / 2;
 
             if (mindist >= _rayLength / 2)
                 _needToRev = false;
 
-            _horInp = Mathf.Lerp(_horInp, newHorInput, _config.turnLevels[0] * 10);
+            _horInp = Mathf.Lerp(_horInp, newHorInput, _turnSpeed * 10);
 
             if (_needToRev)
             {

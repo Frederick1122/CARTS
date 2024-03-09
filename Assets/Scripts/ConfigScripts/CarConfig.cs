@@ -12,14 +12,14 @@ namespace ConfigScripts
         public Sprite CarIcon;
         public CarPrefabData prefab;
         public bool isOnlyForAi;
-        public Price price = new();
+        public Price price = new(0, CurrencyType.Regular);
 
         [field: SerializeField] public CarClass CarClass { get; private set; } = CarClass.Default;
-        
-        [Header("Characteristic")] 
-        public List<float> maxSpeedLevels = new() { 100 };
-        public List<float> accelerationLevels = new() { 10 };
-        public List<float> turnLevels = new() { 3 };
+
+        [Header("Characteristic")]
+        public List<CharacteristicLevel> maxSpeedLevels = new() { new CharacteristicLevel(100, 5) };
+        public List<CharacteristicLevel> accelerationLevels = new() { new CharacteristicLevel(10, 5) };
+        public List<CharacteristicLevel> turnLevels = new() { new CharacteristicLevel(3, 5) };
         public float gravity = 7f;
         public float downforce = 5f;
         public bool airControl = false;
@@ -35,8 +35,29 @@ namespace ConfigScripts
     [Serializable]
     public class Price
     {
-        public int value = 0;
-        public CurrencyType currencyType = CurrencyType.Regular;
+        [field:SerializeField] public int Value { get; private set; } = 0;
+        [field: SerializeField] public CurrencyType CurrencyType { get; private set; } = CurrencyType.Regular;
+
+        public Price(int value, CurrencyType currencyType)
+        {
+            Value = value;
+            CurrencyType = currencyType;
+        }
+    }
+
+    [Serializable] 
+    public class CharacteristicLevel
+    {
+        [field:SerializeField] public float Value { get; private set; } = 0;
+        [field: SerializeField] public int Price { get; private set; } = -1;
+
+        public CharacteristicLevel(float value, int price)
+        {
+            Value = value;
+            Price = price;
+        }   
+
+
     }
 
     public enum CarClass

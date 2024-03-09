@@ -86,6 +86,7 @@ namespace UI.Windows.Garage
         private void ChooseCarFromPurchased(SwiperData data)
         {
             EquipCar(data.Key);
+            _currentCarKey = data.Key;
             OnCarInGarageUpdate?.Invoke(_currentCar);
             UpdateGarageUI();
         }
@@ -98,39 +99,5 @@ namespace UI.Windows.Garage
             PlayerManager.Instance.UpdateModificationLevel(_currentCarKey, modification);
             UpdateGarageUI();
         }
-
-        //private void ChooseNextCar()
-        //{
-        //    _currentCarIndex++;
-        //    if (_currentCarIndex >= _cars.Count)
-        //        _currentCarIndex = 0;
-
-        //    EquipCar(_cars[_currentCarIndex].configKey);
-        //    UpdateGarageUI();
-        //    OnCarInGarageUpdate?.Invoke(_currentCar);
-        //}
-
-        //private void ChoosePrevCar()
-        //{
-        //    _currentCarIndex--;
-        //    if (_currentCarIndex < 0)
-        //        _currentCarIndex = _cars.Count - 1;
-
-        //    EquipCar(_currentCar.configKey);
-        //    UpdateGarageUI();
-        //    OnCarInGarageUpdate?.Invoke(_currentCar);
-        //}
-
-        //private void SetCurrentCarIndex()
-        //{
-        //    for (int i = 0; i < _cars.Count; i++)
-        //    {
-        //        if (_currentCar.configKey == _cars[i].configKey)
-        //        {
-        //            _currentCarIndex = i;
-        //            return;
-        //        }
-        //    }
-        //}
     }
 }

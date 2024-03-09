@@ -25,22 +25,20 @@ namespace Managers
 
             var carConfig = CarLibrary.Instance.GetConfig(carConfigKey);
             if (!IsThereEnoughMoney(carConfig.price))
-            {
                 return;    
-            }
             
-            DecreaseCurrency(carConfig.price.currencyType, carConfig.price.value);
+            DecreaseCurrency(carConfig.price.CurrencyType, carConfig.price.Value);
             
             _saveData.purchasedCars.Add(carConfigKey, new CarData(carConfigKey));
             Save();
         }
 
-        public void UpdateModificationLevel(string carConfigKey, ModificationType modificationType)
+        public bool UpdateModificationLevel(string carConfigKey, ModificationType modificationType)
         {
             if (!_saveData.purchasedCars.ContainsKey(carConfigKey))
             {
                 Debug.LogAssertion($"PlayerManager not founded {carConfigKey} in purchased cars. UpdateModificationLevel is impossible");
-                return;
+                return false;
             }
 
             var carConfig = CarLibrary.Instance.GetConfig(carConfigKey);
@@ -50,19 +48,37 @@ namespace Managers
                 case ModificationType.MaxSpeed:
                     level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].maxSpeedLevel + 1, 0,
                         carConfig.maxSpeedLevels.Count - 1);
+
+                    var priceS = new Price(carConfig.maxSpeedLevels[level].Price, CurrencyType.Regular);
+                    if (!IsThereEnoughMoney(priceS))
+                        return false;
+                    DecreaseCurrency(priceS.CurrencyType, priceS.Value);
+
                     _saveData.purchasedCars[carConfigKey].maxSpeedLevel = level;
                     break;
 
                 case ModificationType.Acceleration:
-                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].accelerationLevel+ 1, 0,
-                         carConfig.maxSpeedLevels.Count - 1);
+                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].accelerationLevel + 1, 0,
+                         carConfig.accelerationLevels.Count - 1);
+
+                    var priceA = new Price(carConfig.accelerationLevels[level].Price, CurrencyType.Regular);
+                    if (!IsThereEnoughMoney(priceA))
+                        return false;
+                    DecreaseCurrency(priceA.CurrencyType, priceA.Value);
+
                     _saveData.purchasedCars[carConfigKey].accelerationLevel = level;
                     break;
 
                 case ModificationType.Turn:
-                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].turnLevel+ 1, 0,
-                        carConfig.maxSpeedLevels.Count - 1);
-                    _saveData.purchasedCars[carConfigKey].turnLevel = level;           
+                    level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].turnLevel + 1, 0,
+                        carConfig.turnLevels.Count - 1);
+
+                    var priceT = new Price(carConfig.turnLevels[level].Price, CurrencyType.Regular);
+                    if (!IsThereEnoughMoney(priceT))
+                        return false;
+                    DecreaseCurrency(priceT.CurrencyType, priceT.Value);
+
+                    _saveData.purchasedCars[carConfigKey].turnLevel = level;
                     break;
 
                 default:
@@ -75,6 +91,8 @@ namespace Managers
                 _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
 
             Save();
+
+            return true;
         }
 
         public int GetEquippedCarCharacteristicLevel(ModificationType type)
@@ -116,9 +134,9 @@ namespace Managers
 
         public bool IsThereEnoughMoney(Price price)
         {
-            return price.currencyType == CurrencyType.Regular
-                ? _saveData.regularCurrency >= price.value
-                : _saveData.premiumCurrency >= price.value;
+            return price.CurrencyType == CurrencyType.Regular
+                ? _saveData.regularCurrency >= price.Value
+                : _saveData.premiumCurrency >= price.Value;
         }
 
         public bool TryGetPurchasedCar(string key, out CarData data)

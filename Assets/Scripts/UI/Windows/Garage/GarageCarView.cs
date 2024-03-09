@@ -61,7 +61,7 @@ namespace UI.Windows.Garage
         {
             _speed.UpdateInfo(model.SpeedLvl, model.SpeedCost);
             _acceleration.UpdateInfo(model.AccelerationLvl, model.AccelerationCost);
-            _turnSpeed.UpdateInfo(model.TurnSpeedLvl, model.TurnSpeedLvl);
+            _turnSpeed.UpdateInfo(model.TurnSpeedLvl, model.TurnCost) ;
 
             var data = model.CarPrefabData;
             if (data == null)
@@ -93,12 +93,12 @@ namespace UI.Windows.Garage
         public CarPrefabData CarPrefabData { get; set; }
 
         public int SpeedLvl { get; set; } = 0;
-        public int SpeedCost { get; set; } = 0;
+        public int SpeedCost { get; set; } = -1;
 
         public int AccelerationLvl { get; set; } = 0;
-        public int AccelerationCost { get; set; } = 0;
+        public int AccelerationCost { get; set; } = -1;
 
         public int TurnSpeedLvl { get; set; } = 0;
-        public int TurnCost { get; set; } = 0;
+        public int TurnCost { get; set; } = -1;
     }
 }

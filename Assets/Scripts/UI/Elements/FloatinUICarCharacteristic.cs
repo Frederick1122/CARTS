@@ -44,7 +44,15 @@ namespace UI.Elements
         public void UpdateInfo(int level, int cost)
         {
             _level.text = level.ToString();
-            _cost.text = cost.ToString();
+
+            var costString = cost.ToString();
+            _upgradeButton.enabled = true;
+            if (cost < 0)
+            {
+                costString = "Max level";
+                _upgradeButton.enabled = false;
+            }
+            _cost.text = costString;
         }
 
         public void DrawLine(Transform endPointObject)

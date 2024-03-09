@@ -22,9 +22,9 @@ public class AITargetCarController : CarController
 
     public override void SetUpCharacteristic()
     {
-        _maxSpeed = Config.maxSpeedLevels[0];
-        _acceleration = Config.accelerationLevels[0];
-        _turnSpeed = Config.turnLevels[0];
+        _maxSpeed = Config.maxSpeedLevels[0].Value;
+        _acceleration = Config.accelerationLevels[0].Value;
+        _turnSpeed = Config.turnLevels[0].Value;
     }
 
     protected override void CalculateDesiredAngle()

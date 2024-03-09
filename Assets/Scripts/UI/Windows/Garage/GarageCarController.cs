@@ -23,11 +23,20 @@ namespace UI.Windows.Garage
 
         public void UpdateInfo(CarData data, CarPrefabData spawnedCar)
         {
-            _model.SpeedLvl = data.maxSpeedLevel;
-            _model.AccelerationLvl = data.accelerationLevel;
-            _model.TurnSpeedLvl = data.turnLevel;
+            _model.SpeedLvl = data.maxSpeedLevel + 1;
+            _model.AccelerationLvl = data.accelerationLevel + 1;
+            _model.TurnSpeedLvl = data.turnLevel + 1;
 
             _model.CarPrefabData = spawnedCar;
+
+            var carConfig = CarLibrary.Instance.GetConfig(data.configKey);
+            var speedCost = _model.SpeedLvl >= carConfig.maxSpeedLevels.Count ? -1 : carConfig.maxSpeedLevels[data.maxSpeedLevel + 1].Price;
+            var turnCost = _model.TurnSpeedLvl >= carConfig.turnLevels.Count ? -1 : carConfig.turnLevels[data.turnLevel + 1].Price;
+            var accelerationCost = _model.AccelerationLvl >= carConfig.accelerationLevels.Count ? -1 : carConfig.accelerationLevels[data.accelerationLevel + 1].Price;
+
+            _model.SpeedCost = speedCost;
+            _model.TurnCost = turnCost;
+            _model.AccelerationCost = accelerationCost;
 
             UpdateView();
         }
