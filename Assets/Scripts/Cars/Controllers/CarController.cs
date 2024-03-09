@@ -3,12 +3,17 @@ using Cinemachine;
 using ConfigScripts;
 using Managers;
 using System.Collections.Generic;
+using System.Linq;
+using Obstacles;
 using UnityEngine;
 
 namespace Cars.Controllers
 {
     public abstract class CarController : MonoBehaviour
     {
+        private const int MIN_SPEED = 10;
+        private const int MAX_SPEED = 250;
+        
         public float SkidWidth { get; set; }
         public float DesiredTurning { get; protected set; }
         public Vector3 CarVelocity { get; protected set; }
@@ -39,8 +44,11 @@ namespace Cars.Controllers
         private SphereCollider _sphereCollider;
         private bool _isCarActive = false;
 
-        protected float _speedModifier = 0;
-        protected float _accelerationModifier = 0;
+        private float _permanentSpeedModifier;
+        private List<SpeedModifier> _speedModifiers = new();
+
+        protected float _baseSpeedModifier = 0;
+        protected float _baseAccelerationModifier = 0;
 
         protected float _maxSpeed = 0;
         protected float _turnSpeed = 0;
@@ -57,8 +65,26 @@ namespace Cars.Controllers
             _inputSystem.IsActive = false;
             _isCarActive = false;
         }
+        
+        public void IncreaseModifier(float speed, float acceleration)
+        {
+            _baseSpeedModifier += speed;
+            _baseAccelerationModifier += acceleration;
+        }
+
+        public void AddSpeedModifier(SpeedModifier speedModifier, bool isPermanent = false)
+        {
+            if (isPermanent) 
+                _permanentSpeedModifier = speedModifier.value;
+            else 
+                _speedModifiers.Add(speedModifier);
+        }
+
+        public void RemovePermanentSpeedModifier() => _permanentSpeedModifier = 0;
 
         public abstract float GetPassedDistance();
+        
+        public abstract void SetUpCharacteristic();
 
         public virtual void Init(IInputSystem inputSystem, CarConfig carConfig, CarPresetConfig carPresetConfig, ITargetHolder targetHolder = null)
         {
@@ -86,8 +112,6 @@ namespace Cars.Controllers
             SetUpCharacteristic();
         }
 
-        public abstract void SetUpCharacteristic();
-
         protected virtual void FixedUpdate()
         {
             if (!_isCarActive)
@@ -100,20 +124,6 @@ namespace Cars.Controllers
             Visual();
         }
 
-        private PhysicMaterial CopyMaterial(PhysicMaterial mat)
-        {
-            var frictionMaterial = new PhysicMaterial
-            {
-                staticFriction = mat.staticFriction,
-                dynamicFriction = mat.dynamicFriction,
-                frictionCombine = mat.frictionCombine,
-                bounciness = mat.bounciness,
-                bounceCombine = mat.bounceCombine
-            };
-
-            return frictionMaterial;
-        }
-
         protected abstract void CalculateDesiredAngle();
 
         protected virtual void Move()
@@ -124,8 +134,13 @@ namespace Cars.Controllers
             var horizontalInput = _inputSystem.HorizontalInput;
             var brakeInput = _inputSystem.BrakeInput;
 
-            var maxSpeed = _maxSpeed * (1 + _speedModifier);
-            var acceleration = _acceleration * (1 + _accelerationModifier);
+            var speedModificator = _permanentSpeedModifier +
+                                   _speedModifiers.Sum(speedModificator => speedModificator.value);
+            var maxSpeed = (_maxSpeed + speedModificator) * (1 + _baseSpeedModifier);
+            UpdateSpeedModificators(Time.fixedDeltaTime);
+
+            var acceleration = _acceleration * (1 + _baseAccelerationModifier);
+            
             var turnSpeed = _turnSpeed;
 
             //changes friction according to sideways speed of car
@@ -163,8 +178,11 @@ namespace Cars.Controllers
                     case MovementMode.Velocity:
                         if (Mathf.Abs(verticalInput) > 0.1f && brakeInput < 0.1f)
                         {
-                            _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity,
-                                maxSpeed * verticalInput * _carBody.transform.forward, acceleration / 10 * Time.fixedDeltaTime);
+                            var velocity = Vector3.Lerp(_rbSphere.velocity,
+                                               maxSpeed * verticalInput * _carBody.transform.forward,
+                                               acceleration / 10 * Time.fixedDeltaTime) +
+                                           _carBody.transform.forward * Vector3.cla(MIN_SPEED, MAX_SPEED, speedModificator);
+                            _rbSphere.velocity = velocity;
                         }
                         break;
                 }
@@ -239,11 +257,30 @@ namespace Cars.Controllers
 
             return false;
         }
-
-        public void IncreaseModifier(float speed, float acceleration)
+        
+        private PhysicMaterial CopyMaterial(PhysicMaterial mat)
         {
-            _speedModifier += speed;
-            _accelerationModifier += acceleration;
+            var frictionMaterial = new PhysicMaterial
+            {
+                staticFriction = mat.staticFriction,
+                dynamicFriction = mat.dynamicFriction,
+                frictionCombine = mat.frictionCombine,
+                bounciness = mat.bounciness,
+                bounceCombine = mat.bounceCombine
+            };
+
+            return frictionMaterial;
+        }
+
+        private void UpdateSpeedModificators(float elapsedTime)
+        {
+            for (var i = _speedModifiers.Count - 1; i > -1; i--)
+            {
+                if (_speedModifiers[i].time - elapsedTime < 0)
+                    _speedModifiers.RemoveAt(i);
+                else 
+                    _speedModifiers[i].time -= elapsedTime;
+            }
         }
 
         private void InitFromConfig(CarPresetConfig carPresetConfig)
