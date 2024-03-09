@@ -22,7 +22,7 @@ namespace FsmStates.RaceFsm
 
         ~FinishRaceState()
         {
-            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource?.Cancel();
             UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).OnGoToMainMenuAction -= GoToMenu;
         }
 
