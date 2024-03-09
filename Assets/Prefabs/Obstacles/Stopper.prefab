@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: _speedModifier.value
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 1980686951794166630, guid: e79bcc52b04c3f043bfb43499a3bef84, type: 3}
+      propertyPath: _speedModifier.isBoost
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3038434385102262786, guid: e79bcc52b04c3f043bfb43499a3bef84, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -66,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7791760413922416830, guid: e79bcc52b04c3f043bfb43499a3bef84, type: 3}
       propertyPath: m_Name
-      value: Stopper Variant
+      value: Stopper
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

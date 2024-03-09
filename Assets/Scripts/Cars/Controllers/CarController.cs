@@ -11,8 +11,7 @@ namespace Cars.Controllers
 {
     public abstract class CarController : MonoBehaviour
     {
-        private const int MIN_SPEED = 10;
-        private const int MAX_SPEED = 250;
+        private const int SPEED_STEP_PERCENT = 50;
         
         public float SkidWidth { get; set; }
         public float DesiredTurning { get; protected set; }
@@ -44,7 +43,7 @@ namespace Cars.Controllers
         private SphereCollider _sphereCollider;
         private bool _isCarActive = false;
 
-        private float _permanentSpeedModifier;
+        private int _permanentSpeedModifier;
         private List<SpeedModifier> _speedModifiers = new();
 
         protected float _baseSpeedModifier = 0;
@@ -75,7 +74,7 @@ namespace Cars.Controllers
         public void AddSpeedModifier(SpeedModifier speedModifier, bool isPermanent = false)
         {
             if (isPermanent) 
-                _permanentSpeedModifier = speedModifier.value;
+                _permanentSpeedModifier = speedModifier.isBoost ? 1 : -1;
             else 
                 _speedModifiers.Add(speedModifier);
         }
@@ -134,9 +133,21 @@ namespace Cars.Controllers
             var horizontalInput = _inputSystem.HorizontalInput;
             var brakeInput = _inputSystem.BrakeInput;
 
-            var speedModificator = _permanentSpeedModifier +
-                                   _speedModifiers.Sum(speedModificator => speedModificator.value);
-            var maxSpeed = (_maxSpeed + speedModificator) * (1 + _baseSpeedModifier);
+
+            var speedModificator = _permanentSpeedModifier;
+
+            foreach (var speedModifier in _speedModifiers)
+            {
+                speedModificator += speedModifier.isBoost ? 1 : -1;
+            }
+
+            if (speedModificator != 0)
+            {
+                speedModificator = speedModificator < 0 ? -1 : 1; 
+                speedModificator *= SPEED_STEP_PERCENT;
+            }
+
+            var maxSpeed = _maxSpeed / 100 * speedModificator * (1 + _baseSpeedModifier);
             UpdateSpeedModificators(Time.fixedDeltaTime);
 
             var acceleration = _acceleration * (1 + _baseAccelerationModifier);
@@ -178,11 +189,8 @@ namespace Cars.Controllers
                     case MovementMode.Velocity:
                         if (Mathf.Abs(verticalInput) > 0.1f && brakeInput < 0.1f)
                         {
-                            var velocity = Vector3.Lerp(_rbSphere.velocity,
-                                               maxSpeed * verticalInput * _carBody.transform.forward,
-                                               acceleration / 10 * Time.fixedDeltaTime) +
-                                           _carBody.transform.forward * Vector3.cla(MIN_SPEED, MAX_SPEED, speedModificator);
-                            _rbSphere.velocity = velocity;
+                            _rbSphere.velocity = Vector3.Lerp(_rbSphere.velocity,
+                                maxSpeed * verticalInput * _carBody.transform.forward, acceleration / 10 * Time.fixedDeltaTime);
                         }
                         break;
                 }

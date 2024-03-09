@@ -43,6 +43,6 @@ namespace Obstacles
     {
         [Range(0, 10f)]
         public float time;
-        public float value;
+        public bool isBoost;
     }
 }
