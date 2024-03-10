@@ -8,7 +8,6 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Linq;
 using Obstacles;
 using UnityEngine;
 
@@ -267,7 +266,7 @@ namespace Cars.Controllers
                 speedModificator *= SPEED_STEP_PERCENT;
             }
 
-            var maxSpeed = _maxSpeed / 100 * speedModificator * (1 + _baseSpeedModifier);
+            var maxSpeed = _maxSpeed / 100 * (100 + speedModificator) * (1 + _baseSpeedModifier);
             UpdateSpeedModifiers(Time.fixedDeltaTime);
 
             var acceleration = _acceleration * (1 + _baseAccelerationModifier);
