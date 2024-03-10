@@ -15,10 +15,6 @@ namespace Cars.InputSystem.AI
 
         private bool _needToRev = false;
 
-        private float _maxSpeed;
-        private float _turnSpeed;
-        private float _accelereation;
-
         public override void Init(CarPresetConfig presetConfig, CarPrefabData prefabData)
         {
             base.Init(presetConfig, prefabData);
@@ -27,10 +23,6 @@ namespace Cars.InputSystem.AI
             _backRatio = presetConfig.BackRatio;
 
             _rayPoses = prefabData.RayPoses;
-
-            _maxSpeed = _config.maxSpeedLevels[0].Value;
-            _turnSpeed = _config.turnLevels[0].Value;
-            _accelereation = _config.accelerationLevels[0].Value;
         }
 
         public override void ReadInput()

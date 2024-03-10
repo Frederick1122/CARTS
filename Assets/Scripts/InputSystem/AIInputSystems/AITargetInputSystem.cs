@@ -21,12 +21,20 @@ namespace Cars.InputSystem.AI
         protected float _brInp;
         protected Transform _target;
 
+        protected float _maxSpeed;
+        protected float _turnSpeed;
+        protected float _accelereation;
+
         protected virtual void Start()
         {
             _controller = GetComponent<CarController>();
             _target = GetComponent<ITargetHolder>().Target;
 
             _config = _controller.Config;
+
+            _maxSpeed = _config.maxSpeedLevels[0].Value;
+            _turnSpeed = _config.turnLevels[0].Value;
+            _accelereation = _config.accelerationLevels[0].Value;
         }
 
         protected void Update()
