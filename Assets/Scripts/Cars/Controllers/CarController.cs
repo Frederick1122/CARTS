@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Obstacles;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Cars.Controllers
 {
@@ -61,6 +62,8 @@ namespace Cars.Controllers
         protected float _maxSpeed = 0;
         protected float _turnSpeed = 0;
         protected float _acceleration = 0;
+
+        private float _lastHorizontalInput = 0;
 
         private readonly List<Renderer> _onCarRenderer = new();
         
@@ -249,16 +252,15 @@ namespace Cars.Controllers
             CarVelocity = _carBody.transform.InverseTransformDirection(_carBody.velocity);
 
             var verticalInput = _inputSystem.VerticalInput;
-            var horizontalInput = _inputSystem.HorizontalInput;
+            var horizontalInput = Mathf.Lerp(_lastHorizontalInput, _inputSystem.HorizontalInput, 10 * Time.fixedDeltaTime);
             var brakeInput = _inputSystem.BrakeInput;
 
+            _lastHorizontalInput = horizontalInput;
 
             var speedModificator = _permanentSpeedModifier;
 
             foreach (var speedModifier in _speedModifiers)
-            {
                 speedModificator += speedModifier.isBoost ? 1 : -1;
-            }
 
             if (speedModificator != 0)
             {
@@ -267,11 +269,10 @@ namespace Cars.Controllers
             }
 
             var maxSpeed = _maxSpeed / 100 * (100 + speedModificator) * (1 + _baseSpeedModifier);
-            UpdateSpeedModifiers(Time.fixedDeltaTime);
-
             var acceleration = _acceleration * (1 + _baseAccelerationModifier);
-            
             var turnSpeed = _turnSpeed;
+
+            UpdateSpeedModifiers(Time.fixedDeltaTime);
 
             //changes friction according to sideways speed of car
             if (Mathf.Abs(CarVelocity.x) > 0)

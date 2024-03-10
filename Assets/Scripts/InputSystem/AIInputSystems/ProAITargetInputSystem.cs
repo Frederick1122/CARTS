@@ -15,11 +15,14 @@ namespace Cars.InputSystem.AI
 
         private bool _needToRev = false;
 
+        private AnimationCurve _rayEfficient;
+
         public override void Init(CarPresetConfig presetConfig, CarPrefabData prefabData)
         {
             base.Init(presetConfig, prefabData);
             _obstacleLayers = presetConfig.ObstacleLayer;
             _rayLength = presetConfig.RayLength;
+            _rayEfficient = presetConfig.RayEfficient;
             _backRatio = presetConfig.BackRatio;
 
             _rayPoses = prefabData.RayPoses;
@@ -42,7 +45,7 @@ namespace Cars.InputSystem.AI
             {
                 if (mindist >= _hitL1.distance)
                 {
-                    horInpAfter = 1;
+                    horInpAfter = _rayEfficient.Evaluate(_hitL1.distance / _rayLength);
                     mindist = _hitL1.distance;
                 }
             }
@@ -52,7 +55,7 @@ namespace Cars.InputSystem.AI
             {
                 if (mindist >= _hitL2.distance)
                 {
-                    horInpAfter = 0.5f;
+                    horInpAfter = _rayEfficient.Evaluate(_hitL2.distance / _rayLength);
                     mindist = _hitL2.distance;
                 }
             }
@@ -62,7 +65,7 @@ namespace Cars.InputSystem.AI
             {
                 if (mindist >= _hitR2.distance)
                 {
-                    horInpAfter = -0.5f;
+                    horInpAfter = -_rayEfficient.Evaluate(_hitR2.distance / _rayLength);
                     mindist = _hitR2.distance;
                 }
             }
@@ -72,18 +75,19 @@ namespace Cars.InputSystem.AI
             {
                 if (mindist >= _hitR1.distance)
                 {
-                    horInpAfter = -1;
+                    horInpAfter = -_rayEfficient.Evaluate(_hitR1.distance / _rayLength);
                     mindist = _hitR1.distance;
                 }
             }
 
-            var newHorInput = Mathf.Clamp(horInpAfter, -1, 1);
-            var neededSpeed = Mathf.Clamp(InterpolateRayDistance(mindist), -1, 1) * _maxSpeed / 2;
+            /*var newHorInput*/
+            _horInp = Mathf.Clamp(horInpAfter, -1, 1);
+            var neededSpeed = Mathf.Clamp(InterpolateRayDistance(mindist), 0.5f, 1) * _maxSpeed / 2;
 
             if (mindist >= _rayLength / 2)
                 _needToRev = false;
 
-            _horInp = Mathf.Lerp(_horInp, newHorInput, _turnSpeed * 10);
+            //_horInp = Mathf.Lerp(_horInp, newHorInput, _turnSpeed * 10);
 
             if (_needToRev)
             {
@@ -94,6 +98,8 @@ namespace Cars.InputSystem.AI
 
             if (neededSpeed < _controller.CarVelocity.z)
                 _brInp = 1;
+            else
+                _brInp = 0;
         }
 
         private float InterpolateRayDistance(float dist)
@@ -104,12 +110,7 @@ namespace Cars.InputSystem.AI
                 return -1;
             }
 
-            if (dist == _rayLength)
-                return _vertInp;
-
-            float res = dist / _rayLength;
-
-            return res;
+            return dist / _rayLength;
         }
 
 #if UNITY_EDITOR
