@@ -3,6 +3,7 @@ using Cars.InputSystem;
 using Cars.Tools;
 using ConfigScripts;
 using Managers;
+using UnityEngine;
 
 public class PlayerCarController : CarController
 {
@@ -34,6 +35,12 @@ public class PlayerCarController : CarController
         _maxSpeed = Config.maxSpeedLevels[speedLvl].Value;
         _turnSpeed = Config.turnLevels[turnLvl].Value;
         _acceleration = Config.accelerationLevels[accelerationLvl].Value;
+    }
+
+
+    public void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 200, 20), $"{CarVelocity.magnitude}");
     }
 
     protected override void CalculateDesiredAngle() =>

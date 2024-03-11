@@ -82,7 +82,7 @@ namespace Cars.InputSystem.AI
 
             /*var newHorInput*/
             _horInp = Mathf.Clamp(horInpAfter, -1, 1);
-            var neededSpeed = Mathf.Clamp(InterpolateRayDistance(mindist), 0.5f, 1) * _maxSpeed / 2;
+            var neededSpeed = Mathf.Clamp(InterpolateRayDistance(mindist), 0.5f, 1) * _maxSpeed;
 
             if (mindist >= _rayLength / 2)
                 _needToRev = false;

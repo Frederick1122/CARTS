@@ -11,6 +11,7 @@ using System.Threading;
 using Obstacles;
 using UnityEngine;
 using static UnityEditor.Progress;
+using Unity.VisualScripting;
 
 namespace Cars.Controllers
 {
@@ -56,8 +57,8 @@ namespace Cars.Controllers
         private int _permanentSpeedModifier;
         private List<SpeedModifier> _speedModifiers = new();
 
-        protected float _baseSpeedModifier = 0;
-        protected float _baseAccelerationModifier = 0;
+        protected float _baseSpeedModifier = 1;
+        protected float _baseAccelerationModifier = 1;
 
         protected float _maxSpeed = 0;
         protected float _turnSpeed = 0;
@@ -249,10 +250,10 @@ namespace Cars.Controllers
 
         protected virtual void Move()
         {
-            CarVelocity = _carBody.transform.InverseTransformDirection(_carBody.velocity);
+            CarVelocity = _carBody.transform.InverseTransformDirection(_carBody.velocity) * 2;
 
             var verticalInput = _inputSystem.VerticalInput;
-            var horizontalInput = Mathf.Lerp(_lastHorizontalInput, _inputSystem.HorizontalInput, 10 * Time.fixedDeltaTime);
+            var horizontalInput = Mathf.Lerp(_lastHorizontalInput, _inputSystem.HorizontalInput, _turnSpeed * 3 * Time.fixedDeltaTime);
             var brakeInput = _inputSystem.BrakeInput;
 
             _lastHorizontalInput = horizontalInput;
@@ -268,8 +269,8 @@ namespace Cars.Controllers
                 speedModificator *= SPEED_STEP_PERCENT;
             }
 
-            var maxSpeed = _maxSpeed / 100 * (100 + speedModificator) * (1 + _baseSpeedModifier);
-            var acceleration = _acceleration * (1 + _baseAccelerationModifier);
+            var maxSpeed = _maxSpeed / 100 * (100 + speedModificator) * _baseSpeedModifier;
+            var acceleration = _acceleration * _baseAccelerationModifier;
             var turnSpeed = _turnSpeed;
 
             UpdateSpeedModifiers(Time.fixedDeltaTime);
