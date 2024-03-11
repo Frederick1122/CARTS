@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nissan3000
   m_EditorClassIdentifier: 
   configName: Nissan3000
-  configKey: NewModel
+  configKey: Nissan3000
   CarIcon: {fileID: 0}
   prefab: {fileID: 8518192459940570181, guid: b4e6d0839c60eaa448585294a54c02fa, type: 3}
   isOnlyForAi: 0
@@ -22,9 +22,9 @@ MonoBehaviour:
     <CurrencyType>k__BackingField: 0
   <CarClass>k__BackingField: 1
   maxSpeedLevels:
-  - <Value>k__BackingField: 100
+  - <Value>k__BackingField: 50
     <Price>k__BackingField: 1
-  - <Value>k__BackingField: 70
+  - <Value>k__BackingField: 100
     <Price>k__BackingField: 3
   accelerationLevels:
   - <Value>k__BackingField: 5
