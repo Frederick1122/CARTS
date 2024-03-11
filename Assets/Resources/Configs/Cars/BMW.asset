@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e8a6955281d254a8c973ae1466b083, type: 3}
-  m_Name: PinkCar
+  m_Name: BMW
   m_EditorClassIdentifier: 
-  configName: Pink Car
-  configKey: PinkCar
+  configName: BMW
+  configKey: BMW
   CarIcon: {fileID: 0}
-  prefab: {fileID: 1832166376762013389, guid: e9f7e8462863ec64ba25aec87062980b, type: 3}
+  prefab: {fileID: 4201339855542951567, guid: bf33ed2d2c96dae46a7dd27665aa26cb, type: 3}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
     <CurrencyType>k__BackingField: 0
-  <CarClass>k__BackingField: 3
+  <CarClass>k__BackingField: 1
   maxSpeedLevels:
-  - <Value>k__BackingField: 50
+  - <Value>k__BackingField: 70
     <Price>k__BackingField: 1
+  - <Value>k__BackingField: 75
+    <Price>k__BackingField: 2
   accelerationLevels:
   - <Value>k__BackingField: 5
     <Price>k__BackingField: 1
@@ -100,4 +102,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
-  bodyTilt: 6
+  bodyTilt: 10

@@ -10,27 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e8a6955281d254a8c973ae1466b083, type: 3}
-  m_Name: Bicycle
+  m_Name: MAN
   m_EditorClassIdentifier: 
-  configName: Bicycle
-  configKey: BicucleKey
+  configName: MAN
+  configKey: MAN
   CarIcon: {fileID: 0}
-  prefab: {fileID: 6191633740653117931, guid: 5f43572d94191984b8640bfc48733341, type: 3}
+  prefab: {fileID: 2786930490241184402, guid: 22ebe69e87a83544fa45dc50a58c7315, type: 3}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
     <CurrencyType>k__BackingField: 0
-  <CarClass>k__BackingField: 2
+  <CarClass>k__BackingField: 1
   maxSpeedLevels:
-  - <Value>k__BackingField: 50
+  - <Value>k__BackingField: 100
     <Price>k__BackingField: 1
-  - <Value>k__BackingField: 60
-    <Price>k__BackingField: 2
+  - <Value>k__BackingField: 110
+    <Price>k__BackingField: 3
   accelerationLevels:
-  - <Value>k__BackingField: 5
+  - <Value>k__BackingField: 2
     <Price>k__BackingField: 1
+  - <Value>k__BackingField: 2.5
+    <Price>k__BackingField: 2
   turnLevels:
-  - <Value>k__BackingField: 3
+  - <Value>k__BackingField: 2.6
     <Price>k__BackingField: 1
   gravity: 7
   downforce: 5
@@ -102,4 +104,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
-  bodyTilt: 10
+  bodyTilt: 6

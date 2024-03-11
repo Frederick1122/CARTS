@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e8a6955281d254a8c973ae1466b083, type: 3}
-  m_Name: DefaultPlayerCar
+  m_Name: RangeRover
   m_EditorClassIdentifier: 
-  configName: Dodge
-  configKey: DefaultPlayerCar
+  configName: RangeRover
+  configKey: RangeRover
   CarIcon: {fileID: 0}
-  prefab: {fileID: 3780192533924008452, guid: 69ec3b87bf9d7bd49b226b3d6c9e995d, type: 3}
+  prefab: {fileID: 1479940961047715219, guid: 347684258c7f1c84fb3f929079836779, type: 3}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
     <CurrencyType>k__BackingField: 0
   <CarClass>k__BackingField: 1
   maxSpeedLevels:
-  - <Value>k__BackingField: 90
+  - <Value>k__BackingField: 50
     <Price>k__BackingField: 1
-  - <Value>k__BackingField: 95
+  - <Value>k__BackingField: 85
     <Price>k__BackingField: 3
   accelerationLevels:
-  - <Value>k__BackingField: 5
+  - <Value>k__BackingField: 4.5
     <Price>k__BackingField: 1
-  - <Value>k__BackingField: 6
+  - <Value>k__BackingField: 4.8
     <Price>k__BackingField: 2
   turnLevels:
-  - <Value>k__BackingField: 4
+  - <Value>k__BackingField: 3
     <Price>k__BackingField: 1
   gravity: 7
   downforce: 5
