@@ -27,6 +27,7 @@ namespace Cars.InputSystem.Player
 #else
             _inputHandler = gameObject.AddComponent(typeof(KeyBoardInputHandler)) as IInputHandler;
 #endif
+            _inputHandler.Init();
 
             _inputHandler.OnVerticalAxisChange += OnVerticalAxisChange;
             _inputHandler.OnHorizontalAxisChange += OnHorizontalAxisChange;

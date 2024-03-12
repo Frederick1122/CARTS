@@ -28,7 +28,7 @@ public abstract class WindowManager : MonoBehaviour
     }
 
     public IUiController ShowWindow(Type T, bool hideOtherWindows = true)
-    {
+    {        
         if (hideOtherWindows)
             HideAll();
 
