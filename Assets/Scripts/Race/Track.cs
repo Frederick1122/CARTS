@@ -3,6 +3,7 @@ using Cars.Controllers;
 using ConfigScripts;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject.SpaceFighter;
 
 namespace Race
 {
@@ -14,10 +15,9 @@ namespace Race
         public SpawnData SpawnPlayer(CarPrefabData playerPrefab)
         {
             var playerPlace = _playerPlace == -1 ? _carPlaces[^1] : _carPlaces[_playerPlace];
+            playerPlace.transform.position -= playerPrefab.GetLowestPoint();
             var player = Instantiate(playerPrefab, playerPlace.transform);
-            player.transform.SetPositionAndRotation(
-                playerPlace.transform.position - player.GetLowestPoint(), 
-                Quaternion.identity);
+            player.transform.rotation = Quaternion.identity;
             return new SpawnData(player, playerPlace.GetWaypointCircuit());
         }
 
@@ -33,10 +33,9 @@ namespace Race
                 if (skipPlace == i)
                     continue;
 
+                _carPlaces[i].transform.position -= enemyConfigs[i].prefab.GetLowestPoint();
                 var enemy = Instantiate(enemyConfigs[i].prefab, _carPlaces[i].transform);
-                enemy.transform.SetPositionAndRotation(
-                    enemy.transform.position - enemy.GetLowestPoint(), 
-                    Quaternion.identity);
+                enemy.transform.rotation = Quaternion.identity;
 
                 enemiesSpawnDatas.Add(new SpawnData(enemy, _carPlaces[i].GetWaypointCircuit()));
             }

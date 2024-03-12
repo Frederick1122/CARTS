@@ -10,8 +10,6 @@ using System.Collections.Generic;
 using System.Threading;
 using Obstacles;
 using UnityEngine;
-using static UnityEditor.Progress;
-using Unity.VisualScripting;
 
 namespace Cars.Controllers
 {

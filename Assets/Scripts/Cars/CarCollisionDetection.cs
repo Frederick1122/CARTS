@@ -76,6 +76,18 @@ namespace Cars.Tools
             }
         }
 
+        private void OnDestroy()
+        {
+            foreach (var colWorld in _worldColliders)
+            {
+                if (_selfCollider == colWorld)
+                    continue;
+
+                Physics.IgnoreCollision(_selfCollider, colWorld, false);
+                Physics.IgnoreCollision(colWorld, _selfCollider, false);
+            }
+        }
+
         public void SetUpAllWorldCollider(List<Collider> worldColliders)
         {
             _worldColliders = worldColliders.ToHashSet();
@@ -133,8 +145,7 @@ namespace Cars.Tools
 
         private bool CheckCollision(Collider col1)
         {
-            var res = _worldCollisions.ContainsKey(col1);
-            if (!res)
+            if (!_worldCollisions.ContainsKey(col1))
                 return false;
 
             return _worldCollisions[col1].IsWork;
