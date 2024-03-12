@@ -1,4 +1,5 @@
 ﻿using Cars;
+using Cars.Controllers;
 using ConfigScripts;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,9 @@ namespace Race
         {
             var playerPlace = _playerPlace == -1 ? _carPlaces[^1] : _carPlaces[_playerPlace];
             var player = Instantiate(playerPrefab, playerPlace.transform);
-            player.transform.rotation = Quaternion.identity;
+            player.transform.SetPositionAndRotation(
+                playerPlace.transform.position - player.GetLowestPoint(), 
+                Quaternion.identity);
             return new SpawnData(player, playerPlace.GetWaypointCircuit());
         }
 
@@ -31,7 +34,9 @@ namespace Race
                     continue;
 
                 var enemy = Instantiate(enemyConfigs[i].prefab, _carPlaces[i].transform);
-                enemy.transform.rotation = Quaternion.identity;
+                enemy.transform.SetPositionAndRotation(
+                    enemy.transform.position - enemy.GetLowestPoint(), 
+                    Quaternion.identity);
 
                 enemiesSpawnDatas.Add(new SpawnData(enemy, _carPlaces[i].GetWaypointCircuit()));
             }

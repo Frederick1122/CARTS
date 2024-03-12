@@ -105,6 +105,7 @@ namespace Race.RaceManagers
             var playerPrefab = playerConfig.prefab;
             var player = Object.Instantiate(playerPrefab, _startPosition);
             _player = (CarController)player.gameObject.AddComponent(playerPreset.CarController);
+            _player.transform.position = _startPosition.transform.position - player.GetLowestPoint();
 
             var playerInputSystem = (IInputSystem)_player.gameObject.AddComponent(typeof(FreeRideInputSystem));
             playerInputSystem.Init(playerPreset, playerPrefab);

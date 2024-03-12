@@ -1,4 +1,5 @@
 using Cars;
+using Cars.Controllers;
 using Managers;
 using Managers.Libraries;
 using UI;
@@ -31,10 +32,13 @@ namespace Lobby.Garage
                 Destroy(_carPlace.GetChild(i).gameObject);
             
             var carPref = CarLibrary.Instance.GetConfig(data.configKey).prefab;
-            SpawnedCarPrefabData = Instantiate(carPref, _carPlace);
+            var spawnedCar = Instantiate(carPref, _carPlace);
+            spawnedCar.RbSphere.isKinematic = true;
+            DestroyImmediate(spawnedCar.GetComponent<Rigidbody>());
+            spawnedCar.transform.position -= carPref.GetLowestPoint();
+            
             SpawnedCarData = data;
-
-            Destroy(SpawnedCarPrefabData.gameObject.GetComponent<Rigidbody>());
+            SpawnedCarPrefabData = spawnedCar;
         }
     }
 }

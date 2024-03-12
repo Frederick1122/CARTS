@@ -916,7 +916,7 @@ MeshRenderer:
   - {fileID: 2100000, guid: 795398b93aa6a3b40a0d70f6eed0d3c7, type: 2}
   - {fileID: 2100000, guid: 244cf37b097fc224ba218a8f73bbb9f3, type: 2}
   - {fileID: 2100000, guid: 8e85ed6c04a0b8a4a958f2ef6792771f, type: 2}
-  - {fileID: 2100000, guid: fdf77876c4d24334f80697b68e292ed9, type: 2}
+  - {fileID: 2100000, guid: 8e85ed6c04a0b8a4a958f2ef6792771f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1241,6 +1241,7 @@ MonoBehaviour:
   _maxSpeedUpgradePlace: {fileID: 3550527618792445650}
   _accelerationUpgradePlace: {fileID: 9147019789177821123}
   _turnUpgradePlace: {fileID: 412277970798177370}
+  _sphereCollider: {fileID: 8213680697834293917}
 --- !u!1 &7804243872483168640
 GameObject:
   m_ObjectHideFlags: 0

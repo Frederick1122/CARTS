@@ -32,6 +32,9 @@ namespace Cars
         [SerializeField] private Transform _accelerationUpgradePlace;
         [SerializeField] private Transform _turnUpgradePlace;
 
+        [Header("Other")]
+        [SerializeField] private SphereCollider _sphereCollider;
+
         public Transform GetModificationPlace(ModificationType mode)
         {
             return mode switch
@@ -43,11 +46,20 @@ namespace Cars
             };
         }
 
+        public Vector3 GetLowestPoint()
+        {
+            if(_sphereCollider == null)
+                _sphereCollider = RbSphere.GetComponent<SphereCollider>();
+            var point = Vector3.zero;
+            point.y = transform.localScale.y * (RbSphere.transform.position.y -  _sphereCollider.radius);
+            return point;
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            //if (Application.isPlaying)
-            //    return;
+            if (Application.isPlaying)
+                return;
 
             Gizmos.color = Color.cyan;
 
