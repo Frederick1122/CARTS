@@ -49,7 +49,7 @@ namespace Managers
                     level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].maxSpeedLevel + 1, 0,
                         carConfig.maxSpeedLevels.Count - 1);
 
-                    var priceS = new Price(carConfig.maxSpeedLevels[level].Price, CurrencyType.Regular);
+                    var priceS = new Price(carConfig.maxSpeedLevels[level].Price, CurrencyType.Soft);
                     if (!IsThereEnoughMoney(priceS))
                         return false;
                     DecreaseCurrency(priceS.CurrencyType, priceS.Value);
@@ -61,7 +61,7 @@ namespace Managers
                     level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].accelerationLevel + 1, 0,
                          carConfig.accelerationLevels.Count - 1);
 
-                    var priceA = new Price(carConfig.accelerationLevels[level].Price, CurrencyType.Regular);
+                    var priceA = new Price(carConfig.accelerationLevels[level].Price, CurrencyType.Soft);
                     if (!IsThereEnoughMoney(priceA))
                         return false;
                     DecreaseCurrency(priceA.CurrencyType, priceA.Value);
@@ -73,7 +73,7 @@ namespace Managers
                     level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].turnLevel + 1, 0,
                         carConfig.turnLevels.Count - 1);
 
-                    var priceT = new Price(carConfig.turnLevels[level].Price, CurrencyType.Regular);
+                    var priceT = new Price(carConfig.turnLevels[level].Price, CurrencyType.Soft);
                     if (!IsThereEnoughMoney(priceT))
                         return false;
                     DecreaseCurrency(priceT.CurrencyType, priceT.Value);
@@ -134,7 +134,7 @@ namespace Managers
 
         public bool IsThereEnoughMoney(Price price)
         {
-            return price.CurrencyType == CurrencyType.Regular
+            return price.CurrencyType == CurrencyType.Soft
                 ? _saveData.regularCurrency >= price.Value
                 : _saveData.premiumCurrency >= price.Value;
         }
@@ -158,7 +158,7 @@ namespace Managers
 
         public int GetCurrency(CurrencyType currencyType)
         {
-            return currencyType == CurrencyType.Regular ? _saveData.regularCurrency : _saveData.premiumCurrency;
+            return currencyType == CurrencyType.Soft ? _saveData.regularCurrency : _saveData.premiumCurrency;
         }
 
         public void DecreaseCurrency(CurrencyType currencyType, int value)
@@ -177,10 +177,10 @@ namespace Managers
         {
             switch (currencyType)
             {
-                case CurrencyType.Regular:
+                case CurrencyType.Soft:
                     _saveData.regularCurrency = newValue;
                     break;
-                case CurrencyType.Premium:
+                case CurrencyType.Hard:
                     _saveData.premiumCurrency = newValue;
                     break;
             }
@@ -215,8 +215,8 @@ namespace Managers
 
     public enum CurrencyType
     {
-        Regular,
-        Premium
+        Soft,
+        Hard
     }
 }
 

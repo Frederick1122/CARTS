@@ -9,8 +9,8 @@ namespace UI.Widgets.CurrencyWidget
 
         public override void Init()
         {
-            _model.regularCurrency = PlayerManager.Instance.GetCurrency(CurrencyType.Regular);
-            _model.premiumCurrency = PlayerManager.Instance.GetCurrency(CurrencyType.Premium);
+            _model.regularCurrency = PlayerManager.Instance.GetCurrency(CurrencyType.Soft);
+            _model.premiumCurrency = PlayerManager.Instance.GetCurrency(CurrencyType.Hard);
 
             PlayerManager.Instance.OnCurrencyChange += ChangeCurrency;
             base.Init();
@@ -30,10 +30,10 @@ namespace UI.Widgets.CurrencyWidget
         {
             switch (currencyType)
             {
-                case CurrencyType.Regular:
+                case CurrencyType.Soft:
                     _model.regularCurrency = newValue;
                     break;
-                case CurrencyType.Premium:
+                case CurrencyType.Hard:
                     _model.premiumCurrency = newValue;
                     break;
             }   

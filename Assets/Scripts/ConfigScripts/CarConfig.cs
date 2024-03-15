@@ -12,7 +12,7 @@ namespace ConfigScripts
         public Sprite CarIcon;
         public CarPrefabData prefab;
         public bool isOnlyForAi;
-        public Price price = new(0, CurrencyType.Regular);
+        public Price price = new(0, CurrencyType.Soft);
 
         [field: SerializeField] public CarClass CarClass { get; private set; } = CarClass.Default;
 
@@ -36,7 +36,7 @@ namespace ConfigScripts
     public class Price
     {
         [field:SerializeField] public int Value { get; private set; } = 0;
-        [field: SerializeField] public CurrencyType CurrencyType { get; private set; } = CurrencyType.Regular;
+        [field: SerializeField] public CurrencyType CurrencyType { get; private set; } = CurrencyType.Soft;
 
         public Price(int value, CurrencyType currencyType)
         {
@@ -56,8 +56,6 @@ namespace ConfigScripts
             Value = value;
             Price = price;
         }   
-
-
     }
 
     public enum CarClass
@@ -65,6 +63,7 @@ namespace ConfigScripts
         Default = 0,
         Common = 1, 
         Rare = 2, 
-        Epic = 3
+        Epic = 3,
+        Legendary = 4
     }
 }
