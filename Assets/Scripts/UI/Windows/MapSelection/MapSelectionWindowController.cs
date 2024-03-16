@@ -121,7 +121,7 @@ namespace UI.Windows.MapSelection
 
             var castView = GetView<MapSelectionWindowView>();
 
-            if (modeClass == carClass || modeClass == CarClass.Default)
+            if (modeClass == carClass || modeClass == Rarity.Default)
                 castView.OpenMode();
             else
                 castView.CloseMode();

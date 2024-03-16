@@ -15,20 +15,20 @@ namespace Managers.Libraries
             base.Awake();
         }
 
-        public IReadOnlyList<CarConfig> GetConfigsCertainClass(CarClass carClass)
+        public IReadOnlyList<CarConfig> GetConfigsCertainClass(Rarity carClass)
         {
             var classConfigs = new List<CarConfig>();
-            if (carClass != CarClass.Default)
+            if (carClass != Rarity.Default)
                 classConfigs = GetAllConfigs().Where(car => car.CarClass == carClass).ToList();
             else
                 classConfigs = GetAllConfigs().ToList();
             return classConfigs;
         }
 
-        public IReadOnlyList<CarConfig> GetRandomConfigsCertainClass(CarClass carClass, int count)
+        public IReadOnlyList<CarConfig> GetRandomConfigsCertainClass(Rarity carClass, int count)
         {
             var classConfigs =  new List<CarConfig>();
-            if (carClass != CarClass.Default)
+            if (carClass != Rarity.Default)
                 classConfigs = GetAllConfigs().Where(car => car.CarClass == carClass).ToList();
             else
                 classConfigs = GetAllConfigs().ToList();

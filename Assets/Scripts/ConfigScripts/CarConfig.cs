@@ -14,7 +14,7 @@ namespace ConfigScripts
         public bool isOnlyForAi;
         public Price price = new(0, CurrencyType.Soft);
 
-        [field: SerializeField] public CarClass CarClass { get; private set; } = CarClass.Default;
+        [field: SerializeField] public Rarity CarClass { get; private set; } = Rarity.Default;
 
         [Header("Characteristic")]
         public List<CharacteristicLevel> maxSpeedLevels = new() { new CharacteristicLevel(100, 5) };
@@ -58,7 +58,7 @@ namespace ConfigScripts
         }   
     }
 
-    public enum CarClass
+    public enum Rarity
     {
         Default = 0,
         Common = 1, 
