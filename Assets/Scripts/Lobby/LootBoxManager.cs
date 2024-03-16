@@ -8,8 +8,9 @@ namespace Lobby.Gacha
 {
     public class LootBoxManager : MonoBehaviour
     {
+        public int SlotCount { get; } = 3;
+
         [Header("Base")]
-        [SerializeField] private int _slotCount = 3;
         [SerializeField] private List<LootBoxConfig> _lootBoxConfigs = new();
 
         [Header("Drop parametres")]
@@ -23,9 +24,9 @@ namespace Lobby.Gacha
 
         public void Init()
         {
-            _slots = new List<LootBoxConfig>(_slotCount) { null };
-            for (int i = 0; i < _slotCount; i++)
-                _slots[i] = null;
+            _slots = new List<LootBoxConfig>(SlotCount);
+            for (int i = 0; i < SlotCount; i++)
+                _slots.Add(null);
 
             foreach (var dropChance in _lootBoxDropChance)
                 _permanentDropRarity.Add(dropChance.Rarity, dropChance.OpenOtherToDrop);
@@ -59,7 +60,7 @@ namespace Lobby.Gacha
 
         public int AddLootBoxToSlot(LootBoxConfig lootBox)
         {
-            for (int i = 0; i < _slotCount; i++)
+            for (int i = 0; i < SlotCount; i++)
             {
                 var slot = _slots[i];
                 if (slot != null)
@@ -77,13 +78,14 @@ namespace Lobby.Gacha
 
         public Rarity OpenLootBoxSlot(int num)
         {
-            if (num < 0 || num >= _slotCount)
+            if (num < 0 || num >= SlotCount)
                 return Rarity.Default;
 
             if (_slots[num] == null)
                 return Rarity.Default;
 
             var lootBox = _slots[num];
+            _slots[num] = null;
             return lootBox.OpenLootBoxRandom();
         }
 

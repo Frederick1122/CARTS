@@ -20,7 +20,7 @@ namespace UI.Windows.Shop
 
         public void UpdateInfo(CarData data)
         {
-            var purchased = PlayerManager.Instance.TryGetPurchasedCar(data.configKey, out CarData _);
+            var purchased = PlayerManager.Instance.TryGetPurchasedCarData(data.configKey, out CarData _);
             _model = new(data.configKey, purchased, 0);
 
             UpdateView();

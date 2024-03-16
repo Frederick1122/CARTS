@@ -13,6 +13,7 @@ namespace ConfigScripts
         public CarPrefabData prefab;
         public bool isOnlyForAi;
         public Price price = new(0, CurrencyType.Soft);
+        public Price dublicatePrice = new(0, CurrencyType.Soft);
 
         [field: SerializeField] public Rarity CarClass { get; private set; } = Rarity.Default;
 
