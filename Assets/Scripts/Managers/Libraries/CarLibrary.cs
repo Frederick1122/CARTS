@@ -15,29 +15,31 @@ namespace Managers.Libraries
             base.Awake();
         }
 
-        public IReadOnlyList<CarConfig> GetConfigsCertainClass(CarClass carClass)
+        public CarConfig GetRandomConfigByRarity(Rarity rarity)
+        {
+            var configs = GetConfigsByRarity(rarity);
+            var rndNum = Random.Range(0, configs.Count);
+
+            return configs[rndNum];
+        }
+
+        public IReadOnlyList<CarConfig> GetConfigsByRarity(Rarity rarity)
         {
             var classConfigs = new List<CarConfig>();
-            if (carClass != CarClass.Default)
-                classConfigs = GetAllConfigs().Where(car => car.CarClass == carClass).ToList();
+            if (rarity != Rarity.Default)
+                classConfigs = GetAllConfigs().Where(car => car.CarClass == rarity).ToList();
             else
                 classConfigs = GetAllConfigs().ToList();
             return classConfigs;
         }
 
-        public IReadOnlyList<CarConfig> GetRandomConfigsCertainClass(CarClass carClass, int count)
+        public IReadOnlyList<CarConfig> GetConfigsByRarity(Rarity rarity, int count)
         {
-            var classConfigs =  new List<CarConfig>();
-            if (carClass != CarClass.Default)
-                classConfigs = GetAllConfigs().Where(car => car.CarClass == carClass).ToList();
-            else
-                classConfigs = GetAllConfigs().ToList();
+            var rarityConfigs = GetConfigsByRarity(rarity);
 
             var configs = new List<CarConfig>();
             for (int i = 0; i < count; i++)
-            {
-                configs.Add(classConfigs[Random.Range(0, classConfigs.Count)]);
-            }
+                configs.Add(rarityConfigs[Random.Range(0, rarityConfigs.Count)]);
 
             return configs;
         }

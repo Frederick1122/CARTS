@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Common
   configKey: CommonLootBox
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: -511812760, guid: 0e208278f507aca45a25766542f88609, type: 3}
   <DropChance>k__BackingField: 3
+  <Rarity>k__BackingField: 4
   _loot:
-  - <DropChance>k__BackingField: 5
-    <CarClass>k__BackingField: 2
-  - <DropChance>k__BackingField: 30
-    <CarClass>k__BackingField: 3
   - <DropChance>k__BackingField: 65
     <CarClass>k__BackingField: 4
+  - <DropChance>k__BackingField: 30
+    <CarClass>k__BackingField: 3
+  - <DropChance>k__BackingField: 5
+    <CarClass>k__BackingField: 2

@@ -12,16 +12,24 @@ namespace ConfigScripts
         [field: Header("Base")]
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField, Range(1, 100)] public float DropChance { get; private set; } = 100f;
+        [field: SerializeField] public Rarity Rarity { get; private set; } = Rarity.Default;
 
         [Header("Loot")]
         [SerializeField] private List<Loot> _loot = new();
 
         public IReadOnlyList<Loot> GetAllLoot() { return _loot; }
+        private float _totalChance => _loot.Sum(x => x.DropChance);
 
-        public CarClass GetCarClassByChance(float chance)
+        public Rarity OpenLootBoxRandom()
         {
-            if (chance <= 0 || chance > 100)
-                return CarClass.Default;
+            var chance = UnityEngine.Random.Range(1f, _totalChance);
+            return OpenLootBoxWithChance(chance);
+        }
+
+        public Rarity OpenLootBoxWithChance(float chance)
+        {
+            if (chance <= 0 || chance > _totalChance)
+                return Rarity.Default;
 
             _loot = _loot.OrderByDescending(loot => loot.DropChance).ToList();
             foreach (var loot in _loot)
@@ -32,7 +40,7 @@ namespace ConfigScripts
                 chance -= loot.DropChance;
             }
 
-            return CarClass.Default;
+            return Rarity.Default;
         }
     }
 
@@ -40,6 +48,6 @@ namespace ConfigScripts
     public class Loot
     {
         [field:SerializeField, Range(1, 100)] public float DropChance { get; private set; } = 100f;
-        [field:SerializeField] public CarClass CarClass { get; private set; } = CarClass.Default;
+        [field:SerializeField] public Rarity CarClass { get; private set; } = Rarity.Default;
     }
 }
