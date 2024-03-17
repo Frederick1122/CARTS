@@ -61,6 +61,11 @@ namespace Race.RaceManagers
             InitAi();
 
             InitCollisionsDetetections();
+
+            var allCars = new List<CarController> {_player};
+            allCars.AddRange(_enemies);
+            _currentTrack.GetWaypointMainProgressTracker().Init(allCars);
+            _currentTrack.GetWaypointMainProgressTracker().OnLapEndAction += UpdateLapStats;
         }
 
         private void Clear()
@@ -90,6 +95,7 @@ namespace Race.RaceManagers
                 en.TurnEngineOn();
 
             _player.TurnEngineOn();
+            _currentTrack.StartRace();
             _positionCts = new CancellationTokenSource();
             CheckPlayerPosition(_positionCts.Token).Forget();
             _startTime = DateTime.Now;
@@ -110,12 +116,12 @@ namespace Race.RaceManagers
 
         public int GetPlayerPosition()
         {
-            var playerPassedDistance = _player.GetPassedDistance();
+            var playerPassedDistance = _currentTrack.GetWaypointMainProgressTracker().GetPassedDistance(0);
             var playerPosition = GetMaxPositions();
 
-            foreach (var enemy in _enemies)
+            for (var i = 0; i < _enemies.Count; i++)
             {
-                var enemyPassedDistance = enemy.GetPassedDistance();
+                var enemyPassedDistance =  _currentTrack.GetWaypointMainProgressTracker().GetPassedDistance(i + 1);
 
                 if (playerPassedDistance > enemyPassedDistance)
                     playerPosition--;
@@ -163,7 +169,7 @@ namespace Race.RaceManagers
 
         #region initialization
 
-        protected void InitPlayer()
+        private void InitPlayer()
         {
             _lapsStats.Add(0);
             var playerConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
@@ -178,7 +184,6 @@ namespace Race.RaceManagers
             var waypointTracker =
                 _player.gameObject.AddComponent<WaypointProgressTracker>();
             waypointTracker.Circuit = spawnPlayerData.circuit;
-            waypointTracker.OnLapEndAction += () => UpdateLapStats(0);
 
             waypointTracker.Init(_player, playerInputSystem);
 
@@ -207,8 +212,6 @@ namespace Race.RaceManagers
                 aiInputSystem.Init(enemyPreset, spawnEnemyDatas[i].car);
 
                 var waypointTracker = enemy.gameObject.AddComponent<WaypointProgressTracker>();
-                var lapStatsIndex = i + 1;
-                waypointTracker.OnLapEndAction += () => UpdateLapStats(lapStatsIndex);
                 waypointTracker.Circuit = spawnEnemyDatas[i].circuit;
                 _lapsStats.Add(0);
                 waypointTracker.Init(enemy, aiInputSystem);

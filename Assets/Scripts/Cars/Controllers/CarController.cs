@@ -135,7 +135,6 @@ namespace Cars.Controllers
 
         public abstract void SetUpCharacteristic();
         protected abstract void CalculateDesiredAngle();
-        public abstract float GetPassedDistance();
 
         private void InitFromConfig(CarPresetConfig carPresetConfig)
         {

@@ -7,9 +7,6 @@ using UnityEngine;
 public class AITargetCarController : CarController
 {
     private Transform _target;
-    private WaypointProgressTracker _waypointProgressTracker;
-
-    public override float GetPassedDistance() => _waypointProgressTracker.GetPassedDistance();
 
     public override void Init(IInputSystem inputSystem, CarConfig carConfig, 
         CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
@@ -17,7 +14,6 @@ public class AITargetCarController : CarController
     {
         base.Init(inputSystem, carConfig, carPresetConfig, carCollisionDetection, targetHolder);
         _target = targetHolder.Target;
-        _waypointProgressTracker = targetHolder as WaypointProgressTracker;
     }
 
     public override void SetUpCharacteristic()
