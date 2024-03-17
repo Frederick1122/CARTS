@@ -25,10 +25,15 @@ namespace Race
         {
             _isRaceActive = true;
         }
+
+        public float GetLapDistance()
+        {
+            return _circuit.Length;
+        }
         
         public void Init(List<CarController> cars)
         {
-            var lapDistance = _circuit.Length;
+            var lapDistance = GetLapDistance();
 
             foreach (var mainWaypoint in _mainWaypoints) 
                 mainWaypoint.Destroy();

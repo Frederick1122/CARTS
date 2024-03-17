@@ -116,7 +116,7 @@ namespace Race.RaceManagers
 
         public int GetPlayerPosition()
         {
-            var playerPassedDistance = _currentTrack.GetWaypointMainProgressTracker().GetPassedDistance(0);
+            var playerPassedDistance = GetPlayerPassedDistance();
             var playerPosition = GetMaxPositions();
 
             for (var i = 0; i < _enemies.Count; i++)
@@ -130,6 +130,16 @@ namespace Race.RaceManagers
             return playerPosition;
         }
 
+        public float GetPlayerPassedDistance()
+        {
+            return _currentTrack.GetWaypointMainProgressTracker().GetPassedDistance(0);
+        }
+
+        public float GetLapDistance()
+        {
+            return _currentTrack.GetWaypointMainProgressTracker().GetLapDistance();
+        }
+        
         public TimeSpan GetPassTime()
         {
             var dateTime = DateTime.Now - _startTime;
