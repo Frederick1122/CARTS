@@ -11,6 +11,8 @@ namespace UI.Windows.Shop.Sections.Gacha
 {
     public class GachaWindowController : UIController
     {
+        [SerializeField] private LootboxRewardWindowController _lootboxRewardController;
+
         [Header("Loot box Cost")]
         [SerializeField] private int _cost;
         [SerializeField] private CurrencyType _currencyType;
@@ -26,11 +28,18 @@ namespace UI.Windows.Shop.Sections.Gacha
             _model = new(_cost);
             _price = new(_cost, _currencyType);
 
+            _lootboxRewardController.Init();
+            _lootboxRewardController.Hide();
+            _lootboxRewardController.OnOpen += TurnOffSlotButtons;
+            _lootboxRewardController.OnClose += TurnOnSlotButtons;
+
             base.Init();
             _castView = GetView<GachaWindowView>();
 
             _castView.OnBuyLootBox += BuyLootBox;
             _castView.OnOpenLootBox += OpenLootBox;
+
+            
         }
 
         private void OnDestroy()
@@ -76,6 +85,8 @@ namespace UI.Windows.Shop.Sections.Gacha
 
             var config = ((CarLibrary)CarLibrary.Instance).GetRandomConfigByRarity(rarity);
 
+            _lootboxRewardController.OpenLootBox(config);
+
             if (PlayerManager.Instance.TryGetPurchasedCarData(config.configKey, out CarData _))
                 PlayerManager.Instance.IncreaseCurrency(config.dublicatePrice);
             else
@@ -96,5 +107,8 @@ namespace UI.Windows.Shop.Sections.Gacha
                 _castView.UpdateLootBoxImage(slotNum, icon);
             }
         }
+
+        private void TurnOnSlotButtons() => GetView<GachaWindowView>().TryChangeSlotButtonsCondition(true);
+        private void TurnOffSlotButtons() => GetView<GachaWindowView>().ChangeSlotButtonsCondition(false);
     }
 }

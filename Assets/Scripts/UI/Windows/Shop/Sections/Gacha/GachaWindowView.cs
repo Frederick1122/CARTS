@@ -58,6 +58,18 @@ namespace UI.Windows.Shop.Sections.Gacha
         public void UpdateLootBoxImage(int slotNum, Sprite img) => 
             _slots[slotNum].SetUpImage(img);
 
+        public void TryChangeSlotButtonsCondition(bool condition)
+        {
+            foreach (var slot in _slots)
+                slot.TryChangeButtonCondition(condition);
+        }
+
+        public void ChangeSlotButtonsCondition(bool condition)
+        {
+            foreach (var slot in _slots)
+                slot.ChangeButtonCondition(condition);
+        }
+
         private void RequestToBuyLootBox() => OnBuyLootBox?.Invoke();
         private void RequestToOpenLootBox(int slotNum) => OnOpenLootBox?.Invoke(slotNum);
 
@@ -82,7 +94,7 @@ namespace UI.Windows.Shop.Sections.Gacha
 
     public class GachaWindowModel : UIModel 
     {
-        public int Cost { get; private set; }
+        public int Cost { get; }
 
         public GachaWindowModel(int cost) { Cost = cost; }
     }

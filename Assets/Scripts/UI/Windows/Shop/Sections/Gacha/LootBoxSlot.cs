@@ -10,16 +10,20 @@ namespace UI.Windows.Shop.Sections.Gacha
     {
         public event Action<int> OnOpenLootBox;
 
+        public bool IsOccupied = false;
+
         [SerializeField] private Image _lootBoxImg;
         [SerializeField] private Button _openLootBoxButton;
 
         private int _lootBoxNumber = -1;
+        private Image _buttonImage;
 
         public void Init(int lootBoxNumber)
         {
             _lootBoxNumber = lootBoxNumber;
 
             _openLootBoxButton.onClick.AddListener(RequestForOpenLootBox);
+            _buttonImage = _openLootBoxButton.GetComponent<Image>();
         }
 
         private void OnDestroy() => 
@@ -27,17 +31,30 @@ namespace UI.Windows.Shop.Sections.Gacha
 
         public void SetUpImage(Sprite image)
         {
-            if (image != null)
+            IsOccupied = image != null;
+            ChangeButtonCondition(image != null);
+            _lootBoxImg.sprite = image;
+        }
+
+        public bool TryChangeButtonCondition(bool condition)
+        {
+            condition = IsOccupied != condition ? IsOccupied : condition;
+            ChangeButtonCondition(condition);
+            return condition;
+        }
+
+        public void ChangeButtonCondition(bool condition)
+        {
+            if (condition)
             {
-                _openLootBoxButton.enabled = true;
                 MakeButtonChosenVisual(_openLootBoxButton);
+                _openLootBoxButton.enabled = true;
             }
             else
             {
-                _openLootBoxButton.enabled = false;
                 MakeButtonUnChosenVisual(_openLootBoxButton);
+                _openLootBoxButton.enabled = false;
             }
-            _lootBoxImg.sprite = image;
         }
 
         private void MakeButtonUnChosenVisual(Button button)
@@ -47,6 +64,7 @@ namespace UI.Windows.Shop.Sections.Gacha
             colorBlock.selectedColor = Color.grey;
             colorBlock.pressedColor = Color.grey;
             button.colors = colorBlock;
+            _buttonImage.color = Color.grey;
         }
 
         private void MakeButtonChosenVisual(Button button)
@@ -56,6 +74,7 @@ namespace UI.Windows.Shop.Sections.Gacha
             colorBlock.selectedColor = Color.grey;
             colorBlock.pressedColor = Color.grey;
             button.colors = colorBlock;
+            _buttonImage.color = Color.white;
         }
 
         private void RequestForOpenLootBox() => OnOpenLootBox?.Invoke(_lootBoxNumber);

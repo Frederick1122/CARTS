@@ -117,7 +117,7 @@ namespace UI.Windows.MapSelection
         private void CheckIfCanBeParticipant(string modeKey)
         {
             var modeClass = _keyModePairs[modeKey].GetCarClass();
-            var carClass = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).CarClass;
+            var carClass = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).Rarity;
 
             var castView = GetView<MapSelectionWindowView>();
 

@@ -27,7 +27,7 @@ namespace Managers.Libraries
         {
             var classConfigs = new List<CarConfig>();
             if (rarity != Rarity.Default)
-                classConfigs = GetAllConfigs().Where(car => car.CarClass == rarity).ToList();
+                classConfigs = GetAllConfigs().Where(car => car.Rarity == rarity).ToList();
             else
                 classConfigs = GetAllConfigs().ToList();
             return classConfigs;
