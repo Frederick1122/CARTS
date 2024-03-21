@@ -23,7 +23,7 @@ namespace FreeRide.Map
 
         [SerializeField] private AnimationCurve _destroyTime;
 
-        [SerializeField] private int _startCountOfPeieces = 2;
+        [SerializeField] private int _startCountOfPieces = 2;
         [SerializeField] private MapPiecesHolder _startPiece;
         [SerializeField] private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
 
@@ -42,7 +42,7 @@ namespace FreeRide.Map
             InitPiece(_startPiece);
             _startPiece.gameObject.SetActive(true);
 
-            for (int i = 0; i < _startCountOfPeieces; i++)
+            for (int i = 0; i < _startCountOfPieces; i++)
                 SpawnPiece();
         }
 
@@ -60,7 +60,7 @@ namespace FreeRide.Map
         {
             piece.OnPieceReach += UpdateResult;
             piece.OnFinish += WhenFinishPiece;
-            piece.OnFall += StopFabic;
+            piece.OnFall += StopFabric;
 
             _lastPiece = piece;
 
@@ -78,18 +78,18 @@ namespace FreeRide.Map
             Result++;
             piece.OnPieceReach -= UpdateResult;
             piece.OnFinish -= WhenFinishPiece;
-            piece.OnFall -= StopFabic;
+            piece.OnFall -= StopFabric;
             _spawned.Remove(piece);
 
             SpawnPiece();
         }
 
-        private void StopFabic()
+        private void StopFabric()
         {
             foreach (var piece in _spawned)
             {
                 piece.OnFinish -= WhenFinishPiece;
-                piece.OnFall -= StopFabic;
+                piece.OnFall -= StopFabric;
             }
 
             OnFall?.Invoke();
