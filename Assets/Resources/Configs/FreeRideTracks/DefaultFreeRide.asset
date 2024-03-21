@@ -15,81 +15,83 @@ MonoBehaviour:
   configName: Default Free Ride
   configKey: DefaultFreeRide
   freeRidePrefab: {fileID: 2252254384423415066, guid: 940ce3afa9b58014dba667e12e4b4b1e, type: 3}
-  speedModifier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1.05
-      inSlope: 0.0005000007
-      outSlope: 0.0005000007
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 100
-      value: 1.1
-      inSlope: 0.0005000007
-      outSlope: 0.0005000007
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  accelerationModifier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1.05
-      inSlope: 0.0005000007
-      outSlope: 0.0005000007
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 100
-      value: 1.1
-      inSlope: 0.0005000007
-      outSlope: 0.0005000007
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  destroyTime:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 100
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  startPiece: {fileID: 7167119979405985361, guid: 40a3bf879678c844395be7e25b12e740, type: 3}
-  piecePrefabs:
-  - {fileID: 7668617567005915976, guid: e7d561f4fc90a7944bfffcd9a66b8f19, type: 3}
-  - {fileID: 68415409545021650, guid: 370dea9ba7e1ce04d89bfbb39d6f2c46, type: 3}
-  - {fileID: 937623343985973176, guid: 314ce7569caf90f46a788d9aaa4ad46b, type: 3}
-  startCountOfPieces: 2
+  freeRideDifficultyModifierData:
+    speedModifier:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1.05
+        inSlope: 0.0005000007
+        outSlope: 0.0005000007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 100
+        value: 1.1
+        inSlope: 0.0005000007
+        outSlope: 0.0005000007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    accelerationModifier:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1.05
+        inSlope: 0.0005000007
+        outSlope: 0.0005000007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 100
+        value: 1.1
+        inSlope: 0.0005000007
+        outSlope: 0.0005000007
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  mapFabricData:
+    destroyTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 3
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 100
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    startPiece: {fileID: 7167119979405985361, guid: 40a3bf879678c844395be7e25b12e740, type: 3}
+    piecePrefabs:
+    - {fileID: 68415409545021650, guid: 370dea9ba7e1ce04d89bfbb39d6f2c46, type: 3}
+    - {fileID: 7668617567005915976, guid: e7d561f4fc90a7944bfffcd9a66b8f19, type: 3}
+    - {fileID: 937623343985973176, guid: 314ce7569caf90f46a788d9aaa4ad46b, type: 3}
+    startCountOfPieces: 2
