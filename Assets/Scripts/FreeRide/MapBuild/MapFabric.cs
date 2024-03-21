@@ -26,15 +26,8 @@ namespace FreeRide.Map
         
         private int _result = 0;
 
-        //
         private MapFabricData _currentData;
-        // private MapPiecesHolder _startPiece;
-        // private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
-        //
-        // private AnimationCurve _destroyTime;
-        // private int _startCountOfPieces = 2;
-        //
-        
+
         private PoolMono<MapPiecesHolder> _piecePool;
         private MapPiecesHolder _lastPiece = null;
         private static readonly int _poolCount = 6;
