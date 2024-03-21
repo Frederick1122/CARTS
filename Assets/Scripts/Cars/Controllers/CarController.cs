@@ -17,10 +17,12 @@ namespace Cars.Controllers
     public abstract class CarController : MonoBehaviour
     {
         private const int SPEED_STEP_PERCENT = 50;
-        
+
         public float SkidWidth { get; set; }
         public float DesiredTurning { get; protected set; }
         public Vector3 CarVelocity { get; protected set; }
+        public bool IsGrounded { get; protected set; }
+        public bool IsActive => _isCarActive;
 
         public CarConfig Config { get; protected set; }
 
@@ -112,7 +114,12 @@ namespace Cars.Controllers
 
             var childRenderer = GetComponentsInChildren<Renderer>();
             foreach (var child in childRenderer)
+            {
+                if (child.TryGetComponent(out ParticleSystem _))
+                    continue;
+
                 _onCarRenderer.Add(child);
+            }
 
             SetUpCharacteristic();
         }
@@ -153,6 +160,7 @@ namespace Cars.Controllers
             _rearWheels = carData.RearWheels;
             _camera = carData.Camera;
             _onCarLayers = carData.OnCarLayers;
+            SkidWidth = carData.SkidWidth;
         }
 
         public void TurnEngineOn()
@@ -276,7 +284,9 @@ namespace Cars.Controllers
             if (Mathf.Abs(CarVelocity.x) > 0)
                 _sphereCollider.material.dynamicFriction = Config.frictionCurve.Evaluate(Mathf.Abs(CarVelocity.x / maxSpeed));
 
-            if (CheckIfGrounded())
+            IsGrounded = CheckIfGrounded();
+
+            if (IsGrounded)
             {
                 //turnlogic
                 float sign = Mathf.Sign(CarVelocity.z);

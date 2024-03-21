@@ -9,6 +9,8 @@ namespace Cars
     {
         private const float _editorRayLength = 3f;
 
+        public float SkidWidth { get; set; } = 0.1f;
+
         [field: Header("Rigidbody")]
         [field: SerializeField] public Rigidbody RbSphere { get; private set; }
         [field: SerializeField] public Rigidbody CarBody { get; private set; }
@@ -61,6 +63,7 @@ namespace Cars
             if (Application.isPlaying)
                 return;
 
+            // Rays
             Gizmos.color = Color.cyan;
 
             if (RayPoses[0] == null || RayPoses[1] == null || RayPoses[2] == null || RayPoses[3] == null)
