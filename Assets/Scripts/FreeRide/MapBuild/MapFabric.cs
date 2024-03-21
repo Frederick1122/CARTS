@@ -20,33 +20,45 @@ namespace FreeRide.Map
                 OnResultUpdate?.Invoke(_result);
             }
         }
-
-        [SerializeField] private AnimationCurve _destroyTime;
-
-        [SerializeField] private int _startCountOfPeieces = 2;
-        [SerializeField] private MapPiecesHolder _startPiece;
-        [SerializeField] private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
-
+        
+        [SerializeField] private Transform _playerSpawnPoint;
+        [SerializeField] private Transform _mapSpawnPoint;
+        
         private int _result = 0;
 
+        //
+        private MapFabricData _currentData;
+        // private MapPiecesHolder _startPiece;
+        // private MapPiecesHolder[] _piecePrefabs = new MapPiecesHolder[2];
+        //
+        // private AnimationCurve _destroyTime;
+        // private int _startCountOfPieces = 2;
+        //
+        
         private PoolMono<MapPiecesHolder> _piecePool;
         private MapPiecesHolder _lastPiece = null;
         private static readonly int _poolCount = 6;
 
         private readonly List<MapPiecesHolder> _spawned = new();
 
-        public void Init()
+        public void Init(MapFabricData mapFabricData)
         {
-            _piecePool = new PoolMono<MapPiecesHolder>(_piecePrefabs.ToList(), _poolCount);
+            _currentData = mapFabricData;
+            
+            _piecePool = new PoolMono<MapPiecesHolder>(_currentData.piecePrefabs.ToList(), _poolCount);
 
-            InitPiece(_startPiece);
-            _startPiece.gameObject.SetActive(true);
+            var startPiece = Instantiate(_currentData.startPiece, _mapSpawnPoint);
 
-            for (int i = 0; i < _startCountOfPeieces; i++)
+            InitPiece(startPiece);
+            startPiece.gameObject.SetActive(true);
+
+            for (int i = 0; i < _currentData.startCountOfPieces; i++)
                 SpawnPiece();
         }
 
-        public void SpawnPiece()
+        public Transform GetPlayerSpawnPoint() => _playerSpawnPoint;
+
+        private void SpawnPiece()
         {
             var piece = _piecePool.GetObject();
 
@@ -60,12 +72,12 @@ namespace FreeRide.Map
         {
             piece.OnPieceReach += UpdateResult;
             piece.OnFinish += WhenFinishPiece;
-            piece.OnFall += StopFabic;
+            piece.OnFall += StopFabric;
 
             _lastPiece = piece;
 
             var coinsCount = UnityEngine.Random.Range(0, piece.MaxCoinsCount);
-            piece.Spawn(_destroyTime.Evaluate(_result), coinsCount);
+            piece.Spawn(_currentData.destroyTime.Evaluate(_result), coinsCount);
 
             _spawned.Add(piece);
         }
@@ -78,21 +90,30 @@ namespace FreeRide.Map
             Result++;
             piece.OnPieceReach -= UpdateResult;
             piece.OnFinish -= WhenFinishPiece;
-            piece.OnFall -= StopFabic;
+            piece.OnFall -= StopFabric;
             _spawned.Remove(piece);
 
             SpawnPiece();
         }
 
-        private void StopFabic()
+        private void StopFabric()
         {
             foreach (var piece in _spawned)
             {
                 piece.OnFinish -= WhenFinishPiece;
-                piece.OnFall -= StopFabic;
+                piece.OnFall -= StopFabric;
             }
 
             OnFall?.Invoke();
         }
+    }
+
+    [Serializable]
+    public class MapFabricData
+    {
+        public AnimationCurve destroyTime;
+        public MapPiecesHolder startPiece;
+        public MapPiecesHolder[] piecePrefabs = new MapPiecesHolder[2];
+        public int startCountOfPieces = 2;
     }
 }
