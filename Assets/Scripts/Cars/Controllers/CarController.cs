@@ -263,18 +263,19 @@ namespace Cars.Controllers
 
             _lastHorizontalInput = horizontalInput;
 
-            var speedModificator = _permanentSpeedModifier;
+            var currentSpeedModifier = _permanentSpeedModifier;
 
             foreach (var speedModifier in _speedModifiers)
-                speedModificator += speedModifier.isBoost ? 1 : -1;
+                currentSpeedModifier += speedModifier.isBoost ? 1 : -1;
 
-            if (speedModificator != 0)
+            if (currentSpeedModifier != 0)
             {
-                speedModificator = speedModificator < 0 ? -1 : 1; 
-                speedModificator *= SPEED_STEP_PERCENT;
+                currentSpeedModifier = currentSpeedModifier < 0 ? -1 : 1; 
+                currentSpeedModifier *= SPEED_STEP_PERCENT;
             }
 
-            var maxSpeed = _maxSpeed / 100 * (100 + speedModificator) * _baseSpeedModifier;
+            currentSpeedModifier += GetAdditionalSpeedModifier();
+            var maxSpeed = _maxSpeed / 100 * (100 + currentSpeedModifier) * _baseSpeedModifier;
             var acceleration = _acceleration * _baseAccelerationModifier;
             var turnSpeed = _turnSpeed;
 
@@ -372,6 +373,11 @@ namespace Cars.Controllers
                 _bodyMesh.localRotation = Quaternion.Slerp(_bodyMesh.localRotation, Quaternion.Euler(0, 0, 0), 0.05f);
         }
 
+        protected virtual int GetAdditionalSpeedModifier()
+        {
+            return 0;
+        }
+        
         private bool CheckIfGrounded()
         {
             Vector3 origin = _rbSphere.position + _radius * Vector3.up;

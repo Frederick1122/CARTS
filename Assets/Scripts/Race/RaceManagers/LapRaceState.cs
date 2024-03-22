@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
+using Cars;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -28,7 +29,7 @@ namespace Race.RaceManagers
         [Inject] private GameDataInstaller.LapRaceGameData _defaultLapRaceGameData;
 
         private GameDataInstaller.LapRaceGameData _lapRaceGameData;
-
+        private LapRaceAIHelper _aiHelper;
         private CarController _player;
 
         private Track _currentTrack;
@@ -59,6 +60,7 @@ namespace Race.RaceManagers
             InitTrack();
             InitPlayer();
             InitAi();
+            InitAiHelper();
 
             InitCollisionsDetetections();
 
@@ -81,7 +83,8 @@ namespace Race.RaceManagers
             Clear();
 
             Object.Destroy(_currentTrack != null ? _currentTrack.gameObject : null); 
-            Object.Destroy(_player != null ? _player.gameObject : null); 
+            Object.Destroy(_player != null ? _player.gameObject : null);
+            Object.Destroy(_aiHelper != null ? _aiHelper.gameObject : null);
         }
 
         public override int GetResult()
@@ -96,6 +99,7 @@ namespace Race.RaceManagers
 
             _player.TurnEngineOn();
             _currentTrack.StartRace();
+            _aiHelper.StartRace();
             _positionCts = new CancellationTokenSource();
             CheckPlayerPosition(_positionCts.Token).Forget();
             _startTime = DateTime.Now;
@@ -233,7 +237,15 @@ namespace Race.RaceManagers
                     collisionDetection, waypointTracker);
             }
         }
-
+        
+        private void InitAiHelper()
+        {
+            var aiHelperGameObject = new GameObject("AiHelper", new[] {typeof(LapRaceAIHelper)});
+            aiHelperGameObject.transform.parent = _currentTrack.transform;
+            _aiHelper = aiHelperGameObject.GetComponent<LapRaceAIHelper>();
+            _aiHelper.Init(_currentTrack.GetWaypointMainProgressTracker(), _enemies);
+        }
+        
         private void InitTrack()
         {
             var trackConfig = TrackLibrary.Instance.GetConfig(_lapRaceGameData.trackKey);

@@ -2,11 +2,13 @@ using Cars.Controllers;
 using Cars.InputSystem;
 using Cars.Tools;
 using ConfigScripts;
+using Managers;
 using UnityEngine;
 
 public class AITargetCarController : CarController
 {
     private Transform _target;
+    private float _additionalModifier;
 
     public override void Init(IInputSystem inputSystem, CarConfig carConfig, 
         CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
@@ -23,6 +25,11 @@ public class AITargetCarController : CarController
         _turnSpeed = Config.turnLevels[0].Value;
     }
 
+    public void SetAdditionalModifier(float additionalModifier)
+    {
+        _additionalModifier = additionalModifier;
+    }
+
     protected override void CalculateDesiredAngle()
     {
         Vector3 aimedPoint = _target.position;
@@ -33,5 +40,10 @@ public class AITargetCarController : CarController
         myDir.Normalize();
 
         DesiredTurning = Mathf.Abs(Vector3.Angle(myDir, Vector3.ProjectOnPlane(aimedDir, transform.up)));
+    }
+
+    protected override int GetAdditionalSpeedModifier()
+    {
+        return (int)_additionalModifier;
     }
 }
