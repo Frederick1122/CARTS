@@ -143,7 +143,7 @@ namespace Race.RaceManagers
         }
 
         public void AddCollision(CarCollisionDetection collision, Collider collider) =>
-    AllCollisions.Add(collision, collider);
+            AllCollisions.Add(collision, collider);
 
         public void InitCollisionsDetetections()
         {

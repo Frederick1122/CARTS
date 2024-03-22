@@ -8,10 +8,10 @@ using UnityEngine;
 public class PlayerCarController : CarController
 {
     public override void Init(IInputSystem inputSystem, CarConfig carConfig, 
-        CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
+        CarPresetConfig carPresetConfig, CarCollisionDetection collisionDetection, 
         ITargetHolder targetHolder = null)
     {
-        base.Init(inputSystem, carConfig, carPresetConfig, carCollisionDetection, targetHolder);
+        base.Init(inputSystem, carConfig, carPresetConfig, collisionDetection, targetHolder);
         _camera.gameObject.SetActive(true);
     }
 

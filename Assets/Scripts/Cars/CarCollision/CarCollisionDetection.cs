@@ -2,11 +2,12 @@ using ModestTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 namespace Cars.Tools
 {
-    public class CarCollisionDetection : MonoBehaviour, ICarCollision
+    public class CarCollisionDetection : MonoBehaviour,  ICarCollision
     {
         public event Action OnNoCollidersIn;
 
@@ -20,7 +21,6 @@ namespace Cars.Tools
             {
                 if (value)
                 {
-                    //ClearColliders();
                     _isWork = true;
                     TurnCollisionOff();
                 }
@@ -54,12 +54,8 @@ namespace Cars.Tools
             if (!((_layerMask.value & (1 << other.gameObject.layer)) > 0))
                 return;
 
-            if (other.gameObject.TryGetComponent(out ICarCollision carCollision))
-            {
-                //Physics.IgnoreCollision(_selfCollider, other, true);
-                //Physics.IgnoreCollision(other, _selfCollider, true);
+            if (other.gameObject.TryGetComponent(out ICarCollision _))
                 AddCollider(other);
-            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -70,10 +66,8 @@ namespace Cars.Tools
             if (!((_layerMask.value & (1 << other.gameObject.layer)) > 0))
                 return;
 
-            if (other.gameObject.TryGetComponent(out ICarCollision carCollision))
-            {
+            if (other.gameObject.TryGetComponent(out ICarCollision _))
                 RemoveCollider(other);
-            }
         }
 
         private void OnDestroy()

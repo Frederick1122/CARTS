@@ -2,13 +2,8 @@ using Cars.InputSystem;
 using Cars.Tools;
 using Cinemachine;
 using ConfigScripts;
-using Core.Tools;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using Obstacles;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cars.Controllers
@@ -17,14 +12,15 @@ namespace Cars.Controllers
     public abstract class CarController : MonoBehaviour
     {
         private const int SPEED_STEP_PERCENT = 50;
+        public bool IsActive => _isCarActive;
 
         public float SkidWidth { get; set; }
         public float DesiredTurning { get; protected set; }
         public Vector3 CarVelocity { get; protected set; }
         public bool IsGrounded { get; protected set; }
-        public bool IsActive => _isCarActive;
-
         public CarConfig Config { get; protected set; }
+
+        private bool _isCarActive = false;
 
         private CarPresetConfig _presetConfig;
 
@@ -49,43 +45,26 @@ namespace Cars.Controllers
         private float _radius;
         private readonly Dictionary<Transform, Transform> _wheelsAxel = new();
         private SphereCollider _sphereCollider;
-        private bool _isCarActive = false;
+        
 
-        private CarCollisionDetection _collisionDetection;
-        private float _carResistanceAfterSpawn;
-        private CancellationTokenSource _resistanceToken;
+        // Car Collision
+        private CarCollisionManager _collisionManager;
+
+        // Modifiers
         private int _permanentSpeedModifier;
         private List<SpeedModifier> _speedModifiers = new();
-
         protected float _baseSpeedModifier = 1;
         protected float _baseAccelerationModifier = 1;
 
+        // 
         protected float _maxSpeed = 0;
         protected float _turnSpeed = 0;
         protected float _acceleration = 0;
 
         private float _lastHorizontalInput = 0;
-
-        private readonly List<Renderer> _onCarRenderer = new();
-        
-        public void IncreaseModifier(float speed, float acceleration)
-        {
-            _baseSpeedModifier += speed;
-            _baseAccelerationModifier += acceleration;
-        }
-
-        public void AddSpeedModifier(SpeedModifier speedModifier, bool isPermanent = false)
-        {
-            if (isPermanent) 
-                _permanentSpeedModifier = speedModifier.isBoost ? 1 : -1;
-            else 
-                _speedModifiers.Add(speedModifier);
-        }
-
-        public void RemovePermanentSpeedModifier() => _permanentSpeedModifier = 0;
         
         public virtual void Init(IInputSystem inputSystem, CarConfig carConfig, 
-            CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
+            CarPresetConfig carPresetConfig, CarCollisionDetection collisionDetection, 
             ITargetHolder targetHolder = null)
         {
             _targetHolder = targetHolder;
@@ -109,24 +88,10 @@ namespace Cars.Controllers
 
             _inputSystem.IsActive = false;
 
-            _collisionDetection = carCollisionDetection;
-            _collisionDetection.Init(GetComponent<BoxCollider>(), _onCarLayers);
-
-            var childRenderer = GetComponentsInChildren<Renderer>();
-            foreach (var child in childRenderer)
-            {
-                if (child.TryGetComponent(out ParticleSystem _))
-                    continue;
-
-                _onCarRenderer.Add(child);
-            }
+            _collisionManager = gameObject.AddComponent<CarCollisionManager>(); ;
+            _collisionManager.Init(collisionDetection, carPresetConfig.CarResistanceAfterSpawn, _onCarLayers);
 
             SetUpCharacteristic();
-        }
-
-        private void OnDestroy()
-        {
-            _resistanceToken?.Cancel();
         }
 
         protected virtual void FixedUpdate()
@@ -148,7 +113,6 @@ namespace Cars.Controllers
             _movementMode = carPresetConfig.MovementMode;
             _groundCheck = carPresetConfig.GroundCheck;
             _drivableSurface = carPresetConfig.DrivableSurface;
-            _carResistanceAfterSpawn = carPresetConfig.CarResistanceAfterSpawn;
         }
 
         private void InitFromCarPrefabData(CarPrefabData carData)
@@ -163,13 +127,15 @@ namespace Cars.Controllers
             SkidWidth = carData.SkidWidth;
         }
 
+        public void MakeResistance(float time = -1) => _collisionManager.MakeResistance(time);
+
         public void TurnEngineOn()
         {
             _inputSystem.IsActive = true;
             _isCarActive = true;
 
             // test
-            MakeResistance(_carResistanceAfterSpawn);
+            MakeResistance();
         }
 
         public void TurnEngineOff()
@@ -180,7 +146,7 @@ namespace Cars.Controllers
 
         public void ResetCar(Vector3 pos, Quaternion rot)
         {
-            MakeResistance(_carResistanceAfterSpawn);
+            MakeResistance();
 
             _carBody.velocity = Vector3.zero;
             _bodyMesh.localRotation = Quaternion.Euler(Vector3.zero);
@@ -198,11 +164,21 @@ namespace Cars.Controllers
             transform.SetPositionAndRotation(pos, rot);
         }
 
-        public void MakeResistance(float time = -1)
+        public void IncreaseModifier(float speed, float acceleration)
         {
-            _resistanceToken = new CancellationTokenSource();
-            MakeResistanceCuro(_resistanceToken.Token, time).Forget();
+            _baseSpeedModifier += speed;
+            _baseAccelerationModifier += acceleration;
         }
+
+        public void AddSpeedModifier(SpeedModifier speedModifier, bool isPermanent = false)
+        {
+            if (isPermanent)
+                _permanentSpeedModifier = speedModifier.isBoost ? 1 : -1;
+            else
+                _speedModifiers.Add(speedModifier);
+        }
+
+        public void RemovePermanentSpeedModifier() => _permanentSpeedModifier = 0;
 
         public void ChangeModifier(float speedModifier, float accelerationModifier)
         {
@@ -210,48 +186,7 @@ namespace Cars.Controllers
             _baseAccelerationModifier = accelerationModifier;
         }
 
-        private async UniTaskVoid MakeResistanceCuro(CancellationToken token, float time = -1)
-        {
-            var resistanceTime = time == -1 ? _carResistanceAfterSpawn : time;
-            _collisionDetection.IsWork = true;
-            BeResistance();
-
-            await UniTask.Delay(TimeSpan.FromSeconds(resistanceTime), cancellationToken: token);
-
-            if (_collisionDetection.CollisionCanTurnOn)
-                BeUnResistance();
-            else
-                _collisionDetection.OnNoCollidersIn += BeUnResistance;
-        }
-
-        private void BeResistance()
-        {
-            foreach (var renderer in _onCarRenderer)
-            {
-                var mat = renderer.material;
-                mat.ToFadeMode();
-                var color1 = new Color(mat.color.r, mat.color.g, mat.color.b, 0.3f);
-                var color2 = new Color(mat.color.r, mat.color.g, mat.color.b, 0.6f);
-                mat.color = color2;
-                mat.DOColor(color1, 2).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
-            }
-        }
-
-        private void BeUnResistance()
-        {
-            _collisionDetection.OnNoCollidersIn -= BeUnResistance;
-            _collisionDetection.IsWork = false;
-
-            foreach (var renderer in _onCarRenderer)
-            {
-                var mat = renderer.material;
-                mat.ToOpaqueMode();
-                DOTween.Kill(mat);
-                mat.SetOverrideTag("RenderType", "");
-                var color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
-                mat.DOColor(color, 0);
-            }
-        }
+        protected virtual int GetAdditionalSpeedModifier() { return 0; }
 
         protected virtual void Move()
         {
@@ -371,11 +306,6 @@ namespace Cars.Controllers
             }
             else
                 _bodyMesh.localRotation = Quaternion.Slerp(_bodyMesh.localRotation, Quaternion.Euler(0, 0, 0), 0.05f);
-        }
-
-        protected virtual int GetAdditionalSpeedModifier()
-        {
-            return 0;
         }
         
         private bool CheckIfGrounded()
