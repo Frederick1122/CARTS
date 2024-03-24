@@ -6,6 +6,7 @@ Shader "Toon/TV_CustomToonOutline"
 	{
 		_TextureSample3("Texture Sample", 2D) = "white" {}
 		_OutlineWidth2("Outline  Width", Range( 0.0001 , 0.5)) = 0.0065
+		_Transparency("Transparency", Range(0, 255)) = 255
 		_TextureRamp("Texture Ramp", 2D) = "white" {}
 		_OutlineColor("Outline Color", Color) = (0,0,0,0)
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
@@ -79,6 +80,7 @@ Shader "Toon/TV_CustomToonOutline"
 		uniform sampler2D _TextureRamp;
 		uniform float4 _OutlineColor;
 		uniform float _OutlineWidth2;
+		uniform int _Transparency;
 
 		void vertexDataFunc( inout appdata_full v, out Input o )
 		{
@@ -136,7 +138,7 @@ Shader "Toon/TV_CustomToonOutline"
 			float2 temp_cast_3 = (temp_output_63_0).xx;
 			float3 break39 = temp_output_37_0;
 			c.rgb = ( ( float4( indirectDiffuse52 , 0.0 ) * tex2DNode46 ) + ( ( tex2DNode46 * float4( staticSwitch48 , 0.0 ) ) * ( tex2D( _TextureRamp, temp_cast_3 ) * ( temp_output_63_0 * max( max( break39.x , break39.y ) , break39.z ) ) ) ) ).rgb;
-			c.a = 1;
+			c.a = _Transparency / 255;
 			return c;
 		}
 
