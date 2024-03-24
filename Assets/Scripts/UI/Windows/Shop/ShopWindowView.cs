@@ -16,7 +16,7 @@ namespace UI.Windows.Shop
 
         [SerializeField] private Button _backButton;
 
-        [Header("Characteristic")]
+        [Header("Animation")]
         [SerializeField] private float _scaleDuration = 0.5f;
 
         [Header("Section Buttons")]
@@ -115,7 +115,7 @@ namespace UI.Windows.Shop
             colorBlock.normalColor = Color.grey;
             button.colors = colorBlock;
 
-            _buttonsTransforms[button].DOScale(new Vector3(1f, 1f, 1), _scaleDuration);
+            _buttonsTransforms[button].DOScale(Vector3.one, _scaleDuration);
         }
 
         private void MakeButtonChosenVisual(Button button)

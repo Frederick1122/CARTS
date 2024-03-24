@@ -9,12 +9,22 @@ namespace ConfigScripts
     [CreateAssetMenu(fileName = "CarConfig", menuName = "Configs/Car Config")]
     public class CarConfig : BaseConfig
     {
+        public static Dictionary<Rarity, Color32> RarityColors = new()
+        {
+            {Rarity.Default, Color.black },
+            {Rarity.Common, Color.white },
+            {Rarity.Uncommon, new Color32(51, 153, 255, 255) },
+            {Rarity.Rare, new Color32(127, 0, 255, 255) },
+            {Rarity.Legendary, new Color32(255, 128, 0, 255) },
+        };
+
         public Sprite CarIcon;
         public CarPrefabData prefab;
         public bool isOnlyForAi;
-        public Price price = new(0, CurrencyType.Regular);
+        public Price price = new(0, CurrencyType.Soft);
+        public Price dublicatePrice = new(0, CurrencyType.Soft);
 
-        [field: SerializeField] public CarClass CarClass { get; private set; } = CarClass.Default;
+        [field: SerializeField] public Rarity Rarity { get; private set; } = Rarity.Default;
 
         [Header("Characteristic")]
         public List<CharacteristicLevel> maxSpeedLevels = new() { new CharacteristicLevel(100, 5) };
@@ -36,7 +46,7 @@ namespace ConfigScripts
     public class Price
     {
         [field:SerializeField] public int Value { get; private set; } = 0;
-        [field: SerializeField] public CurrencyType CurrencyType { get; private set; } = CurrencyType.Regular;
+        [field: SerializeField] public CurrencyType CurrencyType { get; private set; } = CurrencyType.Soft;
 
         public Price(int value, CurrencyType currencyType)
         {
@@ -56,15 +66,14 @@ namespace ConfigScripts
             Value = value;
             Price = price;
         }   
-
-
     }
 
-    public enum CarClass
+    public enum Rarity
     {
         Default = 0,
         Common = 1, 
-        Rare = 2, 
-        Epic = 3
+        Uncommon = 2, 
+        Rare = 3,
+        Legendary = 4
     }
 }

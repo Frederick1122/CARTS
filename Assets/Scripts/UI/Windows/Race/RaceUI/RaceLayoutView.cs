@@ -8,9 +8,20 @@ namespace UI.Windows
 {
     public class RaceLayoutView : UIView
     {
-        [SerializeField] private TMP_Text _startDelayText;
+        [SerializeField] protected TMP_Text _startDelayText;
 
+        private int _delay = 0;
         private CancellationTokenSource _startDelayCts;
+
+        public override void Show()
+        {
+            base.Show();
+            
+            if (_delay > 0) 
+                StartDelay();
+            else 
+                _startDelayText.gameObject.SetActive(false);
+        }
 
         public override void UpdateView(UIModel uiModel)
         {
@@ -23,23 +34,27 @@ namespace UI.Windows
                 return;
             }
 
+            _delay = castModel.delay;
+            StartDelay();
+        }
+
+        private void StartDelay()
+        {
             _startDelayCts?.Cancel();
             _startDelayCts = new CancellationTokenSource();
 
-            StartDelayTask(_startDelayCts.Token, castModel.delay).Forget();
+            StartDelayTask(_startDelayCts.Token).Forget();
         }
         
-        private async UniTaskVoid StartDelayTask(CancellationToken token, int delay)
+        private async UniTaskVoid StartDelayTask(CancellationToken token)
         {
             _startDelayText.gameObject.SetActive(true);
-
-            var i = delay;
-
-            while (i > 0)
+            
+            while (_delay > 0)
             {
-                _startDelayText.text = i.ToString();
+                _startDelayText.text = _delay.ToString();
                 await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
-                i--;
+                _delay--;
             }
 
             _startDelayText.text = "GO!";

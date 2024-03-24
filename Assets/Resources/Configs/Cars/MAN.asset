@@ -20,7 +20,10 @@ MonoBehaviour:
   price:
     <Value>k__BackingField: 0
     <CurrencyType>k__BackingField: 0
-  <CarClass>k__BackingField: 1
+  dublicatePrice:
+    <Value>k__BackingField: 10
+    <CurrencyType>k__BackingField: 0
+  <Rarity>k__BackingField: 3
   maxSpeedLevels:
   - <Value>k__BackingField: 100
     <Price>k__BackingField: 1
@@ -105,3 +108,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 6
+  skidWidth: 0.2

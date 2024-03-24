@@ -10,8 +10,14 @@ namespace Race
     public class Track : MonoBehaviour
     {
         [SerializeField] private int _playerPlace = -1;
+        [SerializeField] private WaypointMainProgressTracker _waypointMainProgressTracker;
         [SerializeField] private List<StartRacePlace> _carPlaces = new(4);
 
+        public void StartRace()
+        {
+            _waypointMainProgressTracker.StartRace();
+        }
+        
         public SpawnData SpawnPlayer(CarPrefabData playerPrefab)
         {
             var playerPlace = _playerPlace == -1 ? _carPlaces[^1] : _carPlaces[_playerPlace];
@@ -43,6 +49,11 @@ namespace Race
             return enemiesSpawnDatas;
         }
 
+        public WaypointMainProgressTracker GetWaypointMainProgressTracker()
+        {
+            return _waypointMainProgressTracker;
+        }
+        
         public int GetCarPlacesCount()
         {
             return _carPlaces.Count;
