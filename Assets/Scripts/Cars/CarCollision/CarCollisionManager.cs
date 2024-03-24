@@ -10,12 +10,15 @@ namespace Cars.Tools
 {
     public class CarCollisionManager : MonoBehaviour
     {
+        private const float MAX_RESISTANCE_TIME = 20;
+
         public bool IsWork => _collisionDetection.IsWork;
         public bool CollisionCanTurnOn => _collisionDetection;
 
         private CarCollisionDetection _collisionDetection;
 
         private float _resistanceAfterSpawn;
+        private float _maxResistanceTimer = MAX_RESISTANCE_TIME;
 
         private readonly List<Renderer> _RenderersOnCar = new();
         private CancellationTokenSource _resistanceToken;
@@ -40,6 +43,15 @@ namespace Cars.Tools
         private void OnDestroy() =>
             _resistanceToken.Cancel();
 
+        private void Update()
+        {
+            if (_collisionDetection.IsWork)
+                _maxResistanceTimer -= Time.deltaTime;
+
+            if (_maxResistanceTimer <= 0)
+                MakeResistance(0);
+        }
+
         public void MakeResistance(float time = -1)
         {
             _resistanceToken = new CancellationTokenSource();
@@ -49,6 +61,7 @@ namespace Cars.Tools
         private async UniTaskVoid MakeResistanceCuro(CancellationToken token, float time = -1)
         {
             var resistanceTime = time == -1 ? _resistanceAfterSpawn : time;
+            _maxResistanceTimer = MAX_RESISTANCE_TIME + resistanceTime;
             _collisionDetection.IsWork = true;
             BeResistance();
 
@@ -65,11 +78,8 @@ namespace Cars.Tools
             foreach (var renderer in _RenderersOnCar)
             {
                 var mat = renderer.material;
-                mat.ToFadeMode();
-                var color1 = new Color(mat.color.r, mat.color.g, mat.color.b, 0.3f);
-                var color2 = new Color(mat.color.r, mat.color.g, mat.color.b, 0.6f);
-                mat.color = color2;
-                mat.DOColor(color1, 2).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+                var color = new Color32(100, 100, 100, 255);
+                mat.DOColor(color, 1).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
             }
         }
 
@@ -81,10 +91,9 @@ namespace Cars.Tools
             foreach (var renderer in _RenderersOnCar)
             {
                 var mat = renderer.material;
-                mat.ToOpaqueMode();
                 DOTween.Kill(mat);
                 mat.SetOverrideTag("RenderType", "");
-                var color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
+                var color = new Color32(255, 255, 255, 255);
                 mat.DOColor(color, 0);
             }
         }
