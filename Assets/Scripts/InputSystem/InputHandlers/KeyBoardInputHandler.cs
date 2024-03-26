@@ -19,6 +19,15 @@ namespace Cars.InputSystem.Player
         private float _horA = 0;
         private float _brA = 0;
 
+
+        public void Init()
+        {
+            IsActive = false;
+            _vertA = 0;
+            _horA = 0;
+            _brA = 0;
+        }
+
         private void Update()
         {
             if (!IsActive)

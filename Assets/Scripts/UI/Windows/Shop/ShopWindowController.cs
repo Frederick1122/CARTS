@@ -28,6 +28,10 @@ namespace UI.Windows.Shop
         {
             _view.Init(GetViewData());
 
+            _gachaWindowController.Init();
+            _saleShopWindowController.Init();
+            _battlePassWindowController.Init();
+
             _allSectionWindows.Add(_gachaWindowController);
             _allSectionWindows.Add(_saleShopWindowController);
             _allSectionWindows.Add(_battlePassWindowController);
@@ -53,7 +57,7 @@ namespace UI.Windows.Shop
             base.Show();
             ShowStartSection();
             //temp
-            BuyAllCarDev();
+            //BuyAllCarDev();
             UIManager.Instance.GetWidgetUI().ShowWindow(typeof(CurrencyWidgetController), false);
         }
 

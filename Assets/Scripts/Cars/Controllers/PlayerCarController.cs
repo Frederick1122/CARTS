@@ -3,25 +3,15 @@ using Cars.InputSystem;
 using Cars.Tools;
 using ConfigScripts;
 using Managers;
+using UnityEngine;
 
 public class PlayerCarController : CarController
 {
-    private WaypointProgressTracker _waypointProgressTracker;
-
-    public override float GetPassedDistance()
-    {
-        if (_waypointProgressTracker != null)
-            return _waypointProgressTracker.GetPassedDistance();
-
-        return 0;
-    }
-
     public override void Init(IInputSystem inputSystem, CarConfig carConfig, 
-        CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
+        CarPresetConfig carPresetConfig, CarCollisionDetection collisionDetection, 
         ITargetHolder targetHolder = null)
     {
-        base.Init(inputSystem, carConfig, carPresetConfig, carCollisionDetection, targetHolder);
-        _waypointProgressTracker = targetHolder as WaypointProgressTracker;
+        base.Init(inputSystem, carConfig, carPresetConfig, collisionDetection, targetHolder);
         _camera.gameObject.SetActive(true);
     }
 
@@ -34,6 +24,11 @@ public class PlayerCarController : CarController
         _maxSpeed = Config.maxSpeedLevels[speedLvl].Value;
         _turnSpeed = Config.turnLevels[turnLvl].Value;
         _acceleration = Config.accelerationLevels[accelerationLvl].Value;
+    }
+    
+    public void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 200, 20), $"{CarVelocity.magnitude}");
     }
 
     protected override void CalculateDesiredAngle() =>

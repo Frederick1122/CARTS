@@ -49,6 +49,7 @@ namespace ConfigScripts
         public LayerMask ObstacleLayer;
 
         [Header("Rays Settings")]
+        public AnimationCurve RayEfficient;
         public float RayLength = 5;
 
         [Header("Other")]

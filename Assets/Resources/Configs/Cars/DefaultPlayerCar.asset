@@ -12,19 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e8a6955281d254a8c973ae1466b083, type: 3}
   m_Name: DefaultPlayerCar
   m_EditorClassIdentifier: 
-  configName: Default Car
+  configName: Dodge
   configKey: DefaultPlayerCar
   CarIcon: {fileID: 0}
-  prefab: {fileID: 9030740812605336414, guid: c59158e403383c04c9e9b0a303a94990, type: 3}
+  prefab: {fileID: 3780192533924008452, guid: 69ec3b87bf9d7bd49b226b3d6c9e995d, type: 3}
   isOnlyForAi: 0
   price:
-    value: 0
-    currencyType: 0
-  <CarClass>k__BackingField: 1
+    <Value>k__BackingField: 0
+    <CurrencyType>k__BackingField: 0
+  dublicatePrice:
+    <Value>k__BackingField: 10
+    <CurrencyType>k__BackingField: 0
+  <Rarity>k__BackingField: 1
   maxSpeedLevels:
-  - <Value>k__BackingField: 50
+  - <Value>k__BackingField: 90
     <Price>k__BackingField: 1
-  - <Value>k__BackingField: 70
+  - <Value>k__BackingField: 95
     <Price>k__BackingField: 3
   accelerationLevels:
   - <Value>k__BackingField: 5
@@ -32,7 +35,7 @@ MonoBehaviour:
   - <Value>k__BackingField: 6
     <Price>k__BackingField: 2
   turnLevels:
-  - <Value>k__BackingField: 3
+  - <Value>k__BackingField: 2
     <Price>k__BackingField: 1
   gravity: 7
   downforce: 5
@@ -105,3 +108,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 6
+  skidWidth: 0.2

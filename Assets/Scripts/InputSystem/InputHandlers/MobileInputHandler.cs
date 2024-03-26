@@ -15,14 +15,14 @@ namespace Cars.InputSystem.Player
 
         private IButtonsInput _buttonController;
 
-        private void Start()
+        public void Init()
         {
-            var controller = UIManager.Instance.GetMobileLayoutUI().ShowWindow(typeof(MobileLayoutController))
+            var controller = UIManager.Instance.GetMobileLayoutUI().ShowWindow(typeof(MobileLayoutController), false)
                 as MobileLayoutController;
-            Init(controller.GetButtons());
+            Sub(controller.GetButtons());
         }
 
-        public void Init(IButtonsInput buttonController)
+        public void Sub(IButtonsInput buttonController)
         {
             _buttonController = buttonController;
             _buttonController.ForwardButton.OnDown += Forward;

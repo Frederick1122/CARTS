@@ -1,5 +1,6 @@
 using Base;
 using CameraManger.Lobby;
+using Lobby.Gacha;
 using Lobby.Garage;
 using Managers;
 using Managers.Libraries;
@@ -13,6 +14,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
     [field: Header("Parts")]
     [field: SerializeField] public Garage Garage { get; set; }
+    [field: SerializeField] public LootBoxManager LootBoxManager { get; set; }
 
     public void Init()
     {
@@ -21,5 +23,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
         Garage.Init();
         Garage.UpdateGarage(PlayerManager.Instance.GetCurrentCar());
+
+        LootBoxManager.Init();
     }
 }

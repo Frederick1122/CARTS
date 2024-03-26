@@ -7,6 +7,9 @@ namespace UI
 {
     public class UIManager : Singleton<UIManager>
     {
+        [SerializeField] private Camera _uiCamera;
+
+        [Header("Main UI")]
         [SerializeField] private LobbyUI _lobbyUI;
         [SerializeField] private RaceUI _raceUI;
         [SerializeField] private WidgetUi _widgetUi;
@@ -14,6 +17,8 @@ namespace UI
 
         public void Init()
         {
+            _uiCamera.rect = new Rect(0, 0, 1, 1);
+
             _widgetUi.Init();
             _lobbyUI.Init();
             _raceUI.Init();

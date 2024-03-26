@@ -15,10 +15,10 @@ namespace UI.Elements
             HideAll();
             switch (type)
             {
-                case CurrencyType.Regular:
+                case CurrencyType.Soft:
                     _regularCurrencyImage.enabled = true;
                     break;
-                case CurrencyType.Premium:
+                case CurrencyType.Hard:
                     _premiumCurrencyImage.enabled = true;
                     break;
                 default:

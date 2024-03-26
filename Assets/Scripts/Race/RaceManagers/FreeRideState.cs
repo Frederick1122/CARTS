@@ -5,6 +5,7 @@ using Cars.Controllers;
 using Cars.InputSystem;
 using Cars.InputSystem.Player;
 using Cars.Tools;
+using ConfigScripts;
 using FreeRide;
 using FreeRide.Map;
 using Installers;
@@ -29,6 +30,7 @@ namespace Race.RaceManagers
 
         private CarController _player;
 
+        private FreeRideTrackConfig _config;
         private Transform _startPosition;
         private MapFabric _mapFabric;
         private DifficultyModifier _difficultyModifier;
@@ -52,15 +54,17 @@ namespace Race.RaceManagers
                 _freeRideGameData = _defaultFreeRideGameData;
             }
 
+            _config = FreeRideTrackLibrary.Instance.GetConfig(_freeRideGameData.trackKey);
+
             InitTrack();
             InitPlayer();
             InitCollisionsDetetections();
 
-            _mapFabric.Init();
+            _mapFabric.Init(_config.mapFabricData);
             _mapFabric.OnResultUpdate += UpdateResult;
             _mapFabric.OnFall += PlayerFall;
 
-            _difficultyModifier.Init(_player, this);
+            _difficultyModifier.Init(_player, this, _config.freeRideDifficultyModifierData);
             _startTime = DateTime.Now;
         }
 
@@ -103,6 +107,7 @@ namespace Race.RaceManagers
             var playerConfig = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey);
             var playerPreset = PresetLibrary.Instance.GetConfig(PLAYER_PRESET_NAME);
             var playerPrefab = playerConfig.prefab;
+            _startPosition.transform.position -= playerPrefab.GetLowestPoint();
             var player = Object.Instantiate(playerPrefab, _startPosition);
             _player = (CarController)player.gameObject.AddComponent(playerPreset.CarController);
 
@@ -117,10 +122,9 @@ namespace Race.RaceManagers
 
         private void InitTrack()
         {
-            var trackConfig = FreeRideTrackLibrary.Instance.GetConfig(_freeRideGameData.trackKey);
-            _currentTrack = Object.Instantiate(trackConfig.freeRidePrefab);
+            _currentTrack = Object.Instantiate(_config.freeRidePrefab);
 
-            _startPosition = _currentTrack.startPosition;
+            _startPosition = _currentTrack.mapFabric.GetPlayerSpawnPoint();
             _mapFabric = _currentTrack.mapFabric;
             _difficultyModifier = _currentTrack.difficultyModifier;
         }
@@ -139,7 +143,7 @@ namespace Race.RaceManagers
         }
 
         public void AddCollision(CarCollisionDetection collision, Collider collider) =>
-    AllCollisions.Add(collision, collider);
+            AllCollisions.Add(collision, collider);
 
         public void InitCollisionsDetetections()
         {
