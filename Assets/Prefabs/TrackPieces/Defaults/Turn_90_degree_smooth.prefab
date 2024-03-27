@@ -147,7 +147,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4111404322488755287}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5f21b0ba45459344f832eb9e6f655f81, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -181,8 +181,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4, y: 4, z: 30}
-  m_Center: {x: -12.69824, y: 1, z: 0.17588806}
+  m_Size: {x: 31.42899, y: 4, z: 30}
+  m_Center: {x: 1.0162544, y: 1, z: 0.17588806}
 --- !u!114 &1863871542430211569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <StartPoint>k__BackingField: {fileID: 6778389716435042957}
   <EndPoint>k__BackingField: {fileID: 2134667419930006342}
+  _shakeStrength: 0.1
 --- !u!1 &8256757082498794468
 GameObject:
   m_ObjectHideFlags: 0

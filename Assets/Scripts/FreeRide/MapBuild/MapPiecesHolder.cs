@@ -11,7 +11,7 @@ namespace FreeRide.Map
 {
     public class MapPiecesHolder : MonoBehaviour, IPoolObject
     {
-        private const float LASTS_TIME = 5f;
+        private const float LASTS_TIME = 10f;
 
         public event Action OnFall = delegate { };
         public event Action OnPieceReach = delegate { };
@@ -45,8 +45,6 @@ namespace FreeRide.Map
                 piece.OnReach += PieceReach;
                 piece.OnGoToDestroy += PieceDestroy;
             }
-
-            ResetBeforeBackToPool();
         }
 
         private void OnDestroy()
@@ -113,7 +111,7 @@ namespace FreeRide.Map
             if (_lastsCount >= _mapPieces.Count)
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                DestroyTask(_cancellationTokenSource.Token);
+                DestroyTask(_cancellationTokenSource.Token).Forget();
             }
         }
 
