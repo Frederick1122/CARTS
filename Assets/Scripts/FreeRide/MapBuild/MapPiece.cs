@@ -1,4 +1,5 @@
 using Cars.Controllers;
+using Cars.Tools;
 using CustomSnapTool;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -8,9 +9,9 @@ using UnityEngine;
 
 namespace FreeRide.Map
 {
+    [RequireComponent(typeof(Collider))]
     public class MapPiece : MonoBehaviour
     {
-        public event Action<MapPiece> OnReach = delegate { };
         public event Action<MapPiece> OnGoToDestroy = delegate { };
 
         [field: Header("Points")]
@@ -25,8 +26,14 @@ namespace FreeRide.Map
 
         private float _timeToDestroySec = 5f;
         private Vector3 _spawnPosition;
+        private Collider _collider;
 
-        public void Init(float destroyTime)
+        private void Awake()
+        {
+            _collider = GetComponent<Collider>();
+        }
+
+        public void Spawn(float destroyTime)
         {
             _timeToDestroySec = destroyTime;
             _spawnPosition = transform.localPosition;
@@ -40,11 +47,14 @@ namespace FreeRide.Map
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out CarController _) && 
-                !other.transform.parent.TryGetComponent(out CarController _))
+            FreeRideCarHelper player;
+            if (!other.TryGetComponent(out player) && 
+                !other.transform.parent.TryGetComponent(out player))
                 return;
 
-            OnReach?.Invoke(this);
+            player.SetMinimalY(_collider.bounds.min.y);
+            player.ReachPiece();
+
             _destroyCancellationTokenSource = new CancellationTokenSource();
             _shakeCancellationTokenSource = new CancellationTokenSource();
 

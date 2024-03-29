@@ -1,4 +1,5 @@
 using Base.Pool;
+using Race.RaceManagers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,35 +9,24 @@ namespace FreeRide.Map
 {
     public class MapFabric : MonoBehaviour
     {
-        public event Action<int> OnResultUpdate;
-        public event Action OnFall = delegate { };
-
-        public int Result
-        {
-            get => _result;
-            private set
-            {
-                _result = value;
-                OnResultUpdate?.Invoke(_result);
-            }
-        }
-        
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private Transform _mapSpawnPoint;
-        
-        private int _result = 0;
 
         private MapFabricData _currentData;
 
         private PoolMono<MapPiecesHolder> _piecePool;
         private MapPiecesHolder _lastPiece = null;
-        private static readonly int _poolCount = 6;
+        private static readonly int _poolCount = 12;
 
-        private readonly List<MapPiecesHolder> _spawned = new();
+        private int _score => _state.GetResult();
+        private FreeRideState _state;
 
-        public void Init(MapFabricData mapFabricData)
+        private readonly List<IPoolObject> _spawned = new();
+
+        public void Init(MapFabricData mapFabricData, FreeRideState state)
         {
             _currentData = mapFabricData;
+            _state = state;
             
             _piecePool = new PoolMono<MapPiecesHolder>(_currentData.piecePrefabs.ToList(), _poolCount);
 
@@ -46,58 +36,49 @@ namespace FreeRide.Map
             startPiece.gameObject.SetActive(true);
 
             for (int i = 0; i < _currentData.startCountOfPieces; i++)
-                SpawnPiece();
+                SpawnPiece(true);
         }
 
         public Transform GetPlayerSpawnPoint() => _playerSpawnPoint;
 
-        private void SpawnPiece()
+        public void SpawnPiece(bool forceSpawn = false)
         {
-            var piece = _piecePool.GetObject();
+            if(!forceSpawn)
+            {
+                if (_spawned.Count >= _currentData.startCountOfPieces * 2)
+                    return;
+            }
 
-            if (_lastPiece != null)
-                piece.ConnectToPoint(_lastPiece.GetConnector());
-
-            InitPiece(piece); 
+            for (int i = 0; i < 2; i++)
+            {
+                var piece = _piecePool.GetObject();
+                if (_lastPiece != null)
+                    piece.ConnectToPoint(_lastPiece.GetConnector());
+                InitPiece(piece);
+            }
         }
 
         private void InitPiece(MapPiecesHolder piece)
         {
-            piece.OnPieceReach += UpdateResult;
-            piece.OnFinish += WhenFinishPiece;
-            piece.OnFall += StopFabric;
-
             _lastPiece = piece;
 
             var coinsCount = UnityEngine.Random.Range(0, piece.MaxCoinsCount);
-            piece.Spawn(_currentData.destroyTime.Evaluate(_result), coinsCount);
+            piece.Spawn(_currentData.destroyTime.Evaluate(_score), coinsCount);
+            piece.OnObjectNeededToDeactivate += DestroyPiece;
 
             _spawned.Add(piece);
         }
 
-        private void UpdateResult() =>
-            Result++;
-
-        private void WhenFinishPiece(MapPiecesHolder piece)
+        private void DestroyPiece(IPoolObject piece)
         {
-            Result++;
-            piece.OnPieceReach -= UpdateResult;
-            piece.OnFinish -= WhenFinishPiece;
-            piece.OnFall -= StopFabric;
+            piece.OnObjectNeededToDeactivate -= DestroyPiece;
             _spawned.Remove(piece);
-
-            SpawnPiece();
         }
 
-        private void StopFabric()
+        public void StopFabric()
         {
             foreach (var piece in _spawned)
-            {
-                piece.OnFinish -= WhenFinishPiece;
-                piece.OnFall -= StopFabric;
-            }
-
-            OnFall?.Invoke();
+                piece.OnObjectNeededToDeactivate -= DestroyPiece;
         }
     }
 
