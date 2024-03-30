@@ -210,11 +210,23 @@ namespace Managers
         protected override void Load()
         {
             base.Load();
-            if (_saveData == null)
-            {
-                _saveData = new PlayerData(_defaultCar);
-                Save();
-            }
+            _saveData ??= new PlayerData(_defaultCar);
+
+            var carConfigKeys = CarLibrary.Instance.GetAllConfigs().Select(car => car.configKey);
+            var validConfigs = new Dictionary<string, CarData>();
+            foreach (var purchasedCar in _saveData.purchasedCars)
+                if (carConfigKeys.Contains(purchasedCar.Key))
+                    validConfigs.Add(purchasedCar.Key, purchasedCar.Value);
+            
+            if (validConfigs.Count == 0)
+                validConfigs.Add(_defaultCar.configKey, _defaultCar);
+
+            if (!validConfigs.ContainsKey(_saveData.currentCar.configKey))
+                _saveData.currentCar = _defaultCar;
+            
+            _saveData.purchasedCars = validConfigs;
+
+            Save();
         }
 
         protected override void UpdatePath()
