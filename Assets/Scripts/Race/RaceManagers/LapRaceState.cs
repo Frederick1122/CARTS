@@ -211,7 +211,7 @@ namespace Race.RaceManagers
         {
             var carClass = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).Rarity;
 
-            var enemyConfigs = ((CarLibrary)CarLibrary.Instance).GetConfigsByRarity(carClass, _currentTrack.GetCarPlacesCount() - 1);
+            var enemyConfigs = ((CarLibrary)CarLibrary.Instance).GetRandomConfigsByRarity(carClass, _currentTrack.GetCarPlacesCount() - 1);
 
             var spawnEnemyDatas = _currentTrack.SpawnAiTrucks(enemyConfigs, _lapRaceGameData.botCount);
 

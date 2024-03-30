@@ -19,7 +19,7 @@ namespace Managers
         [SerializeField] private CarData _defaultCar;
 
         #region CarWork
-        public void PurchaseDefaultCar() => AddPurchasedCar(_defaultCar.configKey);
+        public void PurchaseDefaultCar() => TryToPurchaseCar(_defaultCar.configKey);
 
         public IReadOnlyList<CarData> GetPurchasedCars()
         {
@@ -36,15 +36,15 @@ namespace Managers
             return false;
         }
 
-        public bool AddPurchasedCar(string carConfigKey)
+        public bool TryToPurchaseCar(string carConfigKey)
         {
             if (_saveData.purchasedCars.ContainsKey(carConfigKey))
                 return false;
 
             var carConfig = CarLibrary.Instance.GetConfig(carConfigKey);
+
             if (!IsEnoughMoney(carConfig.price))
                 return false;    
-            
             DecreaseCurrency(carConfig.price.CurrencyType, carConfig.price.Value);
             
             _saveData.purchasedCars.Add(carConfigKey, new CarData(carConfigKey));

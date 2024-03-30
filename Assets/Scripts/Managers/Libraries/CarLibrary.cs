@@ -17,13 +17,13 @@ namespace Managers.Libraries
 
         public CarConfig GetRandomConfigByRarity(Rarity rarity)
         {
-            var configs = GetConfigsByRarity(rarity);
+            var configs = GetAllConfigsByRarity(rarity);
             var rndNum = Random.Range(0, configs.Count);
 
             return configs[rndNum];
         }
 
-        public IReadOnlyList<CarConfig> GetConfigsByRarity(Rarity rarity)
+        public IReadOnlyList<CarConfig> GetAllConfigsByRarity(Rarity rarity)
         {
             var classConfigs = new List<CarConfig>();
             if (rarity != Rarity.Default)
@@ -33,9 +33,9 @@ namespace Managers.Libraries
             return classConfigs;
         }
 
-        public IReadOnlyList<CarConfig> GetConfigsByRarity(Rarity rarity, int count)
+        public IReadOnlyList<CarConfig> GetRandomConfigsByRarity(Rarity rarity, int count)
         {
-            var rarityConfigs = GetConfigsByRarity(rarity);
+            var rarityConfigs = GetAllConfigsByRarity(rarity);
 
             var configs = new List<CarConfig>();
             for (int i = 0; i < count; i++)
