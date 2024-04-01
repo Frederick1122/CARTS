@@ -73,4 +73,10 @@ namespace Managers
         [JsonProperty(MUSIC)]
         public float musicVolume = 1f;
     }
+    
+    public enum SliderType
+    {
+        Music = 0,
+        Sound = 1,
+    }
 }
