@@ -90,7 +90,7 @@ namespace UI.Windows.Shop.Sections.Gacha
             if (PlayerManager.Instance.TryGetPurchasedCarData(config.configKey, out CarData _))
                 PlayerManager.Instance.IncreaseCurrency(config.dublicatePrice);
             else
-                PlayerManager.Instance.AddPurchasedCar(config.configKey);
+                PlayerManager.Instance.TryToPurchaseCar(config.configKey);
 
             _castView.UpdateLootBoxImage(slotNum, null);
             _castView.ChangeBuyButtonCondition(PlayerManager.Instance.IsEnoughMoney(_price));

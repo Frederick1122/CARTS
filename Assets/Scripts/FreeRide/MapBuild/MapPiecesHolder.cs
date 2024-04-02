@@ -11,11 +11,8 @@ namespace FreeRide.Map
 {
     public class MapPiecesHolder : MonoBehaviour, IPoolObject
     {
-        private const float LASTS_TIME = 5f;
+        private const float LASTS_TIME = 2f;
 
-        public event Action OnFall = delegate { };
-        public event Action OnPieceReach = delegate { };
-        public event Action<MapPiecesHolder> OnFinish = delegate { };
         public event Action<IPoolObject> OnObjectNeededToDeactivate = delegate { };
 
         public int MaxCoinsCount => _coinsPlace.Length;
@@ -32,8 +29,6 @@ namespace FreeRide.Map
         private readonly System.Random _rnd = new();
 
         private int _lastsCount = 0;
-        private int _reachCount = 0;
-
         private CancellationTokenSource _cancellationTokenSource = new();
 
         private void Awake()
@@ -41,29 +36,15 @@ namespace FreeRide.Map
             _coinsOrder = Enumerable.Range(0, _coinsPlace.Length).ToArray();
 
             foreach (MapPiece piece in _mapPieces)
-            {
-                piece.OnReach += PieceReach;
                 piece.OnGoToDestroy += PieceDestroy;
-            }
-
-            ResetBeforeBackToPool();
         }
 
         private void OnDestroy()
         {
             foreach (MapPiece piece in _mapPieces)
-            {
-                piece.OnReach -= PieceReach;
                 piece.OnGoToDestroy -= PieceDestroy;
-            }
 
             _cancellationTokenSource.Cancel();
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent(out CarController _) || other.transform.parent.TryGetComponent(out CarController _))
-                OnFall?.Invoke();
         }
 
         public void Spawn(float timeToDestroySec, int coinsCount)
@@ -77,7 +58,7 @@ namespace FreeRide.Map
             }
 
             foreach (MapPiece piece in _mapPieces)
-                piece.Init(timeToDestroySec);
+                piece.Spawn(timeToDestroySec);
         }
 
         public CustomSnapPoint GetConnector()
@@ -99,7 +80,6 @@ namespace FreeRide.Map
             transform.localScale = new Vector3(1, 1, 1);
 
             _lastsCount = 0;
-            _reachCount = 0;
             foreach (var piece in _mapPieces)
                 piece.ResetPiece();
 
@@ -113,16 +93,8 @@ namespace FreeRide.Map
             if (_lastsCount >= _mapPieces.Count)
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                DestroyTask(_cancellationTokenSource.Token);
+                DestroyTask(_cancellationTokenSource.Token).Forget();
             }
-        }
-
-        private void PieceReach(MapPiece piece)
-        {
-            _reachCount++;
-            OnPieceReach?.Invoke();
-            if (_reachCount >= _mapPieces.Count)
-                OnFinish?.Invoke(this);
         }
 
         private async UniTaskVoid DestroyTask(CancellationToken cancellationToken)

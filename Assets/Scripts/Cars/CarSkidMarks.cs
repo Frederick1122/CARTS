@@ -31,14 +31,18 @@ namespace Cars.Tools
 
         private void OnDisable() => _skidMark.enabled = false;
 
-        private void FixedUpdate() => ParticleWork();
+        private void Update() => ParticleWork();
 
         private void ParticleWork()
         {
             if (_skidMark.emitting)
+            {
                 _smoke.Play();
+            }
             else
+            {
                 _smoke.Stop();
+            }
 
             if (_controller == null)
                 return;

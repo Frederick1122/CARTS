@@ -14,7 +14,7 @@ public class DataSaver
 
         //Convert To Json then to bytes
 
-        string jsonData = JsonConvert.SerializeObject(dataToSave);
+        string jsonData = JsonConvert.SerializeObject(dataToSave, Formatting.Indented);
         byte[] jsonByte = Encoding.ASCII.GetBytes(jsonData);
 
         //Create Directory if it does not exist

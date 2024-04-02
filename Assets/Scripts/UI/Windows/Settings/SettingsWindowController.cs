@@ -1,4 +1,7 @@
 ﻿using System;
+using Managers;
+using UI.Elements;
+using Unity.VisualScripting;
 
 namespace UI.Windows.Settings
 {
@@ -6,10 +9,41 @@ namespace UI.Windows.Settings
     {
         public event Action OpenLobbyAction;
 
+        private SettingsWindowView _castView;
+
+        private SliderController _musicSliderController;
+        private SliderController _soundSliderController;
+
         public override void Init()
         { 
-            GetView<SettingsWindowView>().OpenLobbyAction += OpenLobby;
             base.Init();
+            
+            _castView = GetView<SettingsWindowView>();
+            _castView.OpenLobbyAction += OpenLobby;
+
+            _musicSliderController = _castView.MusicSlider.AddComponent<SliderController>();
+            _musicSliderController.Setup(_castView.MusicSlider,
+                () => SettingsManager.Instance.GetVolume(SliderType.Music),
+                value => SettingsManager.Instance.SetVolume(SliderType.Music, value));
+            
+            _soundSliderController = _castView.SoundSlider.AddComponent<SliderController>();
+            _soundSliderController.Setup(_castView.SoundSlider,
+                () => SettingsManager.Instance.GetVolume(SliderType.Sound),
+                value => SettingsManager.Instance.SetVolume(SliderType.Sound, value));
+        }
+
+        public override void Show()
+        {
+            base.Show();
+            _musicSliderController.Show();
+            _soundSliderController.Show();
+        }
+
+        public override void Hide()
+        {
+            _musicSliderController.Hide();
+            _soundSliderController.Hide();
+            base.Hide();
         }
 
         private void OnDestroy()
@@ -17,7 +51,7 @@ namespace UI.Windows.Settings
             if (_view == null)
                 return;
 
-            GetView<SettingsWindowView>().OpenLobbyAction -= OpenLobby;
+            _castView.OpenLobbyAction -= OpenLobby;
         }
 
         protected override UIModel GetViewData()

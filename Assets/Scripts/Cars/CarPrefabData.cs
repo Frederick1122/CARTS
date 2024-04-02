@@ -52,8 +52,10 @@ namespace Cars
         {
             if(_sphereCollider == null)
                 _sphereCollider = RbSphere.GetComponent<SphereCollider>();
+            var radius = _sphereCollider.radius;
+            var delta = Mathf.Abs(transform.position.y) - Mathf.Abs(RbSphere.transform.position.y);
             var point = Vector3.zero;
-            point.y = transform.localScale.y * (RbSphere.transform.position.y -  _sphereCollider.radius);
+            point.y = transform.localScale.y * (delta - radius);
             return point;
         }
 
