@@ -1,4 +1,5 @@
 ﻿using Core.FSM;
+using Managers;
 using ProjectFsms;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,6 +24,7 @@ namespace FsmStates.RaceFsm
         public override void Exit()
         {
             base.Exit();
+            SoundManager.Instance.StopAllSound();
             Time.timeScale = 1f;
         }
     }

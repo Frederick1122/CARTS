@@ -23,13 +23,13 @@ namespace UI.Windows.Settings
 
             _musicSliderController = _castView.MusicSlider.AddComponent<SliderController>();
             _musicSliderController.Setup(_castView.MusicSlider,
-                () => SettingsManager.Instance.GetVolume(SliderType.Music),
-                value => SettingsManager.Instance.SetVolume(SliderType.Music, value));
+                () => SettingsManager.Instance.GetVolume(SoundType.Music),
+                value => SettingsManager.Instance.SetVolume(SoundType.Music, value));
             
             _soundSliderController = _castView.SoundSlider.AddComponent<SliderController>();
             _soundSliderController.Setup(_castView.SoundSlider,
-                () => SettingsManager.Instance.GetVolume(SliderType.Sound),
-                value => SettingsManager.Instance.SetVolume(SliderType.Sound, value));
+                () => SettingsManager.Instance.GetVolume(SoundType.Sound),
+                value => SettingsManager.Instance.SetVolume(SoundType.Sound, value));
         }
 
         public override void Show()

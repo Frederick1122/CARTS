@@ -23,11 +23,12 @@ namespace FMODUnity
         public bool OverrideAttenuation = false;
         public float OverrideMinDistance = -1.0f;
         public float OverrideMaxDistance = -1.0f;
-
+        
         protected FMOD.Studio.EventDescription eventDescription;
 
         protected FMOD.Studio.EventInstance instance;
 
+        private EventReference _lastEventReference;
         private bool hasTriggered = false;
         private bool isQuitting = false;
         private bool isOneshot = false;
@@ -193,9 +194,10 @@ namespace FMODUnity
 
             cachedParams.Clear();
 
-            if (!eventDescription.isValid())
+            if (_lastEventReference.Guid != EventReference.Guid || !eventDescription.isValid())
             {
                 Lookup();
+                _lastEventReference = EventReference;
             }
 
             bool isSnapshot;

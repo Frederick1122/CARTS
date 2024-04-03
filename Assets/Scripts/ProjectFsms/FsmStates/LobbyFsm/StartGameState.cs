@@ -1,6 +1,7 @@
 ﻿using Core.FSM;
 using Installers;
 using System;
+using Managers;
 using UnityEngine.SceneManagement;
 
 namespace FsmStates.LobbyFsm
@@ -24,6 +25,12 @@ namespace FsmStates.LobbyFsm
                 _ => throw new ArgumentOutOfRangeException(),
             };
             SceneManager.LoadScene(sceneName);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            SoundManager.Instance.StopAllSound();
         }
     }
 }
