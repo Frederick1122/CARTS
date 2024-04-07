@@ -1,9 +1,7 @@
 ﻿using Cars;
-using Cars.Controllers;
 using ConfigScripts;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject.SpaceFighter;
 
 namespace Race
 {
@@ -12,6 +10,7 @@ namespace Race
         [SerializeField] private int _playerPlace = -1;
         [SerializeField] private WaypointMainProgressTracker _waypointMainProgressTracker;
         [SerializeField] private List<StartRacePlace> _carPlaces = new(4);
+        [SerializeField] private List<WaypointCircuit> _circuits = new();
 
         public void StartRace()
         {
@@ -23,7 +22,7 @@ namespace Race
             var playerPlace = _playerPlace == -1 ? _carPlaces[^1] : _carPlaces[_playerPlace];
             playerPlace.transform.position -= playerPrefab.GetLowestPoint();
             var player = Instantiate(playerPrefab, playerPlace.transform);
-            return new SpawnData(player, playerPlace.GetWaypointCircuit());
+            return new SpawnData(player);
         }
 
         public List<SpawnData> SpawnAiTrucks(IReadOnlyList<CarConfig> enemyConfigs, int count)
@@ -42,7 +41,7 @@ namespace Race
                 var enemy = Instantiate(enemyConfigs[i].prefab, _carPlaces[i].transform);
                 //enemy.transform.rotation = Quaternion.identity;
 
-                enemiesSpawnDatas.Add(new SpawnData(enemy, _carPlaces[i].GetWaypointCircuit()));
+                enemiesSpawnDatas.Add(new SpawnData(enemy));
             }
 
             return enemiesSpawnDatas;
@@ -52,7 +51,12 @@ namespace Race
         {
             return _waypointMainProgressTracker;
         }
-        
+
+        public List<WaypointCircuit> GetWaypointCircuits()
+        {
+            return _circuits;
+        }
+
         public int GetCarPlacesCount()
         {
             return _carPlaces.Count;
@@ -62,14 +66,12 @@ namespace Race
     public class SpawnData
     {
         public CarPrefabData car;
-        public WaypointCircuit circuit;
 
         public SpawnData() { }
 
-        public SpawnData(CarPrefabData car, WaypointCircuit circuit)
+        public SpawnData(CarPrefabData car)
         {
             this.car = car;
-            this.circuit = circuit;
         }
     }
 }

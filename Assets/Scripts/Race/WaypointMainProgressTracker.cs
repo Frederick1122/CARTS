@@ -30,6 +30,11 @@ namespace Race
         {
             return _circuit.Length;
         }
+
+        public WaypointCircuit GetCircuit()
+        {
+            return _circuit;
+        }
         
         public void Init(List<CarController> cars)
         {
