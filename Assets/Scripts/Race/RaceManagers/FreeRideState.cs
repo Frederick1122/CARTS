@@ -61,7 +61,6 @@ namespace Race.RaceManagers
             InitPlayer();
             InitCollisionsDetetections();
 
-            _score = 0;
             _mapFabric.Init(_config.mapFabricData, this);
 
             _difficultyModifier.Init(_player, this, _config.freeRideDifficultyModifierData);
@@ -83,6 +82,8 @@ namespace Race.RaceManagers
         public override void StartRace()
         {
             _player.TurnEngineOn();
+            _score = 0;
+
             base.StartRace();
         }
 
