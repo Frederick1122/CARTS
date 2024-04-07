@@ -38,6 +38,11 @@ namespace UI.Windows.FreeRide
             base.Hide();
         }
 
+        public void ResetScore()
+        {
+            _scoreController.ResetScore();
+        }
+        
         protected override UIModel GetViewData()
         {
             return _model;
