@@ -1,5 +1,6 @@
 using Cars;
 using Cars.Controllers;
+using ConfigScripts;
 using Managers;
 using Managers.Libraries;
 using UI;
@@ -12,7 +13,7 @@ namespace Lobby.Garage
         [SerializeField] private Transform _carPlace;
 
         public CarData SpawnedCarData {  get; private set; }
-        public CarPrefabData SpawnedCarPrefabData { get; private set; }
+        public CarConfig SpawnedCarConfig { get; private set; }
 
         public void Init()
         {
@@ -30,15 +31,15 @@ namespace Lobby.Garage
         {
             for (int i = 0; i < _carPlace.childCount; i++)
                 Destroy(_carPlace.GetChild(i).gameObject);
-            
-            var carPref = CarLibrary.Instance.GetConfig(data.configKey).prefab;
+
+            SpawnedCarConfig = CarLibrary.Instance.GetConfig(data.configKey);
+            SpawnedCarData = data;
+
+            var carPref = SpawnedCarConfig.prefab;
             var spawnedCar = Instantiate(carPref, _carPlace);
             spawnedCar.RbSphere.isKinematic = true;
             DestroyImmediate(spawnedCar.GetComponent<Rigidbody>());
             spawnedCar.transform.position -= carPref.GetLowestPoint();
-            
-            SpawnedCarData = data;
-            SpawnedCarPrefabData = spawnedCar;
         }
     }
 }

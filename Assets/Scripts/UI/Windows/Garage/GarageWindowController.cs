@@ -66,7 +66,7 @@ namespace UI.Windows.Garage
         private void UpdateGarageUI()
         {
             var garage = LobbyManager.Instance.Garage;
-            _garageCarController.UpdateInfo(garage.SpawnedCarData, garage.SpawnedCarPrefabData);
+            _garageCarController.UpdateInfo(garage.SpawnedCarData, garage.SpawnedCarConfig);
         }
 
         private void SetUpPurchasedCarSwiper()

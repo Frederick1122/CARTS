@@ -1,4 +1,5 @@
 using Cars;
+using ConfigScripts;
 using Managers;
 using Managers.Libraries;
 using System;
@@ -21,13 +22,13 @@ namespace UI.Windows.Garage
         private void OnDestroy() =>
             GetView<GarageCarView>().OnUpgrade -= Upgrade;
 
-        public void UpdateInfo(CarData data, CarPrefabData spawnedCar)
+        public void UpdateInfo(CarData data, CarConfig spawnedCar)
         {
             _model.SpeedLvl = data.maxSpeedLevel + 1;
             _model.AccelerationLvl = data.accelerationLevel + 1;
             _model.TurnSpeedLvl = data.turnLevel + 1;
 
-            _model.CarPrefabData = spawnedCar;
+            _model.CarConfig = spawnedCar;
 
             var carConfig = CarLibrary.Instance.GetConfig(data.configKey);
             var speedCost = _model.SpeedLvl >= carConfig.maxSpeedLevels.Count ? -1 : carConfig.maxSpeedLevels[data.maxSpeedLevel + 1].Price;
