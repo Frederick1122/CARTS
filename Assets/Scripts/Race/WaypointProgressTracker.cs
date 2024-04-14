@@ -1,6 +1,7 @@
 using Cars.Controllers;
 using Cars.InputSystem;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHolder
@@ -16,7 +17,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
     [SerializeField] private ProgressStyle _progressStyle = ProgressStyle.SmoothAlongRoute;
 
     public Transform Target { get; set; }
-    public WaypointCircuit Circuit { get; set; }
+    public List<WaypointCircuit> Circuits { get; set; } = new();
     public WaypointCircuit.RoutePoint ProgressPoint { get; private set; }
 
     // The offset ahead only the route for speed adjustments (applied as the rotation of the waypoint target transform)
@@ -36,7 +37,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
     private float _currentRespawnTime;
 
     private float _lapDistance;
-    private int _lapCount = 1;
+    private int _lapCount = 0;
 
     private CarController _controller;
     private IInputSystem _inputSystem;
@@ -47,7 +48,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
         _controller = carController;
         _inputSystem = inputSystem;
 
-        _lapDistance = Circuit.Length;
+        _lapDistance = Circuits[0].Length;
     }
 
     // reset the object to sensible values
@@ -72,17 +73,17 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
 
         if (_progressStyle == ProgressStyle.PointToPoint)
         {
-            var point = Circuit.Waypoints[_progressNum];
+            var point = Circuits[_lapCount].Waypoints[_progressNum];
             Target.SetPositionAndRotation(point.position, point.rotation);
         }
     }
 
     private void Update()
     {
-        if (!_inputSystem.IsActive)
+        if (!_inputSystem.IsActive || Circuits.Count <= _lapCount)
             return;
 
-        ProgressPoint = Circuit.GetRoutePoint(_progressDistance);
+        ProgressPoint = Circuits[_lapCount].GetRoutePoint(_progressDistance);
 
         // get our current progress along the route
         var progressDelta = ProgressPoint.Position - transform.position;
@@ -97,15 +98,23 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
                 // we use lerp as a simple way of smoothing out the speed over time.
                 _speed = _controller.CarVelocity.z;
 
-                var routePoint = Circuit.GetRoutePoint(
+                var routePoint = Circuits[_lapCount].GetRoutePoint(
                     _progressDistance + _lookAheadForTargetOffset + _lookAheadForTargetFactor * _speed);
                 Target.SetPositionAndRotation(routePoint.Position, Quaternion.LookRotation(routePoint.Direction));
 
                 if (dot < 0)
                     _progressDistance += progressDelta.magnitude * 0.5f;
 
-                if (_progressDistance > _lapDistance * _lapCount) 
+                if (_progressDistance > _lapDistance)
+                {
+                    _progressDistance = 0;
                     _lapCount++;
+                    
+                    if (Circuits.Count <= _lapCount)
+                        return;
+                    
+                    _lapDistance = Circuits[_lapCount].Length;
+                }
                 break;
             }
 
@@ -114,9 +123,9 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
                 // point to point mode. Just increase the waypoint if we're close enough:
                 var targetDelta = Target.position - transform.position;
                 if (targetDelta.magnitude < _pointToPointThreshold)
-                    _progressNum = (_progressNum + 1) % Circuit.Waypoints.Length;
+                    _progressNum = (_progressNum + 1) % Circuits[_lapCount].Waypoints.Length;
 
-                var routePoint = Circuit.Waypoints[_progressNum];
+                var routePoint = Circuits[_lapCount].Waypoints[_progressNum];
                 Target.SetPositionAndRotation(routePoint.position, routePoint.rotation);
 
                 if (dot < 0)
@@ -132,7 +141,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
 
     private void RespawnOnRoad()
     {
-        if (Vector3.Distance(transform.position, Circuit.GetRoutePosition(_progressDistance)) > 15
+        if (Vector3.Distance(transform.position, Circuits[_lapCount].GetRoutePosition(_progressDistance)) > 15
             || Mathf.Abs(_speed) <= 0.02f)
             _currentRespawnTime += Time.deltaTime;
         else
@@ -156,13 +165,13 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (Application.isPlaying)
+        if (Application.isPlaying && Circuits.Count > _lapCount)
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(transform.position, Target.position);
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(Circuit.GetRoutePosition(_progressDistance), 0.2f);
-            Gizmos.DrawLine(transform.position, Circuit.GetRoutePosition(_progressDistance));
+            Gizmos.DrawWireSphere(Circuits[_lapCount].GetRoutePosition(_progressDistance), 0.2f);
+            Gizmos.DrawLine(transform.position, Circuits[_lapCount].GetRoutePosition(_progressDistance));
             Gizmos.DrawLine(Target.position, Target.position + Target.forward);
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(Target.position, 1);

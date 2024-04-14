@@ -1,4 +1,5 @@
 using Cars;
+using ConfigScripts;
 using Managers;
 using System;
 using System.Data;
@@ -21,19 +22,16 @@ namespace UI.Windows.Garage
 
         public override void Init(UIModel uiModel)
         {
-            UpdateData((GarageCarModel)uiModel);
+            var castModel = (GarageCarModel)uiModel;
+            _speed.Init();
+            _acceleration.Init();
+            _turnSpeed.Init();
 
-            _speed.Init(_uiCamera, _uiCanvas);
+            UpdateData(castModel);
+
             _speed.OnCharacteristicUpgrade += Upgrade;
-            _speed.DisableLine();
-
-            _acceleration.Init(_uiCamera, _uiCanvas);
             _acceleration.OnCharacteristicUpgrade += Upgrade;
-            _acceleration.DisableLine();
-
-            _turnSpeed.Init(_uiCamera, _uiCanvas);
             _turnSpeed.OnCharacteristicUpgrade += Upgrade;
-            _turnSpeed.DisableLine();
         }
 
         private void OnDestroy()
@@ -41,14 +39,6 @@ namespace UI.Windows.Garage
             _speed.OnCharacteristicUpgrade -= Upgrade;
             _acceleration.OnCharacteristicUpgrade -= Upgrade;
             _turnSpeed.OnCharacteristicUpgrade -= Upgrade;
-        }
-
-        public override void Hide()
-        {
-            _speed.DisableLine();
-            _turnSpeed.DisableLine();
-            _acceleration.DisableLine();
-            base.Hide();
         }
 
         private void Upgrade(ModificationType modification) =>
@@ -59,38 +49,21 @@ namespace UI.Windows.Garage
 
         private void UpdateData(GarageCarModel model)
         {
-            _speed.UpdateInfo(model.SpeedLvl, model.SpeedCost);
-            _acceleration.UpdateInfo(model.AccelerationLvl, model.AccelerationCost);
-            _turnSpeed.UpdateInfo(model.TurnSpeedLvl, model.TurnCost) ;
-
-            var data = model.CarPrefabData;
-            if (data == null)
+            if (model.CarConfig == null)
                 return;
-            DrawLine(ModificationType.MaxSpeed, data.GetModificationPlace(ModificationType.MaxSpeed));
-            DrawLine(ModificationType.Acceleration, data.GetModificationPlace(ModificationType.Acceleration));
-            DrawLine(ModificationType.Turn, data.GetModificationPlace(ModificationType.Turn));
-        }
 
-        public void DrawLine(ModificationType modType, Transform obj)
-        {
-            switch (modType)
-            {
-                case ModificationType.MaxSpeed:
-                    _speed.DrawLine(obj);
-                    break;
-                case ModificationType.Turn:
-                    _turnSpeed.DrawLine(obj);
-                    break;
-                case ModificationType.Acceleration:
-                    _acceleration.DrawLine(obj);
-                    break;
-            }
+            _speed.UpdateInfo(model.SpeedLvl, model.CarConfig.maxSpeedLevels.Count, 
+                model.SpeedCost);
+            _acceleration.UpdateInfo(model.AccelerationLvl, model.CarConfig.accelerationLevels.Count, 
+                model.AccelerationCost);
+            _turnSpeed.UpdateInfo(model.TurnSpeedLvl, model.CarConfig.turnLevels.Count, 
+                model.TurnCost);
         }
     }
 
     public class GarageCarModel : UIModel
     {
-        public CarPrefabData CarPrefabData { get; set; }
+        public CarConfig CarConfig { get; set; }
 
         public int SpeedLvl { get; set; } = 0;
         public int SpeedCost { get; set; } = -1;

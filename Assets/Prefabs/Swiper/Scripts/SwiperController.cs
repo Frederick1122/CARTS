@@ -37,7 +37,7 @@ namespace Swiper
         [SerializeField] private Button _nextItemButton;
         [SerializeField] private Button _previousItemButton;
 
-        private readonly List<SwiperItem> _items = new();
+        [SerializeField] private List<SwiperItem> _items = new();
         private readonly Dictionary<int, SwiperItem> _swiperItems = new();
 
         public void Init()
@@ -54,6 +54,9 @@ namespace Swiper
             }
 
             _swipeSnapMenu.OnTabSelected += TabSelected;
+
+            for (int i = 0; i < _items.Count; i++)
+                AddExistedItems(_items[i], i);
 
             SubUI();
         }
@@ -94,7 +97,7 @@ namespace Swiper
             if (!_contentContainer.TryGetComponent(out VerticalLayoutGroup layoutGroup))
                 layoutGroup = _contentContainer.AddComponent<VerticalLayoutGroup>();
 
-            layoutGroup.childControlHeight = false;
+            layoutGroup.childForceExpandWidth = false;
             layoutGroup.childControlHeight = false;
             layoutGroup.childControlWidth = false;
             layoutGroup.spacing = _spacing;
@@ -149,6 +152,18 @@ namespace Swiper
             _swiperItems.Add(_items.Count, item);
             _items.Add(item);
 
+            item.AddComponent<AutoScaleItem>().Init(this, _scrollRect.viewport, _isFree, _swipeMenuType);
+            TryRecalculatePositions();
+
+            SelectTab(curTab);
+        }
+
+        public void AddExistedItems(SwiperItem item, int num)
+        {
+            var curTab = SelectedTab;
+            item.OnClick += OnTabClick;
+
+            _swiperItems.Add(num, item);
             item.AddComponent<AutoScaleItem>().Init(this, _scrollRect.viewport, _isFree, _swipeMenuType);
             TryRecalculatePositions();
 

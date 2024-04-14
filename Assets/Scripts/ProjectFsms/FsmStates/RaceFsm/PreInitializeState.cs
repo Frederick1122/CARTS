@@ -1,4 +1,5 @@
 ﻿using Core.FSM;
+using Managers;
 using ProjectFsms;
 using Race.RaceManagers;
 using UI;
@@ -27,9 +28,11 @@ namespace FsmStates.RaceFsm
             {
                 case LAP_RACE_SCENE:
                     _raceFsmData.raceType = RaceType.LAP_RACE;
+                    SoundManager.Instance.PlayBackground(SceneType.LapRace);
                     break;
                 case FREE_RIDE_SCENE:
                     _raceFsmData.raceType = RaceType.FREE_RIDE;
+                    SoundManager.Instance.PlayBackground(SceneType.FreeRide);
                     break;
             } 
             
@@ -39,7 +42,7 @@ namespace FsmStates.RaceFsm
             UIManager.Instance.SetUiType(UiType.Race);
             UIManager.Instance.GetRaceUi().GetRaceLayout(_raceFsmData.raceType).Show();
             UIManager.Instance.SetUiType(UiType.MobileLayout, false);
-
+            
             _fsm.SetState<StartRaceState>();
         }
     }

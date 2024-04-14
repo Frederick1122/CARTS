@@ -1,4 +1,6 @@
+using System.Collections.Generic;
+
 public interface ICircuitHolder
 {
-    WaypointCircuit Circuit { get; set; }
+    List<WaypointCircuit> Circuits { get; set; }
 }

@@ -15,6 +15,7 @@ using Cars;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Race.RaceManagers
 {
@@ -197,8 +198,13 @@ namespace Race.RaceManagers
 
             var waypointTracker =
                 _player.gameObject.AddComponent<WaypointProgressTracker>();
-            waypointTracker.Circuit = spawnPlayerData.circuit;
 
+            var circuit = _currentTrack.GetWaypointMainProgressTracker().GetCircuit();
+            
+            for (var j = 0; j < GetMaxLapCount(); j++)
+            {
+                waypointTracker.Circuits.Add(circuit);
+            }
             waypointTracker.Init(_player, playerInputSystem);
 
             var collisionDetection = _player.gameObject.AddComponent<CarCollisionDetection>();
@@ -211,10 +217,12 @@ namespace Race.RaceManagers
         {
             var carClass = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).Rarity;
 
-            var enemyConfigs = ((CarLibrary)CarLibrary.Instance).GetConfigsByRarity(carClass, _currentTrack.GetCarPlacesCount() - 1);
+            var enemyConfigs = ((CarLibrary)CarLibrary.Instance).GetRandomConfigsByRarity(carClass, _currentTrack.GetCarPlacesCount() - 1);
 
             var spawnEnemyDatas = _currentTrack.SpawnAiTrucks(enemyConfigs, _lapRaceGameData.botCount);
 
+            var paths = GenerateRandomPaths(_lapRaceGameData.lapCount, _lapRaceGameData.botCount, _currentTrack.GetWaypointCircuits());
+            
             for (var i = 0; i < spawnEnemyDatas.Count; i++)
             {
                 var enemyPreset = PresetLibrary.Instance.GetRandomConfig(PLAYER_PRESET_NAME);
@@ -226,7 +234,9 @@ namespace Race.RaceManagers
                 aiInputSystem.Init(enemyPreset, spawnEnemyDatas[i].car);
 
                 var waypointTracker = enemy.gameObject.AddComponent<WaypointProgressTracker>();
-                waypointTracker.Circuit = spawnEnemyDatas[i].circuit;
+
+                waypointTracker.Circuits = paths[i];
+                
                 _lapsStats.Add(0);
                 waypointTracker.Init(enemy, aiInputSystem);
 
@@ -261,6 +271,33 @@ namespace Race.RaceManagers
                 collision.SetUpAllWorldCollider(AllCollisions.Values.ToList());
         }
 
+        private List<List<WaypointCircuit>> GenerateRandomPaths(int lapCount, int pathCount, List<WaypointCircuit> circuits)
+        {
+            List<List<WaypointCircuit>> paths = new List<List<WaypointCircuit>>();
+
+            for (var i = 0; i < pathCount; i++) 
+                paths.Add(new List<WaypointCircuit>());
+
+            for (var i = 0; i < lapCount; i++)
+            {
+                var copyCircuit = circuits;
+                for (var j = 0; j < pathCount; j++)
+                {
+                    if (copyCircuit.Count == 1)
+                    {
+                        paths[j].Add(copyCircuit[0]);
+                        copyCircuit = circuits;
+                        continue;
+                    }
+
+                    var circuitIdx = Random.Range(0, copyCircuit.Count); 
+                    paths[j].Add(copyCircuit[circuitIdx]);
+                    copyCircuit.RemoveAt(circuitIdx);
+                }
+            }
+
+            return paths;
+        }
         #endregion
     }
 }

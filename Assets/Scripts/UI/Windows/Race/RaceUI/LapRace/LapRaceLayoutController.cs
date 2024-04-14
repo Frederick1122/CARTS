@@ -41,14 +41,6 @@ namespace UI.Windows.LapRace
             GetView<LapRaceLayoutView>().OnNeedToPause -= Pause;
         }
 
-        public override void Show()
-        {
-            _lapCounterController.Show();
-            _positionCounterController.Show();
-
-            base.Show();
-        }
-
         public override void Hide()
         {
             _lapCounterController.Hide();
@@ -68,7 +60,7 @@ namespace UI.Windows.LapRace
             
             if (!_isRaceActive)
                 return;
-
+            
             _model.distance = _lapRaceState.GetPlayerPassedDistance();
             UpdateView();
         }
@@ -82,6 +74,8 @@ namespace UI.Windows.LapRace
         {
             _isRaceActive = true;
             _model.maxDistance = _lapRaceState.GetLapDistance() * _lapRaceState.GetMaxLapCount();
+            _lapCounterController.Show();
+            _positionCounterController.Show();
         }
 
         private void Stop()

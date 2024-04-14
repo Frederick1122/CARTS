@@ -16,7 +16,7 @@ namespace UI.Windows.FreeRide
         {
             _freeRideState = (FreeRideState)RaceManager.Instance.GetState(RaceType.FREE_RIDE);
             _freeRideState.OnResultUpdateAction += UpdateActionScore;
-            _freeRideState.OnStartAction += ResetScore;
+            _freeRideState.OnFinishAction += ResetScore;
 
             _view.Init(_model);
         }
@@ -27,7 +27,7 @@ namespace UI.Windows.FreeRide
                 return;
             
             _freeRideState.OnResultUpdateAction -= UpdateActionScore;
-            _freeRideState.OnStartAction -= ResetScore;
+            _freeRideState.OnFinishAction -= ResetScore;
         }
 
         public override void Show()
@@ -39,16 +39,16 @@ namespace UI.Windows.FreeRide
         public override void UpdateView() =>
             _view.UpdateView(_model);
 
+        public void ResetScore()
+        {
+            _model.Score = 0;
+        }
+        
         protected override UIModel GetViewData()
         {
             return _model;
         }
 
-        private void ResetScore()
-        {
-            _model.Score = 0;
-        }
-        
         private void UpdateActionScore(int value)
         {
             _model.Score = value;

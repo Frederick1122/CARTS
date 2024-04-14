@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UI.Tools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,12 +47,12 @@ namespace UI.Windows.Shop.Sections.Gacha
             if(enabled)
             {
                 _buyButton.enabled = true;
-                MakeButtonChosenVisual(_buyButton);
+                _buyButton.MakeChosenVisual();
             }
             else
             {
                 _buyButton.enabled = false;
-                MakeButtonUnChosenVisual(_buyButton);
+                _buyButton.MakeUnChosenVisual();
             }
         }
 
@@ -72,24 +73,6 @@ namespace UI.Windows.Shop.Sections.Gacha
 
         private void RequestToBuyLootBox() => OnBuyLootBox?.Invoke();
         private void RequestToOpenLootBox(int slotNum) => OnOpenLootBox?.Invoke(slotNum);
-
-        private void MakeButtonUnChosenVisual(Button button)
-        {
-            var colorBlock = button.colors;
-            colorBlock.normalColor = Color.grey;
-            colorBlock.selectedColor = Color.grey;
-            colorBlock.pressedColor = Color.grey;
-            button.colors = colorBlock;
-        }
-
-        private void MakeButtonChosenVisual(Button button)
-        {
-            var colorBlock = button.colors;
-            colorBlock.normalColor = Color.white;
-            colorBlock.selectedColor = Color.white;
-            colorBlock.pressedColor = Color.white;
-            button.colors = colorBlock;
-        }
     }
 
     public class GachaWindowModel : UIModel 

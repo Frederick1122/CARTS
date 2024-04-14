@@ -29,6 +29,7 @@ namespace Race.RaceManagers
         private GameDataInstaller.FreeRideGameData _freeRideGameData;
 
         private CarController _player;
+        private FreeRideCarHelper _carHelper;
 
         private FreeRideTrackConfig _config;
         private Transform _startPosition;
@@ -60,9 +61,7 @@ namespace Race.RaceManagers
             InitPlayer();
             InitCollisionsDetetections();
 
-            _mapFabric.Init(_config.mapFabricData);
-            _mapFabric.OnResultUpdate += UpdateResult;
-            _mapFabric.OnFall += PlayerFall;
+            _mapFabric.Init(_config.mapFabricData, this);
 
             _difficultyModifier.Init(_player, this, _config.freeRideDifficultyModifierData);
             _startTime = DateTime.Now;
@@ -73,8 +72,9 @@ namespace Race.RaceManagers
             if (_mapFabric == null)
                 return;
 
-            _mapFabric.OnResultUpdate -= UpdateResult;
-            _mapFabric.OnFall -= PlayerFall;
+            _carHelper.OnFall -= PlayerFall;
+            _carHelper.OnReachPiece -= UpdateScore;
+
             Object.Destroy(_currentTrack?.gameObject);
             Object.Destroy(_player?.gameObject);
         }
@@ -82,18 +82,14 @@ namespace Race.RaceManagers
         public override void StartRace()
         {
             _player.TurnEngineOn();
+            _score = 0;
+
             base.StartRace();
         }
 
-        public int GetScore()
-        {
-            return _score;
-        }
+        public int GetScore() { return _score; }
 
-        public override int GetResult()
-        {
-            return GameResult.GetFreeRideResult(_score);
-        }
+        public override int GetResult() { return GameResult.GetFreeRideResult(_score); }
 
         public TimeSpan GetPassTime()
         {
@@ -110,6 +106,10 @@ namespace Race.RaceManagers
             _startPosition.transform.position -= playerPrefab.GetLowestPoint();
             var player = Object.Instantiate(playerPrefab, _startPosition);
             _player = (CarController)player.gameObject.AddComponent(playerPreset.CarController);
+
+            _carHelper = player.gameObject.AddComponent<FreeRideCarHelper>();
+            _carHelper.OnReachPiece += ReachPiece;
+            _carHelper.OnFall += PlayerFall;
 
             var playerInputSystem = (IInputSystem)_player.gameObject.AddComponent(typeof(FreeRideInputSystem));
             playerInputSystem.Init(playerPreset, playerPrefab);
@@ -132,14 +132,21 @@ namespace Race.RaceManagers
         private void PlayerFall()
         {
             _player.TurnEngineOff();
+            _mapFabric.StopFabric();
             FinishRace();
         }
 
-        private void UpdateResult(int result)
+        private void UpdateScore()
         {
-            Debug.Log($"Result {result}");
-            _score = result;
-            OnResultUpdateAction?.Invoke(result);
+            _score++;
+            Debug.Log($"Result {_score}");
+            OnResultUpdateAction?.Invoke(_score);
+        }
+
+        private void ReachPiece()
+        {
+            UpdateScore();
+            _mapFabric.SpawnPiece();
         }
 
         public void AddCollision(CarCollisionDetection collision, Collider collider) =>

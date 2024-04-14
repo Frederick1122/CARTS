@@ -107,7 +107,7 @@ namespace UI.Windows.Shop
         {
             foreach (var config in ((CarLibrary)CarLibrary.Instance).GetConfigsWithoutAI())
             {
-                PlayerManager.Instance.AddPurchasedCar(config.configKey);
+                PlayerManager.Instance.TryToPurchaseCar(config.configKey);
                 PlayerManager.Instance.SetCurrentCar(config.configKey);
             }
         }
