@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHolder
 {
-    public event Action OnLapEndAction = delegate { };
 
     // Time for respawn
     [SerializeField] private float _timeToRespawn = 3;
@@ -78,11 +77,6 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
         }
     }
 
-    public float GetPassedDistance()
-    {
-        return _progressDistance;
-    }
-
     private void Update()
     {
         if (!_inputSystem.IsActive)
@@ -110,11 +104,8 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
                 if (dot < 0)
                     _progressDistance += progressDelta.magnitude * 0.5f;
 
-                if (_progressDistance > _lapDistance * _lapCount)
-                {
-                    OnLapEndAction?.Invoke();
+                if (_progressDistance > _lapDistance * _lapCount) 
                     _lapCount++;
-                }
                 break;
             }
 
@@ -123,11 +114,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
                 // point to point mode. Just increase the waypoint if we're close enough:
                 var targetDelta = Target.position - transform.position;
                 if (targetDelta.magnitude < _pointToPointThreshold)
-                {
                     _progressNum = (_progressNum + 1) % Circuit.Waypoints.Length;
-                    if (_progressNum == 0)
-                        OnLapEndAction?.Invoke();
-                }
 
                 var routePoint = Circuit.Waypoints[_progressNum];
                 Target.SetPositionAndRotation(routePoint.position, routePoint.rotation);

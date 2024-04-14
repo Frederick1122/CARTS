@@ -14,7 +14,7 @@ namespace ConfigScripts
         [SerializeField] private GameDataInstaller.GameType _gameType;
         [SerializeField] private BotCount _botCount;
         [SerializeField] private LapCount _lapCount;
-        [SerializeField] private CarClass _carClass;
+        [SerializeField] private Rarity _carClass;
         [SerializeField] private List<BaseConfig> _maps = new();
 
         public IReadOnlyList<BaseConfig> Maps { get {  return _maps; } }
@@ -44,7 +44,7 @@ namespace ConfigScripts
             };
         }
 
-        public CarClass GetCarClass() { return _carClass; }
+        public Rarity GetCarClass() { return _carClass; }
     }
 
     public enum BotCount

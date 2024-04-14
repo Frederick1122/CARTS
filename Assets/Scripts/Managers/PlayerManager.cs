@@ -18,21 +18,63 @@ namespace Managers
 
         [SerializeField] private CarData _defaultCar;
 
-        public void AddPurchasedCar(string carConfigKey)
+        #region CarWork
+        public void PurchaseDefaultCar() => AddPurchasedCar(_defaultCar.configKey);
+
+        public IReadOnlyList<CarData> GetPurchasedCars()
+        {
+            var cars = _saveData.purchasedCars.Values.ToList();
+            return cars;
+        }
+
+        public bool TryGetPurchasedCarData(string key, out CarData data)
+        {
+            if (_saveData.purchasedCars.TryGetValue(key, out data))
+                return true;
+
+            data = null;
+            return false;
+        }
+
+        public bool AddPurchasedCar(string carConfigKey)
         {
             if (_saveData.purchasedCars.ContainsKey(carConfigKey))
-                return;
+                return false;
 
             var carConfig = CarLibrary.Instance.GetConfig(carConfigKey);
-            if (!IsThereEnoughMoney(carConfig.price))
-                return;    
+            if (!IsEnoughMoney(carConfig.price))
+                return false;    
             
             DecreaseCurrency(carConfig.price.CurrencyType, carConfig.price.Value);
             
             _saveData.purchasedCars.Add(carConfigKey, new CarData(carConfigKey));
             Save();
+            return true;
         }
 
+        public void SetCurrentCar(string carConfigKey)
+        {
+            if (!_saveData.purchasedCars.ContainsKey(carConfigKey))
+            {
+                Debug.LogAssertion($"PlayerManager not founded {carConfigKey} in purchased cars. SetCurrentCar is impossible");
+                return;
+            }
+
+            _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
+            Save();
+            OnPlayerCarChange?.Invoke(_saveData.currentCar);
+        }
+
+        public CarData GetCurrentCar()
+        {
+            if (_saveData == null)
+                Load();
+
+            return _saveData.currentCar;
+        }
+        #endregion
+
+        #region ModoficationWork
         public bool UpdateModificationLevel(string carConfigKey, ModificationType modificationType)
         {
             if (!_saveData.purchasedCars.ContainsKey(carConfigKey))
@@ -49,8 +91,8 @@ namespace Managers
                     level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].maxSpeedLevel + 1, 0,
                         carConfig.maxSpeedLevels.Count - 1);
 
-                    var priceS = new Price(carConfig.maxSpeedLevels[level].Price, CurrencyType.Regular);
-                    if (!IsThereEnoughMoney(priceS))
+                    var priceS = new Price(carConfig.maxSpeedLevels[level].Price, CurrencyType.Soft);
+                    if (!IsEnoughMoney(priceS))
                         return false;
                     DecreaseCurrency(priceS.CurrencyType, priceS.Value);
 
@@ -61,8 +103,8 @@ namespace Managers
                     level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].accelerationLevel + 1, 0,
                          carConfig.accelerationLevels.Count - 1);
 
-                    var priceA = new Price(carConfig.accelerationLevels[level].Price, CurrencyType.Regular);
-                    if (!IsThereEnoughMoney(priceA))
+                    var priceA = new Price(carConfig.accelerationLevels[level].Price, CurrencyType.Soft);
+                    if (!IsEnoughMoney(priceA))
                         return false;
                     DecreaseCurrency(priceA.CurrencyType, priceA.Value);
 
@@ -73,8 +115,8 @@ namespace Managers
                     level = Mathf.Clamp(_saveData.purchasedCars[carConfigKey].turnLevel + 1, 0,
                         carConfig.turnLevels.Count - 1);
 
-                    var priceT = new Price(carConfig.turnLevels[level].Price, CurrencyType.Regular);
-                    if (!IsThereEnoughMoney(priceT))
+                    var priceT = new Price(carConfig.turnLevels[level].Price, CurrencyType.Soft);
+                    if (!IsEnoughMoney(priceT))
                         return false;
                     DecreaseCurrency(priceT.CurrencyType, priceT.Value);
 
@@ -112,75 +154,50 @@ namespace Managers
                     throw new Exception("No modification type");
             }
         }
+        #endregion
 
-        public void SetCurrentCar(string carConfigKey)
-        {
-            if (!_saveData.purchasedCars.ContainsKey(carConfigKey))
-            {
-                Debug.LogAssertion($"PlayerManager not founded {carConfigKey} in purchased cars. SetCurrentCar is impossible");
-                return;
-            }
-
-            _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
-            Save();
-            OnPlayerCarChange?.Invoke(_saveData.currentCar);
-        }
-
-        public IReadOnlyList<CarData> GetPurchasedCars()
-        {
-            var cars = _saveData.purchasedCars.Values.ToList();
-            return cars;
-        }
-
-        public bool IsThereEnoughMoney(Price price)
-        {
-            return price.CurrencyType == CurrencyType.Regular
-                ? _saveData.regularCurrency >= price.Value
-                : _saveData.premiumCurrency >= price.Value;
-        }
-
-        public bool TryGetPurchasedCar(string key, out CarData data)
-        {
-            if(_saveData.purchasedCars.TryGetValue(key, out data))
-                return true;
-
-            data = null;
-            return false;
-        }
-
-        public CarData GetCurrentCar()
-        {
-            if (_saveData == null)
-                Load();
-
-            return _saveData.currentCar;
-        }
-
+        #region CurrencyWork
         public int GetCurrency(CurrencyType currencyType)
         {
-            return currencyType == CurrencyType.Regular ? _saveData.regularCurrency : _saveData.premiumCurrency;
+            return currencyType == CurrencyType.Soft ? _saveData.regularCurrency : _saveData.premiumCurrency;
         }
+
+        public bool IsEnoughMoney(Price price) => 
+            IsEnoughMoney(price.CurrencyType, price.Value);
+
+        public bool IsEnoughMoney(CurrencyType currencyType, int value)
+        {
+            return currencyType == CurrencyType.Soft
+                ? _saveData.regularCurrency >= value
+                : _saveData.premiumCurrency >= value;
+        }
+
+        public void DecreaseCurrency(Price price) => 
+            DecreaseCurrency(price.CurrencyType, price.Value);
 
         public void DecreaseCurrency(CurrencyType currencyType, int value)
         {
             var currentValue = GetCurrency(currencyType); 
             SetCurrency(currencyType,  Mathf.Clamp(currentValue - value, 0, currentValue));   
         }
-        
+
+        public void IncreaseCurrency(Price price) => 
+            IncreaseCurrency(price.CurrencyType, price.Value);
+
         public void IncreaseCurrency(CurrencyType currencyType, int value)
         {
             var currentValue = GetCurrency(currencyType); 
             SetCurrency(currencyType, currentValue + value);   
         }
-        
+
         private void SetCurrency(CurrencyType currencyType, int newValue)
         {
             switch (currencyType)
             {
-                case CurrencyType.Regular:
+                case CurrencyType.Soft:
                     _saveData.regularCurrency = newValue;
                     break;
-                case CurrencyType.Premium:
+                case CurrencyType.Hard:
                     _saveData.premiumCurrency = newValue;
                     break;
             }
@@ -188,7 +205,8 @@ namespace Managers
             OnCurrencyChange?.Invoke(currencyType, newValue);
             Save();
         }
-        
+        #endregion
+
         protected override void Load()
         {
             base.Load();
@@ -215,8 +233,8 @@ namespace Managers
 
     public enum CurrencyType
     {
-        Regular,
-        Premium
+        Soft,
+        Hard
     }
 }
 

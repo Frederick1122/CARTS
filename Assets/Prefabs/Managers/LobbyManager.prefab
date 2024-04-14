@@ -524,7 +524,7 @@ Transform:
   m_GameObject: {fileID: 169890008107702540}
   serializedVersion: 2
   m_LocalRotation: {x: 0.063609384, y: -0.8369302, z: 0.0996205, w: 0.5343944}
-  m_LocalPosition: {x: 3.251, y: 1.378, z: 1.901}
+  m_LocalPosition: {x: 3.147, y: 1.378, z: 2.126}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -622,6 +622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraManager: {fileID: 1818472254328672841}
   <Garage>k__BackingField: {fileID: 7821023241144468641}
+  <LootBoxManager>k__BackingField: {fileID: 7066299898992682092}
 --- !u!114 &1818472254328672841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1383,14 +1384,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961995724807053242}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06360927, y: 0.8369297, z: -0.09962004, w: 0.53439534}
-  m_LocalPosition: {x: -4.261, y: 0.905, z: 1.392}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1.2, y: 6.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4436941865668094680}
   m_Father: {fileID: 3138857288999916727}
-  m_LocalEulerAnglesHint: {x: 13.576, y: 114.882, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &7384165845803374732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2306,6 +2307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3138857288999916727}
+  - component: {fileID: 7066299898992682092}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -2329,6 +2331,30 @@ Transform:
   - {fileID: 2529413514650347784}
   m_Father: {fileID: 1742034983193800178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7066299898992682092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551295877473278777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a1a8986f0116548a1793eb9957ca6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lootBoxConfigs:
+  - {fileID: 11400000, guid: bcf06b2bd6d30f3459c296b4e96a3891, type: 2}
+  - {fileID: 11400000, guid: 14676ca20fe4bb743ae7fc95dfa4799c, type: 2}
+  - {fileID: 11400000, guid: e76e7e016954de044ba6e240c460efc1, type: 2}
+  - {fileID: 11400000, guid: a3c2736a13e4ef74fbf65c621870da45, type: 2}
+  _lootBoxDropChance:
+  - OpenOtherToDrop: 10
+    Rarity: 2
+  - OpenOtherToDrop: 20
+    Rarity: 3
+  - OpenOtherToDrop: 50
+    Rarity: 4
 --- !u!1 &4640487654391677960
 GameObject:
   m_ObjectHideFlags: 0

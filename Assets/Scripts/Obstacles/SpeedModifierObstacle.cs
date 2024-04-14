@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Obstacles
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class SpeedModificatorObstacle : AbstractObstacle
+    public class SpeedModifierObstacle : AbstractObstacle
     {
         [SerializeField] private SpeedModifier _speedModifier;
 

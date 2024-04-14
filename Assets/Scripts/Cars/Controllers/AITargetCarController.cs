@@ -2,22 +2,20 @@ using Cars.Controllers;
 using Cars.InputSystem;
 using Cars.Tools;
 using ConfigScripts;
+using Managers;
 using UnityEngine;
 
 public class AITargetCarController : CarController
 {
     private Transform _target;
-    private WaypointProgressTracker _waypointProgressTracker;
-
-    public override float GetPassedDistance() => _waypointProgressTracker.GetPassedDistance();
+    private float _additionalModifier;
 
     public override void Init(IInputSystem inputSystem, CarConfig carConfig, 
-        CarPresetConfig carPresetConfig, CarCollisionDetection carCollisionDetection, 
+        CarPresetConfig carPresetConfig, CarCollisionDetection collisionDetection, 
         ITargetHolder targetHolder = null)
     {
-        base.Init(inputSystem, carConfig, carPresetConfig, carCollisionDetection, targetHolder);
+        base.Init(inputSystem, carConfig, carPresetConfig, collisionDetection, targetHolder);
         _target = targetHolder.Target;
-        _waypointProgressTracker = targetHolder as WaypointProgressTracker;
     }
 
     public override void SetUpCharacteristic()
@@ -25,6 +23,11 @@ public class AITargetCarController : CarController
         _maxSpeed = Config.maxSpeedLevels[0].Value;
         _acceleration = Config.accelerationLevels[0].Value;
         _turnSpeed = Config.turnLevels[0].Value;
+    }
+
+    public void SetAdditionalModifier(float additionalModifier)
+    {
+        _additionalModifier = additionalModifier;
     }
 
     protected override void CalculateDesiredAngle()
@@ -37,5 +40,10 @@ public class AITargetCarController : CarController
         myDir.Normalize();
 
         DesiredTurning = Mathf.Abs(Vector3.Angle(myDir, Vector3.ProjectOnPlane(aimedDir, transform.up)));
+    }
+
+    protected override int GetAdditionalSpeedModifier()
+    {
+        return (int)_additionalModifier;
     }
 }

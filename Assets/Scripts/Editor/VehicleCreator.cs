@@ -84,17 +84,17 @@ public class VehicleCreator : EditorWindow
                                               _wheelFL.position.y + _bodyMesh.bounds.extents.y - _wheelMesh.bounds.size.y / 2,
                                               _newVehicle.transform.position.z);
 
-        //_newVehicle.GetComponent<CarController>().SkidWidth = _wheelMesh.bounds.size.x / 2;
         if (_newVehicle.transform.Find("SphereRB"))
         {
             _newVehicle.transform.Find("SphereRB").GetComponent<SphereCollider>().radius = _bodyMesh.bounds.extents.y;
             _newVehicle.transform.Find("SphereRB").position = SpheareRBOffset;
         }
 
-        //NewVehicle.transform.Find("Mesh").transform.Find("Wheels").Find("Skid marks FL").position = wheelFL.position - Vector3.up * (wheelMesh.bounds.size.y / 2 - 0.02f);
-        //NewVehicle.transform.Find("Mesh").transform.Find("Wheels").Find("Skid marks FR").position = wheelFR.position - Vector3.up * (wheelMesh.bounds.size.y / 2 - 0.02f);
-        //NewVehicle.transform.Find("Mesh").transform.Find("Wheels").Find("Skid marks RL").position = wheelRL.position - Vector3.up * (wheelMesh.bounds.size.y / 2 - 0.02f);
-        //NewVehicle.transform.Find("Mesh").transform.Find("Wheels").Find("Skid marks RR").position = wheelRR.position - Vector3.up * (wheelMesh.bounds.size.y / 2 - 0.02f);
+        _newVehicle.GetComponent<CarPrefabData>().SkidWidth = _wheelMesh.bounds.size.x / 2;
+        _newVehicle.transform.Find("Skid").Find("Skid marks FL").position = _wheelFL.position - Vector3.up * (_wheelMesh.bounds.size.y / 2 - 0.02f);
+        _newVehicle.transform.Find("Skid").Find("Skid marks FR").position = _wheelFR.position - Vector3.up * (_wheelMesh.bounds.size.y / 2 - 0.02f);
+        _newVehicle.transform.Find("Skid").Find("Skid marks RL").position = _wheelRL.position - Vector3.up * (_wheelMesh.bounds.size.y / 2 - 0.02f);
+        _newVehicle.transform.Find("Skid").Find("Skid marks RR").position = _wheelRR.position - Vector3.up * (_wheelMesh.bounds.size.y / 2 - 0.02f);
     }
 
     private void CreateVehicle()
