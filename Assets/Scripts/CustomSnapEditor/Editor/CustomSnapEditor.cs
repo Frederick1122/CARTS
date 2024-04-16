@@ -8,7 +8,7 @@ using UnityEngine;
 [EditorTool("Custom Snap Move", typeof(GameObject))]
 public class CustomSnapEditor : EditorTool
 {
-    public const float MINIMAL_DISTANCE_TO_SNAP = 0.5f;
+    public const float MINIMAL_DISTANCE_TO_SNAP = 3f;
     private CustomSnapPoint[] _allPoints;
 
     private Transform _oldTarget;
