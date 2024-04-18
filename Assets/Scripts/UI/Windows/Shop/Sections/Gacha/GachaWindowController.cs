@@ -30,16 +30,14 @@ namespace UI.Windows.Shop.Sections.Gacha
 
             _lootboxRewardController.Init();
             _lootboxRewardController.Hide();
-            _lootboxRewardController.OnOpen += TurnOffSlotButtons;
-            _lootboxRewardController.OnClose += TurnOnSlotButtons;
+            //_lootboxRewardController.OnOpen += TurnOffSlotButtons;
+            //_lootboxRewardController.OnClose += TurnOnSlotButtons;
 
             base.Init();
             _castView = GetView<GachaWindowView>();
 
             _castView.OnBuyLootBox += BuyLootBox;
-            _castView.OnOpenLootBox += OpenLootBox;
-
-            
+            //_castView.OnOpenLootBox += OpenLootBox;
         }
 
         private void OnDestroy()
@@ -48,14 +46,14 @@ namespace UI.Windows.Shop.Sections.Gacha
                 return;
 
             _castView.OnBuyLootBox -= BuyLootBox;
-            _castView.OnOpenLootBox -= OpenLootBox;
+            //_castView.OnOpenLootBox -= OpenLootBox;
         }
 
         public override void Show()
         {
             base.Show();
             _castView.ChangeBuyButtonCondition(PlayerManager.Instance.IsEnoughMoney(_price));
-            UpdateSlotsImage();
+            //UpdateSlotsImage();
         }
 
         protected override UIModel GetViewData() { return _model; }
@@ -71,9 +69,10 @@ namespace UI.Windows.Shop.Sections.Gacha
                 return;
 
             PlayerManager.Instance.DecreaseCurrency(_price);
-            _castView.UpdateLootBoxImage(slotNum, _lootBoxManager.Slots[slotNum].Icon);
+            //_castView.UpdateLootBoxImage(slotNum, _lootBoxManager.Slots[slotNum].Icon);
 
             _castView.ChangeBuyButtonCondition(PlayerManager.Instance.IsEnoughMoney(_price));
+            OpenLootBox(0);
         }
 
         private void OpenLootBox(int slotNum)
@@ -92,23 +91,23 @@ namespace UI.Windows.Shop.Sections.Gacha
             else
                 PlayerManager.Instance.TryToPurchaseCar(config.configKey);
 
-            _castView.UpdateLootBoxImage(slotNum, null);
+            //_castView.UpdateLootBoxImage(slotNum, null);
             _castView.ChangeBuyButtonCondition(PlayerManager.Instance.IsEnoughMoney(_price));
         }
 
-        private void UpdateSlotsImage()
-        {
-            for (int slotNum = 0; slotNum < _lootBoxManager.SlotCount; slotNum++)
-            {
-                var lootbox = _lootBoxManager.Slots[slotNum];
-                Sprite icon = null;
-                if (lootbox != null)
-                    icon = lootbox.Icon;
-                _castView.UpdateLootBoxImage(slotNum, icon);
-            }
-        }
+        //private void UpdateSlotsImage()
+        //{
+        //    for (int slotNum = 0; slotNum < _lootBoxManager.SlotCount; slotNum++)
+        //    {
+        //        var lootbox = _lootBoxManager.Slots[slotNum];
+        //        Sprite icon = null;
+        //        if (lootbox != null)
+        //            icon = lootbox.Icon;
+        //        _castView.UpdateLootBoxImage(slotNum, icon);
+        //    }
+        //}
 
-        private void TurnOnSlotButtons() => GetView<GachaWindowView>().TryChangeSlotButtonsCondition(true);
-        private void TurnOffSlotButtons() => GetView<GachaWindowView>().ChangeSlotButtonsCondition(false);
+        //private void TurnOnSlotButtons() => GetView<GachaWindowView>().TryChangeSlotButtonsCondition(true);
+        //private void TurnOffSlotButtons() => GetView<GachaWindowView>().ChangeSlotButtonsCondition(false);
     }
 }

@@ -8,7 +8,7 @@ namespace Lobby.Gacha
 {
     public class LootBoxManager : MonoBehaviour
     {
-        public int SlotCount { get; } = 3;
+        public int SlotCount { get; } = 1;
 
         [Header("Base")]
         [SerializeField] private List<LootBoxConfig> _lootBoxConfigs = new();
