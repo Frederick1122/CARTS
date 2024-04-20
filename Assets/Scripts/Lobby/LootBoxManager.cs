@@ -10,17 +10,12 @@ namespace Lobby.Gacha
     {
         public int SlotCount { get; } = 1;
 
-        [Header("Base")]
-        [SerializeField] private List<LootBoxConfig> _lootBoxConfigs = new();
-
-        [Header("Drop parametres")]
-        [SerializeField] private List<LootBoxDropChance> _lootBoxDropChance = new();
+        [SerializeField] private LootBoxHolder _lootBoxHolder;
 
         public IReadOnlyList<LootBoxConfig> Slots => _slots;
         private List<LootBoxConfig> _slots;
 
         private readonly Dictionary<Rarity, int> _permanentDropRarity = new();
-        private readonly Dictionary<Rarity, int> _permanentDropRarityPermanent = new();
 
         public void Init()
         {
@@ -28,34 +23,26 @@ namespace Lobby.Gacha
             for (int i = 0; i < SlotCount; i++)
                 _slots.Add(null);
 
-            foreach (var dropChance in _lootBoxDropChance)
+            foreach (var dropChance in _lootBoxHolder.LootBoxPermanentDrop)
                 _permanentDropRarity.Add(dropChance.Rarity, dropChance.OpenOtherToDrop);
 
-            foreach (var dropChance in _lootBoxDropChance)
-                _permanentDropRarityPermanent.Add(dropChance.Rarity, dropChance.OpenOtherToDrop);
-
-            _lootBoxConfigs = _lootBoxConfigs.OrderByDescending(box => box.DropChance).ToList();
+            _lootBoxHolder.ReorderLootBoxesByRarity();
         }
 
         public int AddLootBoxToSlotRandom()
         {
-            LootBoxConfig lootBoxConfig = null;
-
             foreach (var item in _permanentDropRarity)
             {
                 if (item.Value <= 0)
                 {
-                    var lootBoxesByRarity = _lootBoxConfigs.FindAll(lootBox => lootBox.Rarity == item.Key).ToArray();
-                    lootBoxConfig = lootBoxesByRarity[UnityEngine.Random.Range(0, lootBoxesByRarity.Length)];
-                    _permanentDropRarity[item.Key] = _permanentDropRarityPermanent[item.Key];
-                    break;
+                    var lootBoxesByRarity = _lootBoxHolder.GetLootBoxesByRarity(item.Key);
+                    LootBoxConfig lootBoxConfig = lootBoxesByRarity[UnityEngine.Random.Range(0, lootBoxesByRarity.Count)];
+                    _permanentDropRarity[item.Key] = _lootBoxHolder.GetPermanentDropByRarity(item.Key);
+                    return AddLootBoxToSlot(lootBoxConfig);
                 }
             }
 
-            if (lootBoxConfig == null)
-                lootBoxConfig = GetRandomLootBox();
-
-            return AddLootBoxToSlot(lootBoxConfig);
+            return AddLootBoxToSlot(GetRandomLootBox());
         }
 
         public int AddLootBoxToSlot(LootBoxConfig lootBox)
@@ -89,27 +76,26 @@ namespace Lobby.Gacha
             return lootBox.OpenLootBoxRandom();
         }
 
-        private LootBoxConfig GetRandomLootBox()
+        private Rarity GetRandomRarity()
         {
-            var totalChance = _lootBoxConfigs.Sum(x => x.DropChance);
+            var totalChance = _lootBoxHolder.LootBoxByRarity.Sum(x => x.DropChance);
             var chance = UnityEngine.Random.Range(1f, totalChance);
-            foreach (var lootBox in _lootBoxConfigs)
+            foreach (var lootBox in _lootBoxHolder.LootBoxByRarity)
             {
                 if (lootBox.DropChance >= chance)
-                    return lootBox;
+                    return lootBox.LootBoxRarity;
 
                 chance -= lootBox.DropChance;
             }
 
-            return _lootBoxConfigs[UnityEngine.Random.Range(0, _lootBoxConfigs.Count)];
+            return Rarity.Default;
         }
 
-
-        [Serializable]
-        public class LootBoxDropChance
+        private LootBoxConfig GetRandomLootBox()
         {
-            [field: SerializeField] public int OpenOtherToDrop = 10;
-            [field: SerializeField] public Rarity Rarity = Rarity.Default;
+            List<LootBoxConfig> lootBoxes = _lootBoxHolder.GetLootBoxesByRarity(GetRandomRarity());
+
+            return lootBoxes[UnityEngine.Random.Range(0, lootBoxes.Count)];
         }
     }
 }
