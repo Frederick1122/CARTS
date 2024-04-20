@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Assert = UnityEngine.Assertions.Assert;
 using Random = UnityEngine.Random;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
@@ -26,7 +27,7 @@ namespace Managers
     
         public event Action OnSoundBanksLoaded = delegate {  };
         
-        [SerializeField] private StudioEventEmitter _emmiter;
+        private StudioEventEmitter _emitter;
 
         private CustomSoundLibraryConfig _customSoundLibrary;
         
@@ -44,6 +45,7 @@ namespace Managers
         {
             base.Awake();
             
+            _emitter = GetComponent<StudioEventEmitter>();
             _customSoundLibrary = Resources.Load<CustomSoundLibraryConfig>(CUSTOM_SOUND_LIBRARY_PATH);
             
             LoadSoundBanks(_loadSoundBanksCts.Token).Forget();
@@ -51,6 +53,11 @@ namespace Managers
 
         public bool IsSoundBanksLoaded() => _isSoundBanksLoaded;
 
+        public void PlayUISound(EventReference sound)
+        {
+            Play(sound);
+        }
+        
         public void PlayBackground(SceneType sceneType, int compositionIdx = -1, int lastCompositionIdx = -1)
         {
             var currentCompositions = GetSceneCompositions(sceneType);
@@ -61,7 +68,7 @@ namespace Managers
             Play(currentCompositions[currentCompositionIdx]);
             _refreshBackgroundCts?.Cancel();
             _refreshBackgroundCts = new CancellationTokenSource();
-            _emmiter.EventDescription.getLength(out var length);
+            _emitter.EventDescription.getLength(out var length);
             var delay = (float)length / 1000;
             
             RefreshSoundTask(_refreshBackgroundCts.Token, delay, sceneType, currentCompositionIdx).Forget();
@@ -84,8 +91,8 @@ namespace Managers
 
         private void Play(EventReference eventReference)
         {
-            _emmiter.EventReference = eventReference;
-            _emmiter.Play();
+            _emitter.EventReference = eventReference;
+            _emitter.Play();
         }
         
         private void UpdateAllVolumeChannels()
