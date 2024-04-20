@@ -11,7 +11,6 @@ namespace ConfigScripts
     {
         [field: Header("Base")]
         [field: SerializeField] public Sprite Icon { get; private set; }
-        [field: SerializeField, Range(1, 100)] public float DropChance { get; private set; } = 100f;
         [field: SerializeField] public Rarity Rarity { get; private set; } = Rarity.Default;
 
         [Header("Loot")]

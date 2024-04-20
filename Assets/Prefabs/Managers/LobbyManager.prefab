@@ -2343,18 +2343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a1a8986f0116548a1793eb9957ca6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lootBoxConfigs:
-  - {fileID: 11400000, guid: bcf06b2bd6d30f3459c296b4e96a3891, type: 2}
-  - {fileID: 11400000, guid: 14676ca20fe4bb743ae7fc95dfa4799c, type: 2}
-  - {fileID: 11400000, guid: e76e7e016954de044ba6e240c460efc1, type: 2}
-  - {fileID: 11400000, guid: a3c2736a13e4ef74fbf65c621870da45, type: 2}
-  _lootBoxDropChance:
-  - OpenOtherToDrop: 10
-    Rarity: 2
-  - OpenOtherToDrop: 20
-    Rarity: 3
-  - OpenOtherToDrop: 50
-    Rarity: 4
+  _lootBoxHolder: {fileID: 11400000, guid: 770e743ad93256441ad069e4c85945f7, type: 2}
 --- !u!1 &4640487654391677960
 GameObject:
   m_ObjectHideFlags: 0
