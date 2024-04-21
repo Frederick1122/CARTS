@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Knot.Localization;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace UI.Windows
 {
     public class RaceLayoutView : UIView
     {
+        private const string GO = "GO";
+
         [SerializeField] protected TMP_Text _startDelayText;
 
         private int _delay = 0;
@@ -57,7 +60,7 @@ namespace UI.Windows
                 _delay--;
             }
 
-            _startDelayText.text = "GO!";
+            _startDelayText.text = $"{KnotLocalization.GetText(GO)}!";
 
             await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Knot.Localization;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace UI.Elements
 {
     public class FloatingUICarCharacteristic : MonoBehaviour
     {
+        private const string MAX_LEVEL = "MAX_LEVEL";
+
         public event Action<ModificationType> OnCharacteristicUpgrade = delegate { };
 
         [field: SerializeField] public ModificationType ModificationType { get; private set; } 
@@ -50,7 +53,7 @@ namespace UI.Elements
             _upgradeButton.enabled = true;
             if (cost < 0)
             {
-                costString = "Max level";
+                costString = KnotLocalization.GetText(MAX_LEVEL);
                 _upgradeButton.enabled = false;
             }
             _cost.text = costString;

@@ -15,6 +15,9 @@ MonoBehaviour:
   configName: 1 vs 3
   configKey: OneVsMany_ThreeLap
   Icon: {fileID: 21300002, guid: 4101ccb8f2386d14c843c54610af1778, type: 3}
+  _localizedName:
+    _key: 1_VS_3
+    _formatters: []
   _gameType: 0
   _botCount: 1
   _lapCount: 1
@@ -22,3 +25,6 @@ MonoBehaviour:
   _maps:
   - {fileID: 11400000, guid: fb442eb974c578b4eb55d87e3dc5c621, type: 2}
   - {fileID: 11400000, guid: 3fdfa3ce2a839b14c8f0ea5551cde00a, type: 2}
+  references:
+    version: 2
+    RefIds: []

@@ -5,7 +5,6 @@ using Managers.Libraries;
 using Swiper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -86,7 +85,7 @@ namespace UI.Windows.MapSelection
 
             foreach (var item in _keyModePairs.Values)
             {
-                var data = new SwiperData(item.configKey, item.Icon, item.configName);
+                var data = new SwiperData(item.configKey, item.Icon, item.GetLocalizedName());
                 view.AddMod(data);
             }
         }

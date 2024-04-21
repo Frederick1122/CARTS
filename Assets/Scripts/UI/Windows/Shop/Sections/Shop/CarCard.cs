@@ -1,5 +1,6 @@
 using ConfigScripts;
 using System;
+using Knot.Localization;
 using TMPro;
 using UI.Tools;
 using UnityEngine;
@@ -9,6 +10,10 @@ namespace UI.Windows.Shop.Sections.SaleShop
 {
     public class CarCard : MonoBehaviour
     {
+        private const string NOT_ENOUGH_MONEY = "NOT_ENOUGH_MONEY";
+        private const string BUY = "BUY";
+        private const string PURCHASED = "PURCHASED";
+        
         public event Action<CarConfig> OnCarBuy = delegate(CarConfig config) { };
 
         public CarConfig CarConfig => _carConfig;
@@ -51,12 +56,12 @@ namespace UI.Windows.Shop.Sections.SaleShop
                 case BuyButtonCondition.NotEnoughMoney:
                     _buyButton.interactable = false;
                     _buyButton.MakeUnChosenVisual();
-                    _buyButtonText.text = "Not enough money";
+                    _buyButtonText.text = KnotLocalization.GetText(NOT_ENOUGH_MONEY);
                     break;
                 case BuyButtonCondition.Purchased:
                     _buyButton.interactable = false;
                     _buyButton.MakeUnChosenVisual();
-                    _buyButtonText.text = "Purchased";
+                    _buyButtonText.text = KnotLocalization.GetText(PURCHASED);
                     break;
             }
         }
