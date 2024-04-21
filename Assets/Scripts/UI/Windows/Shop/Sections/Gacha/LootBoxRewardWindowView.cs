@@ -13,6 +13,10 @@ namespace UI.Windows.Shop.Sections.Gacha
     {
         public event Action OnClaim;
 
+        [SerializeField] private Image _inputLocker;
+        [SerializeField] private Image _mainBackGround;
+
+        [Header("Card")]
         [SerializeField] private Image _icon;
         [SerializeField] private Image _background;
         [SerializeField] private Image _isDuplicateShower;
@@ -26,7 +30,7 @@ namespace UI.Windows.Shop.Sections.Gacha
 
         public override void Init(UIModel uiModel)
         {
-            _rectTransform = GetComponent<RectTransform>();
+            //_rectTransform = GetComponent<RectTransform>();
 
             _claimButton.onClick.AddListener(RequestForClaim);
         }
@@ -37,12 +41,17 @@ namespace UI.Windows.Shop.Sections.Gacha
         public override void Show()
         {
             base.Show();
-            _rectTransform.DOScale(Vector3.one, _animSpeed);
+            _inputLocker.DOFade(0.5f, _animSpeed);
+            _mainBackGround.rectTransform.DOScale(Vector3.one, _animSpeed);
+            //_background.DOFade(1, _animSpeed);
+            //_rectTransform.DOScale(Vector3.one, _animSpeed);
         }
 
         public override void Hide()
         {
-            _rectTransform.DOScale(Vector3.zero, _animSpeed);
+            _inputLocker.DOFade(0, _animSpeed);
+            _mainBackGround.rectTransform.DOScale(Vector3.zero, _animSpeed);
+            //_rectTransform.DOScale(Vector3.zero, _animSpeed);
             base.Hide();
         }
 

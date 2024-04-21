@@ -22,7 +22,7 @@ namespace UI.Windows.Shop
         [Header("Section Buttons")]
         [SerializeField] private Button _gachaButton;
         [SerializeField] private Button _saleShopButton;
-        [SerializeField] private Button _battlePassButton;
+        //[SerializeField] private Button _battlePassButton;
 
         private Button _currentPressedButton;
         private readonly List<Button> _allSectionButtons = new();
@@ -34,15 +34,15 @@ namespace UI.Windows.Shop
 
             _gachaButton.onClick.AddListener(OpenGacha);
             _saleShopButton.onClick.AddListener(OpenSaleShop);
-            _battlePassButton.onClick.AddListener(OpenBattlePass);
+            //_battlePassButton.onClick.AddListener(OpenBattlePass);
 
             _allSectionButtons.Add(_gachaButton);
             _allSectionButtons.Add(_saleShopButton);
-            _allSectionButtons.Add(_battlePassButton);
+            //_allSectionButtons.Add(_battlePassButton);
 
             _buttonsTransforms.Add(_gachaButton, _gachaButton.GetComponent<RectTransform>());
             _buttonsTransforms.Add(_saleShopButton, _saleShopButton.GetComponent<RectTransform>());
-            _buttonsTransforms.Add(_battlePassButton, _battlePassButton.GetComponent<RectTransform>());
+            //_buttonsTransforms.Add(_battlePassButton, _battlePassButton.GetComponent<RectTransform>());
 
             OpenStartSection();
         }
@@ -53,7 +53,7 @@ namespace UI.Windows.Shop
 
             _gachaButton.onClick.RemoveListener(OpenGacha);
             _saleShopButton.onClick.RemoveListener(OpenSaleShop);
-            _battlePassButton.onClick.RemoveListener(OpenBattlePass);
+            //_battlePassButton.onClick.RemoveListener(OpenBattlePass);
         }
 
         public override void Show()
@@ -78,12 +78,12 @@ namespace UI.Windows.Shop
             ChooseSection();
         }
 
-        private void OpenBattlePass()
-        {
-            OnOpenBattlePass?.Invoke();
-            _currentPressedButton = _battlePassButton;
-            ChooseSection();
-        }
+        //private void OpenBattlePass()
+        //{
+        //    OnOpenBattlePass?.Invoke();
+        //    _currentPressedButton = _battlePassButton;
+        //    ChooseSection();
+        //}
 
         private void ChooseSection()
         {

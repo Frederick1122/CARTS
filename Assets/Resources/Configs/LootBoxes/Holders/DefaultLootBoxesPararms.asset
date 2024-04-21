@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9dbdd8d40c2c4f4880a0910e5c9e243, type: 3}
+  m_Name: DefaultLootBoxesPararms
+  m_EditorClassIdentifier: 
+  configName: DefaultLootBoxesParams
+  configKey: DefaultLootBoxesParams
+  _lootBoxByRarity:
+  - <LootBoxRarity>k__BackingField: 1
+    <DropChance>k__BackingField: 75
+    _lootBoxes:
+    - {fileID: 11400000, guid: bcf06b2bd6d30f3459c296b4e96a3891, type: 2}
+  - <LootBoxRarity>k__BackingField: 2
+    <DropChance>k__BackingField: 20
+    _lootBoxes:
+    - {fileID: 11400000, guid: 14676ca20fe4bb743ae7fc95dfa4799c, type: 2}
+  - <LootBoxRarity>k__BackingField: 3
+    <DropChance>k__BackingField: 4
+    _lootBoxes:
+    - {fileID: 11400000, guid: e76e7e016954de044ba6e240c460efc1, type: 2}
+  - <LootBoxRarity>k__BackingField: 4
+    <DropChance>k__BackingField: 0
+    _lootBoxes:
+    - {fileID: 11400000, guid: a3c2736a13e4ef74fbf65c621870da45, type: 2}
+  _lootBoxPermanentDrop:
+  - <Rarity>k__BackingField: 1
+    <OpenOtherToDrop>k__BackingField: 10
+  - <Rarity>k__BackingField: 2
+    <OpenOtherToDrop>k__BackingField: 20
+  - <Rarity>k__BackingField: 3
+    <OpenOtherToDrop>k__BackingField: 30
+  - <Rarity>k__BackingField: 4
+    <OpenOtherToDrop>k__BackingField: 40

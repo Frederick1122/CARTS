@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Installers;
+using Knot.Localization;
+using UnityEngine.Serialization;
 
 namespace ConfigScripts
 {
@@ -10,7 +12,7 @@ namespace ConfigScripts
     public class ModeConfig : BaseConfig
     {
         public Sprite Icon;
-
+        [SerializeField] private KnotTextKeyReference _localizedName;
         [SerializeField] private GameDataInstaller.GameType _gameType;
         [SerializeField] private BotCount _botCount;
         [SerializeField] private LapCount _lapCount;
@@ -24,6 +26,11 @@ namespace ConfigScripts
             return _gameType;
         }
 
+        public string GetLocalizedName()
+        {
+            return _localizedName.Value;
+        }
+        
         public int GetBotCountKey()
         {
             return _botCount switch

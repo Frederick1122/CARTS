@@ -7,6 +7,8 @@ using Cysharp.Threading.Tasks;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Assert = UnityEngine.Assertions.Assert;
 using Random = UnityEngine.Random;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
@@ -19,8 +21,13 @@ namespace Managers
         private const string FMOD_SFX_PATH = "SFX";
         private const string FMOD_BUS_PREFIX = "bus:/";
         private const string FMOD_VCA_PREFIX = "vca:/";
+
+        private const int BANK_LOAD_DELAY_MS = 100;
+        private const int BANK_LOAD_MAX_TIMEOUT_MS = 10000;
     
-        [SerializeField] private StudioEventEmitter _emmiter;
+        public event Action OnSoundBanksLoaded = delegate {  };
+        
+        private StudioEventEmitter _emitter;
 
         private CustomSoundLibraryConfig _customSoundLibrary;
         
@@ -30,23 +37,27 @@ namespace Managers
         
         private float _masterVolume;
 
+        private bool _isSoundBanksLoaded = false;
         private CancellationTokenSource _refreshBackgroundCts;
+        private CancellationTokenSource _loadSoundBanksCts = new CancellationTokenSource();
 
         protected override void Awake()
         {
             base.Awake();
             
+            _emitter = GetComponent<StudioEventEmitter>();
             _customSoundLibrary = Resources.Load<CustomSoundLibraryConfig>(CUSTOM_SOUND_LIBRARY_PATH);
             
-            _masterBus = RuntimeManager.GetBus(FMOD_BUS_PREFIX);
-            _musicVca = RuntimeManager.GetVCA(FMOD_VCA_PREFIX + FMOD_MUSIC_PATH);
-            _sfxVca = RuntimeManager.GetVCA(FMOD_VCA_PREFIX + FMOD_SFX_PATH);
-            
-            SetVolume(SoundType.Sound, SettingsManager.Instance.GetVolume(SoundType.Sound));
-
-            SettingsManager.Instance.OnValueChanged += SetVolume;
+            LoadSoundBanks(_loadSoundBanksCts.Token).Forget();
         }
 
+        public bool IsSoundBanksLoaded() => _isSoundBanksLoaded;
+
+        public void PlayUISound(EventReference sound)
+        {
+            Play(sound);
+        }
+        
         public void PlayBackground(SceneType sceneType, int compositionIdx = -1, int lastCompositionIdx = -1)
         {
             var currentCompositions = GetSceneCompositions(sceneType);
@@ -57,7 +68,7 @@ namespace Managers
             Play(currentCompositions[currentCompositionIdx]);
             _refreshBackgroundCts?.Cancel();
             _refreshBackgroundCts = new CancellationTokenSource();
-            _emmiter.EventDescription.getLength(out var length);
+            _emitter.EventDescription.getLength(out var length);
             var delay = (float)length / 1000;
             
             RefreshSoundTask(_refreshBackgroundCts.Token, delay, sceneType, currentCompositionIdx).Forget();
@@ -73,12 +84,15 @@ namespace Managers
         {
             if (SettingsManager.Instance != null)
                 SettingsManager.Instance.OnValueChanged -= SetVolume;
+
+            _refreshBackgroundCts?.Cancel();
+            _loadSoundBanksCts?.Cancel();
         }
 
         private void Play(EventReference eventReference)
         {
-            _emmiter.EventReference = eventReference;
-            _emmiter.Play();
+            _emitter.EventReference = eventReference;
+            _emitter.Play();
         }
         
         private void UpdateAllVolumeChannels()
@@ -148,6 +162,30 @@ namespace Managers
             await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
             
             PlayBackground(sceneType, -1, compositionIdx);
+        }
+        
+        private async UniTaskVoid LoadSoundBanks(CancellationToken token)
+        {
+            var timeout = 0;
+            while (!RuntimeManager.HaveAllBanksLoaded)
+            {
+                await UniTask.Delay(TimeSpan.FromMilliseconds(BANK_LOAD_DELAY_MS), cancellationToken: token);
+                timeout += BANK_LOAD_DELAY_MS;
+                Debug.Log($"time: {timeout}");
+                Assert.IsTrue(timeout <= BANK_LOAD_MAX_TIMEOUT_MS, "Sound banks cannot loaded");
+            }
+
+            _masterBus = RuntimeManager.GetBus(FMOD_BUS_PREFIX);
+            _musicVca = RuntimeManager.GetVCA(FMOD_VCA_PREFIX + FMOD_MUSIC_PATH);
+            _sfxVca = RuntimeManager.GetVCA(FMOD_VCA_PREFIX + FMOD_SFX_PATH);
+            
+            SetVolume(SoundType.Sound, SettingsManager.Instance.GetVolume(SoundType.Sound));
+            SettingsManager.Instance.OnValueChanged += SetVolume;
+
+            Debug.Log("Banks loaded");
+
+            _isSoundBanksLoaded = true;
+            OnSoundBanksLoaded?.Invoke();
         }
     }
    
