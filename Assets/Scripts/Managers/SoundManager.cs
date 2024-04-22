@@ -21,6 +21,7 @@ namespace Managers
         private const string FMOD_SFX_PATH = "SFX";
         private const string FMOD_BUS_PREFIX = "bus:/";
         private const string FMOD_VCA_PREFIX = "vca:/";
+        private const string FMOD_EVENT_PREFIX = "event:/";
 
         private const int BANK_LOAD_DELAY_MS = 100;
         private const int BANK_LOAD_MAX_TIMEOUT_MS = 10000;
@@ -56,6 +57,11 @@ namespace Managers
         public void PlayUISound(EventReference sound)
         {
             Play(sound);
+        }
+
+        public void PlayOneShot(string sound)
+        {
+            RuntimeManager.PlayOneShot(FMOD_EVENT_PREFIX + sound);
         }
         
         public void PlayBackground(SceneType sceneType, int compositionIdx = -1, int lastCompositionIdx = -1)
