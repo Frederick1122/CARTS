@@ -1,9 +1,4 @@
-using FreeRide;
-using Race;
-using System.Collections;
-using System.Collections.Generic;
 using Race.RaceManagers;
-using UnityEngine;
 
 namespace UI.Windows.FreeRide
 {

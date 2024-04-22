@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Base;
 using GamePush;
-using Lean.Localization;
 using UnityEngine;
 
 public class GPManager : Singleton<GPManager>
@@ -107,7 +106,7 @@ public class GPManager : Singleton<GPManager>
         _player = new LeaderboardFetchData
         {
             id = GP_Player.GetID(),
-            name = GP_Player.GetName() != "" ? GP_Player.GetName() : $"{LeanLocalization.GetTranslationText(UI_PLAYER_LOCALIZATION)}#{GP_Player.GetID()}",
+            //name = GP_Player.GetName() != "" ? GP_Player.GetName() : $"{LeanLocalization.GetTranslationText(UI_PLAYER_LOCALIZATION)}#{GP_Player.GetID()}",
             score = (int)GP_Player.GetScore()
         };
         
@@ -171,8 +170,8 @@ public class GPManager : Singleton<GPManager>
                 }
                 else if (_leadersWithPlayer[index].name == "")
                 {
-                    _leadersWithPlayer[index].name =
-                        $"{LeanLocalization.GetTranslationText(UI_PLAYER_LOCALIZATION)}#{_leadersWithPlayer[index].id}";
+                    _leadersWithPlayer[index].name = "";
+                    //$"{LeanLocalization.GetTranslationText(UI_PLAYER_LOCALIZATION)}#{_leadersWithPlayer[index].id}";
                 }
             }
             

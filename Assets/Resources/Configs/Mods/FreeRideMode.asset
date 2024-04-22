@@ -15,6 +15,9 @@ MonoBehaviour:
   configName: Free Ride
   configKey: FreeRideMode
   Icon: {fileID: 21300002, guid: 19a622a42d9260f4ea7cb39dae2415fc, type: 3}
+  _localizedName:
+    _key: FREE_RIDE
+    _formatters: []
   _gameType: 1
   _botCount: 0
   _lapCount: 0
@@ -22,3 +25,6 @@ MonoBehaviour:
   _maps:
   - {fileID: 11400000, guid: 73e3035d3e811474a8a8a3b84c8e1554, type: 2}
   - {fileID: 11400000, guid: 889cb8e83c341f74db908d41c6568964, type: 2}
+  references:
+    version: 2
+    RefIds: []

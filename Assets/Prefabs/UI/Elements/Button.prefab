@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 1968050275204695320}
   - component: {fileID: 5675476318184992018}
   - component: {fileID: 883218323505567880}
-  - component: {fileID: 4197187817635509923}
+  - component: {fileID: 2071256556857077904}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -176,8 +176,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.3526001, y: 0}
+  m_SizeDelta: {x: -13.6508, y: -14.066}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5675476318184992018
 CanvasRenderer:
@@ -234,15 +234,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 32.35
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 32
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4197187817635509923
+--- !u!114 &2071256556857077904
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,8 +285,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8658001790253275859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dd7beada2ea8a446ba8d3533e759253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationName: 
-  FallbackText: Button
+  _keyReference:
+    _key: PLAY
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
