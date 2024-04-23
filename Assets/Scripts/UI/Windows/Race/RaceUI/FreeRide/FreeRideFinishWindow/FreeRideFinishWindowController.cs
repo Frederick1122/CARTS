@@ -1,4 +1,5 @@
-﻿using Race.RaceManagers;
+﻿using Managers;
+using Race.RaceManagers;
 using UI.Windows.Finish;
 
 namespace UI.Windows.Race.RaceUI.FreeRide
@@ -28,6 +29,7 @@ namespace UI.Windows.Race.RaceUI.FreeRide
             _freeRideFinishWindowModel.result = RaceManager.Instance.GetResult();
             _freeRideFinishWindowModel.score = _freeRideState.GetScore();
             _freeRideFinishWindowModel.passTime = _freeRideState.GetPassTime();
+            SoundManager.Instance.PlayOneShot(LOSE_SOUND);
             UpdateView(_freeRideFinishWindowModel);
         }
 
