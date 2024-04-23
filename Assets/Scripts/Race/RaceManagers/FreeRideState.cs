@@ -43,6 +43,8 @@ namespace Race.RaceManagers
 
         public override void Init()
         {
+            _score = 0;
+
             AllCollisions.Clear();
 
             if (_gameData.gameModeData is GameDataInstaller.FreeRideGameData freeRideGameData)
