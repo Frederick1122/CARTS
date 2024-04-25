@@ -1,10 +1,13 @@
 using ConfigScripts;
 using System;
+using Managers;
 
 namespace UI.Windows.Shop.Sections.Gacha
 {
     public class LootboxRewardWindowController : UIController
     {
+        private const string LOOTBOX_SOUND = "SFX/UI/LootBox";
+
         public event Action OnOpen;
         public event Action OnClose;
 
@@ -24,6 +27,7 @@ namespace UI.Windows.Shop.Sections.Gacha
         public override void Show()
         {
             OnOpen?.Invoke();
+            SoundManager.Instance.PlayOneShot(LOOTBOX_SOUND);
             base.Show();
         }
 

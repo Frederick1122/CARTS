@@ -8,6 +8,8 @@ namespace UI.Windows.Shop.Sections.SaleShop
 {
     public class SaleShopWindowController : UIController
     {
+        private const string BUY_SOUND = "SFX/UI/Buy";
+        
         private readonly Dictionary<Rarity, List<CarConfig>> _carsByRarity = new();
 
         public override void Init()
@@ -56,7 +58,10 @@ namespace UI.Windows.Shop.Sections.SaleShop
 
         private void BuyCar(CarConfig config)
         {
-            PlayerManager.Instance.TryToPurchaseCar(config.configKey);
+            if (PlayerManager.Instance.TryToPurchaseCar(config.configKey))
+            {
+                SoundManager.Instance.PlayOneShot(BUY_SOUND);
+            }
             UpdateView();
         }
 

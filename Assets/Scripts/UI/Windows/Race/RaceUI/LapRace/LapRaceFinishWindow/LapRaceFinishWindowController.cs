@@ -1,4 +1,5 @@
-﻿using Race.RaceManagers;
+﻿using Managers;
+using Race.RaceManagers;
 using UI.Windows.Finish;
 
 namespace UI.Windows.RaceUI.LapRace
@@ -25,9 +26,11 @@ namespace UI.Windows.RaceUI.LapRace
         public override void Show()
         {
             base.Show();
+            var playerPosition = _lapRaceState.GetPlayerPosition();
+            SoundManager.Instance.PlayOneShot(playerPosition == 1 ? WIN_SOUND : LOSE_SOUND);
+            _lapRaceFinishWindowModel.currentPosition = playerPosition;
             _lapRaceFinishWindowModel.result = RaceManager.Instance.GetResult();
             _lapRaceFinishWindowModel.maxPosition = _lapRaceState.GetMaxPositions();
-            _lapRaceFinishWindowModel.currentPosition = _lapRaceState.GetPlayerPosition();
             _lapRaceFinishWindowModel.passTime = _lapRaceState.GetPassTime();
             UpdateView(_lapRaceFinishWindowModel);
         }

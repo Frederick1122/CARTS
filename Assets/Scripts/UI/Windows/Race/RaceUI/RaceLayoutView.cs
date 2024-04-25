@@ -2,6 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Knot.Localization;
+using Managers;
 using TMPro;
 using UnityEngine;
 
@@ -9,8 +10,10 @@ namespace UI.Windows
 {
     public class RaceLayoutView : UIView
     {
-        private const string GO = "GO";
-
+        private const string UID_GO = "GO";
+        private const string PRESTART_SOUND = "SFX/Countdown/PreStart";
+        private const string START_SOUND = "SFX/Countdown/Start";
+        
         [SerializeField] protected TMP_Text _startDelayText;
 
         private int _delay = 0;
@@ -55,12 +58,14 @@ namespace UI.Windows
             
             while (_delay > 0)
             {
+                SoundManager.Instance.PlayOneShot(PRESTART_SOUND);
                 _startDelayText.text = _delay.ToString();
                 await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
                 _delay--;
             }
 
-            _startDelayText.text = $"{KnotLocalization.GetText(GO)}!";
+            SoundManager.Instance.PlayOneShot(START_SOUND);
+            _startDelayText.text = $"{KnotLocalization.GetText(UID_GO)}!";
 
             await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 
