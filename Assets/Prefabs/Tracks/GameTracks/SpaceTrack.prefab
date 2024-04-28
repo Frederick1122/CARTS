@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &670866235428424904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1791056280991682977}
+  - component: {fileID: 7210057512105945150}
+  m_Layer: 0
+  m_Name: Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1791056280991682977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670866235428424904}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 603.97, y: 3.643, z: 680.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5613537393609666534}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7210057512105945150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670866235428424904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74447d3f312c2944d81df2565e572b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2191502130984654455
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +146,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5613537393609666534}
+  - component: {fileID: 5548562679469939479}
+  - component: {fileID: 4849260964977768313}
   m_Layer: 0
   m_Name: SpaceTrack
   m_TagString: Untagged
@@ -129,8 +175,42 @@ Transform:
   - {fileID: 1682772909594555767}
   - {fileID: 2284417933041888780}
   - {fileID: 7741853648823819148}
+  - {fileID: 1193626661436828706}
+  - {fileID: 1791056280991682977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5548562679469939479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2808605911941856273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b87e13f9f90418d8db011210aed4b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerPlace: -1
+  _waypointMainProgressTracker: {fileID: 4849260964977768313}
+  _carPlaces:
+  - {fileID: 7210057512105945150}
+  _circuits:
+  - {fileID: 4259581978719212744}
+--- !u!114 &4849260964977768313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2808605911941856273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47f48bb33774e34bc968c8a0aebc19a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _circuit: {fileID: 4259581978719212744}
+  _progressStyle: 0
 --- !u!1 &4210811242292047294
 GameObject:
   m_ObjectHideFlags: 0
@@ -20556,6 +20636,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4370125238876972, guid: e9bcfd3b8da4e534eb4795a33c761bdf, type: 3}
   m_PrefabInstance: {fileID: 2889503853078808323}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2891991874306649639
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5613537393609666534}
+    m_Modifications:
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 593.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 697.9874
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682312687017337627, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+      propertyPath: m_Name
+      value: Waypoit Circut Space Track
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+--- !u!4 &1193626661436828706 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4085598662619398661, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+  m_PrefabInstance: {fileID: 2891991874306649639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4259581978719212744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1386959651012868847, guid: 7e68eed1b16aa8149b419b1716d58f56, type: 3}
+  m_PrefabInstance: {fileID: 2891991874306649639}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70852dc981465ea48bb527b9e33a87fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2893668627398944981
 PrefabInstance:
   m_ObjectHideFlags: 0
