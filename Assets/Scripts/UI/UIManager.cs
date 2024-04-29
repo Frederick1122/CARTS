@@ -8,7 +8,8 @@ namespace UI
     public class UIManager : Singleton<UIManager>
     {
         [SerializeField] private Camera _uiCamera;
-
+        [SerializeField] private GameObject _loadingScreen;
+        
         [Header("Main UI")]
         [SerializeField] private LobbyUI _lobbyUI;
         [SerializeField] private RaceUI _raceUI;
@@ -23,6 +24,8 @@ namespace UI
             _lobbyUI.Init();
             _raceUI.Init();
             _mobileLayoutUI.Init();
+            
+            SetActiveLoadingScreen(false);
         }
 
         public LobbyUI GetLobbyUi()
@@ -68,6 +71,11 @@ namespace UI
                 default:
                     throw new ArgumentOutOfRangeException(nameof(uiType), uiType, null);
             }
+        }
+
+        public void SetActiveLoadingScreen(bool isActive)
+        {
+            _loadingScreen.SetActive(isActive);
         }
     }
 

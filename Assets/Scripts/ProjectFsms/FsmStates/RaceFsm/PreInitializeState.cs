@@ -24,6 +24,8 @@ namespace FsmStates.RaceFsm
         { 
             base.Enter();
 
+            UIManager.Instance.SetActiveLoadingScreen(true);
+
             switch (SceneManager.GetActiveScene().name)
             {
                 case LAP_RACE_SCENE:
@@ -44,6 +46,13 @@ namespace FsmStates.RaceFsm
             UIManager.Instance.SetUiType(UiType.MobileLayout, false);
             
             _fsm.SetState<StartRaceState>();
+        }
+        
+        public override void Exit()
+        {
+            base.Exit();
+            
+            UIManager.Instance.SetActiveLoadingScreen(false);
         }
     }
 }

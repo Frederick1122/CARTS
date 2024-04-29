@@ -14,6 +14,8 @@ namespace FsmStates.LobbyFsm
             base.Enter();
             //In this moment we can get stats or something else
 
+            UIManager.Instance.SetActiveLoadingScreen(true);
+            
             Debug.Log("preinit start");
 
             if (SoundManager.Instance.IsSoundBanksLoaded())
@@ -24,6 +26,13 @@ namespace FsmStates.LobbyFsm
 
             Debug.Log("preinit waiting");
             SoundManager.Instance.OnSoundBanksLoaded += StartLobbyState;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            
+            UIManager.Instance.SetActiveLoadingScreen(false);
         }
 
         private void StartLobbyState()

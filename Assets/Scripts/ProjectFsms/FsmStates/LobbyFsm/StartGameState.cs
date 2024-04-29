@@ -2,6 +2,7 @@
 using Installers;
 using System;
 using Managers;
+using UI;
 using UnityEngine.SceneManagement;
 
 namespace FsmStates.LobbyFsm
@@ -17,6 +18,9 @@ namespace FsmStates.LobbyFsm
         {
             base.Enter();
 
+            UIManager.Instance.SetActiveLoadingScreen(true);
+            SoundManager.Instance.StopAllSound();
+
             //In this moment we can async load new scene
             var sceneName = ((ProjectFsms.LobbyFsm)_fsm).gameData.gameType switch
             {
@@ -25,12 +29,6 @@ namespace FsmStates.LobbyFsm
                 _ => throw new ArgumentOutOfRangeException(),
             };
             SceneManager.LoadScene(sceneName);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            SoundManager.Instance.StopAllSound();
         }
     }
 }
