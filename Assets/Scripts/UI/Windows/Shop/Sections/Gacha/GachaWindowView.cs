@@ -26,9 +26,7 @@ namespace UI.Windows.Shop.Sections.Gacha
 
             _buyButton.onClick.AddListener(RequestToBuyLootBox);
             //_buyButton.onClick.AddListener(RequestToOpenLootBox);
-            _buyButtonText.text = ((GachaWindowModel)uiModel).Cost.ToString();
-
-
+            
             //for (int slotNum = 0; slotNum < _slots.Count; slotNum++)
             //{
             //    _slots[slotNum].Init(slotNum);
@@ -42,6 +40,11 @@ namespace UI.Windows.Shop.Sections.Gacha
 
             //foreach (var slot in _slots) 
             //    slot.OnOpenLootBox -= RequestToOpenLootBox;
+        }
+
+        public override void UpdateView(UIModel uiModel)
+        {
+            _buyButtonText.text = ((GachaWindowModel)uiModel).Cost.ToString();
         }
 
         public void ChangeBuyButtonCondition(bool enabled)
