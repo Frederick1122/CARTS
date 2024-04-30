@@ -20,6 +20,7 @@ namespace UI.Windows.Settings
             
             _castView = GetView<SettingsWindowView>();
             _castView.OpenLobbyAction += OpenLobby;
+            _castView.OnChangeLanguageAction += ChangeLanguage;
 
             _musicSliderController = _castView.MusicSlider.AddComponent<SliderController>();
             _musicSliderController.Setup(_castView.MusicSlider,
@@ -52,14 +53,16 @@ namespace UI.Windows.Settings
                 return;
 
             _castView.OpenLobbyAction -= OpenLobby;
+            _castView.OnChangeLanguageAction -= ChangeLanguage;
         }
 
-        protected override UIModel GetViewData()
-        {
-            return new SettingsWindowModel();
-        }
+        protected override UIModel GetViewData() => 
+            new SettingsWindowModel();
 
         private void OpenLobby() =>
             OpenLobbyAction?.Invoke();
+
+        private void ChangeLanguage(LocalizationLanguage language) => 
+            LocalizationManager.Instance.SetLocalization(language);
     }
 }
