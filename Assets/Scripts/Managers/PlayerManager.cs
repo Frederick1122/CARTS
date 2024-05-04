@@ -14,6 +14,8 @@ namespace Managers
         private const string PLAYER_JSON_PATH = "Player.json";
 
         public event Action<CarData> OnPlayerCarChange = delegate(CarData data) {  };
+        public event Action<CarData> OnPlayerCarUpdate = delegate(CarData data) {  };
+
         public event Action<CurrencyType, int> OnCurrencyChange = delegate(CurrencyType type, int i) {  };
 
         [SerializeField] private CarData _defaultCar;
@@ -127,10 +129,14 @@ namespace Managers
                     throw new ArgumentOutOfRangeException(nameof(modificationType), modificationType, null);
             }
 
+            
             Debug.Log($"{carConfigKey} upgrade {modificationType}, lvl: {level}");
 
             if (_saveData.currentCar.configKey == carConfigKey)
+            {
                 _saveData.currentCar = _saveData.purchasedCars[carConfigKey];
+                OnPlayerCarUpdate?.Invoke(_saveData.currentCar);
+            }
 
             Save();
 

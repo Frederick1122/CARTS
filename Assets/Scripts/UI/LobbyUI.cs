@@ -58,7 +58,6 @@ namespace UI
             _mapSelectionWindowController.GoToGameAction += RequestToGoToGame;
 
             _garageWindowController.OnOpenLobby += RequestToOpenLobby;
-            _garageWindowController.OnCarInGarageUpdate += RequestToUpdateCarInGarage;
         }
 
         private void OnDestroy()
@@ -89,7 +88,6 @@ namespace UI
             if (_garageWindowController != null)
             {
                 _garageWindowController.OnOpenLobby -= RequestToOpenLobby;
-                _garageWindowController.OnCarInGarageUpdate -= RequestToUpdateCarInGarage;
             }
         }
 
