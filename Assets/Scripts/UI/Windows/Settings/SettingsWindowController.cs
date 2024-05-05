@@ -12,7 +12,7 @@ namespace UI.Windows.Settings
         private SettingsWindowView _castView;
 
         private SliderController _musicSliderController;
-        private SliderController _soundSliderController;
+        private SliderController _sfxSliderController;
 
         public override void Init()
         { 
@@ -20,29 +20,30 @@ namespace UI.Windows.Settings
             
             _castView = GetView<SettingsWindowView>();
             _castView.OpenLobbyAction += OpenLobby;
+            _castView.OnChangeLanguageAction += ChangeLanguage;
 
             _musicSliderController = _castView.MusicSlider.AddComponent<SliderController>();
             _musicSliderController.Setup(_castView.MusicSlider,
                 () => SettingsManager.Instance.GetVolume(SoundType.Music),
                 value => SettingsManager.Instance.SetVolume(SoundType.Music, value));
             
-            _soundSliderController = _castView.SoundSlider.AddComponent<SliderController>();
-            _soundSliderController.Setup(_castView.SoundSlider,
-                () => SettingsManager.Instance.GetVolume(SoundType.Sound),
-                value => SettingsManager.Instance.SetVolume(SoundType.Sound, value));
+            _sfxSliderController = _castView.SfxSlider.AddComponent<SliderController>();
+            _sfxSliderController.Setup(_castView.SfxSlider,
+                () => SettingsManager.Instance.GetVolume(SoundType.Sfx),
+                value => SettingsManager.Instance.SetVolume(SoundType.Sfx, value));
         }
 
         public override void Show()
         {
             base.Show();
             _musicSliderController.Show();
-            _soundSliderController.Show();
+            _sfxSliderController.Show();
         }
 
         public override void Hide()
         {
             _musicSliderController.Hide();
-            _soundSliderController.Hide();
+            _sfxSliderController.Hide();
             base.Hide();
         }
 
@@ -52,14 +53,16 @@ namespace UI.Windows.Settings
                 return;
 
             _castView.OpenLobbyAction -= OpenLobby;
+            _castView.OnChangeLanguageAction -= ChangeLanguage;
         }
 
-        protected override UIModel GetViewData()
-        {
-            return new SettingsWindowModel();
-        }
+        protected override UIModel GetViewData() => 
+            new SettingsWindowModel();
 
         private void OpenLobby() =>
             OpenLobbyAction?.Invoke();
+
+        private void ChangeLanguage(LocalizationLanguage language) => 
+            LocalizationManager.Instance.SetLocalization(language);
     }
 }

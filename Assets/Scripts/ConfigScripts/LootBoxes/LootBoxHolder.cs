@@ -1,3 +1,4 @@
+using Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,13 @@ namespace ConfigScripts
     [CreateAssetMenu(fileName = "LootBoxHolderConfig", menuName = "Configs/LootBoxHolder")]
     public class LootBoxHolder : BaseConfig
     {
+        [field: Header("Price")]
+        [field: SerializeField] public int Cost { get; private set; } = 5;
+        [field: SerializeField] public CurrencyType CurrencyType { get; private set; } = CurrencyType.Soft;
+
+        [Header("LootBoxes")]
         [SerializeField] private List<LootBoxByRarity> _lootBoxByRarity = new();
+
         [Header("Drop parametres")]
         [SerializeField] private List<LootBoxPermanentDrop> _lootBoxPermanentDrop = new();
 

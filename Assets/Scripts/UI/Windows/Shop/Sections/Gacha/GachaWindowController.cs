@@ -13,10 +13,6 @@ namespace UI.Windows.Shop.Sections.Gacha
     {
         [SerializeField] private LootboxRewardWindowController _lootboxRewardController;
 
-        [Header("Loot box Cost")]
-        [SerializeField] private int _cost;
-        [SerializeField] private CurrencyType _currencyType;
-
         private GachaWindowView _castView;
         private LootBoxManager _lootBoxManager => LobbyManager.Instance.LootBoxManager;
 
@@ -25,17 +21,14 @@ namespace UI.Windows.Shop.Sections.Gacha
 
         public override void Init()
         {
-            _model = new(_cost);
-            _price = new(_cost, _currencyType);
-
             _lootboxRewardController.Init();
             _lootboxRewardController.Hide();
             //_lootboxRewardController.OnOpen += TurnOffSlotButtons;
             //_lootboxRewardController.OnClose += TurnOnSlotButtons;
 
             base.Init();
-            _castView = GetView<GachaWindowView>();
 
+            _castView = GetView<GachaWindowView>();
             _castView.OnBuyLootBox += BuyLootBox;
             //_castView.OnOpenLootBox += OpenLootBox;
         }
@@ -51,9 +44,17 @@ namespace UI.Windows.Shop.Sections.Gacha
 
         public override void Show()
         {
+            UpdateView();
             base.Show();
-            _castView.ChangeBuyButtonCondition(PlayerManager.Instance.IsEnoughMoney(_price));
             //UpdateSlotsImage();
+        }
+
+        public override void UpdateView()
+        {
+            _model = new(_lootBoxManager.Cost);
+            _price = new(_lootBoxManager.Cost, _lootBoxManager.CurrencyType);
+            _castView.ChangeBuyButtonCondition(PlayerManager.Instance.IsEnoughMoney(_price));
+            base.UpdateView();
         }
 
         protected override UIModel GetViewData() { return _model; }
