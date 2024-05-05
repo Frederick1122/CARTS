@@ -12,7 +12,7 @@ namespace UI.Windows.Settings
         public event Action OpenLobbyAction = delegate {  };
 
         [field: SerializeField] public SliderView MusicSlider { get; private set; }
-        [field: SerializeField] public SliderView SoundSlider { get; private set; }
+        [field: SerializeField] public SliderView SfxSlider { get; private set; }
 
         [SerializeField] private Button _openLobbyButton;
         [SerializeField] private Button _englishButton;

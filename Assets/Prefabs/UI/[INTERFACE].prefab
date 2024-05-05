@@ -1342,7 +1342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MusicSlider>k__BackingField: {fileID: 181915635126943155}
-  <SoundSlider>k__BackingField: {fileID: 9198512318094454332}
+  <SfxSlider>k__BackingField: {fileID: 9198512318094454332}
   _openLobbyButton: {fileID: 3093118564863729060}
   _englishButton: {fileID: 6729524180899685670}
   _russianButton: {fileID: 6230980804493179655}
@@ -3683,8 +3683,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 4283623659780485092}
   _lootboxRewardController: {fileID: 3155947780559003443}
-  _cost: 10
-  _currencyType: 0
 --- !u!1 &6455345178345287385
 GameObject:
   m_ObjectHideFlags: 0
@@ -10072,7 +10070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761476185618289684, guid: 8bad35a142b023f45be33584a46b0834, type: 3}
       propertyPath: m_Name
-      value: SoundSlider
+      value: SfxSlider
       objectReference: {fileID: 0}
     - target: {fileID: 3280754939854586918, guid: 8bad35a142b023f45be33584a46b0834, type: 3}
       propertyPath: m_AnchorMax.y
@@ -11254,7 +11252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5671276419322282024, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_Size
-      value: 0.92251265
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5671276419322282024, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_Value
@@ -11286,7 +11284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5671276420321130202, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 79.696075
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 5671276420321130202, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_AnchoredPosition.y
