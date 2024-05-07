@@ -9,13 +9,17 @@ namespace UI.Windows.Lobby
         public event Action OpenSettingsAction;
         public event Action OpenMapSelectionAction;
         public event Action OpenGarageAction = delegate { };
+        public event Action OpenTutorialAction = delegate { };
 
         public override void Init()
         {
-            GetView<LobbyWindowView>().OpenShopAction += OpenShop;
-            GetView<LobbyWindowView>().OpenSettingsAction += OpenSettings;
-            GetView<LobbyWindowView>().OpenMapSelectionAction += OpenMapSelection;
-            GetView<LobbyWindowView>().OpenGarageAction += OpenGarage;
+            LobbyWindowView castView = GetView<LobbyWindowView>();
+
+            castView.OpenShopAction += OpenShop;
+            castView.OpenSettingsAction += OpenSettings;
+            castView.OpenMapSelectionAction += OpenMapSelection;
+            castView.OpenGarageAction += OpenGarage;
+            castView.OpenTutorialAction += OpenTutorial;
 
             base.Init();
         }
@@ -25,10 +29,13 @@ namespace UI.Windows.Lobby
             if (_view == null)
                 return;
 
-            GetView<LobbyWindowView>().OpenShopAction -= OpenShop;
-            GetView<LobbyWindowView>().OpenSettingsAction -= OpenSettings;
-            GetView<LobbyWindowView>().OpenMapSelectionAction -= OpenMapSelection;
-            GetView<LobbyWindowView>().OpenGarageAction -= OpenGarage;
+            LobbyWindowView castView = GetView<LobbyWindowView>();
+
+            castView.OpenShopAction -= OpenShop;
+            castView.OpenSettingsAction -= OpenSettings;
+            castView.OpenMapSelectionAction -= OpenMapSelection;
+            castView.OpenGarageAction -= OpenGarage;
+            castView.OpenTutorialAction -= OpenTutorial;
         }
 
         public override void Show()
@@ -47,6 +54,9 @@ namespace UI.Windows.Lobby
         {
             return new LobbyWindowModel();
         }
+
+        private void OpenTutorial() =>
+            OpenTutorialAction?.Invoke();
 
         private void OpenShop() =>
             OpenShopAction?.Invoke();

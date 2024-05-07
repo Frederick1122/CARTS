@@ -18,13 +18,15 @@ namespace Lobby.Garage
         public void Init()
         {
             PlayerManager.Instance.OnPlayerCarChange += UpdateGarage;
-            UIManager.Instance.GetLobbyUi().OnCarInGarageUpdate += UpdateGarage;
+            PlayerManager.Instance.OnPlayerCarUpdate += UpdateGarage;
+           // UIManager.Instance.GetLobbyUi().OnCarInGarageUpdate += UpdateGarage;
         }
 
         private void OnDestroy()
         {
             PlayerManager.Instance.OnPlayerCarChange -= UpdateGarage;
-            UIManager.Instance.GetLobbyUi().OnCarInGarageUpdate -= UpdateGarage;
+            PlayerManager.Instance.OnPlayerCarUpdate -= UpdateGarage;
+            //UIManager.Instance.GetLobbyUi().OnCarInGarageUpdate -= UpdateGarage;
         }
 
         public void UpdateGarage(CarData data)

@@ -15,13 +15,9 @@ namespace Core.FSM
         
         protected override void Awake()
         {
-            
-
             base.Awake();
             foreach (var currentFsm in _currentFsms)
-            {
                 currentFsm.Value.Init();
-            }
         }
 
         public void SetActiveFsm<T>() where T : Fsm, new()
