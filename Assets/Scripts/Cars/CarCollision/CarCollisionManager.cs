@@ -41,7 +41,7 @@ namespace Cars.Tools
         }
 
         private void OnDestroy() =>
-            _resistanceToken.Cancel();
+            _resistanceToken?.Cancel();
 
         private void Update()
         {
@@ -55,10 +55,10 @@ namespace Cars.Tools
         public void MakeResistance(float time = -1)
         {
             _resistanceToken = new CancellationTokenSource();
-            MakeResistanceCuro(_resistanceToken.Token, time).Forget();
+            MakeResistanceTask(_resistanceToken.Token, time).Forget();
         }
 
-        private async UniTaskVoid MakeResistanceCuro(CancellationToken token, float time = -1)
+        private async UniTaskVoid MakeResistanceTask(CancellationToken token, float time = -1)
         {
             var resistanceTime = time == -1 ? _resistanceAfterSpawn : time;
             _maxResistanceTimer = MAX_RESISTANCE_TIME + resistanceTime;

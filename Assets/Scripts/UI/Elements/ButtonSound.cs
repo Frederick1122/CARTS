@@ -29,7 +29,7 @@ namespace UI.Elements
 
         private void PlaySound()
         {
-            SoundManager.Instance.PlayUISound(_soundEffect);
+            SoundManager.Instance.PlayOneShot(_soundEffect);
         }
     }
 }

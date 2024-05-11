@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ConfigScripts
 {
     [CreateAssetMenu(fileName = "FreeRideTrackConfig", menuName = "Configs/Free Ride Track Config")]
-    public class FreeRideTrackConfig : BaseConfig
+    public class FreeRideTrackConfig : BaseTrackConfig
     {
         public FreeRidePrefabData freeRidePrefab;
         

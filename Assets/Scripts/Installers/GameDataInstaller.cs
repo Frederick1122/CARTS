@@ -36,20 +36,28 @@ namespace Installers
             public GameModeData gameModeData;
         }
 
-        public abstract class GameModeData { }
+        public abstract class GameModeData
+        {
+            public string trackKey;
+
+            public GameModeData() { }
+
+            public GameModeData(string trackKey)
+            {
+                this.trackKey = trackKey;
+            }
+        }
 
         [Serializable]
         public class LapRaceGameData : GameModeData
         {
-            public string trackKey;
             public int lapCount;
             public int botCount;
 
             public LapRaceGameData() { }
 
-            public LapRaceGameData(string trackKey, int lapCount, int botCount)
+            public LapRaceGameData(string trackKey, int lapCount, int botCount) : base (trackKey)
             {
-                this.trackKey = trackKey;
                 this.lapCount = lapCount;
                 this.botCount = botCount;
             }
@@ -58,14 +66,7 @@ namespace Installers
         [Serializable]
         public class FreeRideGameData : GameModeData
         {
-            public string trackKey;
             
-            public FreeRideGameData() { }
-
-            public FreeRideGameData(string trackKey)
-            {
-                this.trackKey = trackKey;
-            }
         }
 
         public enum GameType

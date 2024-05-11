@@ -11,7 +11,7 @@ namespace Managers.Libraries
 
         protected override void Awake()
         {
-            _path = CAR_CONFIG_PATH;
+            _paths.Add(CAR_CONFIG_PATH);
             base.Awake();
         }
 

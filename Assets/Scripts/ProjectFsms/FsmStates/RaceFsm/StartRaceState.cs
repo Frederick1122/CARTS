@@ -24,21 +24,28 @@ namespace FsmStates.RaceFsm
             StartDelayTask(_startDelayCts.Token).Forget();
 
             base.Enter();
-            _fsm.SetState<InRaceState>();
+        }
+
+        public override void Exit()
+        {
+            _startDelayCts?.Cancel();
+
+            base.Exit();
         }
 
         private async UniTaskVoid StartDelayTask(CancellationToken token)
         {
-            var raceLayout = UIManager.Instance.GetRaceUi().GetRaceLayout(_raceFsmData.raceType);
+            var startDelayController = UIManager.Instance.GetRaceUi().GetStartDelayController();
             
             await UniTask.Delay(TimeSpan.FromSeconds(HIDDEN_DELAY), cancellationToken: token);
             
-            raceLayout.Show();
-            raceLayout.SetStartDelay(DELAY);
+            startDelayController.Show();
+            startDelayController.SetDelay(DELAY);
             
             await UniTask.Delay(TimeSpan.FromSeconds(DELAY), cancellationToken: token);
             
             _raceFsmData.raceManager.StartRace();
+            _fsm.SetState<InRaceState>();
         }
     }
 }

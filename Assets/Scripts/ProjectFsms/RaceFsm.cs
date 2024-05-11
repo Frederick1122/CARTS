@@ -1,18 +1,23 @@
 ﻿using Core.FSM;
 using FsmStates.RaceFsm;
+using Installers;
 using Race.RaceManagers;
+using Zenject;
 
 namespace ProjectFsms
 {
     public class RaceFsm : Fsm
     {
+        [Inject] private GameDataInstaller.GameData _gameData;
+
         private RaceFsmData _raceFsmData = new ();
         
         public override void Init()
         {
             _raceFsmData.raceManager = RaceManager.Instance;
+            _raceFsmData.gameData = _gameData;
 
-            _states.Add(typeof(PreInitializeState), new PreInitializeState(this, _raceFsmData));
+            _states.Add(typeof(PreInitializeState),  new PreInitializeState(this, _raceFsmData));
             _states.Add(typeof(StartRaceState), new StartRaceState(this, _raceFsmData));
             _states.Add(typeof(InRaceState), new InRaceState(this, _raceFsmData));
             _states.Add(typeof(FinishRaceState), new FinishRaceState(this, _raceFsmData));
@@ -26,6 +31,7 @@ namespace ProjectFsms
     public class RaceFsmData
     {
         public RaceManager raceManager;
+        public GameDataInstaller.GameData gameData;
         public RaceType raceType;
     }
 }

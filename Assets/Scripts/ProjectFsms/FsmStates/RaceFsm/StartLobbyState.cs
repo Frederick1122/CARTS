@@ -19,8 +19,11 @@ namespace FsmStates.RaceFsm
         public override void Enter()
         {
             base.Enter();
-            
+            _raceFsmData.raceManager.FinishRace();
+
             UIManager.Instance.SetActiveLoadingScreen(true);
+            UIManager.Instance.GetRaceUi().HideAll();
+            
             SoundManager.Instance.StopAllSound();
 
             SceneManager.LoadScene(LOBBY_SCENE);

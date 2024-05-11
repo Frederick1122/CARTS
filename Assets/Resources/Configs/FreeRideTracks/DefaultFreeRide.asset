@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Default Free Ride
   configKey: DefaultFreeRide
+  sound:
+    Guid:
+      Data1: 1297436473
+      Data2: 1204561268
+      Data3: -203577470
+      Data4: -1256146356
+    Path: event:/Music/FreeRide 1
   freeRidePrefab: {fileID: 2252254384423415066, guid: 940ce3afa9b58014dba667e12e4b4b1e, type: 3}
   freeRideDifficultyModifierData:
     speedModifier:

@@ -8,14 +8,19 @@ namespace Managers.Libraries
 {
     public class BaseLibrary<T> : Singleton<BaseLibrary<T>> where T : BaseConfig
     {
-        protected string _path = "";
+        protected List<string> _paths = new();
         protected Dictionary<string, T> _allConfigs = new();
 
         protected override void Awake()
         {
             base.Awake();
 
-            var allConfigs = Resources.LoadAll(_path, typeof(T));
+            var allConfigs = new List<object>();
+
+            foreach (var path in _paths)
+            {
+                allConfigs.AddRange(Resources.LoadAll(path));
+            }
 
             foreach (var config in allConfigs)
             {

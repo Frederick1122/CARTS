@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using Cars;
+using ConfigScripts;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -258,7 +259,7 @@ namespace Race.RaceManagers
         
         private void InitTrack()
         {
-            var trackConfig = TrackLibrary.Instance.GetConfig(_lapRaceGameData.trackKey);
+            var trackConfig = TrackLibrary.Instance.GetConfig(_lapRaceGameData.trackKey) as LapRaceTrackConfig;
             _currentTrack = Object.Instantiate(trackConfig.trackPrefab);
         }
 

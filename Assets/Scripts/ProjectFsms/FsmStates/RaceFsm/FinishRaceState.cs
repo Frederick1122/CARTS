@@ -33,6 +33,7 @@ namespace FsmStates.RaceFsm
             UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).Show();
             UIManager.Instance.GetRaceUi().GetFinishWindowController(_raceFsmData.raceType).OnGoToMainMenuAction += GoToMenu;
             _cancellationTokenSource = new CancellationTokenSource();
+
             FreezeTime(_cancellationTokenSource.Token).Forget();
         }
 
