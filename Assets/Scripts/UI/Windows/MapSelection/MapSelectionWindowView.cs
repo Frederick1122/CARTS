@@ -9,9 +9,7 @@ namespace UI.Windows.MapSelection
     public class MapSelectionWindowView : UIView
     {
         public event Action OpenLobbyAction;
-
         public event Action<string> OnModeSwipe;
-
         public event Action<string> OnModSelect;
         public event Action<string> OnMapSelect;
 

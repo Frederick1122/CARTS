@@ -58,7 +58,7 @@ namespace Managers
 
         public void PlayOneShot(EventReference sound)
         {
-            RuntimeManager.PlayOneShot(sound.Path);
+            RuntimeManager.PlayOneShot(sound.ToString());
         }
 
         public void PlayOneShot(string sound)
