@@ -129,6 +129,9 @@
 		<property name="length">
 			<value>20</value>
 		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
 		<relationship name="fadeInCurve">
 			<destination>{5b9b6cc0-6971-4735-af24-9d697268cd03}</destination>
 		</relationship>
@@ -150,6 +153,9 @@
 		</property>
 		<property name="length">
 			<value>20</value>
+		</property>
+		<property name="looping">
+			<value>true</value>
 		</property>
 		<relationship name="fadeInCurve">
 			<destination>{19299f8a-0d10-45db-bc27-5ad43c78ffbd}</destination>
@@ -173,6 +179,9 @@
 		<property name="length">
 			<value>20</value>
 		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
 		<relationship name="fadeInCurve">
 			<destination>{0ae75dcc-4fa8-46be-865a-ed3285c0151f}</destination>
 		</relationship>
@@ -194,6 +203,9 @@
 		</property>
 		<property name="length">
 			<value>15</value>
+		</property>
+		<property name="looping">
+			<value>true</value>
 		</property>
 		<relationship name="fadeInCurve">
 			<destination>{8424f399-5950-4c16-a244-8f9b544d2770}</destination>

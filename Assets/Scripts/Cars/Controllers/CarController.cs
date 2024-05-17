@@ -1,9 +1,16 @@
+using System;
 using Cars.InputSystem;
 using Cars.Tools;
 using Cinemachine;
 using ConfigScripts;
 using Obstacles;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using FMOD.Studio;
+using FMODUnity;
+using Knot.Localization;
+using Managers;
 using UnityEngine;
 
 namespace Cars.Controllers
@@ -12,6 +19,16 @@ namespace Cars.Controllers
     public abstract class CarController : MonoBehaviour
     {
         private const int SPEED_STEP_PERCENT = 50;
+        private const float SOUND_DELAY = 1f;
+        
+        private const string ENGINE_SOUND_PARAMETER = "Speed";
+        private const string ENGINE_SOUND_EVENT = "event:/SFX/Auto/Engine";
+        private const string CRASH_SOUND_EVENT = "event:/SFX/Auto/Crash";
+        private const string DRIFT_SOUND_EVENT = "event:/SFX/Auto/Drift";
+        private const string BRAKE_SOUND_EVENT = "event:/SFX/Auto/Brake";
+
+        private static readonly string[] OBSTACLE_LAYERS = new[] {"AIObstacle", "carbody", "Default"};
+        
         public bool IsActive => _isCarActive;
 
         public float SkidWidth { get; set; }
@@ -45,7 +62,7 @@ namespace Cars.Controllers
         private float _radius;
         private readonly Dictionary<Transform, Transform> _wheelsAxel = new();
         private SphereCollider _sphereCollider;
-        
+
         // Car Collision
         private CarCollisionManager _collisionManager;
 
@@ -61,7 +78,25 @@ namespace Cars.Controllers
         protected float _acceleration = 0;
 
         private float _lastHorizontalInput = 0;
+        //
+        private bool _isBrake = false;
         
+        private CancellationTokenSource _playSoundToken = new ();
+        private HashSet<EventInstance> _activeEventInstances = new ();
+        private EventInstance _engineInstance;
+        private EventInstance _crashInstance;
+        private EventInstance _driftInstance;
+        private EventInstance _brakeInstance;
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log($"{gameObject.name} punch {collision.gameObject.name}");
+            var currentLayer = LayerMask.LayerToName(collision.gameObject.layer);
+            
+            if (Array.Exists(OBSTACLE_LAYERS, s => s == currentLayer))
+                PlaySoundTask(_crashInstance, _playSoundToken.Token);
+        }
+
         public virtual void Init(IInputSystem inputSystem, CarConfig carConfig, 
             CarPresetConfig carPresetConfig, CarCollisionDetection collisionDetection, 
             ITargetHolder targetHolder = null)
@@ -87,10 +122,27 @@ namespace Cars.Controllers
 
             _inputSystem.IsActive = false;
 
-            _collisionManager = gameObject.AddComponent<CarCollisionManager>(); ;
+            _collisionManager = gameObject.AddComponent<CarCollisionManager>();
             _collisionManager.Init(collisionDetection, carPresetConfig.CarResistanceAfterSpawn, _onCarLayers);
+            
+            _engineInstance = RuntimeManager.CreateInstance(ENGINE_SOUND_EVENT);
+            _crashInstance = RuntimeManager.CreateInstance(CRASH_SOUND_EVENT);
+            _driftInstance = RuntimeManager.CreateInstance(DRIFT_SOUND_EVENT);
+            _brakeInstance = RuntimeManager.CreateInstance(BRAKE_SOUND_EVENT);
 
+            _engineInstance.start();
+            
             SetUpCharacteristic();
+        }
+
+        private void OnDestroy()
+        {
+            _playSoundToken.Dispose();
+            
+            _engineInstance.release();
+            _crashInstance.release();
+            _driftInstance.release();
+            _brakeInstance.release();
         }
 
         protected virtual void FixedUpdate()
@@ -104,7 +156,14 @@ namespace Cars.Controllers
             Visual();
         }
 
+        private void Update()
+        {
+            _engineInstance.set3DAttributes(gameObject.To3DAttributes());
+            _engineInstance.setParameterByName(ENGINE_SOUND_PARAMETER, CarVelocity.magnitude);
+        }
+
         public abstract void SetUpCharacteristic();
+        
         protected abstract void CalculateDesiredAngle();
 
         private void InitFromConfig(CarPresetConfig carPresetConfig)
@@ -192,6 +251,17 @@ namespace Cars.Controllers
             CarVelocity = _carBody.transform.InverseTransformDirection(_carBody.velocity) * 2;
 
             var verticalInput = _inputSystem.VerticalInput;
+
+            if (verticalInput < 0 && !_isBrake)
+            {
+                PlaySoundTask(_brakeInstance, _playSoundToken.Token);
+                _isBrake = true;
+            }
+            else if (verticalInput > 0 && _isBrake)
+            {
+                _isBrake = false;
+            }
+            
             var horizontalInput = Mathf.Lerp(_lastHorizontalInput, _inputSystem.HorizontalInput, _turnSpeed * 3 * Time.fixedDeltaTime);
             var brakeInput = _inputSystem.BrakeInput;
 
@@ -232,7 +302,6 @@ namespace Cars.Controllers
                     _carBody.AddTorque(100 * horizontalInput * sign * turnMultiplier * turnSpeed * Vector3.up);
                 else if (verticalInput < -0.1f || CarVelocity.z < -1)
                     _carBody.AddTorque(100 * horizontalInput * sign * turnMultiplier * turnSpeed * Vector3.up);
-
 
                 //brakelogic
                 _rbSphere.constraints = brakeInput > 0.1f ? RigidbodyConstraints.FreezeRotationX :
@@ -352,6 +421,22 @@ namespace Cars.Controllers
             };
 
             return frictionMaterial;
+        }
+        
+        private async UniTaskVoid PlaySoundTask(EventInstance instance, CancellationToken token)
+        {
+            if (_activeEventInstances.Contains(instance))
+            {
+                return;
+            }
+
+            _activeEventInstances.Add(instance);
+            instance.set3DAttributes(gameObject.To3DAttributes());
+            instance.start();
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(SOUND_DELAY), cancellationToken: token);
+
+            _activeEventInstances.Remove(instance);
         }
 
 #if UNITY_EDITOR
