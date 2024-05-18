@@ -9,7 +9,8 @@ namespace Cars
     {
         private const float _editorRayLength = 3f;
 
-        public float SkidWidth { get; set; } = 0.1f;
+        
+        [field: SerializeField] public float SkidWidth { get; set; } = 0.1f;
         
         [field: Header("Colliders")]
 
