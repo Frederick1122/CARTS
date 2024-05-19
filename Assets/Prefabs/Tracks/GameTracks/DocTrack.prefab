@@ -425,7 +425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8933277958672213767}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,6 +532,8 @@ Transform:
   - {fileID: 1399818476130577855}
   - {fileID: 5759521099095065109}
   - {fileID: 7455470404948542913}
+  - {fileID: 6388040155925741808}
+  - {fileID: 95370653905831340}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &881231994806016191
@@ -575,7 +577,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4280065468102106299}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1181,6 +1183,10 @@ PrefabInstance:
     - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
@@ -1847,6 +1853,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (46)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -2555,6 +2565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -2898,6 +2912,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -3101,6 +3119,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3000003
@@ -3174,6 +3196,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (42)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -3508,6 +3534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (64)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -3794,6 +3824,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -3938,6 +3972,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (61)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -4138,6 +4176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -4274,6 +4316,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -4492,6 +4538,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -5350,6 +5400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -5495,6 +5549,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -5568,6 +5626,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -6302,6 +6364,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -6376,6 +6442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (69)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -6449,6 +6519,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (55)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -6653,6 +6727,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (43)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -7124,6 +7202,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -7197,6 +7279,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -7472,6 +7558,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -7674,6 +7764,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -8220,6 +8314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (40)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -8293,6 +8391,10 @@ PrefabInstance:
     - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
@@ -8435,6 +8537,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -8571,6 +8677,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.02373
@@ -8644,6 +8754,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -9110,6 +9224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -9184,6 +9302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -9257,6 +9379,10 @@ PrefabInstance:
     - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
@@ -9460,6 +9586,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -9805,6 +9935,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (49)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -9879,6 +10013,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.52610123
@@ -9952,6 +10090,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -11138,6 +11280,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -11335,6 +11481,10 @@ PrefabInstance:
     - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
@@ -11794,6 +11944,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (62)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -11867,6 +12021,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -12549,6 +12707,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (70)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -12757,6 +12919,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -12830,6 +12996,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -13546,6 +13716,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -13745,9 +13919,81 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 826438896177269556}
     m_Modifications:
+    - target: {fileID: 630085880915445576, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 246.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 630085880915445576, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 29.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259136971154772742, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 247.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259136971154772742, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 117.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983684591485699251, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 170.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983684591485699251, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -102.99
+      objectReference: {fileID: 0}
     - target: {fileID: 3022682445088154563, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
       propertyPath: m_Name
       value: Waypoit Circut Doc Track
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316001927956928166, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 246.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316001927956928166, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979135334172945549, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 293.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979135334172945549, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 38.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617741635953589790, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 294.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617741635953589790, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162187084856215734, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 293.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162187084856215734, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 75.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325398919157915541, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 291.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325398919157915541, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 115.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825359321527153712, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 247.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825359321527153712, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 85.22
       objectReference: {fileID: 0}
     - target: {fileID: 7583369759962251997, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13789,6 +14035,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8327389453822057541, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 170.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8327389453822057541, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -130.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503878188243638971, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 238.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503878188243638971, guid: 3f0388674d21ba8489eb4a0ddcab7a59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.68
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13821,6 +14083,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -14160,6 +14426,10 @@ PrefabInstance:
     - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
@@ -14893,6 +15163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -14967,6 +15241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -15040,6 +15318,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -15704,6 +15986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -15778,6 +16064,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -15851,6 +16141,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -15993,6 +16287,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (48)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -16128,6 +16426,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (60)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -16274,6 +16576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (74)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -16347,6 +16653,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (53)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -16892,6 +17202,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -17174,6 +17488,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -17299,6 +17617,384 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4237227611749188, guid: 51965945a941b9f4ca191520488807e1, type: 3}
   m_PrefabInstance: {fileID: 3569831502717206084}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3574567498506289709
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 826438896177269556}
+    m_Modifications:
+    - target: {fileID: 251231806672852587, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 132.59993
+      objectReference: {fileID: 0}
+    - target: {fileID: 462901432573340442, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 132.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 618788951000342909, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 618788951000342909, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915880438492642016, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -109.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915880438492642016, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251554336446079116, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 50.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251554336446079116, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259136971154772742, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 254.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259136971154772742, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 114.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539329644561149810, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 124.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539329644561149810, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -169.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944835345951598950, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 50.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944835345951598950, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983684591485699251, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 170.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983684591485699251, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -101.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022682445088154563, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_Name
+      value: Waypoit Circut Doc Track 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152391052114875198, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 170.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152391052114875198, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -162.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316001927956928166, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 251.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316001927956928166, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 3542278567295853821, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 51.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3542278567295853821, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -52.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3564345949426877941, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 31.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 3564345949426877941, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576716841928609834, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 50.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576716841928609834, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -145.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598861509880239584, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 169.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598861509880239584, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -182.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869507312945541416, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 57.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869507312945541416, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 139.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979135334172945549, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 287.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979135334172945549, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 38.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098581678675723709, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 76.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098581678675723709, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -154.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391376182335613777, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 132.59993
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617741635953589790, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 288.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617741635953589790, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657284696441143301, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 270.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657284696441143301, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 126.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794647211697521659, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 112.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794647211697521659, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -146.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162187084856215734, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 288
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162187084856215734, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 76
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303181740385072432, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 154.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303181740385072432, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -196.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325398919157915541, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 287.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325398919157915541, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 113.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5630098426087179013, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -150.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5630098426087179013, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 87
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723009209751820255, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 49.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723009209751820255, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -71.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935004677176767302, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 131.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935004677176767302, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -192.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6076059388640193201, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 46.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6076059388640193201, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -103.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178750617413359649, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -151.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178750617413359649, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 119.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784977063959027437, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 174.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784977063959027437, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -33.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794127468958702561, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -74.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794127468958702561, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 137.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825359321527153712, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 253.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825359321527153712, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 86.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147075550327788667, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147075550327788667, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167736562272310514, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -77.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167736562272310514, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 320.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 600.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894798010957343355, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -104.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894798010957343355, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 143.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125158166071850789, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -150.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125158166071850789, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 55.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8327389453822057541, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 171.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8327389453822057541, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -130.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623576318251045631, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -131.15002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623576318251045631, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 143.4499
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954239128193397901, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 168.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954239128193397901, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -70.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199350634803211296, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -135.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199350634803211296, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+--- !u!4 &6388040155925741808 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7583369759962251997, guid: 02f1b999378d6eb4f8372ed325d11c86, type: 3}
+  m_PrefabInstance: {fileID: 3574567498506289709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3584722141159167584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17310,6 +18006,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -17385,6 +18085,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -17459,6 +18163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -17532,6 +18240,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -17928,6 +18640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (65)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -18002,6 +18718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (40)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.048
@@ -18075,6 +18795,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -19132,6 +19856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -19329,6 +20057,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -19992,6 +20724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -20264,6 +21000,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -20337,6 +21077,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (52)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -20802,6 +21546,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -20875,6 +21623,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (73)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -21073,6 +21825,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -21607,6 +22363,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -21871,6 +22631,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -22282,6 +23046,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -22355,6 +23123,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -22430,6 +23202,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -22503,6 +23279,10 @@ PrefabInstance:
     - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
@@ -22772,6 +23552,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -22845,6 +23629,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -23184,6 +23972,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -23381,6 +24173,10 @@ PrefabInstance:
     - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
@@ -23585,6 +24381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -23783,6 +24583,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -24250,6 +25054,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_03 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4143863061687110, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -24591,6 +25399,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -25009,6 +25821,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (68)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -25145,6 +25961,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -25218,6 +26038,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (71)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -25354,6 +26178,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -26008,6 +26836,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -26144,6 +26976,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -26217,6 +27053,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (57)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -26426,6 +27266,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -26573,6 +27417,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -26834,6 +27682,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -26907,6 +27759,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (66)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -26982,6 +27838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -27055,6 +27915,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (58)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -27787,6 +28651,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -27922,6 +28790,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -28060,6 +28932,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -28134,6 +29010,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (45)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -28207,6 +29087,10 @@ PrefabInstance:
     - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_03 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4143863061687110, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_LocalScale.x
@@ -28468,6 +29352,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (50)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -29045,6 +29933,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -29393,6 +30285,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (63)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -29736,6 +30632,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -29939,6 +30839,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -30012,6 +30916,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -30423,6 +31331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -30496,6 +31408,10 @@ PrefabInstance:
     - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_03 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4143863061687110, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_LocalScale.x
@@ -30835,6 +31751,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -31164,6 +32084,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -31238,6 +32162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (72)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -31311,6 +32239,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -31701,6 +32633,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -31774,6 +32710,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -31915,6 +32855,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -32319,6 +33263,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -32538,6 +33486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (54)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -32674,6 +33626,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -32747,6 +33703,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -32893,6 +33853,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -32966,6 +33930,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -33041,6 +34009,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -33115,6 +34087,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (67)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -33188,6 +34164,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -33457,6 +34437,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -33598,6 +34582,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Bend_In_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1324890769182676, guid: f083fc2f1cd041c40b1e544cce1b2db9, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4269095151678758, guid: f083fc2f1cd041c40b1e544cce1b2db9, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -33734,6 +34722,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_03 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4143863061687110, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.78545
@@ -33807,6 +34799,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -33955,6 +34951,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -34291,6 +35291,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -34352,6 +35356,84 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
   m_PrefabInstance: {fileID: 7511395103703357340}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7525331930040010609
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 826438896177269556}
+    m_Modifications:
+    - target: {fileID: 2983684591485699251, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 177.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983684591485699251, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -101.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022682445088154563, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_Name
+      value: Waypoit Circut Doc Track 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 316.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 603.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8327389453822057541, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 177.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8327389453822057541, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -136.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+--- !u!4 &95370653905831340 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7583369759962251997, guid: 02b205e4e9b3aa149b230f19c09dbb79, type: 3}
+  m_PrefabInstance: {fileID: 7525331930040010609}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7529981043273331243
 PrefabInstance:
@@ -34573,6 +35655,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_03
       objectReference: {fileID: 0}
+    - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4143863061687110, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -34718,6 +35804,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -34854,6 +35944,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -35207,6 +36301,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (56)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -35343,6 +36441,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_03 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4143863061687110, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5000001
@@ -35416,6 +36518,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -35616,6 +36722,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -35886,6 +36996,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (41)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -36277,6 +37391,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -36674,6 +37792,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5908788
@@ -37015,6 +38137,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -37088,6 +38214,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -37889,6 +39019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_Corner_01 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648395851131932, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4507469603536206, guid: 9cb268c3e0dba96469bd7237adea6209, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -37962,6 +39096,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (34)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -38285,6 +39423,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_03 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4143863061687110, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.78545
@@ -38421,6 +39563,10 @@ PrefabInstance:
     - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
@@ -38620,6 +39766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3000001
@@ -38760,6 +39910,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -39027,6 +40181,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -39101,6 +40259,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Ground_Lines_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1058474765748578, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4764317933835284, guid: 0db69b7bade9c124d87b3f6364fb0616, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -39174,6 +40336,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -39659,6 +40825,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (59)
       objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -39732,6 +40902,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -39869,6 +41043,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -40263,6 +41441,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_03 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1105900885710138, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4143863061687110, guid: 814ab022884a1414999beb3a8e976f9c, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.78545
@@ -40336,6 +41518,10 @@ PrefabInstance:
     - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Rail_D_Straight_04 (44)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352760697096840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846254726732840, guid: 59cb2a0e4dac0024a8ffb9c7b8fb1439, type: 3}
       propertyPath: m_LocalScale.x
@@ -40915,6 +42101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrier_Concrete_04_Striped_01 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1407592806070912, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4619619721276256, guid: d62dd0c402818bc4cbd4314c7ad8a2b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -41372,6 +42562,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
@@ -41837,6 +43031,10 @@ PrefabInstance:
     - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_Tyre_Bend_01 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550920680563338, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4591205116323976, guid: 88db4d66ad612c54fb7c8f9aa6f0ee10, type: 3}
       propertyPath: m_LocalScale.x
