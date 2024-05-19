@@ -10,7 +10,9 @@ namespace UI.Windows.Lobby
         public event Action OpenSettingsAction;
         public event Action OpenMapSelectionAction;
         public event Action OpenGarageAction;
+        public event Action OpenTutorialAction;
 
+        [SerializeField] private Button _openTutorialButton;
         [SerializeField] private Button _openShopButton;
         [SerializeField] private Button _openSettingsButton;
         [SerializeField] private Button _openMapSelectionButton;
@@ -23,6 +25,7 @@ namespace UI.Windows.Lobby
             _openSettingsButton.onClick.AddListener(OpenSettingsAction.Invoke);
             _openMapSelectionButton.onClick.AddListener(OpenMapSelectionAction.Invoke);
             _openGarageButton.onClick.AddListener(OpenGarageAction.Invoke);
+            _openTutorialButton.onClick.AddListener(OpenTutorialAction.Invoke);
         }
 
         private void OnDestroy()

@@ -5,8 +5,6 @@ namespace UI.Windows.LapRace
 {
     public class LapRaceLayoutController : RaceLayoutController
     {
-        
-        
         public override RaceType raceType 
         {
             get { return RaceType.LAP_RACE; }

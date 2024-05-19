@@ -7,7 +7,6 @@ using Cysharp.Threading.Tasks;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Assert = UnityEngine.Assertions.Assert;
 using Random = UnityEngine.Random;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
@@ -42,6 +41,9 @@ namespace Managers
         private CancellationTokenSource _refreshBackgroundCts;
         private CancellationTokenSource _loadSoundBanksCts = new CancellationTokenSource();
 
+        private SceneType _sceneType;
+        private int _currentCompositionIdx;
+
         protected override void Awake()
         {
             base.Awake();
@@ -54,36 +56,42 @@ namespace Managers
 
         public bool IsSoundBanksLoaded() => _isSoundBanksLoaded;
 
-        public void PlayUISound(EventReference sound)
+        public void PlayOneShot(EventReference sound)
         {
-            Play(sound);
+            RuntimeManager.PlayOneShot(sound.ToString());
         }
 
         public void PlayOneShot(string sound)
         {
             RuntimeManager.PlayOneShot(FMOD_EVENT_PREFIX + sound);
         }
+
+        public void PlayBackground(SceneType sceneType, EventReference sound)
+        {
+            _sceneType = sceneType;
+
+            if (sound.IsNull)
+                PlayBackground(sceneType);
+            else
+                PlayBackground(sound, true);
+        }
         
         public void PlayBackground(SceneType sceneType, int compositionIdx = -1, int lastCompositionIdx = -1)
         {
+            _sceneType = sceneType;
+            
             var currentCompositions = GetSceneCompositions(sceneType);
             var currentCompositionIdx = compositionIdx != -1
                 ? Mathf.Clamp(compositionIdx, 0, currentCompositions.Count)
                 : GetRandomCompositionIdx(currentCompositions.Count, lastCompositionIdx);
 
-            Play(currentCompositions[currentCompositionIdx]);
-            _refreshBackgroundCts?.Cancel();
-            _refreshBackgroundCts = new CancellationTokenSource();
-            _emitter.EventDescription.getLength(out var length);
-            var delay = (float)length / 1000;
-            
-            RefreshSoundTask(_refreshBackgroundCts.Token, delay, sceneType, currentCompositionIdx).Forget();
+            PlayBackground(currentCompositions[currentCompositionIdx]);
         }
         
         public void StopAllSound()
         {
             _masterBus.stopAllEvents(STOP_MODE.IMMEDIATE);
-            _refreshBackgroundCts.Cancel();
+            _refreshBackgroundCts?.Cancel();
         }
         
         private void OnDestroy()
@@ -95,12 +103,19 @@ namespace Managers
             _loadSoundBanksCts?.Cancel();
         }
 
-        private void Play(EventReference eventReference)
+        private void PlayBackground(EventReference sound, bool isRepeat = false)
         {
-            _emitter.EventReference = eventReference;
+            _emitter.Stop();
+            _emitter.EventReference = sound;
             _emitter.Play();
+            _refreshBackgroundCts?.Cancel();
+            _refreshBackgroundCts = new CancellationTokenSource();
+            _emitter.EventDescription.getLength(out var length);
+            var delay = (float)length / 1000;
+            
+            RefreshSoundTask(_refreshBackgroundCts.Token, delay, sound, isRepeat).Forget();
         }
-        
+
         private void UpdateAllVolumeChannels()
         {
             SetVolume(SoundType.Music, SettingsManager.Instance.GetVolume(SoundType.Music));
@@ -162,12 +177,15 @@ namespace Managers
             return idx;
         }
         
-        private async UniTaskVoid RefreshSoundTask(CancellationToken token, float delay, 
-            SceneType sceneType, int compositionIdx)
+        private async UniTaskVoid RefreshSoundTask(CancellationToken token, float delay, EventReference sound,
+            bool isRepeat)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
             
-            PlayBackground(sceneType, -1, compositionIdx);
+            if (!isRepeat)
+                PlayBackground(_sceneType, -1, _currentCompositionIdx);
+            else 
+                PlayBackground(_sceneType, sound);
         }
         
         private async UniTaskVoid LoadSoundBanks(CancellationToken token)

@@ -1,5 +1,4 @@
 ﻿using Race.RaceManagers;
-using UI.Windows.LapRace;
 
 namespace UI.Windows
 {
@@ -7,15 +6,11 @@ namespace UI.Windows
     {
         public virtual RaceType raceType { get; }
 
-        public void SetStartDelay(int delay)
+        public override void Show()
         {
-            if (delay == 0)
-                return;
-
-            var model = new RaceLayoutModel(delay); 
-            _view.UpdateView(model);
+            base.Show();
         }
-         
+
         protected override UIModel GetViewData()
         {
             return new RaceLayoutModel();

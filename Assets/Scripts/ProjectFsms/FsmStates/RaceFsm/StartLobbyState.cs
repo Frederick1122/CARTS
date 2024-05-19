@@ -1,6 +1,7 @@
 ﻿using Core.FSM;
 using Managers;
 using ProjectFsms;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,13 +19,19 @@ namespace FsmStates.RaceFsm
         public override void Enter()
         {
             base.Enter();
+            _raceFsmData.raceManager.FinishRace();
+
+            UIManager.Instance.SetActiveLoadingScreen(true);
+            UIManager.Instance.GetRaceUi().HideAll();
+            
+            SoundManager.Instance.StopAllSound();
+
             SceneManager.LoadScene(LOBBY_SCENE);
         }
 
         public override void Exit()
         {
             base.Exit();
-            SoundManager.Instance.StopAllSound();
             Time.timeScale = 1f;
         }
     }

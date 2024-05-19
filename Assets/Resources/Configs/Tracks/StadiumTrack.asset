@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfb04c92780489086426798145deace, type: 3}
   m_Name: StadiumTrack
   m_EditorClassIdentifier: 
-  configName: 
-  configKey: 
-  trackPrefab: {fileID: 0}
+  configName: Stadium
+  configKey: Stadium
+  sound:
+    Guid:
+      Data1: -1837011019
+      Data2: 1088066624
+      Data3: 583241662
+      Data4: 1297718043
+    Path: event:/Music/Stadium
+  trackPrefab: {fileID: 5905791250967118847, guid: c89afb2e297eefd44800f8614a9fd48d, type: 3}

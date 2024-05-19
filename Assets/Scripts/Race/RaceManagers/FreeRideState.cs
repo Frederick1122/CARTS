@@ -57,7 +57,7 @@ namespace Race.RaceManagers
                 _freeRideGameData = _defaultFreeRideGameData;
             }
 
-            _config = FreeRideTrackLibrary.Instance.GetConfig(_freeRideGameData.trackKey);
+            _config = TrackLibrary.Instance.GetConfig(_freeRideGameData.trackKey) as FreeRideTrackConfig;
 
             InitTrack();
             InitPlayer();

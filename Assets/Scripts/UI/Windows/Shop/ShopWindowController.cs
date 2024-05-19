@@ -1,10 +1,7 @@
-﻿using ConfigScripts;
-using Managers;
+﻿using Managers;
 using Managers.Libraries;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UI.Elements;
 using UI.Widgets.CurrencyWidget;
 using UI.Windows.Shop.Sections.BattlePass;
 using UI.Windows.Shop.Sections.Gacha;

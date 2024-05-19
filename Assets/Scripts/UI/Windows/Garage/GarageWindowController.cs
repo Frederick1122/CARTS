@@ -10,7 +10,6 @@ namespace UI.Windows.Garage
     public class GarageWindowController : UIController
     {
         public event Action OnOpenLobby = delegate { };
-        public event Action<CarData> OnCarInGarageUpdate = delegate { };
 
         [SerializeField] private GarageCarController _garageCarController;
         [SerializeField] private SwiperController _carSwiper;
@@ -87,7 +86,6 @@ namespace UI.Windows.Garage
         {
             EquipCar(data.Key);
             _currentCarKey = data.Key;
-            OnCarInGarageUpdate?.Invoke(_currentCar);
             UpdateGarageUI();
         }
 

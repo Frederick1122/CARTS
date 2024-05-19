@@ -11,6 +11,7 @@ namespace FsmStates.RaceFsm
     {
         private RaceFsmData _raceFsmData;
         private CancellationTokenSource _startDelayCts;
+        private const int HIDDEN_DELAY = 2;
         private const int DELAY = 3;
 
         public StartRaceState(Fsm fsm, RaceFsmData raceFsmData) : base(fsm) =>
@@ -18,22 +19,33 @@ namespace FsmStates.RaceFsm
 
         public override void Enter()
         {
-            var raceLayout = UIManager.Instance.GetRaceUi().GetRaceLayout(_raceFsmData.raceType);
-            raceLayout.Show();
-            raceLayout.SetStartDelay(DELAY);
             _startDelayCts?.Cancel();
             _startDelayCts = new CancellationTokenSource();
             StartDelayTask(_startDelayCts.Token).Forget();
 
             base.Enter();
-            _fsm.SetState<InRaceState>();
+        }
+
+        public override void Exit()
+        {
+            _startDelayCts?.Cancel();
+
+            base.Exit();
         }
 
         private async UniTaskVoid StartDelayTask(CancellationToken token)
         {
+            var startDelayController = UIManager.Instance.GetRaceUi().GetStartDelayController();
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(HIDDEN_DELAY), cancellationToken: token);
+            
+            startDelayController.Show();
+            startDelayController.SetDelay(DELAY);
+            
             await UniTask.Delay(TimeSpan.FromSeconds(DELAY), cancellationToken: token);
             
             _raceFsmData.raceManager.StartRace();
+            _fsm.SetState<InRaceState>();
         }
     }
 }

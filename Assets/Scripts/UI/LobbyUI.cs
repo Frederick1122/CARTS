@@ -14,6 +14,7 @@ namespace UI
         public event Action OpenSettingsAction = delegate { };
         public event Action OpenMapSelectionAction = delegate { };
         public event Action OpenGarageAction = delegate { };
+        //public event Action OpenTutorialAction = delegate { };
 
         public event Action OpenLobbyAction = delegate { };
         public event Action GoToGameAction = delegate { };
@@ -27,6 +28,7 @@ namespace UI
         [SerializeField] private MapSelectionWindowController _mapSelectionWindowController;
         [SerializeField] private SettingsWindowController _settingsWindowController;
         [SerializeField] private GarageWindowController _garageWindowController;
+        [SerializeField] private TutorialWindowController _tutorialWindowController;
 
         protected override void AddControllers()
         {
@@ -35,6 +37,7 @@ namespace UI
             _controllers.Add(_mapSelectionWindowController.GetType(), _mapSelectionWindowController);
             _controllers.Add(_settingsWindowController.GetType(), _settingsWindowController);
             _controllers.Add(_garageWindowController.GetType(), _garageWindowController);
+            _controllers.Add(_tutorialWindowController.GetType(), _tutorialWindowController);
         }
 
         public override void Init()
@@ -45,6 +48,7 @@ namespace UI
             _lobbyWindowController.OpenSettingsAction += RequestToOpenSettings;
             _lobbyWindowController.OpenMapSelectionAction += RequestToOpenMapSelection;
             _lobbyWindowController.OpenGarageAction += RequestToOpenGarage;
+            _lobbyWindowController.OpenTutorialAction += RequestToOpenTutorial;
 
             _shopWindowController.OnOpenLobby += RequestToOpenLobby;
 
@@ -54,7 +58,6 @@ namespace UI
             _mapSelectionWindowController.GoToGameAction += RequestToGoToGame;
 
             _garageWindowController.OnOpenLobby += RequestToOpenLobby;
-            _garageWindowController.OnCarInGarageUpdate += RequestToUpdateCarInGarage;
         }
 
         private void OnDestroy()
@@ -65,6 +68,7 @@ namespace UI
                 _lobbyWindowController.OpenSettingsAction -= RequestToOpenSettings;
                 _lobbyWindowController.OpenMapSelectionAction -= RequestToOpenMapSelection;
                 _lobbyWindowController.OpenGarageAction -= RequestToOpenGarage;
+                _lobbyWindowController.OpenTutorialAction -= RequestToOpenTutorial;
             }
 
             if (_shopWindowController != null)
@@ -81,12 +85,14 @@ namespace UI
                 _mapSelectionWindowController.GoToGameAction -= RequestToGoToGame;
             }
 
-            if(_garageWindowController != null)
+            if (_garageWindowController != null)
             {
                 _garageWindowController.OnOpenLobby -= RequestToOpenLobby;
-                _garageWindowController.OnCarInGarageUpdate -= RequestToUpdateCarInGarage;
             }
         }
+
+        private void RequestToOpenTutorial() =>
+            ShowWindow(typeof(TutorialWindowController), false);
 
         private void RequestToOpenShop() =>
             OpenShopAction?.Invoke();

@@ -1,6 +1,7 @@
 ﻿using CameraManger.Lobby;
 using Core.FSM;
 using Managers;
+using ProjectFsms;
 using UI;
 using UI.Windows.Lobby;
 
@@ -9,9 +10,11 @@ namespace FsmStates.LobbyFsm
     public class LobbyState : FsmState
     {
         private readonly LobbyUI _lobbyUI;
+        private readonly ProjectFsms.LobbyFsm _lobbyFsm;
 
-        public LobbyState(Fsm fsm, LobbyUI lobbyUI) : base(fsm)
+        public LobbyState(ProjectFsms.LobbyFsm fsm, LobbyUI lobbyUI) : base(fsm)
         {
+            _lobbyFsm = fsm;
             _lobbyUI = lobbyUI;
             _lobbyUI.OpenShopAction += OpenShop;
             _lobbyUI.OpenSettingsAction += OpenSettings;
@@ -36,6 +39,8 @@ namespace FsmStates.LobbyFsm
             LobbyCameraManager.Instance.SwitchCamera(CameraPositions.Default);
             UIManager.Instance.GetLobbyUi().ShowWindow(typeof(LobbyWindowController), true);
             PlayerManager.Instance.PurchaseDefaultCar();
+            if (_lobbyFsm.IsFirstOpen)
+                UIManager.Instance.GetLobbyUi().ShowWindow(typeof(TutorialWindowController), false);
         }
 
         private void OpenShop() =>

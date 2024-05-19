@@ -1,4 +1,5 @@
 using ConfigScripts;
+using Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Lobby.Gacha
     public class LootBoxManager : MonoBehaviour
     {
         public int SlotCount { get; } = 1;
+        public int Cost => _lootBoxHolder.Cost;
+        public CurrencyType CurrencyType => _lootBoxHolder.CurrencyType;
 
         [SerializeField] private LootBoxHolder _lootBoxHolder;
 
@@ -31,21 +34,22 @@ namespace Lobby.Gacha
 
         public int AddLootBoxToSlotRandom()
         {
-            foreach (var item in _permanentDropRarity)
+            foreach (var dropRarity in _permanentDropRarity)
             {
-                if (item.Value <= 0)
+                if (dropRarity.Value <= 0)
                 {
-                    var lootBoxesByRarity = _lootBoxHolder.GetLootBoxesByRarity(item.Key);
+                    var lootBoxesByRarity = _lootBoxHolder.GetLootBoxesByRarity(dropRarity.Key);
                     LootBoxConfig lootBoxConfig = lootBoxesByRarity[UnityEngine.Random.Range(0, lootBoxesByRarity.Count)];
-                    _permanentDropRarity[item.Key] = _lootBoxHolder.GetPermanentDropByRarity(item.Key);
-                    return AddLootBoxToSlot(lootBoxConfig);
+                    _permanentDropRarity[dropRarity.Key] = _lootBoxHolder.GetPermanentDropByRarity(dropRarity.Key);
+                    return AddLootBoxToSlot(lootBoxConfig, dropRarity.Key);
                 }
             }
 
-            return AddLootBoxToSlot(GetRandomLootBox());
+            var rarity = GetRandomRarity();
+            return AddLootBoxToSlot(GetRandomLootBox(rarity), rarity);
         }
 
-        public int AddLootBoxToSlot(LootBoxConfig lootBox)
+        public int AddLootBoxToSlot(LootBoxConfig lootBox, Rarity rarity)
         {
             for (int i = 0; i < SlotCount; i++)
             {
@@ -54,7 +58,6 @@ namespace Lobby.Gacha
                     continue;
 
                 _slots[i] = lootBox;
-                var rarity = lootBox.Rarity;
                 if (_permanentDropRarity.ContainsKey(rarity))
                     _permanentDropRarity[rarity]--;
                 return i;
@@ -91,9 +94,9 @@ namespace Lobby.Gacha
             return Rarity.Default;
         }
 
-        private LootBoxConfig GetRandomLootBox()
+        private LootBoxConfig GetRandomLootBox(Rarity rarity)
         {
-            List<LootBoxConfig> lootBoxes = _lootBoxHolder.GetLootBoxesByRarity(GetRandomRarity());
+            List<LootBoxConfig> lootBoxes = _lootBoxHolder.GetLootBoxesByRarity(rarity);
 
             return lootBoxes[UnityEngine.Random.Range(0, lootBoxes.Count)];
         }

@@ -347,8 +347,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.7780979, y: 1.6251359, z: 6.3103366}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.77, y: 2.66, z: 8.5}
+  m_Center: {x: 0, y: -0.08, z: 0}
 --- !u!65 &3958791864001754535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -368,8 +368,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.8780978, y: 1.7251359, z: 6.4103365}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.77, y: 2.66, z: 8.5}
+  m_Center: {x: 0, y: -0.08, z: 0}
 --- !u!54 &5588009891494180501
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -556,7 +556,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: -0.49512482, z: 0}
+  m_ConnectedAnchor: {x: 0, y: -0.40283284, z: 0}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:

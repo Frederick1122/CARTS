@@ -1,6 +1,6 @@
-﻿using Cinemachine;
+﻿using System;
+using Cinemachine;
 using Managers;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cars
@@ -10,6 +10,10 @@ namespace Cars
         private const float _editorRayLength = 3f;
 
         public float SkidWidth { get; set; } = 0.1f;
+        
+        [field: Header("Colliders")]
+
+        [field: SerializeField] public BoxCollider CarCollider { get; private set; }
 
         [field: Header("Rigidbody")]
         [field: SerializeField] public Rigidbody RbSphere { get; private set; }
@@ -57,6 +61,23 @@ namespace Cars
             var point = Vector3.zero;
             point.y = transform.localScale.y * (delta - radius);
             return point;
+        }
+
+        private void OnValidate()
+        {
+            if (CarCollider == null)
+            {
+                var colliders = GetComponents<BoxCollider>();
+
+                foreach (var collider in colliders)
+                {
+                    if (collider.isTrigger) 
+                        continue;
+
+                    CarCollider = collider;
+                    break;
+                }
+            }
         }
 
 #if UNITY_EDITOR

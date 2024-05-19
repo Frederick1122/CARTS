@@ -1,10 +1,7 @@
-using Race;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Installers;
 using Knot.Localization;
-using UnityEngine.Serialization;
 
 namespace ConfigScripts
 {
@@ -17,9 +14,9 @@ namespace ConfigScripts
         [SerializeField] private BotCount _botCount;
         [SerializeField] private LapCount _lapCount;
         [SerializeField] private Rarity _carClass;
-        [SerializeField] private List<BaseConfig> _maps = new();
+        [SerializeField] private List<BaseTrackConfig> _maps = new();
 
-        public IReadOnlyList<BaseConfig> Maps { get {  return _maps; } }
+        public IReadOnlyList<BaseTrackConfig> Maps { get {  return _maps; } }
 
         public GameDataInstaller.GameType GetGameType()
         {
