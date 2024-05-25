@@ -599,7 +599,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5499,7 +5499,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -10367,7 +10367,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -15139,6 +15139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7719434431337913761}
+  - component: {fileID: 6264623334527205468}
   m_Layer: 7
   m_Name: Skid
   m_TagString: Untagged
@@ -15165,6 +15166,19 @@ Transform:
   - {fileID: 5692570651681439586}
   m_Father: {fileID: 6408632700333838419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6264623334527205468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087066185883047843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb271eaf909d4648a613ae5cf474a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _carController: {fileID: 0}
 --- !u!1 &4097933602559193010
 GameObject:
   m_ObjectHideFlags: 0
@@ -15860,6 +15874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9587ea320b5480a8bf2f73569426dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <SkidWidth>k__BackingField: 0.1
+  <CarCollider>k__BackingField: {fileID: 7746473817650046421}
   <RbSphere>k__BackingField: {fileID: 470052963128185248}
   <CarBody>k__BackingField: {fileID: 8681043395350170542}
   <BodyMesh>k__BackingField: {fileID: 1207579325672090101}
@@ -16283,7 +16299,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
