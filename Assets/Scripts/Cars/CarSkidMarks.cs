@@ -7,21 +7,21 @@ namespace Cars.Tools
     [RequireComponent(typeof(TrailRenderer), typeof(ParticleSystem))]
     public class CarSkidMarks : MonoBehaviour
     {
-        private const int ACTIVATE_VELOCITY = 7;
+        public bool IsEmitting => _skidMark.emitting;
 
         private ParticleSystem _smoke;
         private CarController _controller;
         private TrailRenderer _skidMark;
 
-        private float _fadeOutSpeed = 0;
-
-        private void Start()
+        public void Init(CarController controller)
         {
+            _controller = controller;
+
             _skidMark = GetComponent<TrailRenderer>();
             _smoke = GetComponent<ParticleSystem>();
-            _controller = GetComponentInParent<CarController>();
 
             _skidMark.emitting = false;
+            _smoke.Stop();
 
             if (_controller == null)
                 return;
@@ -29,52 +29,17 @@ namespace Cars.Tools
             _skidMark.startWidth = _controller.SkidWidth;
         }
 
-        private void OnDisable() => _skidMark.enabled = false;
+        public void SetSkidMarkEnabled(bool condition) => _skidMark.enabled = condition;
+        public void SetSkidEmitting(bool condition) => _skidMark.emitting = condition;
+        public void SetMaterialColor(int matNumer, Color color) => _skidMark.materials[matNumer].color = color;
+        public void ClearSkid() => _skidMark.Clear();
 
-        private void Update() => ParticleWork();
-
-        private void ParticleWork()
+        public void UpdateSmoke()
         {
             if (_skidMark.emitting)
-            {
                 _smoke.Play();
-            }
             else
-            {
                 _smoke.Stop();
-            }
-
-            if (_controller == null)
-                return;
-
-            if (!_controller.IsActive)
-                return;
-
-            if (_skidMark.enabled == false)
-                _skidMark.enabled = true;
-
-            if (_controller.IsGrounded)
-            {
-                if (Mathf.Abs(_controller.CarVelocity.x) > ACTIVATE_VELOCITY)
-                {
-                    _fadeOutSpeed = 0f;
-                    _skidMark.materials[0].color = Color.black;
-                    _skidMark.emitting = true;
-                }
-                else
-                    _skidMark.emitting = false;
-            }
-            else
-                _skidMark.emitting = false;
-
-            if (!_skidMark.emitting)
-            {
-                _fadeOutSpeed += Time.fixedDeltaTime / 2;
-                Color m_color = Color.Lerp(Color.black, new Color(0f, 0f, 0f, 0f), _fadeOutSpeed);
-                _skidMark.materials[0].color = m_color;
-                if (_fadeOutSpeed > 1)
-                    _skidMark.Clear();
-            }
         }
     }
 }

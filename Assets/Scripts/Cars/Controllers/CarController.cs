@@ -63,6 +63,8 @@ namespace Cars.Controllers
         private readonly Dictionary<Transform, Transform> _wheelsAxel = new();
         private SphereCollider _sphereCollider;
 
+        private CarSkidManager _skidManager;
+
         // Car Collision
         private CarCollisionManager _collisionManager;
 
@@ -116,6 +118,10 @@ namespace Cars.Controllers
 
             if (_movementMode == MovementMode.AngularVelocity)
                 Physics.defaultMaxAngularSpeed = 100;
+
+            _skidManager = GetComponentInChildren<CarSkidManager>();
+            if (_skidManager != null)
+                _skidManager.Init(this);
 
             _wheelsAxel.Add(_frontWheels[0], _frontWheels[0].GetChild(0));
             _wheelsAxel.Add(_frontWheels[1], _frontWheels[1].GetChild(0));
