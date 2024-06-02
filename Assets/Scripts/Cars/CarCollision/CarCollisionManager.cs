@@ -40,8 +40,7 @@ namespace Cars.Tools
             }
         }
 
-        private void OnDestroy() =>
-            _resistanceToken?.Cancel();
+        private void OnDestroy() => _resistanceToken?.Cancel();
 
         private void Update()
         {
@@ -54,6 +53,7 @@ namespace Cars.Tools
 
         public void MakeResistance(float time = -1)
         {
+            _resistanceToken?.Cancel();
             _resistanceToken = new CancellationTokenSource();
             MakeResistanceTask(_resistanceToken.Token, time).Forget();
         }
