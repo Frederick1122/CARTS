@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BMW
   m_EditorClassIdentifier: 
   configName: BMW
-  configKey: BMW
+  configKey: BMWKey
   CarIcon: {fileID: 0}
   prefab: {fileID: 4201339855542951567, guid: bf33ed2d2c96dae46a7dd27665aa26cb, type: 3}
   isOnlyForAi: 0
@@ -23,16 +23,26 @@ MonoBehaviour:
   dublicatePrice:
     <Value>k__BackingField: 10
     <CurrencyType>k__BackingField: 0
-  <Rarity>k__BackingField: 2
+  <Rarity>k__BackingField: 1
   maxSpeedLevels:
   - <Value>k__BackingField: 90
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 70
-    <Price>k__BackingField: 2
+    <Price>k__BackingField: 100
+  - <Value>k__BackingField: 95
+    <Price>k__BackingField: 150
+  - <Value>k__BackingField: 95
+    <Price>k__BackingField: 200
   accelerationLevels:
   - <Value>k__BackingField: 5
     <Price>k__BackingField: 1
+  - <Value>k__BackingField: 6
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 7
+    <Price>k__BackingField: 1
   turnLevels:
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 1
   - <Value>k__BackingField: 3
     <Price>k__BackingField: 1
   gravity: 7
@@ -106,4 +116,3 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 10
-  skidWidth: 0.2

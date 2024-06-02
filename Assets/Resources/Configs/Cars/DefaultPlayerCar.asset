@@ -25,16 +25,24 @@ MonoBehaviour:
     <CurrencyType>k__BackingField: 0
   <Rarity>k__BackingField: 1
   maxSpeedLevels:
-  - <Value>k__BackingField: 90
-    <Price>k__BackingField: 1
   - <Value>k__BackingField: 95
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 100
+    <Price>k__BackingField: 3
+  - <Value>k__BackingField: 100
     <Price>k__BackingField: 3
   accelerationLevels:
   - <Value>k__BackingField: 5
     <Price>k__BackingField: 1
   - <Value>k__BackingField: 6
     <Price>k__BackingField: 2
+  - <Value>k__BackingField: 6
+    <Price>k__BackingField: 2
   turnLevels:
+  - <Value>k__BackingField: 2
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 2
+    <Price>k__BackingField: 1
   - <Value>k__BackingField: 2
     <Price>k__BackingField: 1
   gravity: 7
@@ -108,4 +116,3 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 6
-  skidWidth: 0.2

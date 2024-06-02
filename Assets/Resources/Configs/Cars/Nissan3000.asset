@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Nissan3000
   m_EditorClassIdentifier: 
   configName: Nissan3000
-  configKey: Nissan3000
+  configKey: Nissan3000Key
   CarIcon: {fileID: 0}
-  prefab: {fileID: 8518192459940570181, guid: b4e6d0839c60eaa448585294a54c02fa, type: 3}
+  prefab: {fileID: 0}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
@@ -29,12 +29,20 @@ MonoBehaviour:
     <Price>k__BackingField: 1
   - <Value>k__BackingField: 100
     <Price>k__BackingField: 3
+  - <Value>k__BackingField: 100
+    <Price>k__BackingField: 3
   accelerationLevels:
   - <Value>k__BackingField: 5
     <Price>k__BackingField: 1
   - <Value>k__BackingField: 6
     <Price>k__BackingField: 2
+  - <Value>k__BackingField: 6
+    <Price>k__BackingField: 2
   turnLevels:
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 1
   - <Value>k__BackingField: 3
     <Price>k__BackingField: 1
   gravity: 7
@@ -108,4 +116,3 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 6
-  skidWidth: 0.2

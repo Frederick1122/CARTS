@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Porsche
   m_EditorClassIdentifier: 
   configName: Porsche
-  configKey: Porsche
+  configKey: PorscheKey
   CarIcon: {fileID: 0}
   prefab: {fileID: 1951759930126191722, guid: ecf805fbb59471b47873956c70d2deb7, type: 3}
   isOnlyForAi: 0
@@ -23,14 +23,26 @@ MonoBehaviour:
   dublicatePrice:
     <Value>k__BackingField: 10
     <CurrencyType>k__BackingField: 0
-  <Rarity>k__BackingField: 4
+  <Rarity>k__BackingField: 3
   maxSpeedLevels:
+  - <Value>k__BackingField: 105
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 110
+    <Price>k__BackingField: 1
   - <Value>k__BackingField: 110
     <Price>k__BackingField: 1
   accelerationLevels:
   - <Value>k__BackingField: 5
     <Price>k__BackingField: 1
+  - <Value>k__BackingField: 5
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 5
+    <Price>k__BackingField: 1
   turnLevels:
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 1
   - <Value>k__BackingField: 3
     <Price>k__BackingField: 1
   gravity: 7
@@ -104,4 +116,3 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 6
-  skidWidth: 0.2

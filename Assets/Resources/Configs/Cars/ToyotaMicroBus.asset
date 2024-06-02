@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ToyotaMicroBus
   m_EditorClassIdentifier: 
   configName: ToyotaMicroBus
-  configKey: ToyotaMicroBus
+  configKey: ToyotaMicroBusKey
   CarIcon: {fileID: 0}
   prefab: {fileID: 3572533722164203000, guid: 356c3bfb247327b49b2d0450ee860537, type: 3}
   isOnlyForAi: 0
@@ -23,20 +23,26 @@ MonoBehaviour:
   dublicatePrice:
     <Value>k__BackingField: 10
     <CurrencyType>k__BackingField: 0
-  <Rarity>k__BackingField: 1
+  <Rarity>k__BackingField: 3
   maxSpeedLevels:
-  - <Value>k__BackingField: 55
+  - <Value>k__BackingField: 105
     <Price>k__BackingField: 1
-  - <Value>k__BackingField: 60
+  - <Value>k__BackingField: 110
+    <Price>k__BackingField: 2
+  - <Value>k__BackingField: 110
     <Price>k__BackingField: 2
   accelerationLevels:
   - <Value>k__BackingField: 3.6
     <Price>k__BackingField: 1
   - <Value>k__BackingField: 4
     <Price>k__BackingField: 2
+  - <Value>k__BackingField: 4
+    <Price>k__BackingField: 2
   turnLevels:
   - <Value>k__BackingField: 2.5
     <Price>k__BackingField: 1
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 2
   - <Value>k__BackingField: 3
     <Price>k__BackingField: 2
   gravity: 7
@@ -110,4 +116,3 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 6
-  skidWidth: 0.2
