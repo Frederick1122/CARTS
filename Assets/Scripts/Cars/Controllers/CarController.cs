@@ -185,6 +185,9 @@ namespace Cars.Controllers
 
         private void UpdateDriftSound()
         {
+            if (_skidManager == null)
+                return;
+            
             _driftInstance.set3DAttributes(gameObject.To3DAttributes());
 
             if (_skidManager.IsDrifting & !_isDriftingActive)
@@ -244,7 +247,7 @@ namespace Cars.Controllers
                 fwheel.localRotation = Quaternion.Euler(Vector3.zero);
             foreach (var rwheel in _rearWheels)
                 rwheel.localRotation = Quaternion.Euler(Vector3.zero);
-
+            
             transform.SetPositionAndRotation(pos, rot);
         }
 

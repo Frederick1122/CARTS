@@ -152,7 +152,7 @@ public class WaypointProgressTracker : MonoBehaviour, ITargetHolder, ICircuitHol
             gameObject.SetActive(false);
 
             Vector3 pos = Target.position;
-            pos.y = 2;
+            pos.y += 1.5;
 
             _controller.ResetCar(pos, Target.rotation);
             //transform.SetPositionAndRotation(pos, Target.rotation);
