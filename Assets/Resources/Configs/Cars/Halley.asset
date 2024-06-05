@@ -15,7 +15,7 @@ MonoBehaviour:
   configName: Halley
   configKey: HalleyKey
   CarIcon: {fileID: 0}
-  prefab: {fileID: 936926734545048104, guid: e3374bab1e0e014408ded8924c730005, type: 3}
+  prefab: {fileID: 6927966033786751304, guid: 682d3d983671aec4eb24676dc69a71a8, type: 3}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
@@ -23,28 +23,16 @@ MonoBehaviour:
   dublicatePrice:
     <Value>k__BackingField: 10
     <CurrencyType>k__BackingField: 0
-  <Rarity>k__BackingField: 4
+  <Rarity>k__BackingField: 0
   maxSpeedLevels:
-  - <Value>k__BackingField: 115
-    <Price>k__BackingField: 100
-  - <Value>k__BackingField: 115
-    <Price>k__BackingField: 150
-  - <Value>k__BackingField: 115
-    <Price>k__BackingField: 200
+  - <Value>k__BackingField: 100
+    <Price>k__BackingField: 5
   accelerationLevels:
-  - <Value>k__BackingField: 5
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 6
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 7
-    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 10
+    <Price>k__BackingField: 5
   turnLevels:
   - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
+    <Price>k__BackingField: 5
   gravity: 7
   downforce: 5
   airControl: 0
@@ -115,4 +103,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
-  bodyTilt: 10
+  bodyTilt: 0

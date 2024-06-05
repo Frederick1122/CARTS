@@ -15,7 +15,7 @@ MonoBehaviour:
   configName: Cerbero
   configKey: CerberoKey
   CarIcon: {fileID: 0}
-  prefab: {fileID: 6191293994438918688, guid: 4c411b0ffcb6bfd4e9d6f1b3b042a71f, type: 3}
+  prefab: {fileID: 5431004611015418426, guid: ec10791ebd4cb554baf88d96331e5d7d, type: 3}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
@@ -23,28 +23,16 @@ MonoBehaviour:
   dublicatePrice:
     <Value>k__BackingField: 10
     <CurrencyType>k__BackingField: 0
-  <Rarity>k__BackingField: 4
+  <Rarity>k__BackingField: 0
   maxSpeedLevels:
-  - <Value>k__BackingField: 115
-    <Price>k__BackingField: 100
-  - <Value>k__BackingField: 115
-    <Price>k__BackingField: 150
-  - <Value>k__BackingField: 115
-    <Price>k__BackingField: 200
+  - <Value>k__BackingField: 100
+    <Price>k__BackingField: 5
   accelerationLevels:
-  - <Value>k__BackingField: 5
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 6
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 7
-    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 10
+    <Price>k__BackingField: 5
   turnLevels:
   - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
+    <Price>k__BackingField: 5
   gravity: 7
   downforce: 5
   airControl: 0
@@ -115,4 +103,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
-  bodyTilt: 10
+  bodyTilt: 0

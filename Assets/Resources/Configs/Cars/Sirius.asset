@@ -15,7 +15,7 @@ MonoBehaviour:
   configName: Sirius
   configKey: SiriusKey
   CarIcon: {fileID: 0}
-  prefab: {fileID: 4063540187122293453, guid: 6e64a584a4a41af4191ee165b2ea95b7, type: 3}
+  prefab: {fileID: 5324794217524286849, guid: e9a6ac2e6994fcc4990eca94f9b68ed1, type: 3}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
@@ -23,28 +23,16 @@ MonoBehaviour:
   dublicatePrice:
     <Value>k__BackingField: 10
     <CurrencyType>k__BackingField: 0
-  <Rarity>k__BackingField: 2
+  <Rarity>k__BackingField: 0
   maxSpeedLevels:
-  - <Value>k__BackingField: 95
-    <Price>k__BackingField: 100
   - <Value>k__BackingField: 100
-    <Price>k__BackingField: 150
-  - <Value>k__BackingField: 100
-    <Price>k__BackingField: 200
+    <Price>k__BackingField: 5
   accelerationLevels:
-  - <Value>k__BackingField: 5
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 6
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 7
-    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 10
+    <Price>k__BackingField: 5
   turnLevels:
   - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
-  - <Value>k__BackingField: 3
-    <Price>k__BackingField: 1
+    <Price>k__BackingField: 5
   gravity: 7
   downforce: 5
   airControl: 0
@@ -115,4 +103,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
-  bodyTilt: 10
+  bodyTilt: 0

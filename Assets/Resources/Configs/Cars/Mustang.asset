@@ -15,34 +15,22 @@ MonoBehaviour:
   configName: Mustang
   configKey: MustangKey
   CarIcon: {fileID: 0}
-  prefab: {fileID: 4895222672136104234, guid: d9860a085de66f54290ba65b892ab2d5, type: 3}
+  prefab: {fileID: 8654410827666321310, guid: 645481a3d52e9834d978a2eabf72fab6, type: 3}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
     <CurrencyType>k__BackingField: 0
   dublicatePrice:
-    <Value>k__BackingField: 0
+    <Value>k__BackingField: 10
     <CurrencyType>k__BackingField: 0
-  <Rarity>k__BackingField: 2
+  <Rarity>k__BackingField: 0
   maxSpeedLevels:
-  - <Value>k__BackingField: 95
-    <Price>k__BackingField: 5
-  - <Value>k__BackingField: 100
-    <Price>k__BackingField: 5
   - <Value>k__BackingField: 100
     <Price>k__BackingField: 5
   accelerationLevels:
   - <Value>k__BackingField: 10
     <Price>k__BackingField: 5
-  - <Value>k__BackingField: 10
-    <Price>k__BackingField: 5
-  - <Value>k__BackingField: 10
-    <Price>k__BackingField: 5
   turnLevels:
-  - <Value>k__BackingField: 3
-    <Price>k__BackingField: 5
-  - <Value>k__BackingField: 3
-    <Price>k__BackingField: 5
   - <Value>k__BackingField: 3
     <Price>k__BackingField: 5
   gravity: 7
