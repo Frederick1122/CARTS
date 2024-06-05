@@ -41,6 +41,13 @@ namespace UI.Windows.LapRace
             GetView<LapRaceLayoutView>().OnNeedToPause -= Pause;
         }
 
+        public override void Show()
+        {
+            base.Show();
+            _lapCounterController.Show();
+            _positionCounterController.Show();
+        }
+
         public override void Hide()
         {
             _lapCounterController.Hide();
