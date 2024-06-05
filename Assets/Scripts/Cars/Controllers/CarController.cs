@@ -166,9 +166,7 @@ namespace Cars.Controllers
 
         private void Update()
         {
-            _engineInstance.set3DAttributes(gameObject.To3DAttributes());
-            _engineInstance.setParameterByName(ENGINE_SOUND_PARAMETER, CarVelocity.magnitude);
-
+            UpdateEngineSound();
             UpdateDriftSound();
         }
 
@@ -181,6 +179,14 @@ namespace Cars.Controllers
             _movementMode = carPresetConfig.MovementMode;
             _groundCheck = carPresetConfig.GroundCheck;
             _drivableSurface = carPresetConfig.DrivableSurface;
+        }
+
+        private void UpdateEngineSound()
+        {
+            _engineInstance.setPaused(Time.timeScale == 0);
+            
+            _engineInstance.set3DAttributes(gameObject.To3DAttributes());
+            _engineInstance.setParameterByName(ENGINE_SOUND_PARAMETER, CarVelocity.magnitude);
         }
 
         private void UpdateDriftSound()

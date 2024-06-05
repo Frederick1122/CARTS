@@ -39,7 +39,6 @@ namespace UI.Windows.Pause
         public override void Show()
         {
             base.Show();
-            Time.timeScale = 0;
             _musicSliderController.Show();
             _soundSliderController.Show();
         }
@@ -48,7 +47,6 @@ namespace UI.Windows.Pause
         {
             _musicSliderController.Hide();
             _soundSliderController.Hide();
-            Time.timeScale = 1;
             base.Hide();
         }
 
