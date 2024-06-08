@@ -28,21 +28,21 @@ MonoBehaviour:
     <CurrencyType>k__BackingField: 0
   <Rarity>k__BackingField: 1
   maxSpeedLevels:
-  - <Value>k__BackingField: 90
+  - <Value>k__BackingField: 100
     <Price>k__BackingField: 100
   - <Value>k__BackingField: 95
     <Price>k__BackingField: 150
   - <Value>k__BackingField: 95
     <Price>k__BackingField: 200
   accelerationLevels:
-  - <Value>k__BackingField: 5
+  - <Value>k__BackingField: 7
     <Price>k__BackingField: 1
   - <Value>k__BackingField: 6
     <Price>k__BackingField: 1
   - <Value>k__BackingField: 7
     <Price>k__BackingField: 1
   turnLevels:
-  - <Value>k__BackingField: 3
+  - <Value>k__BackingField: 3.5
     <Price>k__BackingField: 1
   - <Value>k__BackingField: 3
     <Price>k__BackingField: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
-  bodyTilt: 10
+  bodyTilt: 6
   references:
     version: 2
     RefIds: []
