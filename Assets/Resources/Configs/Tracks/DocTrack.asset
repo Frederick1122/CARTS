@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Dry Docks
   configKey: Dry Docks
+  localizedName:
+    _key: MAP_DOC
+    _formatters: []
   sound:
     Guid:
       Data1: -1543846490
@@ -22,3 +25,6 @@ MonoBehaviour:
       Data4: 394083785
     Path: event:/Music/Doc
   trackPrefab: {fileID: 881231994806016191, guid: 9d565f641f7f1b341a98a0f28e8042f7, type: 3}
+  references:
+    version: 2
+    RefIds: []

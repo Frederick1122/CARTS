@@ -66,7 +66,7 @@ namespace UI.Windows.Shop.Sections.Gacha
             var config = model.CarConfig;
             _icon.sprite = config.CarIcon;
             _background.color = CarConfig.RarityColors[config.Rarity];
-            _name.text = config.configName;
+            _name.text = config.localizedName.Value;
 
             var isDuplicate = PlayerManager.Instance.TryGetPurchasedCarData(config.configKey, out CarData _);
             _isDuplicateShower.enabled = isDuplicate;

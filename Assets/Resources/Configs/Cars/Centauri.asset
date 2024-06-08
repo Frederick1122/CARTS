@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Centauri
   configKey: CentauriKey
+  localizedName:
+    _key: TRUCK_CENTAURI
+    _formatters: []
   CarIcon: {fileID: 0}
   prefab: {fileID: 4911799350184516640, guid: ae6302cda91ddaf4082bad6fe68ae33a, type: 3}
   isOnlyForAi: 0
@@ -104,3 +107,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 0
+  references:
+    version: 2
+    RefIds: []

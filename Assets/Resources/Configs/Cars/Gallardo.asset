@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Gallardo
   configKey: GallardoKey
+  localizedName:
+    _key: TRUCK_GALLARDO
+    _formatters: []
   CarIcon: {fileID: 0}
   prefab: {fileID: 920477975711732515, guid: 3ccd7b298bbc2d743a0b8f8bfd85ff01, type: 3}
   isOnlyForAi: 0
@@ -104,3 +107,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 0
+  references:
+    version: 2
+    RefIds: []

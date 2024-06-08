@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Toon city
   configKey: Toon city
+  localizedName:
+    _key: MAP_CITY
+    _formatters: []
   sound:
     Guid:
       Data1: 144639511
@@ -22,3 +25,6 @@ MonoBehaviour:
       Data4: 88581659
     Path: event:/Music/City
   trackPrefab: {fileID: 2371052950012600982, guid: 3507d6eae21e119468e66b12cd0fe805, type: 3}
+  references:
+    version: 2
+    RefIds: []

@@ -9500,6 +9500,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6092569282651469232}
     m_Modifications:
+    - target: {fileID: 2986845469389408952, guid: d7902da49bce4124f9c8abaae68a4784, type: 3}
+      propertyPath: _keyReference._key
+      value: BACK
+      objectReference: {fileID: 0}
     - target: {fileID: 3351267118446640944, guid: d7902da49bce4124f9c8abaae68a4784, type: 3}
       propertyPath: m_SizeDelta.x
       value: -75.63
@@ -10311,6 +10315,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.0000076293945
       objectReference: {fileID: 0}
+    - target: {fileID: 7422566472947862280, guid: a2bbd86bf8256914c83d21a678fdddc1, type: 3}
+      propertyPath: _keyReference._key
+      value: BACK
+      objectReference: {fileID: 0}
     - target: {fileID: 8646073862637249296, guid: a2bbd86bf8256914c83d21a678fdddc1, type: 3}
       propertyPath: m_fontSize
       value: 48.45
@@ -10660,6 +10668,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5671276419322282024, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
+      propertyPath: m_Size
+      value: 0.9913945
+      objectReference: {fileID: 0}
+    - target: {fileID: 5671276419322282024, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_Value
       value: 0
       objectReference: {fileID: 0}
@@ -10784,8 +10796,12 @@ PrefabInstance:
       value: Map Swiper
       objectReference: {fileID: 0}
     - target: {fileID: 5671276421094462286, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
+      propertyPath: m_Size
+      value: 0.9938294
+      objectReference: {fileID: 0}
+    - target: {fileID: 5671276421094462286, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6664823301439413716, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_SizeDelta.x
@@ -11522,6 +11538,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5671276419322282024, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
+      propertyPath: m_Size
+      value: 0.9913945
+      objectReference: {fileID: 0}
+    - target: {fileID: 5671276419322282024, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5671276419598042412, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -11548,7 +11572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5671276420321130202, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0005493164
+      value: -0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 5671276420338671620, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_Pivot.x
@@ -11633,6 +11657,10 @@ PrefabInstance:
     - target: {fileID: 5671276420338671623, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_Name
       value: Mod Swiper
+      objectReference: {fileID: 0}
+    - target: {fileID: 5671276421094462286, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
+      propertyPath: m_Size
+      value: 0.9938294
       objectReference: {fileID: 0}
     - target: {fileID: 5671276421094462286, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_Value

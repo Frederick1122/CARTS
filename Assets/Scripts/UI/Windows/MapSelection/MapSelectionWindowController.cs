@@ -12,7 +12,7 @@ namespace UI.Windows.MapSelection
 {
     public class MapSelectionWindowController : UIController
     {
-        private const string MAP_PATH = "Configs/Mods";
+        private const string MAP_PATH = "Configs/Mods/ActualModes";
 
         public event Action OpenLobbyAction = delegate { };
         public event Action GoToGameAction = delegate { };
@@ -98,7 +98,7 @@ namespace UI.Windows.MapSelection
             var mode = _keyModePairs[key];
             foreach (var map in mode.Maps)
             {
-                var data = new SwiperData(map.configKey, null, map.configName);
+                var data = new SwiperData(map.configKey, null, map.localizedName.Value);
                 view.AddMap(data);
             }
         }

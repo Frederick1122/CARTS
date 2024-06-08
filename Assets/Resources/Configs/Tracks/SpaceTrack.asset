@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Ancient Moon
   configKey: Ancient Moon
+  localizedName:
+    _key: MAP_SPACE
+    _formatters: []
   sound:
     Guid:
       Data1: 1894079267
@@ -22,3 +25,6 @@ MonoBehaviour:
       Data4: 2058354481
     Path: event:/Music/Space
   trackPrefab: {fileID: 5548562679469939479, guid: 6ffd0755dbe1dcf46a96ee2b84c1d350, type: 3}
+  references:
+    version: 2
+    RefIds: []

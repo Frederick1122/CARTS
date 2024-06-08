@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Sirius
   configKey: SiriusKey
+  localizedName:
+    _key: TRUCK_SIRIUS
+    _formatters: []
   CarIcon: {fileID: 0}
   prefab: {fileID: 5324794217524286849, guid: e9a6ac2e6994fcc4990eca94f9b68ed1, type: 3}
   isOnlyForAi: 0
@@ -104,3 +107,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 0
+  references:
+    version: 2
+    RefIds: []

@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Cybele65
   configKey: Cybele65Key
+  localizedName:
+    _key: TRUCK_CYBELE_65
+    _formatters: []
   CarIcon: {fileID: 0}
   prefab: {fileID: 1761473545904535045, guid: cac1956e58fced3439c497fcef45fca7, type: 3}
   isOnlyForAi: 0
@@ -104,3 +107,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 0
+  references:
+    version: 2
+    RefIds: []
