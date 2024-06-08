@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5179aace061f822478bec30a398f3a96, type: 3}
-  m_Name: OneVsOne_OneLap
+  m_Name: UncommonLeague
   m_EditorClassIdentifier: 
-  configName: 1 vs 1
-  configKey: OneVsOne_OneLap
+  configName: Uncommon league
+  configKey: UncommonLeague
   Icon: {fileID: 21300002, guid: e0293e2bea0144848ad02911a09f2099, type: 3}
   _localizedName:
-    _key: 1_VS_1
+    _key: 1_VS_3
     _formatters: []
   _gameType: 0
-  _botCount: 0
-  _lapCount: 0
+  _botCount: 1
+  _lapCount: 1
   _carClass: 2
   _maps:
   - {fileID: 11400000, guid: bb3dbf9fef1a87e4b839badec4f9670c, type: 2}
