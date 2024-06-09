@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5179aace061f822478bec30a398f3a96, type: 3}
+  m_Name: OneVsOne_OneLap
+  m_EditorClassIdentifier: 
+  configName: Uncommon league
+  configKey: UncommonLeague
+  Icon: {fileID: 21300002, guid: e0293e2bea0144848ad02911a09f2099, type: 3}
+  _localizedName:
+    _key: 1_VS_3
+    _formatters: []
+  _gameType: 0
+  _botCount: 1
+  _lapCount: 1
+  _carClass: 0
+  _maps:
+  - {fileID: 11400000, guid: 82e7681882548fd43985c95251a035e0, type: 2}
+  - {fileID: 11400000, guid: 8f4f646f56719fd4ab849ca97ba1c19d, type: 2}
+  - {fileID: 11400000, guid: 989dc07dfd9cb1a40bf14a1252d547d8, type: 2}
+  - {fileID: 11400000, guid: 40c39efc3be6e7c4fb43d9e40f1d8de6, type: 2}
+  - {fileID: 11400000, guid: f501bf44f2a2f5548834c208e8b41684, type: 2}
+  references:
+    version: 2
+    RefIds: []

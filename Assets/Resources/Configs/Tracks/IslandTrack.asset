@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: The Hidden Village
   configKey: The Hidden Village
+  localizedName:
+    _key: MAP_ISLAND
+    _formatters: []
   sound:
     Guid:
       Data1: -687153070
@@ -22,3 +25,6 @@ MonoBehaviour:
       Data4: 1835361612
     Path: event:/Music/Island
   trackPrefab: {fileID: 1977515669300378134, guid: 06f661979798aeb48a5e580c5521883b, type: 3}
+  references:
+    version: 2
+    RefIds: []

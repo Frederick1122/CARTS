@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _CLIPPED_ON
+  - _DETAIL_MULX2
   - _SEGMENTED_ON
   - _SHNOVERLAP_ON
   m_LightmapFlags: 4
@@ -31,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7231cd0e9b4577d478abc70ec52bcac6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
@@ -88,8 +89,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _GlossMapScale: 0
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Lumin: 0
     - _MaxLight: 1
@@ -98,7 +99,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Offset: 0
-    - _OtlWidth: 0
+    - _OtlWidth: 0.02
     - _OutlineWidth: 0.0065
     - _OutlineWidth2: 0.0001
     - _Parallax: 0.02

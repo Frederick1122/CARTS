@@ -92,6 +92,8 @@ namespace UI.Windows.Shop.Sections.SaleShop
 
         private CarConfig CalculateDailyCar(List<CarConfig> configs)
         {
+            
+            
             var currentDay = DateTime.Now.Day;
             return configs[currentDay % configs.Count];
         }

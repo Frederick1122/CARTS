@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e8a6955281d254a8c973ae1466b083, type: 3}
+  m_Name: Venus
+  m_EditorClassIdentifier: 
+  configName: Venus
+  configKey: VenusKey
+  localizedName:
+    _key: TRUCK_VENUS
+    _formatters: []
+  CarIcon: {fileID: 0}
+  prefab: {fileID: 4530939135507860489, guid: d09dabf53048aa54ba62cc4e274dcf51, type: 3}
+  isOnlyForAi: 0
+  price:
+    <Value>k__BackingField: 0
+    <CurrencyType>k__BackingField: 0
+  dublicatePrice:
+    <Value>k__BackingField: 10
+    <CurrencyType>k__BackingField: 0
+  <Rarity>k__BackingField: 2
+  maxSpeedLevels:
+  - <Value>k__BackingField: 100
+    <Price>k__BackingField: 5
+  accelerationLevels:
+  - <Value>k__BackingField: 7
+    <Price>k__BackingField: 5
+  turnLevels:
+  - <Value>k__BackingField: 3.5
+    <Price>k__BackingField: 5
+  gravity: 7
+  downforce: 5
+  airControl: 0
+  frictionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 4
+      outSlope: 4
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 5
+      inSlope: 4
+      outSlope: 4
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 13.671466
+      outSlope: 13.671466
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.02106388
+    - serializedVersion: 3
+      time: 0.02176705
+      value: 0.2049678
+      inSlope: 4.515987
+      outSlope: 4.515987
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.080018945
+    - serializedVersion: 3
+      time: 0.5371922
+      value: 0.97256476
+      inSlope: -0.1730383
+      outSlope: -0.1730383
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.12504984
+      outWeight: 0.15276818
+    - serializedVersion: 3
+      time: 1
+      value: 0.49161643
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
+  bodyTilt: 6
+  references:
+    version: 2
+    RefIds: []

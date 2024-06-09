@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e8a6955281d254a8c973ae1466b083, type: 3}
   m_Name: DefaultPlayerCar
   m_EditorClassIdentifier: 
-  configName: Dodge
+  configName: DefaultPlayerCar
   configKey: DefaultPlayerCar
+  localizedName:
+    _key: TRUCK_ARION
+    _formatters: []
   CarIcon: {fileID: 0}
-  prefab: {fileID: 3780192533924008452, guid: 69ec3b87bf9d7bd49b226b3d6c9e995d, type: 3}
+  prefab: {fileID: 8965823421439660092, guid: 5f5bcfe4dfeeb5644a516f9dda8de24f, type: 3}
   isOnlyForAi: 0
   price:
     <Value>k__BackingField: 0
@@ -25,17 +28,25 @@ MonoBehaviour:
     <CurrencyType>k__BackingField: 0
   <Rarity>k__BackingField: 1
   maxSpeedLevels:
-  - <Value>k__BackingField: 90
-    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 100
+    <Price>k__BackingField: 100
   - <Value>k__BackingField: 95
-    <Price>k__BackingField: 3
+    <Price>k__BackingField: 150
+  - <Value>k__BackingField: 95
+    <Price>k__BackingField: 200
   accelerationLevels:
-  - <Value>k__BackingField: 5
+  - <Value>k__BackingField: 7
     <Price>k__BackingField: 1
   - <Value>k__BackingField: 6
-    <Price>k__BackingField: 2
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 7
+    <Price>k__BackingField: 1
   turnLevels:
-  - <Value>k__BackingField: 2
+  - <Value>k__BackingField: 3.5
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 3
+    <Price>k__BackingField: 1
+  - <Value>k__BackingField: 3
     <Price>k__BackingField: 1
   gravity: 7
   downforce: 5
@@ -108,4 +119,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionMaterial: {fileID: 13400000, guid: ce8f2e0169709cc4da4d8131aec6cef1, type: 2}
   bodyTilt: 6
-  skidWidth: 0.2
+  references:
+    version: 2
+    RefIds: []

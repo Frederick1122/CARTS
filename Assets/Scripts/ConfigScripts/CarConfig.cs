@@ -1,6 +1,7 @@
 using System;
 using Cars;
 using System.Collections.Generic;
+using Knot.Localization;
 using Managers;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace ConfigScripts
             {Rarity.Legendary, new Color32(255, 128, 0, 255) },
         };
 
+        public KnotTextKeyReference localizedName;
         public Sprite CarIcon;
         public CarPrefabData prefab;
         public bool isOnlyForAi;

@@ -40,7 +40,7 @@ namespace UI.Windows.Shop.Sections.SaleShop
         {
             _carConfig = config;
             _carIcon.sprite = config.CarIcon;
-            _carName.text = config.configName;
+            _carName.text = config.localizedName.Value;
             ChangeBuyButtonCondition(buyButtonCondition);
         }
 

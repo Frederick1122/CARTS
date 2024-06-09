@@ -12,6 +12,7 @@ using FMODUnity;
 using Knot.Localization;
 using Managers;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Cars.Controllers
 {
@@ -82,6 +83,7 @@ namespace Cars.Controllers
         private float _lastHorizontalInput = 0;
         //
         private bool _isBrake = false;
+        private bool _isDriftingActive;
         
         private CancellationTokenSource _playSoundToken = new ();
         private HashSet<EventInstance> _activeEventInstances = new ();
@@ -164,8 +166,8 @@ namespace Cars.Controllers
 
         private void Update()
         {
-            _engineInstance.set3DAttributes(gameObject.To3DAttributes());
-            _engineInstance.setParameterByName(ENGINE_SOUND_PARAMETER, CarVelocity.magnitude);
+            UpdateEngineSound();
+            UpdateDriftSound();
         }
 
         public abstract void SetUpCharacteristic();
@@ -177,6 +179,33 @@ namespace Cars.Controllers
             _movementMode = carPresetConfig.MovementMode;
             _groundCheck = carPresetConfig.GroundCheck;
             _drivableSurface = carPresetConfig.DrivableSurface;
+        }
+
+        private void UpdateEngineSound()
+        {
+            _engineInstance.setPaused(Time.timeScale == 0);
+            
+            _engineInstance.set3DAttributes(gameObject.To3DAttributes());
+            _engineInstance.setParameterByName(ENGINE_SOUND_PARAMETER, CarVelocity.magnitude);
+        }
+
+        private void UpdateDriftSound()
+        {
+            if (_skidManager == null)
+                return;
+            
+            _driftInstance.set3DAttributes(gameObject.To3DAttributes());
+
+            if (_skidManager.IsDrifting & !_isDriftingActive)
+            {
+                _driftInstance.start();
+                _isDriftingActive = true;
+            }
+            else if (!_skidManager.IsDrifting & _isDriftingActive)
+            {
+                _driftInstance.stop(STOP_MODE.ALLOWFADEOUT);
+                _isDriftingActive = false;
+            }
         }
 
         private void InitFromCarPrefabData(CarPrefabData carData)
@@ -224,7 +253,7 @@ namespace Cars.Controllers
                 fwheel.localRotation = Quaternion.Euler(Vector3.zero);
             foreach (var rwheel in _rearWheels)
                 rwheel.localRotation = Quaternion.Euler(Vector3.zero);
-
+            
             transform.SetPositionAndRotation(pos, rot);
         }
 
