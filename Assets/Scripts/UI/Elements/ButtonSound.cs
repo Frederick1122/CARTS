@@ -1,6 +1,4 @@
-﻿using System;
-using FMODUnity;
-using Managers;
+﻿using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +6,8 @@ namespace UI.Elements
 {
     public class ButtonSound : MonoBehaviour
     {
-        [SerializeField] private EventReference _soundEffect;
+        private const string BUTTON_SOUND = "SFX/UI/PressButton";
+        //[SerializeField] private EventReference _soundEffect;
 
         private Button _button;
 
@@ -29,7 +28,7 @@ namespace UI.Elements
 
         private void PlaySound()
         {
-            SoundManager.Instance.PlayOneShot(_soundEffect);
+            SoundManager.Instance.PlayOneShot(BUTTON_SOUND);
         }
     }
 }

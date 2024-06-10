@@ -29,7 +29,9 @@ namespace UI.Windows.FreeRide
         private void OnDestroy()
         {
             GetView<FreeRideLayoutView>().OnNeedToPause -= Pause;
-            _freeRideState.OnFinishAction -= _scoreController.ResetScore;
+            
+            if (_freeRideState != null)
+                _freeRideState.OnFinishAction -= _scoreController.ResetScore;
         }
 
         public override void Show()
