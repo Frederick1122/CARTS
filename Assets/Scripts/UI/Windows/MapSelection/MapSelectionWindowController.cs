@@ -5,6 +5,7 @@ using Managers.Libraries;
 using Swiper;
 using System;
 using System.Collections.Generic;
+using UI.Widgets.HintWidget;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,8 @@ namespace UI.Windows.MapSelection
 
         public event Action OpenLobbyAction = delegate { };
         public event Action GoToGameAction = delegate { };
+        
+        [SerializeField] private HintWidgetController _hintWidgetController;
 
         [Inject] private readonly GameDataInstaller.GameData _gameData;
 
@@ -25,6 +28,7 @@ namespace UI.Windows.MapSelection
         private GameDataInstaller.LapRaceGameData _lapRaceGameData;
         private GameDataInstaller.FreeRideGameData _freeRideGameData;
 
+        private string _selectedMode;
         private Dictionary<string, ModeConfig> _keyModePairs = new();
         private GameDataInstaller.GameType _gameType = GameDataInstaller.GameType.LapRace; 
 
@@ -36,8 +40,9 @@ namespace UI.Windows.MapSelection
 
             castView.OnModSelect += SelectMode;
             castView.OnMapSelect += SelectMap;
-
-            castView.OnModeSwipe += CheckIfCanBeParticipant;
+            
+            castView.ReturnToModeSelectAction += HandleReturnToModeSelect;
+            castView.OnModeSwipe += HandleSwipeMode;
 
             _lapRaceGameData = _defaultLapRaceGameData;
             _freeRideGameData = _defaultFreeRideGameData;
@@ -57,7 +62,14 @@ namespace UI.Windows.MapSelection
             AddMods();
 
             GetView<MapSelectionWindowView>().ShowModSelection();
+            _hintWidgetController.Show();
             base.Show();
+        }
+
+        public override void Hide()
+        {
+            _hintWidgetController.Hide();
+            base.Hide();
         }
 
         private void OnDestroy()
@@ -67,7 +79,8 @@ namespace UI.Windows.MapSelection
                 var castView = GetView<MapSelectionWindowView>();
 
                 castView.OpenLobbyAction -= OpenLobby;
-                castView.OnModeSwipe -= CheckIfCanBeParticipant;
+                castView.ReturnToModeSelectAction -= HandleReturnToModeSelect;
+                castView.OnModeSwipe -= HandleSwipeMode;
                 castView.OnModSelect -= SelectMode;
                 castView.OnMapSelect -= SelectMap;
             }
@@ -111,9 +124,16 @@ namespace UI.Windows.MapSelection
             AddMaps(key);
 
             GetView<MapSelectionWindowView>().ShowMapSelection();
+            _hintWidgetController.SetHint("");
         }
 
-        private void CheckIfCanBeParticipant(string modeKey)
+        private void HandleReturnToModeSelect()
+        {
+            GetView<MapSelectionWindowView>().ShowModSelection();
+            HandleSwipeMode(_selectedMode);
+        }
+
+        private void HandleSwipeMode(string modeKey)
         {
             var modeClass = _keyModePairs[modeKey].GetCarClass();
             var carClass = CarLibrary.Instance.GetConfig(PlayerManager.Instance.GetCurrentCar().configKey).Rarity;
@@ -124,6 +144,9 @@ namespace UI.Windows.MapSelection
                 castView.OpenMode();
             else
                 castView.CloseMode();
+            
+            _hintWidgetController.SetHint(_keyModePairs[modeKey].GetHint());
+            _selectedMode = modeKey;
         }
 
         private void SelectMap(string key)
