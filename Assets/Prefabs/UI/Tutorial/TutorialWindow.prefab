@@ -144,11 +144,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 4206521057979340961}
-  _tutorialSprites:
-  - {fileID: 21300000, guid: 8a8e838aad8bc3849bee0e6f1893790a, type: 3}
-  - {fileID: 21300000, guid: dfd3bf15a6745ee4a867f3be07ae3fab, type: 3}
-  - {fileID: 21300000, guid: 44f4a3099c89e284191a48262dc56f0e, type: 3}
-  - {fileID: 21300000, guid: 21c9e492ac4387d4799387d7efe05ba2, type: 3}
+  _tutorialStages:
+  - _key: TUTORIAL_STAGE_1
+    _formatters: []
+  - _key: TUTORIAL_STAGE_2
+    _formatters: []
+  - _key: TUTORIAL_STAGE_3
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5563824415291074061
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +357,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8885374250183590229}
     m_Modifications:
+    - target: {fileID: 3621013544216187002, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
+      propertyPath: _itemPrefab
+      value: 
+      objectReference: {fileID: 5899174503211065289, guid: da78293e3eb735c439f99c2de7f059e7, type: 3}
     - target: {fileID: 5671276419213069586, guid: 28e28214f17094f4596c0652f9c80071, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

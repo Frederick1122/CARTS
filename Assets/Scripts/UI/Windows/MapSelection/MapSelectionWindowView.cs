@@ -46,10 +46,10 @@ namespace UI.Windows.MapSelection
         private void GoToLobby() => OpenLobbyAction?.Invoke();
 
         public void AddMap(SwiperData data) =>
-            _mapSwiper.AddItems(data);
+            _mapSwiper.AddItem(data);
 
         public void AddMod(SwiperData data) =>
-            _modSwiper.AddItems(data);
+            _modSwiper.AddItem(data);
 
         public void ClearMapSwiper() =>
             _mapSwiper.Clear();

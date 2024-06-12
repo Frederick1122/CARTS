@@ -1,6 +1,7 @@
 using Swiper;
 using System;
 using System.Collections.Generic;
+using Knot.Localization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,18 +21,15 @@ namespace UI.Windows.Tutorial
 
         public override void UpdateView(UIModel uiModel)
         {
-            if (_swiper.ElementsCount == 0)
+            var castModel = (TutorialWindowModel)uiModel;
+            var swiperDatas = new List<SwiperData>();
+            
+            foreach (var tutorialStage in castModel.TutorialStages)
             {
-                _swiper.Clear();
-                var castModel = (TutorialWindowModel)uiModel;
-
-                foreach (var slide in castModel.TutorialSlides)
-                {
-                    SwiperData data = new("", slide);
-                    _swiper.AddItems(data);
-                }
+                swiperDatas.Add(new("", null, tutorialStage.Value));
             }
-
+            
+            _swiper.UpdateAll(swiperDatas);
             _swiper.SelectTab(0);
         }
 
@@ -48,11 +46,11 @@ namespace UI.Windows.Tutorial
 
     public class TutorialWindowModel : UIModel
     {
-        public readonly List<Sprite> TutorialSlides = new();
+        public readonly List<KnotTextKeyReference> TutorialStages;
 
-        public TutorialWindowModel(List<Sprite> tutorialSlides)
+        public TutorialWindowModel(List<KnotTextKeyReference> tutorialStages)
         {
-            TutorialSlides = tutorialSlides;
+            TutorialStages = tutorialStages;
         }
     }
 }
