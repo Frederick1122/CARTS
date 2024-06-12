@@ -2,6 +2,7 @@ using Cars.Controllers;
 using Cars.InputSystem;
 using Cars.Tools;
 using ConfigScripts;
+using FMODUnity;
 using Managers;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class PlayerCarController : CarController
     {
         base.Init(inputSystem, carConfig, carPresetConfig, collisionDetection, targetHolder);
         _camera.gameObject.SetActive(true);
+        FindObjectOfType<StudioListener>().attenuationObject = _bodyMesh.gameObject;
     }
 
     public override void SetUpCharacteristic()

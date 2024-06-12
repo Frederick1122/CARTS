@@ -50,7 +50,7 @@ namespace Cars.Controllers
         private Rigidbody _rbSphere;
         private Rigidbody _carBody;
 
-        private Transform _bodyMesh;
+        protected Transform _bodyMesh;
         private Transform[] _frontWheels = new Transform[2];
         private Transform[] _rearWheels = new Transform[2];
 
