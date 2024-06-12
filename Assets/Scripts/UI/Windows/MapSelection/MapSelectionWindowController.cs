@@ -98,7 +98,7 @@ namespace UI.Windows.MapSelection
 
             foreach (var item in _keyModePairs.Values)
             {
-                var data = new SwiperData(item.configKey, item.Icon, item.GetLocalizedName());
+                var data = new SwiperData(item.configKey, item.Icon, item.GetLocalizedName(), item.GetCarClass());
                 view.AddMod(data);
             }
         }

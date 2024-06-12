@@ -77,7 +77,7 @@ namespace UI.Windows.Garage
             foreach (var car in _cars)
             {
                 var config = CarLibrary.Instance.GetConfig(car.configKey);
-                var data = new SwiperData(car.configKey, config.CarIcon, config.localizedName.Value);
+                var data = new SwiperData(car.configKey, config.CarIcon, config.localizedName.Value, config.Rarity);
                 _carSwiper.AddItem(data);
             }
         }
