@@ -90,6 +90,7 @@ namespace Managers
         
         public void StopAllSound()
         {
+            _emitter.Stop();
             _masterBus.stopAllEvents(STOP_MODE.IMMEDIATE);
             _refreshBackgroundCts?.Cancel();
         }

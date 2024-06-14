@@ -1,9 +1,6 @@
-using Cars;
-using Cars.Controllers;
 using ConfigScripts;
 using Managers;
 using Managers.Libraries;
-using UI;
 using UnityEngine;
 
 namespace Lobby.Garage
