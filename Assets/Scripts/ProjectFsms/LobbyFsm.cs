@@ -36,7 +36,7 @@ namespace ProjectFsms
             base.Init();
         }
 
-        private void SetFirstOpen()
+        public void SetFirstOpen()
         {
             if (PlayerPrefsSaveLoadManager.HasKey(FIRST_OPEN_KEY))
                 IsFirstOpen = false;

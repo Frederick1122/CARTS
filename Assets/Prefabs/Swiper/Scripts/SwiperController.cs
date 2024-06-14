@@ -140,7 +140,7 @@ namespace Swiper
             return _swiperItems[value].Data;
         }
 
-        public void AddItems(SwiperData data)
+        public void AddItem(SwiperData data)
         {
             var curTab = SelectedTab;
 
@@ -168,6 +168,20 @@ namespace Swiper
             TryRecalculatePositions();
 
             SelectTab(curTab);
+        }
+
+        public void UpdateAll(List<SwiperData> datas)
+        {
+            for (var i = 0; i < datas.Count; i++)
+            {
+                if (_items.Count == i)
+                {
+                    AddItem(datas[i]);
+                    continue;
+                }
+                
+                _items[i].InsertData(datas[i]);
+            }
         }
 
         public void Clear()

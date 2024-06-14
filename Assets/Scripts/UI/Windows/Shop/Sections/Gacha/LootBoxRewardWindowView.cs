@@ -3,6 +3,7 @@ using DG.Tweening;
 using Managers;
 using System;
 using TMPro;
+using Tools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,8 +18,8 @@ namespace UI.Windows.Shop.Sections.Gacha
         [SerializeField] private Image _mainBackGround;
 
         [Header("Card")]
+        [SerializeField] private RarityPainter _rarityPainter;
         [SerializeField] private Image _icon;
-        [SerializeField] private Image _background;
         [SerializeField] private Image _isDuplicateShower;
         [SerializeField] private TMP_Text _name;
         [SerializeField] private Button _claimButton;
@@ -65,7 +66,7 @@ namespace UI.Windows.Shop.Sections.Gacha
 
             var config = model.CarConfig;
             _icon.sprite = config.CarIcon;
-            _background.color = CarConfig.RarityColors[config.Rarity];
+            _rarityPainter.SetColor(config.Rarity);
             _name.text = config.localizedName.Value;
 
             var isDuplicate = PlayerManager.Instance.TryGetPurchasedCarData(config.configKey, out CarData _);

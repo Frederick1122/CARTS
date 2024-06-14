@@ -40,7 +40,10 @@ namespace FsmStates.LobbyFsm
             UIManager.Instance.GetLobbyUi().ShowWindow(typeof(LobbyWindowController), true);
             PlayerManager.Instance.PurchaseDefaultCar();
             if (_lobbyFsm.IsFirstOpen)
+            {
                 UIManager.Instance.GetLobbyUi().ShowWindow(typeof(TutorialWindowController), false);
+                _lobbyFsm.SetFirstOpen();
+            }
         }
 
         private void OpenShop() =>

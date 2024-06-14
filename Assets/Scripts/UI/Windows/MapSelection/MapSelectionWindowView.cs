@@ -9,6 +9,7 @@ namespace UI.Windows.MapSelection
     public class MapSelectionWindowView : UIView
     {
         public event Action OpenLobbyAction;
+        public event Action ReturnToModeSelectAction;
         public event Action<string> OnModeSwipe;
         public event Action<string> OnModSelect;
         public event Action<string> OnMapSelect;
@@ -44,12 +45,13 @@ namespace UI.Windows.MapSelection
         }
 
         private void GoToLobby() => OpenLobbyAction?.Invoke();
+        private void ReturnToModeSelect() => ReturnToModeSelectAction?.Invoke();
 
         public void AddMap(SwiperData data) =>
-            _mapSwiper.AddItems(data);
+            _mapSwiper.AddItem(data);
 
         public void AddMod(SwiperData data) =>
-            _modSwiper.AddItems(data);
+            _modSwiper.AddItem(data);
 
         public void ClearMapSwiper() =>
             _mapSwiper.Clear();
@@ -69,7 +71,7 @@ namespace UI.Windows.MapSelection
             _selectionButton.onClick.RemoveAllListeners();
             _selectionButton.onClick.AddListener(SelectMod);
 
-            _backButton.onClick.RemoveAllListeners();
+            _backButton.onClick.RemoveListener(ReturnToModeSelect);
             _backButton.onClick.AddListener(GoToLobby);
         }
 
@@ -81,8 +83,8 @@ namespace UI.Windows.MapSelection
             _selectionButton.onClick.RemoveAllListeners();
             _selectionButton.onClick.AddListener(SelectMap);
 
-            _backButton.onClick.RemoveAllListeners();
-            _backButton.onClick.AddListener(ShowModSelection);
+            _backButton.onClick.RemoveListener(GoToLobby);
+            _backButton.onClick.AddListener(ReturnToModeSelect);
         }
 
         private void UpdateName(SwiperData data) => 

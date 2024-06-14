@@ -10,6 +10,7 @@ namespace ConfigScripts
     {
         public Sprite Icon;
         [SerializeField] private KnotTextKeyReference _localizedName;
+        [SerializeField] private KnotTextKeyReference _hint;
         [SerializeField] private GameDataInstaller.GameType _gameType;
         [SerializeField] private BotCount _botCount;
         [SerializeField] private LapCount _lapCount;
@@ -26,6 +27,11 @@ namespace ConfigScripts
         public string GetLocalizedName()
         {
             return _localizedName.Value;
+        }
+        
+        public string GetHint()
+        {
+            return _hint.Value;
         }
         
         public int GetBotCountKey()

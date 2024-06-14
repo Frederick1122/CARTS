@@ -1,11 +1,10 @@
-﻿using System;
-using Managers;
+﻿using Managers;
 
 namespace UI.Widgets.CurrencyWidget
 {
     public class CurrencyWidgetController : UIController
     {
-        private CurrencyWidgetModel _model = new CurrencyWidgetModel();
+        private CurrencyWidgetModel _model = new();
 
         public override void Init()
         {
