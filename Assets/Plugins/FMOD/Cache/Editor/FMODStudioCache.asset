@@ -26,7 +26,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 122772
+  Length: 233117
 --- !u!114 &-8308342002630181569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 140919
+  Length: 272575
 --- !u!114 &-6072167757174232819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,10 +69,10 @@ MonoBehaviour:
   Path: Fmod/CartsFmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638511438964555194
+  lastModified: 638538151054624199
   FileSizes:
   - Name: Desktop
-    Value: 2174
+    Value: 2378
   Exists: 1
 --- !u!114 &-5863558088940045002
 MonoBehaviour:
@@ -209,7 +209,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 190702
+  Length: 377055
 --- !u!114 &-2214405486900365291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 80470
+  Length: 160871
 --- !u!114 &-2205078650423420923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,12 +335,15 @@ MonoBehaviour:
   - {fileID: 8982400090282658092}
   - {fileID: 5011405284373381817}
   - {fileID: -8308342002630181569}
+  - {fileID: 7593856523188301173}
+  - {fileID: 1258214285680116009}
+  - {fileID: 6411996317801539000}
   EditorParameters: []
   MasterBanks:
   - {fileID: 1304350938215063264}
   StringsBanks:
   - {fileID: -6072167757174232819}
-  cacheTime: 638516646232771926
+  cacheTime: 638538151054624199
   cacheVersion: 131609
 --- !u!114 &164450687258701729
 MonoBehaviour:
@@ -450,6 +453,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1714
+--- !u!114 &1258214285680116009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Constructian
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Constructian
+  Guid:
+    Data1: 2078813662
+    Data2: 1107004263
+    Data3: -315092856
+    Data4: -104315501
+  Banks:
+  - {fileID: 1304350938215063264}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 322758
 --- !u!114 &1304350938215063264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,10 +495,10 @@ MonoBehaviour:
   Path: Fmod/CartsFmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638516646232771926
+  lastModified: 638538151054529614
   FileSizes:
   - Name: Desktop
-    Value: 21032096
+    Value: 23398880
   Exists: 1
 --- !u!114 &1334768339754973113
 MonoBehaviour:
@@ -599,7 +629,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 1304350938215063264}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -658,7 +688,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 166589
+  Length: 256946
 --- !u!114 &5011405284373381817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,7 +715,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 141692
+  Length: 283010
 --- !u!114 &5343892948571007245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,7 +731,7 @@ MonoBehaviour:
   Name: Speed
   StudioPath: 
   Min: 0
-  Max: 120
+  Max: 115
   Default: 0
   ID:
     data1: 985179181
@@ -764,6 +794,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 107428
+--- !u!114 &6411996317801539000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Auto/CrashAboutEnemy
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Auto/CrashAboutEnemy
+  Guid:
+    Data1: 1529862118
+    Data2: 1107124847
+    Data3: -1777761663
+    Data4: 743341987
+  Banks:
+  - {fileID: 1304350938215063264}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 857
 --- !u!114 &6491722529858765491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,6 +902,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 321
+--- !u!114 &7593856523188301173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Auto/CrashAboutObjects
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Auto/CrashAboutObjects
+  Guid:
+    Data1: -792779454
+    Data2: 1278916087
+    Data3: -467880533
+    Data4: 1187564615
+  Banks:
+  - {fileID: 1304350938215063264}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 857
 --- !u!114 &8982400090282658092
 MonoBehaviour:
   m_ObjectHideFlags: 0
