@@ -134,13 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb4e3863587441d9d5353bc0b1aab9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundEffect:
-    Guid:
-      Data1: -1856105993
-      Data2: 1137485013
-      Data3: 1729692294
-      Data4: 2014988716
-    Path: event:/SFX/UI/PressButton
 --- !u!1 &8658001790253275859
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,8 +202,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf786143819acf148853dafd34da5e79, type: 2}
+  m_sharedMaterial: {fileID: 3165214823747566768, guid: cf786143819acf148853dafd34da5e79, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -234,11 +227,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.25
+  m_fontSize: 17.25
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 12
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 32

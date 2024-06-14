@@ -288,6 +288,18 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 18
       objectReference: {fileID: 0}
+    - target: {fileID: 883218323505567880, guid: 41e6b2d4067b53d42a2a536737ae8bb3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: cf786143819acf148853dafd34da5e79, type: 2}
+    - target: {fileID: 883218323505567880, guid: 41e6b2d4067b53d42a2a536737ae8bb3, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 3165214823747566768, guid: cf786143819acf148853dafd34da5e79, type: 2}
+    - target: {fileID: 883218323505567880, guid: 41e6b2d4067b53d42a2a536737ae8bb3, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4217222850260191273, guid: 41e6b2d4067b53d42a2a536737ae8bb3, type: 3}
       propertyPath: m_Type
       value: 1
