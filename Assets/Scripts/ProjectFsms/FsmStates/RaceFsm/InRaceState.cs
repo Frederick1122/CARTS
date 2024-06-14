@@ -15,6 +15,9 @@ namespace FsmStates.RaceFsm
 
         ~InRaceState()
         {
+            if (_curState == null)
+                return;
+            
             _curState.OnFinishAction -= SetFinishState;
             _curState.OnPauseAction -= SetPauseState;
         }

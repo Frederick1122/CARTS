@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Default Track
   configKey: DefaultTrack
+  localizedName:
+    _key: GO
+    _formatters: []
   sound:
     Guid:
       Data1: 144639511
@@ -22,3 +25,6 @@ MonoBehaviour:
       Data4: 88581659
     Path: event:/Music/City
   trackPrefab: {fileID: 7595285040906501293, guid: 4b34e61841f5bcc48852753f7fad5d38, type: 3}
+  references:
+    version: 2
+    RefIds: []

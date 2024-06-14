@@ -187,8 +187,8 @@ namespace Swiper
 
         private void TryRecalculatePositions()
         {
-            //if (_isFree)
-            //    return;
+            if (_isFree)
+                return;
 
             _swipeSnapMenu.RecalculatePositions();
         }

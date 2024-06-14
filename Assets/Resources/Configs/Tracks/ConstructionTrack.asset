@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configName: Construction Track
   configKey: ConstructionTrack
+  localizedName:
+    _key: GO
+    _formatters: []
   sound:
     Guid:
       Data1: 0
@@ -22,3 +25,6 @@ MonoBehaviour:
       Data4: 0
     Path: 
   trackPrefab: {fileID: 4199166677744785110, guid: 062fe8633951c4d468b0fdedfe2bdaa9, type: 3}
+  references:
+    version: 2
+    RefIds: []
