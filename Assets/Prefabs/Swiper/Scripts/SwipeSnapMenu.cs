@@ -97,6 +97,22 @@ namespace Swiper
             OnTabSelected?.Invoke(tabIndex);
         }
 
+        public void ForceSelectTab(int tabIndex)
+        {
+            if (tabIndex < 0 || tabIndex >= _itemPositionsNormalized.Count)
+                return;
+
+            float targetPosition = _itemPositionsNormalized[tabIndex];
+            _targetScrollBarValueNormalized = targetPosition;
+
+            _scrollbar.value = targetPosition;
+            _selectedTabIndex = tabIndex;
+            _isSnapping = false;
+            _isDragging = false;
+
+            OnTabSnapped?.Invoke(_selectedTabIndex);
+        }
+
         private void FindSnappingTabAndStartSnapping()
         {
             for (int i = 0; i < _itemPositionsNormalized.Count; i++)

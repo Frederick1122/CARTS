@@ -4,6 +4,7 @@ using Managers;
 using ProjectFsms;
 using UI;
 using UI.Windows.Lobby;
+using UnityEngine.SceneManagement;
 
 namespace FsmStates.LobbyFsm
 {
@@ -41,6 +42,7 @@ namespace FsmStates.LobbyFsm
             PlayerManager.Instance.PurchaseDefaultCar();
             if (_lobbyFsm.IsFirstOpen)
             {
+                //SceneManager.sceneLoaded += delegate { UIManager.Instance.GetLobbyUi().ShowWindow(typeof(TutorialWindowController), false); };
                 UIManager.Instance.GetLobbyUi().ShowWindow(typeof(TutorialWindowController), false);
                 _lobbyFsm.SetFirstOpen();
             }

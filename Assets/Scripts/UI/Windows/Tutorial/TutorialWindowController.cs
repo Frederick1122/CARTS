@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Knot.Localization;
 using UI.Windows.Tutorial;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialWindowController : UIController
 {

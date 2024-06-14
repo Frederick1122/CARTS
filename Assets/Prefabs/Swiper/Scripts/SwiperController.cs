@@ -70,6 +70,9 @@ namespace Swiper
         public void SelectTab(int num) =>
             _swipeSnapMenu.SelectTab(num);
 
+        public void ForceSelectTab(int num) => 
+            _swipeSnapMenu.ForceSelectTab(num);
+
         #region Direction
         public void MakeHorizontal()
         {
@@ -155,7 +158,7 @@ namespace Swiper
             item.AddComponent<AutoScaleItem>().Init(this, _scrollRect.viewport, _isFree, _swipeMenuType);
             TryRecalculatePositions();
 
-            SelectTab(curTab);
+            //ForceSelectTab(curTab);
         }
 
         public void AddExistedItems(SwiperItem item, int num)
@@ -174,13 +177,12 @@ namespace Swiper
         {
             for (var i = 0; i < datas.Count; i++)
             {
+                var data = datas[i];
+
                 if (_items.Count == i)
-                {
-                    AddItem(datas[i]);
-                    continue;
-                }
-                
-                _items[i].InsertData(datas[i]);
+                    AddItem(data);
+                else
+                    _items[i].InsertData(data);
             }
         }
 

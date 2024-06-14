@@ -21,16 +21,19 @@ namespace UI.Windows.Tutorial
 
         public override void UpdateView(UIModel uiModel)
         {
-            var castModel = (TutorialWindowModel)uiModel;
-            var swiperDatas = new List<SwiperData>();
-            
-            foreach (var tutorialStage in castModel.TutorialStages)
+            if (_swiper.ElementsCount == 0)
             {
-                swiperDatas.Add(new("", null, tutorialStage.Value));
+                var castModel = (TutorialWindowModel)uiModel;
+                _swiper.Clear();
+
+                foreach (var tutorialStage in castModel.TutorialStages)
+                    _swiper.AddItem(new("", null, tutorialStage.Value));
+
+                _swiper.ForceSelectTab(0);
             }
+            else
+                _swiper.SelectTab(0);
             
-            _swiper.UpdateAll(swiperDatas);
-            _swiper.SelectTab(0);
         }
 
         private void OnDestroy()
