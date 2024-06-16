@@ -65,6 +65,7 @@ namespace UI.Windows.MapSelection
 
         public void ShowModSelection()
         {
+            _modSwiper.SelectTab(0);
             _modSwiper.gameObject.SetActive(true);
             _mapSwiper.gameObject.SetActive(false);
 
@@ -78,6 +79,7 @@ namespace UI.Windows.MapSelection
         public void ShowMapSelection()
         {
             _modSwiper.gameObject.SetActive(false);
+            _mapSwiper.SelectTab(0);
             _mapSwiper.gameObject.SetActive(true);
 
             _selectionButton.onClick.RemoveAllListeners();
