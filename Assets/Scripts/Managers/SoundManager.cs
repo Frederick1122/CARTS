@@ -104,6 +104,18 @@ namespace Managers
             _loadSoundBanksCts?.Cancel();
         }
 
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            Debug.Log($"OnApplicationPause {pauseStatus}");
+            _masterBus.setMute(pauseStatus);
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            Debug.Log($"OnApplicationFocus {!hasFocus}");
+            _masterBus.setMute(!hasFocus);
+        }
+
         private void PlayBackground(EventReference sound, bool isRepeat = false)
         {
             _emitter.Stop();

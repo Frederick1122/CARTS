@@ -44,8 +44,8 @@ PlayerSettings:
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
-  defaultScreenWidthWeb: 1280
-  defaultScreenHeightWeb: 720
+  defaultScreenWidthWeb: 16
+  defaultScreenHeightWeb: 9
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0
   m_SpriteBatchVertexThreshold: 300
@@ -444,7 +444,24 @@ PlayerSettings:
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
   m_TemplateCustomTags:
+    CHOOSE_LOADING_TYPE: 
+    CONFIGURE_SHADOWS_AROUND_CANVAS: 
+    CONNECT_PLUGIN: GP1.3.1
+    CUSTOMIZE_BARS_BACKGROUND: backgroundColor = "#00000"
+    CUSTOMIZE_LOADING_SCREEN_BACKGROUND: backgroundColor = "#00000"
+    CUSTOMIZE_LOGO: display = "none"
+    CUSTOM_EVENT_IN_CSS: 
+    CUSTOM_EVENT_IN_HTML: 
+    CUSTOM_EVENT_IN_JS: 
+    DISABLE_CONSOLE_MESSAGES: 
     GAMEREADY_AUTOCALL_DELAY: 2000
+    GP_GAMEREADY_AUTOCALL_DELAY: 2000
+    GP_PROJECT_ID: 14484
+    GP_SHOW_PRELOADER_AD: true
+    GP_TOKEN: qUTGmRRXPS80hYMAXwYjnckfGVv9vpHa
+    IGB_GAME_DISTRIBUTION_GAME_ID: 
+    IGB_VK_PLAY_GAME_ID: 
+    LOCK_ASPECT_RATIO: 
     OVERLAY_BACKGROUND_COLOR: 
     PROGRESS_BAR_BACKGROUND_COLOR: 
     PROGRESS_BAR_BORDER_COLOR: 
@@ -452,6 +469,10 @@ PlayerSettings:
     PROJECT_ID: 14484
     SHOW_PRELOADER_AD: true
     TOKEN: qUTGmRRXPS80hYMAXwYjnckfGVv9vpHa
+    YG_BANNER_DYNAMIC_1: 
+    YG_BANNER_DYNAMIC_2: 
+    YG_BANNER_STATIC_1: 
+    YG_BANNER_STATIC_2: 
   mobileMTRendering:
     iPhone: 1
     tvOS: 1
@@ -716,7 +737,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: PROJECT:GamePush
+  webGLTemplate: PROJECT:AT2.1.1
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 1
