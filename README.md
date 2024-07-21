@@ -45,6 +45,13 @@
 4. Запушьте изменения в вашу ветку (git push origin feature-branch).
 5. Создайте пул-реквест на GitHub.
 
+## Creators
+ - Frederick1122 - unity developer, product owner
+ - Dynchikkk - unity developer, tech lead
+ - tyurnikov67 - game designer
+ - RodionovOleg - sound designer
+ - metasolipsist - 3d artist
+
 ## Лицензия
 
 Этот проект лицензирован под лицензией CC BY-NC 4.0. Подробнее см. файл [LICENSE](LICENSE).
